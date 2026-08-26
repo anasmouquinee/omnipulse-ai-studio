@@ -87,36 +87,36 @@ class AutoPilotServiceClass {
   /**
    * Determine theme based on current time & day
    */
-  public getNextRecommendedTheme(): { category: IslamicThemeCategory; title: string } {
+  public getNextRecommendedTheme(): { category: IslamicContentType; title: string } {
     const now = new Date();
     const day = now.getDay(); // 5 = Friday
     const hour = now.getHours();
 
     if (day === 5) {
       return {
-        category: 'jumuah',
+        category: 'jumua_special',
         title: "Spécial Jumu'ah & Sourate Al-Kahf (Vendredi Béni)"
       };
     }
 
     if (hour >= 4 && hour < 10) {
       return {
-        category: 'adhkar',
+        category: 'authentic_dua',
         title: 'Invocations & Adhkar du Matin (Protection & Barakah)'
       };
     } else if (hour >= 10 && hour < 16) {
       return {
-        category: 'quran_audio',
+        category: 'quran_verse',
         title: 'Noble Coran — Versets & Récitation Audio Apaisante'
       };
     } else if (hour >= 16 && hour < 21) {
       return {
-        category: 'hadith_sahih',
+        category: 'sahih_hadith',
         title: 'Hadith Sahih Authentique & Sagesse Prophétique'
       };
     } else {
       return {
-        category: 'tahajjud',
+        category: 'tahajjud_motivation',
         title: 'Tahajjud & Prière de Nuit (Dernier Tiers de la Nuit)'
       };
     }
@@ -136,7 +136,7 @@ class AutoPilotServiceClass {
           id: `log-${Date.now()}`,
           timestamp: new Date().toISOString(),
           themeTitle: 'Auto-Pilot',
-          type: 'quran',
+          type: 'quran_verse',
           status: 'failed',
           message: 'Cycle déjà en cours.'
         }
@@ -159,35 +159,23 @@ class AutoPilotServiceClass {
     try {
       if (onProgress) onProgress('1/4 Sélection d’un contenu islamique inédit...');
 
-      // 1. Fetch fresh items excluding already published keys
-      const candidateItems = await IslamicContentService.generateSmartCuratedContent(
+      // 1. Generate fresh item
+      const selectedItem = await IslamicContentService.generateIslamicPost(
         category,
         undefined,
-        'trilingual'
+        'all',
+        'ar.alafasy'
       );
-
-      // Find first item that is NOT a duplicate
-      let selectedItem: IslamicQuoteItem | null = null;
-      for (const item of candidateItems) {
-        const check = IslamicLibraryService.checkDuplicate(item);
-        if (!check.isDuplicate) {
-          selectedItem = item;
-          break;
-        }
-      }
-
-      if (!selectedItem && candidateItems.length > 0) {
-        selectedItem = candidateItems[0];
-      }
 
       if (!selectedItem) {
         throw new Error('Aucun contenu inédit trouvé pour ce créneau.');
       }
 
-      if (onProgress) onProgress(`2/4 Rendu graphique HD 9:16 pour "${selectedItem.themeTitle}"...`);
+      const referenceText = `${selectedItem.source.bookOrSurah} — ${selectedItem.source.numberOrAyah}`;
+      if (onProgress) onProgress(`2/4 Rendu graphique HD 9:16 pour "${selectedItem.source.bookOrSurah}"...`);
 
       // 2. Render Card Canvas
-      const cardUrl = await this.renderCardImage(selectedItem);
+      const cardUrl = await this.renderCardImage(selectedItem, referenceText);
 
       // 3. Audio & Video Reel Generation
       let publicVideoUrl = '';
@@ -203,7 +191,7 @@ class AutoPilotServiceClass {
       // 4. Dispatch to Buffer
       const scheduled = IslamicContentService.convertToScheduledPost(
         selectedItem,
-        'fr',
+        'all',
         cardUrl
       );
       scheduled.platforms = ['instagram', 'tiktok'];
@@ -233,7 +221,7 @@ class AutoPilotServiceClass {
       const nextRun = new Date(Date.now() + config.intervalHours * 3600 * 1000).toISOString();
       
       log.status = 'success';
-      log.message = `Reel publié avec succès sur Instagram & TikTok : "${selectedItem.themeTitle}"`;
+      log.message = `Reel publié avec succès sur Instagram & TikTok : "${selectedItem.source.bookOrSurah}"`;
       log.videoUrl = publicVideoUrl;
       log.cardUrl = cardUrl;
 
@@ -261,7 +249,7 @@ class AutoPilotServiceClass {
   /**
    * Helper to render card image on offscreen canvas
    */
-  private async renderCardImage(item: IslamicQuoteItem): Promise<string> {
+  private async renderCardImage(item: any, referenceText: string): Promise<string> {
     const canvas = document.createElement('canvas');
     canvas.width = 1080;
     canvas.height = 1920;
@@ -294,22 +282,22 @@ class AutoPilotServiceClass {
     // Arabic Text
     ctx.fillStyle = '#ffffff';
     ctx.font = 'bold 44px Amiri, "Traditional Arabic", serif';
-    this.wrapText(ctx, item.arabicText, 540, 420, 840, 75);
+    this.wrapText(ctx, item.arabicText || '', 540, 420, 840, 75);
 
     // French Translation
     ctx.fillStyle = '#cbd5e1';
     ctx.font = '500 32px "Plus Jakarta Sans", sans-serif';
-    this.wrapText(ctx, item.translationFr, 540, 980, 840, 52);
+    this.wrapText(ctx, item.translationFr || '', 540, 980, 840, 52);
 
     // English Translation
     ctx.fillStyle = '#94a3b8';
     ctx.font = 'italic 28px "Plus Jakarta Sans", sans-serif';
-    this.wrapText(ctx, item.translationEn, 540, 1380, 840, 46);
+    this.wrapText(ctx, item.translationEn || '', 540, 1380, 840, 46);
 
     // Reference
     ctx.fillStyle = '#f59e0b';
     ctx.font = 'bold 30px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(`📍 ${item.referenceText}`, 540, 1680);
+    ctx.fillText(`📍 ${referenceText}`, 540, 1680);
 
     // Footer Watermark
     ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
