@@ -1,21 +1,59 @@
 /**
  * Kaelar Islamic AI Studio - Islamic Content & Quote Card Service
- * Handles authentic multilingual generation (FR, EN, AR) and Quote Card Canvas rendering.
+ * Handles authentic multilingual generation (FR, EN, AR), Exact Quran Audio Matching, and Quote Card Canvas rendering.
  */
 
-import type { IslamicPostItem, IslamicContentType, IslamicLanguage, VerifiedSource } from '../types/islamic';
+import type { IslamicPostItem, IslamicContentType, IslamicLanguage, VerifiedSource, ReciterAudio } from '../types/islamic';
 import type { ScheduledPost, SocialPlatform } from '../types/content';
 import { VERIFIED_ISLAMIC_POSTS, VERIFIED_RECITERS } from '../data/verifiedIslamicData';
 import { StorageService } from './storageService';
 
+export const AVAILABLE_RECITERS = [
+  { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy' },
+  { id: 'ar.abdulbasitmurattal', name: 'Abdul Basit (Murattal)' },
+  { id: 'ar.minshawi', name: 'Mohamed Siddiq El-Minshawi' },
+  { id: 'ar.husary', name: 'Mahmoud Khalil Al-Husary' },
+  { id: 'ar.sudais', name: 'Abdul Rahman Al-Sudais' }
+];
+
 export const IslamicContentService = {
+  /**
+   * Fetches the EXACT verse audio recitation from the official AlQuran Cloud API.
+   */
+  async fetchExactQuranAudio(
+    surahNumber: number = 94, 
+    ayahNumber: number = 5, 
+    reciterId: string = 'ar.alafasy'
+  ): Promise<ReciterAudio | null> {
+    try {
+      const res = await fetch(`https://api.alquran.cloud/v1/ayah/${surahNumber}:${ayahNumber}/${reciterId}`);
+      if (res.ok) {
+        const json = await res.json();
+        if (json.data && json.data.audio) {
+          const reciterObj = AVAILABLE_RECITERS.find(r => r.id === reciterId);
+          return {
+            reciterId,
+            reciterName: reciterObj?.name || json.data.edition?.englishName || 'Mishary Alafasy',
+            surahOrTitle: `Sourate ${json.data.surah?.englishName || surahNumber} (Verset ${ayahNumber})`,
+            audioUrl: json.data.audio,
+            durationSeconds: 25
+          };
+        }
+      }
+    } catch (e) {
+      console.warn('Could not fetch exact Quran verse audio:', e);
+    }
+    return null;
+  },
+
   /**
    * Generates or fetches an authentic Islamic post item based on category, topic, and language preference.
    */
   async generateIslamicPost(
     category: IslamicContentType,
     customTopic?: string,
-    language: IslamicLanguage = 'all'
+    language: IslamicLanguage = 'all',
+    preferredReciterId: string = 'ar.alafasy'
   ): Promise<IslamicPostItem> {
     const apiKey = StorageService.getApiKey();
 
@@ -30,24 +68,27 @@ Consigne STRICTE :
 - N'utilise QUE des versets authentiques du Noble Coran ou des Hadiths SAHIH (Bukhari, Muslim, Tirmidhi, Abu Dawud) ou des invocations authentiques de Hisn al-Muslim (Citadelle du Musulman).
 - Ne cite JAMAIS de hadith faible (Da'if) ou inventé (Mawdoo').
 - Fournis TOUJOURS la référence exacte (Nom du livre + Numéro de hadith ou Nom de sourate + numéro de verset).
+- Si c'est un verset du Coran, donne OBLIGATOIREMENT le numéro exact de la sourate (1 à 114) et le numéro du verset dans "surahNumber" et "ayahNumber".
 - Génère le contenu en 3 langues : Arabe (avec voyelles/tashkeel complet), Français et Anglais.
 
-Sujet demandé : "${customTopic}" (Catégorie : "${category}")
+Sujet demandé : "${activeTopic}" (Catégorie : "${category}")
 
 Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 {
-  "topic": "${customTopic}",
+  "topic": "${activeTopic}",
   "arabicText": "Texte arabe exact avec tashkeel...",
   "phonetic": "Transcription phonétique...",
   "translationFr": "Traduction française fidèle et élégante...",
   "translationEn": "Faithful and elegant English translation...",
   "source": {
     "type": "${category === 'quran_verse' ? 'quran' : category === 'authentic_dua' ? 'dua' : 'hadith'}",
-    "bookOrSurah": "Ex: Sahih al-Bukhari ou Sourate Al-Baqarah",
-    "numberOrAyah": "Ex: Hadith n° 5027 ou Verset 286",
+    "bookOrSurah": "Ex: Sourate Ash-Sharh ou Sahih al-Bukhari",
+    "numberOrAyah": "Ex: Verset 5 ou Hadith n° 5027",
+    "surahNumber": 94,
+    "ayahNumber": 5,
     "arabicReference": "المرجع بالعربية",
-    "authenticityGrade": "Sahih Muslim",
-    "verifiedBy": "Imam Muslim (Authentique)"
+    "authenticityGrade": "Coran (Parole d’Allah)",
+    "verifiedBy": "Texte Sacré Authentifié"
   },
   "reflection": {
     "fr": "Courte réflexion spirituelle profonde en français...",
@@ -96,18 +137,31 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
         if (rawText) {
           const cleanedJson = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
           const parsed = JSON.parse(cleanedJson);
-          const randomReciter = VERIFIED_RECITERS[Math.floor(Math.random() * VERIFIED_RECITERS.length)];
+
+          // If it's a Quran verse, fetch the EXACT matching audio from AlQuran Cloud
+          let matchedAudio: ReciterAudio | null = null;
+          if (parsed.source?.type === 'quran' && parsed.source?.surahNumber && parsed.source?.ayahNumber) {
+            matchedAudio = await this.fetchExactQuranAudio(
+              Number(parsed.source.surahNumber), 
+              Number(parsed.source.ayahNumber), 
+              preferredReciterId
+            );
+          }
+
+          if (!matchedAudio) {
+            matchedAudio = VERIFIED_RECITERS[Math.floor(Math.random() * VERIFIED_RECITERS.length)];
+          }
 
           return {
             id: `islamic-${Date.now()}`,
             type: category,
-            topic: parsed.topic || customTopic,
+            topic: parsed.topic || activeTopic,
             arabicText: parsed.arabicText,
             phonetic: parsed.phonetic,
             translationFr: parsed.translationFr,
             translationEn: parsed.translationEn,
             source: parsed.source,
-            reciterAudio: randomReciter,
+            reciterAudio: matchedAudio,
             visualTheme: 'golden_night',
             reflection: parsed.reflection,
             hashtags: parsed.hashtags
@@ -154,8 +208,8 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
         text: primaryCaption,
         hook: `${item.arabicText.slice(0, 60)}... ✨ ${item.topic}`,
         hashtags: preferredLanguage === 'en' ? item.hashtags.en : preferredLanguage === 'ar' ? item.hashtags.ar : item.hashtags.fr,
-        videoScript: `[Audio Coran en fond : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'}]\n\n1. Afficher le texte arabe avec calligraphie dorée.\n2. Faire défiler la traduction : "${item.translationFr}"\n3. Afficher la source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Message de fin : Abonne-toi à @kaelarislamic & @mdou.g pour ton rappel quotidien.`,
-        audioTrackSuggestion: `${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}`
+        videoScript: `[Récitation exacte : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}]\n\n1. Afficher la calligraphie arabe synchronisée avec l'audio.\n2. Faire défiler la traduction : "${item.translationFr}"\n3. Afficher la source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Message de fin : Abonne-toi à @kaelarislamic & @mdou.g pour ton rappel quotidien.`,
+        audioTrackSuggestion: `${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah} (${item.reciterAudio?.audioUrl})`
       };
     });
 

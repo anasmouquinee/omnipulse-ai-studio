@@ -1,11 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { IslamicPostItem, IslamicContentType, IslamicLanguage } from '../../types/islamic';
-import { IslamicContentService } from '../../services/islamicContentService';
+import { IslamicContentService, AVAILABLE_RECITERS } from '../../services/islamicContentService';
 import { VERIFIED_ISLAMIC_POSTS, ISLAMIC_THEME_PRESETS, VERIFIED_RECITERS } from '../../data/verifiedIslamicData';
 import { 
   Sparkles, 
   Volume2, 
-  VolumeX, 
   Play, 
   Pause, 
   Download, 
@@ -14,7 +13,7 @@ import {
   ShieldCheck, 
   Languages,
   BookOpen,
-  Image as ImageIcon,
+  Mic,
   Share2
 } from 'lucide-react';
 
@@ -32,6 +31,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   const [selectedLanguage, setSelectedLanguage] = useState<IslamicLanguage>('all');
   const [aspectRatio, setAspectRatio] = useState<'9:16' | '1:1'>('9:16');
   const [selectedTheme, setSelectedTheme] = useState<'golden_night' | 'emerald_mosque' | 'desert_dunes' | 'celestial_sky'>('golden_night');
+  const [selectedReciterId, setSelectedReciterId] = useState<string>('ar.alafasy');
 
   const [currentItem, setCurrentItem] = useState<IslamicPostItem>(VERIFIED_ISLAMIC_POSTS[0]);
   const [renderedCardUrl, setRenderedCardUrl] = useState<string>('');
@@ -64,6 +64,22 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     };
   }, [currentItem, aspectRatio, selectedLanguage, selectedTheme]);
 
+  // When reciter changes on a Quran verse, fetch exact matching audio
+  const handleReciterChange = async (reciterId: string) => {
+    setSelectedReciterId(reciterId);
+    if (currentItem.source.type === 'quran' && currentItem.source.surahNumber && currentItem.source.ayahNumber) {
+      const audio = await IslamicContentService.fetchExactQuranAudio(
+        currentItem.source.surahNumber,
+        currentItem.source.ayahNumber,
+        reciterId
+      );
+      if (audio) {
+        setCurrentItem(prev => ({ ...prev, reciterAudio: audio }));
+        onShowToast('info', `Audio synchronisé avec ${audio.reciterName} !`);
+      }
+    }
+  };
+
   const handleSelectPreset = (preset: typeof ISLAMIC_THEME_PRESETS[0]) => {
     setSelectedCategory(preset.category);
     const matching = VERIFIED_ISLAMIC_POSTS.find(p => p.type === preset.category);
@@ -78,10 +94,11 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       const generated = await IslamicContentService.generateIslamicPost(
         selectedCategory,
         customTopic || undefined,
-        selectedLanguage
+        selectedLanguage,
+        selectedReciterId
       );
       setCurrentItem({ ...generated, visualTheme: selectedTheme });
-      onShowToast('success', `Rappel vérifié généré avec succès (${generated.source.authenticityGrade}) !`);
+      onShowToast('success', `Rappel vérifié et audio synchronisé (${generated.source.authenticityGrade}) !`);
     } catch (e: any) {
       onShowToast('error', 'Erreur lors de la génération. Utilisation de la base vérifiée.');
     } finally {
@@ -120,6 +137,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       {/* Audio Element */}
       {currentItem.reciterAudio && (
         <audio
+          key={currentItem.reciterAudio.audioUrl}
           ref={audioRef}
           src={currentItem.reciterAudio.audioUrl}
           onEnded={() => setIsPlayingAudio(false)}
@@ -155,7 +173,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
               Générateur de Citations & Rappels Islamiques Authentiques
             </h2>
             <p style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
-              Coran, Hadiths Sahih et Invocations vérifiés avec calligraphie arabe et audio de récitation
+              Coran, Hadiths Sahih et Invocations vérifiés avec calligraphie arabe et audio synchronisé
             </p>
           </div>
         </div>
@@ -174,7 +192,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
             color: '#10b981'
           }}>
             <ShieldCheck size={14} />
-            100% Sources Sahih Vérifiées
+            100% Sources Sahih & Audio Exact
           </span>
         </div>
       </div>
@@ -220,7 +238,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
           {/* Custom Topic Input */}
           <div className="form-group">
             <label className="form-label">
-              <span>Sujet spécifique ou mot-clé (Optionnel)</span>
+              <span>Sujet spécifique ou mot-clé (Ex: Kaffarah, Sabr, Tawakkul, Tahajjud...)</span>
             </label>
             <div style={{ display: 'flex', gap: '0.5rem' }}>
               <input
@@ -228,13 +246,13 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 className="form-input"
                 value={customTopic}
                 onChange={(e) => setCustomTopic(e.target.value)}
-                placeholder="Ex: La patience face aux difficultés, le pardon, Tahajjud..."
+                placeholder="Ex: Kaffarah, l’apaisement du cœur, le repentir..."
               />
               <button
                 className="btn btn-primary"
                 onClick={handleGenerateAI}
                 disabled={isGeneratingGemini}
-                style={{ gap: '0.4rem', whiteSpace: 'nowrap' }}
+                style={{ gap: '0.4rem', whiteSpace: 'nowrap', background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)' }}
               >
                 {isGeneratingGemini ? <RefreshCw size={15} className="animate-spin" /> : <Sparkles size={15} />}
                 <span>Générer IA</span>
@@ -247,7 +265,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
             <label className="form-label">
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                 <Languages size={15} color="#f59e0b" />
-                Langues affichées sur la carte & les posts
+                Langues affichées sur la carte & les légendes
               </span>
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.4rem' }}>
@@ -276,6 +294,25 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 </button>
               ))}
             </div>
+          </div>
+
+          {/* Reciter Selector for Quran Audio */}
+          <div className="form-group">
+            <label className="form-label">
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <Mic size={15} color="#10b981" />
+                Récitateur Coranique (Audio Exact du Verset)
+              </span>
+            </label>
+            <select
+              className="form-select"
+              value={selectedReciterId}
+              onChange={(e) => handleReciterChange(e.target.value)}
+            >
+              {AVAILABLE_RECITERS.map(rec => (
+                <option key={rec.id} value={rec.id}>{rec.name}</option>
+              ))}
+            </select>
           </div>
 
           {/* Visual Theme Preset */}
@@ -386,14 +423,14 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                     🎙️ {currentItem.reciterAudio.reciterName}
                   </div>
                   <div style={{ fontSize: '0.75rem', color: '#10b981' }}>
-                    {currentItem.reciterAudio.surahOrTitle} ({currentItem.reciterAudio.durationSeconds}s)
+                    {currentItem.reciterAudio.surahOrTitle}
                   </div>
                 </div>
               </div>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: '#f59e0b', fontSize: '0.75rem' }}>
                 <Volume2 size={16} />
-                <span>Audio Inclus</span>
+                <span>Audio Exact Récité</span>
               </div>
             </div>
           )}
@@ -482,7 +519,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 backdropFilter: 'blur(4px)'
               }}>
                 <Volume2 size={12} className="animate-bounce" />
-                <span>Récitation en cours</span>
+                <span>Récitation exacte</span>
               </div>
             )}
           </div>

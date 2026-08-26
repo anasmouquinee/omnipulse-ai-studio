@@ -18,12 +18,15 @@ export interface VerifiedSource {
   type: 'quran' | 'hadith' | 'dua';
   bookOrSurah: string;
   numberOrAyah: string;
+  surahNumber?: number;
+  ayahNumber?: number;
   arabicReference: string;
   authenticityGrade: AuthenticityGrade;
   verifiedBy: string;
 }
 
 export interface ReciterAudio {
+  reciterId?: string;
   reciterName: string;
   surahOrTitle: string;
   audioUrl: string;
