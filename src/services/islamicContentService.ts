@@ -207,7 +207,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
         text: primaryCaption,
         hook: `${item.arabicText.slice(0, 60)}... ✨ ${item.topic}`,
         hashtags: preferredLanguage === 'en' ? item.hashtags.en : preferredLanguage === 'ar' ? item.hashtags.ar : item.hashtags.fr,
-        videoScript: `[Récitation exacte : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}]\n\n1. Afficher la calligraphie arabe synchronisée avec l'audio.\n2. Faire défiler la traduction : "${item.translationFr}"\n3. Afficher la source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Message de fin : Abonne-toi à @kaelarislamic & @mdou.g pour ton rappel quotidien.`,
+        videoScript: `[Récitation exacte : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}]\n\n1. Afficher la calligraphie arabe synchronisée avec l'audio.\n2. Faire défiler la traduction : "${item.translationFr}"\n3. Afficher la source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Message de fin : Abonne-toi à @kaelarislamic pour ton rappel quotidien.`,
         audioTrackSuggestion: `${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah} (${item.reciterAudio?.audioUrl})`
       };
     });
@@ -359,48 +359,30 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.stroke();
     ctx.restore();
 
-    // 5. Ornate Header: Bismillah with Calligraphic Shadow
+    // 5. Ornate Header: Bismillah with Calligraphic Glow
     ctx.save();
     ctx.textAlign = 'center';
     ctx.fillStyle = '#f59e0b';
-    ctx.shadowColor = 'rgba(245, 158, 11, 0.5)';
-    ctx.shadowBlur = 12;
-    ctx.font = 'bold 38px "Amiri", "Traditional Arabic", serif';
-    ctx.fillText('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', width / 2, cardTop + (aspectRatio === '9:16' ? 75 : 60));
+    ctx.shadowColor = 'rgba(245, 158, 11, 0.6)';
+    ctx.shadowBlur = 14;
+    ctx.font = 'bold 44px "Amiri", "Traditional Arabic", serif';
+    ctx.fillText('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', width / 2, cardTop + (aspectRatio === '9:16' ? 90 : 70));
     ctx.restore();
 
-    // 6. Verified Category Pill Badge
-    const badgeY = cardTop + (aspectRatio === '9:16' ? 130 : 105);
-    const badgeText = `✨ ${item.source.authenticityGrade.toUpperCase()}`;
-    ctx.save();
-    ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
-    ctx.beginPath();
-    ctx.roundRect(width / 2 - 170, badgeY - 24, 340, 42, 21);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(16, 185, 129, 0.7)';
-    ctx.lineWidth = 1.5;
-    ctx.stroke();
-
-    ctx.fillStyle = '#34d399';
-    ctx.font = 'bold 19px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText(badgeText, width / 2, badgeY + 4);
-    ctx.restore();
-
-    // 7. Main Arabic Calligraphy Text (Large, Center, Shadowed for High Contrast)
+    // 6. Main Arabic Calligraphy Text (Large, Center, Shadowed for High Contrast)
     ctx.save();
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
     ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-    ctx.shadowBlur = 18;
+    ctx.shadowBlur = 20;
     ctx.shadowOffsetY = 4;
-    ctx.font = 'bold 56px "Amiri", "Traditional Arabic", "Scheherazade New", serif';
+    ctx.font = 'bold 58px "Amiri", "Traditional Arabic", "Scheherazade New", serif';
     ctx.direction = 'rtl';
 
     const arabicWords = item.arabicText.split(' ');
     let line = '';
-    let startY = cardTop + (aspectRatio === '9:16' ? 270 : 190);
-    const maxWidth = cardWidth - 140;
+    let startY = cardTop + (aspectRatio === '9:16' ? 220 : 160);
+    const maxWidth = cardWidth - 120;
 
     for (let n = 0; n < arabicWords.length; n++) {
       const testLine = line + arabicWords[n] + ' ';
@@ -408,7 +390,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       if (metrics.width > maxWidth && n > 0) {
         ctx.fillText(line, width / 2, startY);
         line = arabicWords[n] + ' ';
-        startY += 82;
+        startY += 86;
       } else {
         line = testLine;
       }
@@ -416,10 +398,10 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.fillText(line, width / 2, startY);
     ctx.restore();
 
-    // 8. Golden Islamic Medallion Divider (۞ ────── ۞)
-    startY += 50;
+    // 7. Golden Islamic Medallion Divider (۞ ────── ۞)
+    startY += 55;
     ctx.save();
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.65)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
     ctx.moveTo(width / 2 - 130, startY);
@@ -434,14 +416,14 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.fillText('۞', width / 2, startY + 9);
     ctx.restore();
 
-    // 9. Multilingual Translations (French / English / Arabic Reflection)
+    // 8. Multilingual Translations (French / English / Arabic Reflection)
     startY += 65;
     const renderTranslationBlock = (text: string, fontSize: number, textColor: string) => {
       ctx.save();
       ctx.textAlign = 'center';
       ctx.fillStyle = textColor;
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
-      ctx.shadowBlur = 10;
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+      ctx.shadowBlur = 12;
       ctx.font = `500 ${fontSize}px Georgia, "Plus Jakarta Sans", serif`;
       
       const words = text.split(' ');
@@ -453,56 +435,52 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
         if (metrics.width > maxWidth && n > 0) {
           ctx.fillText(currentLine, width / 2, startY);
           currentLine = words[n] + ' ';
-          startY += fontSize + 16;
+          startY += fontSize + 18;
         } else {
           currentLine = testLine;
         }
       }
       ctx.fillText(currentLine, width / 2, startY);
-      startY += fontSize + 20;
+      startY += fontSize + 22;
       ctx.restore();
     };
 
     if (displayLanguage === 'fr' || displayLanguage === 'all') {
-      renderTranslationBlock(`« ${item.translationFr} »`, 32, '#f1f5f9');
+      renderTranslationBlock(`« ${item.translationFr} »`, 33, '#f8fafc');
     }
 
     if (displayLanguage === 'en' || displayLanguage === 'all') {
-      startY += 6;
-      renderTranslationBlock(`“${item.translationEn}”`, 27, '#cbd5e1');
+      startY += 8;
+      renderTranslationBlock(`“${item.translationEn}”`, 28, '#cbd5e1');
     }
 
     if (displayLanguage === 'ar') {
-      startY += 10;
+      startY += 12;
       ctx.direction = 'rtl';
-      renderTranslationBlock(item.reflection.ar, 30, '#fef08a');
+      renderTranslationBlock(item.reflection.ar, 32, '#fef08a');
       ctx.direction = 'ltr';
     }
 
-    // 10. Verified Source Bottom Banner Card
-    const sourceCardY = cardBottom - (aspectRatio === '9:16' ? 95 : 75);
+    // 9. Subtle Elegant Source Citation Line (Clean Minimalist, No big box)
+    startY += 20;
     ctx.save();
-    ctx.fillStyle = 'rgba(245, 158, 11, 0.16)';
-    ctx.beginPath();
-    ctx.roundRect(width / 2 - 280, sourceCardY - 26, 560, 52, 12);
-    ctx.fill();
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.7)';
-    ctx.lineWidth = 1.2;
-    ctx.stroke();
-
-    ctx.fillStyle = '#fde68a';
-    ctx.font = 'bold 21px -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText(`📚 ${item.source.bookOrSurah} — ${item.source.numberOrAyah}`, width / 2, sourceCardY + 6);
+    ctx.fillStyle = '#f59e0b';
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+    ctx.shadowBlur = 8;
+    ctx.font = 'italic 600 22px Georgia, "Plus Jakarta Sans", serif';
+    ctx.fillText(`— ${item.source.bookOrSurah}, ${item.source.numberOrAyah} —`, width / 2, startY);
     ctx.restore();
 
-    // 11. Footer Branding & Social Handle
-    const footerY = height - (aspectRatio === '9:16' ? 65 : 28);
+    // 10. Footer Branding & Social Handle - ONLY @kaelarislamic
+    const footerY = height - (aspectRatio === '9:16' ? 70 : 35);
     ctx.save();
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = '600 20px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+    ctx.shadowBlur = 10;
+    ctx.font = '700 23px -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('TikTok: @mdou.g  •  Instagram: @kaelarislamic', width / 2, footerY);
+    ctx.fillText('@kaelarislamic', width / 2, footerY);
     ctx.restore();
 
     return canvas.toDataURL('image/png');

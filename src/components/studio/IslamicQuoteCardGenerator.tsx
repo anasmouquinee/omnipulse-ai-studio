@@ -569,7 +569,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
           </div>
 
           <div style={{ fontSize: '0.78rem', color: '#94a3b8', textAlign: 'center' }}>
-            Prêt pour publication directe sur <strong>@kaelarislamic</strong> & <strong>@mdou.g</strong>
+            Prêt pour publication directe sur <strong>@kaelarislamic</strong>
           </div>
         </div>
 
