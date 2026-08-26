@@ -233,7 +233,198 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     }
   };
 
+  const [isPublishingReel, setIsPublishingReel] = useState(false);
   const [isExportingVideo, setIsExportingVideo] = useState(false);
+
+  // Helper to record the animated visual card + exact Quran recitation audio into a video Blob
+  const recordCardToVideoBlob = async (cardUrl: string, audioUrl: string): Promise<Blob> => {
+    // 1. Fetch audio with CORS proxy
+    const proxyAudioUrl = `/api/proxy-audio?url=${encodeURIComponent(audioUrl)}`;
+    const audioRes = await fetch(proxyAudioUrl);
+    if (!audioRes.ok) throw new Error('Impossible de charger le fichier audio de récitation.');
+    const audioArrayBuffer = await audioRes.arrayBuffer();
+
+    // 2. Load card image
+    const img = new Image();
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error('Erreur de chargement de la carte.'));
+      img.src = cardUrl;
+    });
+
+    // 3. Setup AudioContext and decode audio
+    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+    const audioCtx = new AudioCtx();
+    const audioBuffer = await audioCtx.decodeAudioData(audioArrayBuffer);
+    const audioDuration = audioBuffer.duration;
+
+    const dest = audioCtx.createMediaStreamDestination();
+    const source = audioCtx.createBufferSource();
+    source.buffer = audioBuffer;
+    source.connect(dest);
+    source.connect(audioCtx.destination);
+
+    // 4. Setup Canvas
+    const canvas = document.createElement('canvas');
+    canvas.width = 1080;
+    canvas.height = 1920;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('Canvas non supporté');
+
+    let animId: number;
+    let startTime = performance.now();
+    const renderFrame = () => {
+      const elapsed = (performance.now() - startTime) / 1000;
+      ctx.clearRect(0, 0, 1080, 1920);
+
+      // Smooth cinematic subtle zoom
+      const scale = 1 + 0.015 * Math.sin((elapsed * Math.PI) / 8);
+      const w = 1080 * scale;
+      const h = 1920 * scale;
+      const x = (1080 - w) / 2;
+      const y = (1920 - h) / 2;
+      ctx.drawImage(img, x, y, w, h);
+
+      animId = requestAnimationFrame(renderFrame);
+    };
+    renderFrame();
+
+    const canvasStream = canvas.captureStream(30);
+    const combinedTracks = [
+      ...canvasStream.getVideoTracks(),
+      ...dest.stream.getAudioTracks()
+    ];
+    const combinedStream = new MediaStream(combinedTracks);
+
+    const mimeType = MediaRecorder.isTypeSupported('video/mp4') 
+      ? 'video/mp4' 
+      : (MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus') ? 'video/webm;codecs=vp9,opus' : 'video/webm');
+
+    const recorder = new MediaRecorder(combinedStream, { 
+      mimeType,
+      videoBitsPerSecond: 4500000 
+    });
+    const chunks: Blob[] = [];
+
+    return new Promise((resolve, reject) => {
+      recorder.ondataavailable = (e) => {
+        if (e.data && e.data.size > 0) chunks.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        cancelAnimationFrame(animId);
+        audioCtx.close().catch(() => {});
+        const finalBlob = new Blob(chunks, { type: mimeType });
+        resolve(finalBlob);
+      };
+
+      recorder.onerror = (e) => {
+        cancelAnimationFrame(animId);
+        audioCtx.close().catch(() => {});
+        reject(e);
+      };
+
+      recorder.start();
+      source.start(0);
+
+      const stopTimeout = setTimeout(() => {
+        if (recorder.state === 'recording') recorder.stop();
+      }, (audioDuration + 0.5) * 1000);
+
+      source.onended = () => {
+        clearTimeout(stopTimeout);
+        setTimeout(() => {
+          if (recorder.state === 'recording') recorder.stop();
+        }, 400);
+      };
+    });
+  };
+
+  const blobToBase64 = (blob: Blob): Promise<string> => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(blob);
+    });
+  };
+
+  const handlePublishVideoReel = async () => {
+    if (!renderedCardUrl || !currentItem.reciterAudio?.audioUrl) {
+      onShowToast('info', 'Audio ou carte non disponible pour le Reel.');
+      return;
+    }
+
+    setIsPublishingReel(true);
+    onShowToast('info', '🎬 1/2 Génération de la vidéo de la carte avec l’audio du Coran...');
+
+    try {
+      const videoBlob = await recordCardToVideoBlob(renderedCardUrl, currentItem.reciterAudio.audioUrl);
+      const videoBase64 = await blobToBase64(videoBlob);
+
+      onShowToast('info', '📡 2/2 Publication directe sur Instagram (@kaelarislamic) & TikTok (@mdou.g)...');
+
+      // Upload to /api/video to get public URL for Buffer
+      let publicVideoUrl: string | null = null;
+      try {
+        const upRes = await fetch('/api/video', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ videoBase64 })
+        });
+        if (upRes.ok) {
+          const upJson = await upRes.json();
+          publicVideoUrl = upJson.url;
+        }
+      } catch {}
+
+      if (!publicVideoUrl) {
+        // Fallback to tmpfiles upload
+        const form = new FormData();
+        form.append('file', videoBlob, 'quran-reel.mp4');
+        const tmpRes = await fetch('https://tmpfiles.org/api/v1/upload', { method: 'POST', body: form });
+        const tmpJson = await tmpRes.json();
+        publicVideoUrl = tmpJson.data?.url?.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+      }
+
+      if (!publicVideoUrl) {
+        throw new Error('Échec de la génération du lien vidéo public.');
+      }
+
+      const scheduled = IslamicContentService.convertToScheduledPost(
+        currentItem,
+        selectedLanguage,
+        renderedCardUrl
+      );
+      scheduled.platforms = ['instagram', 'tiktok'];
+      scheduled.media = {
+        id: `med-video-${Date.now()}`,
+        type: 'video',
+        url: publicVideoUrl,
+        aspectRatio: '9:16',
+        durationSeconds: Math.ceil(currentItem.reciterAudio?.durationSeconds || 15),
+        createdAt: new Date().toISOString(),
+        engine: 'video-reel'
+      };
+
+      await SocialPublisher.publishNow(scheduled);
+
+      const latestLogs = StorageService.getPublishLogs();
+      const instaLog = latestLogs.find(l => l.platform === 'instagram' && l.postId === scheduled.id);
+      const tiktokLog = latestLogs.find(l => l.platform === 'tiktok' && l.postId === scheduled.id);
+
+      if (instaLog?.status === 'success' || tiktokLog?.status === 'success') {
+        onShowToast('success', '✨ Vidéo de la carte avec récitation audio publiée sur Instagram & TikTok !');
+      } else {
+        onShowToast('success', '✨ Vidéo Reel transmise à Buffer pour Instagram et TikTok !');
+      }
+    } catch (err: any) {
+      console.warn('Reel publish error:', err);
+      onShowToast('error', `Erreur Reel: ${err?.message || 'Échec de la publication'}`);
+    } finally {
+      setIsPublishingReel(false);
+    }
+  };
 
   const handleExportVideoReel = async () => {
     if (!renderedCardUrl || !currentItem.reciterAudio?.audioUrl) {
@@ -242,123 +433,21 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     }
 
     setIsExportingVideo(true);
-    onShowToast('info', '🎬 Téléchargement de l’audio et génération du Reel...');
-
-    let animationFrameId: number | null = null;
+    onShowToast('info', '🎬 Génération du fichier vidéo avec récitation...');
 
     try {
-      // 1. Fetch audio with proxy to bypass CORS
-      const proxyAudioUrl = `/api/proxy-audio?url=${encodeURIComponent(currentItem.reciterAudio.audioUrl)}`;
-      const audioRes = await fetch(proxyAudioUrl);
-      if (!audioRes.ok) {
-        throw new Error('Impossible de charger le fichier audio de récitation.');
-      }
-      const audioArrayBuffer = await audioRes.arrayBuffer();
-
-      // 2. Load card image
-      const img = new Image();
-      await new Promise<void>((resolve, reject) => {
-        img.onload = () => resolve();
-        img.onerror = () => reject(new Error('Erreur chargement image'));
-        img.src = renderedCardUrl;
-      });
-
-      // 3. Setup AudioContext and decode audio
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-      const audioCtx = new AudioCtx();
-      const audioBuffer = await audioCtx.decodeAudioData(audioArrayBuffer);
-      const audioDuration = audioBuffer.duration;
-
-      const dest = audioCtx.createMediaStreamDestination();
-      const source = audioCtx.createBufferSource();
-      source.buffer = audioBuffer;
-      source.connect(dest);
-      source.connect(audioCtx.destination);
-
-      // 4. Setup Canvas
-      const canvas = document.createElement('canvas');
-      canvas.width = 1080;
-      canvas.height = 1920;
-      const ctx = canvas.getContext('2d');
-      if (!ctx) throw new Error('Canvas non supporté');
-
-      // Continuous animation loop for video frames
-      let startTime = performance.now();
-      const renderFrame = () => {
-        const elapsed = (performance.now() - startTime) / 1000;
-        ctx.clearRect(0, 0, 1080, 1920);
-
-        // Subtle dynamic zoom
-        const scale = 1 + 0.02 * Math.sin((elapsed * Math.PI) / 8);
-        const w = 1080 * scale;
-        const h = 1920 * scale;
-        const x = (1080 - w) / 2;
-        const y = (1920 - h) / 2;
-        ctx.drawImage(img, x, y, w, h);
-
-        animationFrameId = requestAnimationFrame(renderFrame);
-      };
-      renderFrame();
-
-      const canvasStream = canvas.captureStream(30);
-      const combinedTracks = [
-        ...canvasStream.getVideoTracks(),
-        ...dest.stream.getAudioTracks()
-      ];
-      const combinedStream = new MediaStream(combinedTracks);
-
-      const mimeType = MediaRecorder.isTypeSupported('video/mp4') 
-        ? 'video/mp4' 
-        : (MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus') ? 'video/webm;codecs=vp9,opus' : 'video/webm');
-
-      const recorder = new MediaRecorder(combinedStream, { 
-        mimeType,
-        videoBitsPerSecond: 4500000 
-      });
-      const chunks: Blob[] = [];
-
-      recorder.ondataavailable = (e) => {
-        if (e.data && e.data.size > 0) chunks.push(e.data);
-      };
-
-      recorder.onstop = () => {
-        if (animationFrameId) cancelAnimationFrame(animationFrameId);
-        audioCtx.close().catch(() => {});
-
-        const blob = new Blob(chunks, { type: mimeType });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
-        a.download = `reel-${(currentItem.source.bookOrSurah || 'quran').replace(/[^a-zA-Z0-9]/g, '-')}-${Date.now()}.${ext}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        setIsExportingVideo(false);
-        onShowToast('success', '✨ Vidéo Reel avec audio Coranique téléchargée pour TikTok et Instagram !');
-      };
-
-      recorder.start();
-      source.start(0);
-
-      // Stop after audio duration (+0.5s padding)
-      const stopTimeout = setTimeout(() => {
-        if (recorder.state === 'recording') {
-          recorder.stop();
-        }
-      }, (audioDuration + 0.5) * 1000);
-
-      source.onended = () => {
-        clearTimeout(stopTimeout);
-        setTimeout(() => {
-          if (recorder.state === 'recording') {
-            recorder.stop();
-          }
-        }, 500);
-      };
-
+      const blob = await recordCardToVideoBlob(renderedCardUrl, currentItem.reciterAudio.audioUrl);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      const ext = blob.type.includes('mp4') ? 'mp4' : 'webm';
+      a.download = `reel-${(currentItem.source.bookOrSurah || 'quran').replace(/[^a-zA-Z0-9]/g, '-')}-${Date.now()}.${ext}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setIsExportingVideo(false);
+      onShowToast('success', '✨ Vidéo Reel avec audio téléchargée avec succès !');
     } catch (err: any) {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
       console.warn('Video export error:', err);
       setIsExportingVideo(false);
       onShowToast('error', `Erreur vidéo : ${err?.message || 'Impossible de créer la vidéo'}`);
@@ -714,38 +803,55 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
 
           {/* Action Buttons */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-            {/* 1. Main Direct 1-Click Visual Quote Card Publishing to Instagram */}
+            {/* 1. Main 1-Click Automated Reel & Audio Publishing to Both Instagram and TikTok */}
             <button
               type="button"
               className="btn btn-primary"
-              onClick={handleDirectPublish}
-              disabled={isPublishingDirectly}
+              onClick={handlePublishVideoReel}
+              disabled={isPublishingReel || isPublishingDirectly}
               style={{
                 width: '100%',
                 padding: '0.9rem',
                 fontSize: '0.95rem',
                 fontWeight: 700,
                 gap: '0.55rem',
-                background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)',
-                boxShadow: '0 0 25px rgba(16, 185, 129, 0.45)',
-                border: '1px solid rgba(16, 185, 129, 0.5)'
+                background: 'linear-gradient(135deg, #d97706 0%, #059669 100%)',
+                boxShadow: '0 0 25px rgba(245, 158, 11, 0.45)',
+                border: '1px solid rgba(251, 191, 36, 0.5)'
               }}
             >
-              {isPublishingDirectly ? (
+              {isPublishingReel ? (
                 <>
                   <RefreshCw size={18} className="animate-spin" />
-                  <span>Publication de la carte sur @kaelarislamic...</span>
+                  <span>Création & Publication du Reel avec Audio...</span>
                 </>
               ) : (
                 <>
                   <Send size={18} />
-                  <span>🚀 Publier la Carte Visuelle sur @kaelarislamic (Instagram)</span>
+                  <span>🎬🚀 Publier Vidéo Reel sur Instagram & TikTok (avec Audio)</span>
                 </>
               )}
             </button>
 
-            {/* 2. Download Actions: Video Reel with Audio & HD Image */}
+            {/* 2. Photo post to Instagram & Local Video Export */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleDirectPublish}
+                disabled={isPublishingDirectly || isPublishingReel}
+                style={{ 
+                  gap: '0.4rem', 
+                  fontSize: '0.82rem',
+                  background: 'rgba(16, 185, 129, 0.12)',
+                  borderColor: 'rgba(16, 185, 129, 0.4)',
+                  color: '#34d399'
+                }}
+              >
+                {isPublishingDirectly ? <RefreshCw size={14} className="animate-spin" /> : <ImageIcon size={14} />}
+                <span>{isPublishingDirectly ? 'Envoi...' : '🖼️ Affiche Photo (Instagram)'}</span>
+              </button>
+
               <button
                 type="button"
                 className="btn btn-secondary"
@@ -759,10 +865,13 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                   color: '#fbbf24'
                 }}
               >
-                {isExportingVideo ? <RefreshCw size={14} className="animate-spin" /> : <Mic size={14} />}
-                <span>{isExportingVideo ? 'Enregistrement...' : '🎬 Vidéo Reel + Audio (TikTok)'}</span>
+                {isExportingVideo ? <RefreshCw size={14} className="animate-spin" /> : <Download size={14} />}
+                <span>{isExportingVideo ? 'Enregistrement...' : '💾 Télécharger Vidéo Reel'}</span>
               </button>
+            </div>
 
+            {/* 3. Image Download & Text edit */}
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
               <button
                 type="button"
                 className="btn btn-secondary"
@@ -772,18 +881,17 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 <Download size={14} />
                 <span>Télécharger Image HD</span>
               </button>
-            </div>
 
-            {/* 3. Text edit */}
-            <button
-              type="button"
-              className="btn btn-secondary"
-              onClick={handleApplyToStudio}
-              style={{ width: '100%', gap: '0.4rem', fontSize: '0.82rem' }}
-            >
-              <Share2 size={14} />
-              <span>Éditer le texte dans le Studio</span>
-            </button>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleApplyToStudio}
+                style={{ gap: '0.4rem', fontSize: '0.82rem' }}
+              >
+                <Share2 size={14} />
+                <span>Éditer le texte</span>
+              </button>
+            </div>
           </div>
         </div>
 
