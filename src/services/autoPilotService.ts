@@ -1,16 +1,76 @@
 /**
  * OmniPulse AI - Autonomous Auto-Pilot Service
  * Automates content generation, HD rendering, MP4 video encoding, Cloudinary hosting,
- * and Buffer multi-platform publishing every 6 hours with intelligent theme rotation.
+ * and Buffer multi-platform publishing every 6 hours with intelligent sequential theme rotation.
  */
 
 import { IslamicContentService } from './islamicContentService';
 import { IslamicLibraryService } from './islamicLibraryService';
 import { VideoGenerator } from './videoGenerator';
 import { SocialPublisher } from './socialPublisher';
-import type { IslamicQuoteItem, IslamicThemeCategory } from '../types/islamic';
+import type { IslamicContentType } from '../types/islamic';
 
 const AUTOPILOT_STORAGE_KEY = 'omnipulse_autopilot_config';
+
+export interface AutoPilotTheme {
+  id: string;
+  category: IslamicContentType;
+  title: string;
+  subtitle: string;
+  icon: string;
+  badge: string;
+}
+
+export const AUTOPILOT_THEMES: AutoPilotTheme[] = [
+  {
+    id: 'theme-quran',
+    category: 'quran_verse',
+    title: 'Noble Coran — Versets & Récitation Audio',
+    subtitle: 'Récitations apaisantes (Alafasy, Minshawi) avec sous-titres trilingues',
+    icon: '📖',
+    badge: 'Coran'
+  },
+  {
+    id: 'theme-hadith',
+    category: 'sahih_hadith',
+    title: 'Hadith Sahih Authentique & Sagesse',
+    subtitle: 'Paroles prophétiques vérifiées issues de Sahih Al-Bukhari & Muslim',
+    icon: '📜',
+    badge: 'Hadith'
+  },
+  {
+    id: 'theme-dua',
+    category: 'authentic_dua',
+    title: 'Invocations & Adhkar (Protection & Barakah)',
+    subtitle: 'Invocations authentiques de Hisn al-Muslim (Citadelle du Musulman)',
+    icon: '🤲',
+    badge: 'Dhikr / Du’a'
+  },
+  {
+    id: 'theme-tahajjud',
+    category: 'tahajjud_motivation',
+    title: 'Tahajjud & Prière de Nuit (Dernier Tiers)',
+    subtitle: 'Rappels spirituels profonds sur l’Istighfar et le Qiyam al-Layl',
+    icon: '🌙',
+    badge: 'Tahajjud'
+  },
+  {
+    id: 'theme-reminder',
+    category: 'islamic_reminder',
+    title: 'Motivation & Sagesse Islamique (Tawakkul)',
+    subtitle: 'Rappels inspirants sur la patience (Sabr) et la confiance en Allah',
+    icon: '💡',
+    badge: 'Sagesse'
+  },
+  {
+    id: 'theme-jumuah',
+    category: 'jumua_special',
+    title: "Spécial Jumu'ah & Sourate Al-Kahf",
+    subtitle: 'Mérites du vendredi béni, lecture de la caverne et Salawat',
+    icon: '🕌',
+    badge: 'Jumu’ah'
+  }
+];
 
 export interface AutoPilotLog {
   id: string;
@@ -28,6 +88,7 @@ export interface AutoPilotConfig {
   intervalHours: number; // default 6
   lastRunAt: string | null;
   nextRunAt: string | null;
+  currentThemeIndex: number;
   logs: AutoPilotLog[];
 }
 
@@ -36,6 +97,7 @@ const DEFAULT_CONFIG: AutoPilotConfig = {
   intervalHours: 6,
   lastRunAt: null,
   nextRunAt: new Date(Date.now() + 6 * 3600 * 1000).toISOString(),
+  currentThemeIndex: 0,
   logs: []
 };
 
@@ -57,7 +119,12 @@ class AutoPilotServiceClass {
     try {
       const data = localStorage.getItem(AUTOPILOT_STORAGE_KEY);
       if (!data) return DEFAULT_CONFIG;
-      return { ...DEFAULT_CONFIG, ...JSON.parse(data) };
+      const parsed = JSON.parse(data);
+      return { 
+        ...DEFAULT_CONFIG, 
+        ...parsed,
+        currentThemeIndex: typeof parsed.currentThemeIndex === 'number' ? parsed.currentThemeIndex : 0
+      };
     } catch {
       return DEFAULT_CONFIG;
     }
@@ -85,41 +152,21 @@ class AutoPilotServiceClass {
   }
 
   /**
-   * Determine theme based on current time & day
+   * Determine the current rotating theme
    */
-  public getNextRecommendedTheme(): { category: IslamicContentType; title: string } {
-    const now = new Date();
-    const day = now.getDay(); // 5 = Friday
-    const hour = now.getHours();
+  public getNextRecommendedTheme(): AutoPilotTheme {
+    const config = this.getConfig();
+    const idx = (config.currentThemeIndex || 0) % AUTOPILOT_THEMES.length;
+    return AUTOPILOT_THEMES[idx];
+  }
 
-    if (day === 5) {
-      return {
-        category: 'jumua_special',
-        title: "Spécial Jumu'ah & Sourate Al-Kahf (Vendredi Béni)"
-      };
-    }
-
-    if (hour >= 4 && hour < 10) {
-      return {
-        category: 'authentic_dua',
-        title: 'Invocations & Adhkar du Matin (Protection & Barakah)'
-      };
-    } else if (hour >= 10 && hour < 16) {
-      return {
-        category: 'quran_verse',
-        title: 'Noble Coran — Versets & Récitation Audio Apaisante'
-      };
-    } else if (hour >= 16 && hour < 21) {
-      return {
-        category: 'sahih_hadith',
-        title: 'Hadith Sahih Authentique & Sagesse Prophétique'
-      };
-    } else {
-      return {
-        category: 'tahajjud_motivation',
-        title: 'Tahajjud & Prière de Nuit (Dernier Tiers de la Nuit)'
-      };
-    }
+  /**
+   * Manually select/advance to a specific theme in rotation
+   */
+  public setThemeIndex(index: number): void {
+    const config = this.getConfig();
+    config.currentThemeIndex = index % AUTOPILOT_THEMES.length;
+    this.saveConfig(config);
   }
 
   /**
@@ -144,24 +191,24 @@ class AutoPilotServiceClass {
     }
 
     this.isProcessing = true;
-    const { category, title: themeTitle } = this.getNextRecommendedTheme();
+    const currentTheme = this.getNextRecommendedTheme();
     const startTime = new Date().toISOString();
 
     const log: AutoPilotLog = {
       id: `log-${Date.now()}`,
       timestamp: startTime,
-      themeTitle,
-      type: category,
+      themeTitle: currentTheme.title,
+      type: currentTheme.category,
       status: 'running',
       message: 'Initialisation du cycle...'
     };
 
     try {
-      if (onProgress) onProgress('1/4 Sélection d’un contenu islamique inédit...');
+      if (onProgress) onProgress(`1/4 Génération d’un contenu inédit pour : "${currentTheme.title}"...`);
 
-      // 1. Generate fresh item
+      // 1. Generate fresh item for the designated theme
       const selectedItem = await IslamicContentService.generateIslamicPost(
-        category,
+        currentTheme.category,
         undefined,
         'all',
         'ar.alafasy'
@@ -216,8 +263,9 @@ class AutoPilotServiceClass {
         ['instagram', 'tiktok']
       );
 
-      // 6. Update config
+      // 6. Update config & advance theme index to next in line
       const config = this.getConfig();
+      config.currentThemeIndex = ((config.currentThemeIndex || 0) + 1) % AUTOPILOT_THEMES.length;
       const nextRun = new Date(Date.now() + config.intervalHours * 3600 * 1000).toISOString();
       
       log.status = 'success';
@@ -329,18 +377,18 @@ class AutoPilotServiceClass {
   private initTimer(): void {
     if (this.timer) clearInterval(this.timer);
 
-    this.timer = setInterval(() => {
+    this.timer = setInterval(async () => {
       const config = this.getConfig();
-      if (!config.isEnabled || this.isProcessing) return;
+      if (!config.isEnabled || !config.nextRunAt) return;
 
       const now = Date.now();
-      const nextRun = config.nextRunAt ? new Date(config.nextRunAt).getTime() : 0;
+      const nextRun = new Date(config.nextRunAt).getTime();
 
-      if (now >= nextRun) {
-        console.log('⏰ AutoPilot trigger: Scheduled time reached, executing autonomous cycle...');
-        this.executeCycle();
+      if (now >= nextRun && !this.isProcessing) {
+        console.log('⏰ AutoPilot trigger time reached. Executing cycle...');
+        await this.executeCycle();
       }
-    }, 60000); // check every minute
+    }, 15000); // check every 15s
   }
 }
 

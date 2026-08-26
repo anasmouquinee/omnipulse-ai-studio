@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { AutoPilotService } from '../../services/autoPilotService';
-import type { AutoPilotConfig, AutoPilotLog } from '../../services/autoPilotService';
+import { AutoPilotService, AUTOPILOT_THEMES } from '../../services/autoPilotService';
+import type { AutoPilotConfig, AutoPilotLog, AutoPilotTheme } from '../../services/autoPilotService';
 import { 
   Sparkles, 
   Play, 
@@ -13,7 +13,9 @@ import {
   ExternalLink,
   Zap,
   Calendar,
-  Compass
+  Compass,
+  ArrowRight,
+  ChevronRight
 } from 'lucide-react';
 
 interface AutoPilotDashboardProps {
@@ -83,6 +85,13 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
     onShowToast('info', `Fréquence mise à jour : 1 publication toutes les ${hours} heures.`);
   };
 
+  const handleSelectTheme = (index: number) => {
+    AutoPilotService.setThemeIndex(index);
+    setConfig(AutoPilotService.getConfig());
+    const theme = AUTOPILOT_THEMES[index];
+    onShowToast('success', `🎯 Prochain thème sélectionné : ${theme.title}`);
+  };
+
   const handleTriggerNow = async () => {
     setIsRunningManual(true);
     setCurrentStep('Démarrage du cycle...');
@@ -104,7 +113,10 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
     }
   };
 
-  const nextTheme = AutoPilotService.getNextRecommendedTheme();
+  const currentTheme = AutoPilotService.getNextRecommendedTheme();
+  const currentIdx = (config.currentThemeIndex || 0) % AUTOPILOT_THEMES.length;
+  const nextIdx = (currentIdx + 1) % AUTOPILOT_THEMES.length;
+  const upcomingTheme = AUTOPILOT_THEMES[nextIdx];
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
@@ -145,48 +157,47 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
               </h1>
               <span style={{
                 fontSize: '0.75rem',
-                fontWeight: 700,
-                padding: '0.25rem 0.75rem',
+                fontWeight: 800,
+                padding: '0.2rem 0.6rem',
                 borderRadius: '999px',
                 background: config.isEnabled ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
                 color: config.isEnabled ? '#34d399' : '#f87171',
-                border: `1px solid ${config.isEnabled ? '#10b981' : '#ef4444'}`
+                border: `1px solid ${config.isEnabled ? 'rgba(16, 185, 129, 0.4)' : 'rgba(239, 68, 68, 0.4)'}`
               }}>
                 {config.isEnabled ? '● ACTIF (En ligne)' : '○ EN PAUSE'}
               </span>
             </div>
-
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0, maxWidth: '650px' }}>
-              Génère et publie automatiquement des Reels vidéo inédits sur <strong>Instagram (`@kaelarislamic`)</strong> et <strong>TikTok (`@mdou.g`)</strong> à intervalles réguliers en alternant harmonieusement entre le Coran, les Hadiths Sahih, les Invocations et Tahajjud.
+            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '700px', margin: 0, lineHeight: 1.5 }}>
+              Génère et publie automatiquement des Reels vidéo inédits sur <strong>Instagram (`@kaelarislamic`)</strong> et <strong>TikTok (`@mdou.g`)</strong> à intervalles réguliers en alternant harmonieusement entre le Coran, les Hadiths Sahih, les Invocations, Tahajjud et la Sagesse.
             </p>
           </div>
 
-          {/* Toggle Switch */}
-          <button
-            onClick={handleToggleAutoPilot}
-            style={{
-              padding: '0.85rem 1.5rem',
-              borderRadius: 'var(--radius-md)',
-              border: `1px solid ${config.isEnabled ? 'rgba(239, 68, 68, 0.4)' : 'rgba(16, 185, 129, 0.4)'}`,
-              background: config.isEnabled ? 'rgba(239, 68, 68, 0.15)' : 'linear-gradient(135deg, #10b981, #059669)',
-              color: '#fff',
-              fontWeight: 700,
-              fontSize: '0.92rem',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.5rem',
-              boxShadow: config.isEnabled ? 'none' : '0 10px 20px -5px rgba(16, 185, 129, 0.4)',
-              transition: 'all 0.15s'
-            }}
-          >
-            <Power size={18} />
-            <span>{config.isEnabled ? 'Mettre en pause' : 'Activer l’Auto-Pilot'}</span>
-          </button>
+          <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+            <button
+              onClick={handleToggleAutoPilot}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.5rem',
+                padding: '0.7rem 1.3rem',
+                borderRadius: 'var(--radius-md)',
+                fontWeight: 700,
+                fontSize: '0.9rem',
+                cursor: 'pointer',
+                background: config.isEnabled ? 'rgba(239, 68, 68, 0.15)' : 'linear-gradient(135deg, #059669 0%, #10b981 100%)',
+                color: config.isEnabled ? '#fca5a5' : '#ffffff',
+                border: config.isEnabled ? '1px solid rgba(239, 68, 68, 0.3)' : 'none',
+                boxShadow: config.isEnabled ? 'none' : '0 10px 20px -5px rgba(16, 185, 129, 0.4)'
+              }}
+            >
+              <Power size={16} />
+              <span>{config.isEnabled ? 'Mettre en pause' : 'Activer l’Auto-Pilot'}</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Grid: Countdown, Interval, Next Theme */}
+      {/* KPI Cards Grid */}
       <div style={{
         display: 'grid',
         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
@@ -251,10 +262,10 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
                   key={opt.hours}
                   onClick={() => handleIntervalChange(opt.hours)}
                   style={{
-                    padding: '0.5rem 0.85rem',
+                    padding: '0.45rem 0.8rem',
                     borderRadius: 'var(--radius-sm)',
-                    border: config.intervalHours === opt.hours ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.08)',
-                    background: config.intervalHours === opt.hours ? 'rgba(16, 185, 129, 0.2)' : 'rgba(0,0,0,0.2)',
+                    border: config.intervalHours === opt.hours ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+                    background: config.intervalHours === opt.hours ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255,255,255,0.03)',
                     color: config.intervalHours === opt.hours ? '#34d399' : 'var(--text-secondary)',
                     fontWeight: config.intervalHours === opt.hours ? 700 : 500,
                     fontSize: '0.82rem',
@@ -268,19 +279,20 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
           </div>
 
           <div style={{ fontSize: '0.78rem', color: '#10b981', marginTop: '0.75rem' }}>
-            ✓ 6 Heures = 4 publications diversifiées par 24h
+            ✓ {config.intervalHours} Heures = {Math.round(24 / config.intervalHours)} publication{Math.round(24 / config.intervalHours) > 1 ? 's' : ''} diversifiée{Math.round(24 / config.intervalHours) > 1 ? 's' : ''} par 24h
           </div>
         </div>
 
         {/* Card 3: Next Topic in Rotation */}
         <div style={{
           background: 'var(--bg-card)',
-          border: '1px solid var(--border-medium)',
+          border: '1px solid rgba(59, 130, 246, 0.4)',
           borderRadius: 'var(--radius-md)',
           padding: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          position: 'relative'
         }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-tertiary)', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.6rem' }}>
@@ -288,14 +300,114 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
               <span>PROCHAIN THÈME AU PROGRAMME</span>
             </div>
 
-            <div style={{ fontSize: '1.05rem', fontWeight: 700, color: '#60a5fa', margin: '0.2rem 0' }}>
-              {nextTheme.title}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginTop: '0.3rem' }}>
+              <span style={{ fontSize: '1.5rem' }}>{currentTheme.icon}</span>
+              <div>
+                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#93c5fd' }}>
+                  {currentTheme.title}
+                </div>
+                <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>
+                  {currentTheme.subtitle}
+                </div>
+              </div>
             </div>
           </div>
 
-          <div style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)', marginTop: '0.75rem' }}>
-            Rotation thématique continue et dédupliquée
+          <div style={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            justifyContent: 'space-between',
+            fontSize: '0.75rem', 
+            color: 'var(--text-tertiary)', 
+            marginTop: '0.75rem',
+            paddingTop: '0.5rem',
+            borderTop: '1px solid rgba(255,255,255,0.06)'
+          }}>
+            <span>Suivant après : <strong>{upcomingTheme.icon} {upcomingTheme.badge}</strong></span>
+            <span style={{ color: '#34d399', fontWeight: 700 }}>Rotation continue 🔁</span>
           </div>
+        </div>
+      </div>
+
+      {/* Interactive Theme Rotation Grid */}
+      <div style={{
+        background: 'var(--bg-card)',
+        border: '1px solid var(--border-medium)',
+        borderRadius: 'var(--radius-lg)',
+        padding: '1.5rem'
+      }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+          <div>
+            <h3 style={{ margin: '0 0 0.2rem 0', fontSize: '1.1rem', fontWeight: 800, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <span>🔁 Rotation Séquentielle des Thèmes (6 Piliers Islamiques)</span>
+            </h3>
+            <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+              L’Auto-Pilot enchaîne automatiquement ces thématiques une par une pour garantir une variété totale sur vos comptes. Vous pouvez aussi cliquer sur un thème pour le choisir directement comme prochain post.
+            </p>
+          </div>
+        </div>
+
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '0.85rem'
+        }}>
+          {AUTOPILOT_THEMES.map((theme, idx) => {
+            const isCurrent = idx === currentIdx;
+            return (
+              <div
+                key={theme.id}
+                onClick={() => handleSelectTheme(idx)}
+                style={{
+                  padding: '1rem 1.1rem',
+                  borderRadius: 'var(--radius-md)',
+                  border: isCurrent ? '2px solid #10b981' : '1px solid rgba(255,255,255,0.08)',
+                  background: isCurrent ? 'linear-gradient(135deg, rgba(6, 78, 59, 0.4) 0%, rgba(15, 23, 42, 0.6) 100%)' : 'rgba(255,255,255,0.02)',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  position: 'relative',
+                  boxShadow: isCurrent ? '0 0 20px rgba(16, 185, 129, 0.25)' : 'none'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <span style={{ fontSize: '1.3rem' }}>{theme.icon}</span>
+                    <span style={{
+                      fontSize: '0.7rem',
+                      fontWeight: 800,
+                      padding: '0.15rem 0.5rem',
+                      borderRadius: '999px',
+                      background: isCurrent ? 'rgba(16, 185, 129, 0.3)' : 'rgba(255,255,255,0.06)',
+                      color: isCurrent ? '#34d399' : 'var(--text-tertiary)',
+                      border: isCurrent ? '1px solid rgba(16, 185, 129, 0.5)' : 'none'
+                    }}>
+                      Étape {idx + 1}/6 : {theme.badge}
+                    </span>
+                  </div>
+
+                  {isCurrent && (
+                    <span style={{
+                      fontSize: '0.68rem',
+                      fontWeight: 800,
+                      padding: '0.15rem 0.45rem',
+                      borderRadius: '999px',
+                      background: '#10b981',
+                      color: '#020617'
+                    }}>
+                      🎯 ACTIF (PROCHAIN)
+                    </span>
+                  )}
+                </div>
+
+                <div style={{ fontSize: '0.92rem', fontWeight: 700, color: isCurrent ? '#fef08a' : '#e2e8f0', marginBottom: '0.25rem' }}>
+                  {theme.title}
+                </div>
+                <div style={{ fontSize: '0.76rem', color: 'var(--text-tertiary)', lineHeight: 1.4 }}>
+                  {theme.subtitle}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -313,10 +425,10 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
       }}>
         <div>
           <h4 style={{ margin: '0 0 0.2rem 0', fontSize: '1rem', color: '#fef08a', fontWeight: 700 }}>
-            Déclencher un Cycle Immédiat
+            Déclencher un Cycle Immédiat sur "{currentTheme.title}"
           </h4>
           <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
-            Génère instantanément un Reel inédit sur le thème actuel et le publie sur Instagram et TikTok sans attendre le prochain créneau.
+            Génère instantanément un Reel inédit sur le thème actuel et le publie sur Instagram et TikTok sans attendre le prochain créneau de 6h.
           </p>
         </div>
 
@@ -346,7 +458,7 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
           ) : (
             <>
               <Zap size={16} />
-              <span>Lancer Auto-Pilot Maintenant</span>
+              <span>Lancer Auto-Pilot Maintenant ({currentTheme.badge})</span>
             </>
           )}
         </button>
@@ -359,76 +471,89 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
         borderRadius: 'var(--radius-md)',
         padding: '1.5rem'
       }}>
-        <h3 style={{ fontSize: '1.1rem', fontWeight: 700, margin: '0 0 1rem 0', color: 'var(--text-primary)' }}>
-          📋 Historique des Exécutions Auto-Pilot
-        </h3>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.25rem' }}>
+          <h3 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <span>📜</span>
+            <span>Historique des Exécutions Auto-Pilot</span>
+          </h3>
+          <span style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)' }}>
+            {config.logs?.length || 0} exécutions enregistrées
+          </span>
+        </div>
 
-        {config.logs.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '2.5rem', color: 'var(--text-tertiary)', fontSize: '0.88rem' }}>
-            Aucun cycle exécuté pour le moment. Cliquez sur « Lancer Auto-Pilot Maintenant » pour tester le premier cycle !
+        {(!config.logs || config.logs.length === 0) ? (
+          <div style={{
+            textAlign: 'center',
+            padding: '3rem 1rem',
+            color: 'var(--text-tertiary)',
+            fontSize: '0.85rem'
+          }}>
+            Aucune exécution enregistrée pour le moment. Le prochain cycle débutera automatiquement dans le temps imparti.
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            {config.logs.map(log => (
-              <div
-                key={log.id}
-                style={{
-                  background: 'rgba(0,0,0,0.3)',
-                  border: '1px solid rgba(255,255,255,0.06)',
-                  borderRadius: 'var(--radius-sm)',
-                  padding: '1rem 1.25rem',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                  gap: '0.75rem'
-                }}
-              >
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                  {log.status === 'success' ? (
-                    <CheckCircle2 size={18} color="#10b981" />
-                  ) : log.status === 'running' ? (
-                    <RotateCw size={18} color="#f59e0b" className="spin" />
-                  ) : (
-                    <AlertCircle size={18} color="#ef4444" />
-                  )}
+            {config.logs.map((log) => {
+              const isSuccess = log.status === 'success';
+              const isFailed = log.status === 'failed';
 
-                  <div>
-                    <div style={{ fontSize: '0.9rem', fontWeight: 700, color: '#fef08a' }}>
-                      {log.themeTitle}
-                    </div>
-                    <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)' }}>
-                      {log.message}
+              return (
+                <div
+                  key={log.id}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    padding: '0.85rem 1.15rem',
+                    background: 'rgba(255, 255, 255, 0.02)',
+                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                    borderRadius: 'var(--radius-sm)',
+                    flexWrap: 'wrap',
+                    gap: '0.75rem'
+                  }}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                    {isSuccess && <CheckCircle2 size={18} color="#10b981" />}
+                    {isFailed && <AlertCircle size={18} color="#ef4444" />}
+                    {!isSuccess && !isFailed && <RotateCw size={18} color="#f59e0b" className="spin" />}
+
+                    <div>
+                      <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#f1f5f9' }}>
+                        {log.themeTitle}
+                      </div>
+                      <div style={{ fontSize: '0.78rem', color: isSuccess ? 'var(--text-secondary)' : isFailed ? '#f87171' : '#f59e0b' }}>
+                        {log.message}
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                  {log.videoUrl && (
-                    <a
-                      href={log.videoUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      style={{
-                        fontSize: '0.75rem',
-                        color: '#f59e0b',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '0.25rem',
-                        textDecoration: 'none'
-                      }}
-                    >
-                      <Film size={13} />
-                      <span>Voir la Vidéo</span>
-                    </a>
-                  )}
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {log.videoUrl && (
+                      <a
+                        href={log.videoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.3rem',
+                          fontSize: '0.75rem',
+                          color: '#f59e0b',
+                          textDecoration: 'none',
+                          fontWeight: 600
+                        }}
+                      >
+                        <Film size={13} />
+                        <span>Voir la Vidéo</span>
+                      </a>
+                    )}
 
-                  <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>
-                    {new Date(log.timestamp).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit', day: 'numeric', month: 'short' })}
-                  </span>
+                    <span style={{ fontSize: '0.72rem', color: 'var(--text-tertiary)' }}>
+                      {new Date(log.timestamp).toLocaleDateString('fr-FR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' })}
+                    </span>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </div>
