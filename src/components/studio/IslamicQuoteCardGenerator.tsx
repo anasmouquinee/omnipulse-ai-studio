@@ -242,43 +242,65 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     }
 
     setIsExportingVideo(true);
-    onShowToast('info', '🎬 Création du Reel vidéo avec audio Coranique...');
+    onShowToast('info', '🎬 Téléchargement de l’audio et génération du Reel...');
+
+    let animationFrameId: number | null = null;
 
     try {
-      const audio = new Audio();
-      audio.crossOrigin = 'anonymous';
-      audio.src = currentItem.reciterAudio.audioUrl;
+      // 1. Fetch audio with proxy to bypass CORS
+      const proxyAudioUrl = `/api/proxy-audio?url=${encodeURIComponent(currentItem.reciterAudio.audioUrl)}`;
+      const audioRes = await fetch(proxyAudioUrl);
+      if (!audioRes.ok) {
+        throw new Error('Impossible de charger le fichier audio de récitation.');
+      }
+      const audioArrayBuffer = await audioRes.arrayBuffer();
 
+      // 2. Load card image
       const img = new Image();
-      img.crossOrigin = 'anonymous';
-      img.src = renderedCardUrl;
+      await new Promise<void>((resolve, reject) => {
+        img.onload = () => resolve();
+        img.onerror = () => reject(new Error('Erreur chargement image'));
+        img.src = renderedCardUrl;
+      });
 
-      await Promise.all([
-        new Promise((res) => { 
-          audio.oncanplaythrough = res; 
-          audio.onerror = res; 
-          setTimeout(res, 4000); 
-        }),
-        new Promise((res, rej) => { img.onload = res; img.onerror = rej; })
-      ]);
+      // 3. Setup AudioContext and decode audio
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const audioCtx = new AudioCtx();
+      const audioBuffer = await audioCtx.decodeAudioData(audioArrayBuffer);
+      const audioDuration = audioBuffer.duration;
 
+      const dest = audioCtx.createMediaStreamDestination();
+      const source = audioCtx.createBufferSource();
+      source.buffer = audioBuffer;
+      source.connect(dest);
+      source.connect(audioCtx.destination);
+
+      // 4. Setup Canvas
       const canvas = document.createElement('canvas');
       canvas.width = 1080;
       canvas.height = 1920;
       const ctx = canvas.getContext('2d');
-      if (!ctx) throw new Error('Canvas context not available');
+      if (!ctx) throw new Error('Canvas non supporté');
 
-      ctx.drawImage(img, 0, 0, 1080, 1920);
+      // Continuous animation loop for video frames
+      let startTime = performance.now();
+      const renderFrame = () => {
+        const elapsed = (performance.now() - startTime) / 1000;
+        ctx.clearRect(0, 0, 1080, 1920);
+
+        // Subtle dynamic zoom
+        const scale = 1 + 0.02 * Math.sin((elapsed * Math.PI) / 8);
+        const w = 1080 * scale;
+        const h = 1920 * scale;
+        const x = (1080 - w) / 2;
+        const y = (1920 - h) / 2;
+        ctx.drawImage(img, x, y, w, h);
+
+        animationFrameId = requestAnimationFrame(renderFrame);
+      };
+      renderFrame();
 
       const canvasStream = canvas.captureStream(30);
-      
-      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
-      const audioCtx = new AudioCtx();
-      const dest = audioCtx.createMediaStreamDestination();
-      const source = audioCtx.createMediaElementSource(audio);
-      source.connect(dest);
-      source.connect(audioCtx.destination);
-
       const combinedTracks = [
         ...canvasStream.getVideoTracks(),
         ...dest.stream.getAudioTracks()
@@ -289,41 +311,57 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         ? 'video/mp4' 
         : (MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus') ? 'video/webm;codecs=vp9,opus' : 'video/webm');
 
-      const recorder = new MediaRecorder(combinedStream, { mimeType });
+      const recorder = new MediaRecorder(combinedStream, { 
+        mimeType,
+        videoBitsPerSecond: 4500000 
+      });
       const chunks: Blob[] = [];
 
       recorder.ondataavailable = (e) => {
-        if (e.data.size > 0) chunks.push(e.data);
+        if (e.data && e.data.size > 0) chunks.push(e.data);
       };
 
       recorder.onstop = () => {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        audioCtx.close().catch(() => {});
+
         const blob = new Blob(chunks, { type: mimeType });
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
         const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
         a.download = `reel-${(currentItem.source.bookOrSurah || 'quran').replace(/[^a-zA-Z0-9]/g, '-')}-${Date.now()}.${ext}`;
+        document.body.appendChild(a);
         a.click();
-        audioCtx.close();
+        document.body.removeChild(a);
         setIsExportingVideo(false);
         onShowToast('success', '✨ Vidéo Reel avec audio Coranique téléchargée pour TikTok et Instagram !');
       };
 
       recorder.start();
-      await audio.play();
+      source.start(0);
 
-      const duration = Math.min(audio.duration || 12, 45);
-      setTimeout(() => {
+      // Stop after audio duration (+0.5s padding)
+      const stopTimeout = setTimeout(() => {
         if (recorder.state === 'recording') {
           recorder.stop();
-          audio.pause();
         }
-      }, duration * 1000 + 500);
+      }, (audioDuration + 0.5) * 1000);
+
+      source.onended = () => {
+        clearTimeout(stopTimeout);
+        setTimeout(() => {
+          if (recorder.state === 'recording') {
+            recorder.stop();
+          }
+        }, 500);
+      };
 
     } catch (err: any) {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
       console.warn('Video export error:', err);
       setIsExportingVideo(false);
-      onShowToast('error', 'Erreur lors de la création vidéo dans le navigateur.');
+      onShowToast('error', `Erreur vidéo : ${err?.message || 'Impossible de créer la vidéo'}`);
     }
   };
 
