@@ -1,39 +1,8 @@
-import { FFmpeg } from '@ffmpeg/ffmpeg';
-import { fetchFile, toBlobURL } from '@ffmpeg/util';
-
-let ffmpegInstance: FFmpeg | null = null;
-let isLoadingFFmpeg = false;
+import { Muxer, ArrayBufferTarget } from 'mp4-muxer';
 
 export class VideoGenerator {
-  private static async getFFmpeg(): Promise<FFmpeg> {
-    if (ffmpegInstance && ffmpegInstance.loaded) {
-      return ffmpegInstance;
-    }
-
-    if (isLoadingFFmpeg) {
-      while (isLoadingFFmpeg) {
-        await new Promise(r => setTimeout(r, 100));
-      }
-      if (ffmpegInstance && ffmpegInstance.loaded) return ffmpegInstance;
-    }
-
-    isLoadingFFmpeg = true;
-    try {
-      const ffmpeg = new FFmpeg();
-      const baseURL = 'https://unpkg.com/@ffmpeg/core@0.12.6/dist/esm';
-      await ffmpeg.load({
-        coreURL: await toBlobURL(`${baseURL}/ffmpeg-core.js`, 'text/javascript'),
-        wasmURL: await toBlobURL(`${baseURL}/ffmpeg-core.wasm`, 'application/wasm')
-      });
-      ffmpegInstance = ffmpeg;
-      return ffmpeg;
-    } finally {
-      isLoadingFFmpeg = false;
-    }
-  }
-
   /**
-   * Generates a real H.264 / AAC MP4 video from a card image and audio URL
+   * Generates a true standard H.264 Baseline / AAC MP4 video in ~1-2 seconds using WebCodecs & mp4-muxer
    */
   public static async generateQuoteVideoMp4(
     cardImageUrl: string,
@@ -41,62 +10,181 @@ export class VideoGenerator {
     onProgress?: (percent: number) => void
   ): Promise<Blob> {
     try {
-      const ffmpeg = await this.getFFmpeg();
-
-      // 1. Fetch audio via CORS proxy & image
-      const proxyAudio = `/api/proxy-audio?url=${encodeURIComponent(audioUrl)}`;
-      const [audioData, imageData] = await Promise.all([
-        fetchFile(proxyAudio),
-        fetchFile(cardImageUrl)
-      ]);
-
-      const inImg = `card_${Date.now()}.png`;
-      const inAud = `audio_${Date.now()}.mp3`;
-      const outVid = `out_${Date.now()}.mp4`;
-
-      await ffmpeg.writeFile(inImg, imageData);
-      await ffmpeg.writeFile(inAud, audioData);
-
-      const progressHandler = ({ progress }: { progress: number }) => {
-        if (onProgress) onProgress(Math.min(100, Math.round(progress * 100)));
-      };
-      ffmpeg.on('progress', progressHandler);
-
-      try {
-        // Encode compliant MP4 video (H.264 + AAC + yuv420p for Instagram & TikTok)
-        await ffmpeg.exec([
-          '-loop', '1',
-          '-i', inImg,
-          '-i', inAud,
-          '-c:v', 'libx264',
-          '-tune', 'stillimage',
-          '-c:a', 'aac',
-          '-b:a', '192k',
-          '-pix_fmt', 'yuv420p',
-          '-shortest',
-          outVid
-        ]);
-
-        const data = await ffmpeg.readFile(outVid);
-        const buffer = (data as any).buffer ? (data as any).buffer : data;
-        const blob = new Blob([buffer], { type: 'video/mp4' });
-        return blob;
-      } finally {
-        ffmpeg.off('progress', progressHandler);
-        try {
-          await ffmpeg.deleteFile(inImg);
-          await ffmpeg.deleteFile(inAud);
-          await ffmpeg.deleteFile(outVid);
-        } catch {}
+      // Check if WebCodecs VideoEncoder is available
+      if (typeof VideoEncoder !== 'undefined' && typeof AudioData !== 'undefined') {
+        return await this.encodeFastWebCodecsMp4(cardImageUrl, audioUrl, onProgress);
       }
-    } catch (ffmpegErr) {
-      console.warn('FFmpeg wasm fallback to MediaRecorder:', ffmpegErr);
-      return this.fallbackCanvasRecorder(cardImageUrl, audioUrl);
+    } catch (e) {
+      console.warn('Fast WebCodecs encoding failed, falling back to MediaRecorder:', e);
     }
+
+    return await this.fallbackCanvasRecorder(cardImageUrl, audioUrl);
   }
 
   /**
-   * Fallback using MediaRecorder if WebAssembly is not supported
+   * Fast hardware-accelerated H.264 / AAC MP4 encoding
+   */
+  private static async encodeFastWebCodecsMp4(
+    cardImageUrl: string,
+    audioUrl: string,
+    onProgress?: (percent: number) => void
+  ): Promise<Blob> {
+    // 1. Fetch audio with CORS proxy
+    const proxyAudio = `/api/proxy-audio?url=${encodeURIComponent(audioUrl)}`;
+    const audioRes = await fetch(proxyAudio);
+    if (!audioRes.ok) throw new Error('Impossible de charger le fichier audio de récitation.');
+    const audioArrayBuffer = await audioRes.arrayBuffer();
+
+    const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+    const audioCtx = new AudioCtx();
+    const audioBuffer = await audioCtx.decodeAudioData(audioArrayBuffer);
+    const duration = audioBuffer.duration;
+    const sampleRate = audioBuffer.sampleRate;
+    const numChannels = Math.min(2, audioBuffer.numberOfChannels);
+
+    // 2. Load card image
+    const img = new Image();
+    await new Promise<void>((resolve, reject) => {
+      img.onload = () => resolve();
+      img.onerror = () => reject(new Error('Erreur de chargement de la carte.'));
+      img.src = cardImageUrl;
+    });
+
+    const width = 1080;
+    const height = 1920;
+    const fps = 30;
+    const totalFrames = Math.ceil(duration * fps);
+
+    // 3. Setup MP4 Muxer with H.264 & AAC
+    const target = new ArrayBufferTarget();
+    const muxer = new Muxer({
+      target,
+      video: {
+        codec: 'avc',
+        width,
+        height
+      },
+      audio: {
+        codec: 'aac',
+        numberOfChannels: numChannels,
+        sampleRate
+      },
+      fastStart: 'in-memory'
+    });
+
+    // 4. Video Encoder (H.264 Baseline for universal Instagram & TikTok compatibility)
+    const videoEncoder = new VideoEncoder({
+      output: (chunk, meta) => muxer.addVideoChunk(chunk, meta),
+      error: (err) => console.error('VideoEncoder error:', err)
+    });
+
+    videoEncoder.configure({
+      codec: 'avc1.42001f', // Baseline profile
+      width,
+      height,
+      bitrate: 4_500_000,
+      framerate: fps
+    });
+
+    // 5. Audio Encoder (AAC)
+    let audioEncoder: AudioEncoder | null = null;
+    try {
+      audioEncoder = new AudioEncoder({
+        output: (chunk, meta) => muxer.addAudioChunk(chunk, meta),
+        error: (err) => console.error('AudioEncoder error:', err)
+      });
+
+      audioEncoder.configure({
+        codec: 'mp4a.40.2', // AAC-LC
+        numberOfChannels: numChannels,
+        sampleRate,
+        bitrate: 192_000
+      });
+    } catch (e) {
+      console.warn('AudioEncoder configuration error:', e);
+    }
+
+    // Feed Audio Data
+    if (audioEncoder) {
+      const channel0 = audioBuffer.getChannelData(0);
+      const channel1 = numChannels > 1 ? audioBuffer.getChannelData(1) : channel0;
+      const chunkSize = 1024;
+      let offset = 0;
+      let audioTimeUs = 0;
+
+      while (offset < channel0.length) {
+        const count = Math.min(chunkSize, channel0.length - offset);
+        const planar = new Float32Array(count * numChannels);
+        planar.set(channel0.subarray(offset, offset + count), 0);
+        if (numChannels > 1) {
+          planar.set(channel1.subarray(offset, offset + count), count);
+        }
+
+        const audioData = new AudioData({
+          format: 'f32-planar',
+          sampleRate,
+          numberOfFrames: count,
+          numberOfChannels: numChannels,
+          timestamp: audioTimeUs,
+          data: planar
+        });
+
+        audioEncoder.encode(audioData);
+        audioData.close();
+
+        offset += count;
+        audioTimeUs += Math.round((count / sampleRate) * 1_000_000);
+      }
+    }
+
+    // 6. Render & Encode Video Frames
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d')!;
+
+    for (let i = 0; i < totalFrames; i++) {
+      const timestampUs = Math.round((i / fps) * 1_000_000);
+      const keyFrame = i % (fps * 2) === 0;
+
+      // Subtle dynamic zoom
+      ctx.clearRect(0, 0, width, height);
+      const scale = 1 + 0.015 * Math.sin((i / totalFrames) * Math.PI);
+      const w = width * scale;
+      const h = height * scale;
+      const x = (width - w) / 2;
+      const y = (height - h) / 2;
+      ctx.drawImage(img, x, y, w, h);
+
+      const videoFrame = new VideoFrame(canvas, {
+        timestamp: timestampUs,
+        duration: Math.round((1 / fps) * 1_000_000)
+      });
+
+      videoEncoder.encode(videoFrame, { keyFrame });
+      videoFrame.close();
+
+      if (onProgress && i % 10 === 0) {
+        onProgress(Math.round((i / totalFrames) * 100));
+      }
+    }
+
+    await videoEncoder.flush();
+    videoEncoder.close();
+
+    if (audioEncoder) {
+      await audioEncoder.flush();
+      audioEncoder.close();
+    }
+
+    muxer.finalize();
+    audioCtx.close().catch(() => {});
+
+    return new Blob([target.buffer], { type: 'video/mp4' });
+  }
+
+  /**
+   * Fallback using MediaRecorder if WebCodecs is not supported
    */
   private static async fallbackCanvasRecorder(cardUrl: string, audioUrl: string): Promise<Blob> {
     const proxyAudioUrl = `/api/proxy-audio?url=${encodeURIComponent(audioUrl)}`;
