@@ -17,19 +17,19 @@ export const IslamicContentService = {
     customTopic?: string,
     language: IslamicLanguage = 'all'
   ): Promise<IslamicPostItem> {
-    const apiKey = StorageService.getApiKey();
+    const apiKey = StorageService.getApiKey() || DEFAULT_GEMINI_KEY;
 
     // If Gemini API is available and custom topic is provided, generate via Gemini with strict Islamic verification prompt
     if (apiKey && customTopic && customTopic.trim() !== '') {
       try {
         const prompt = `
-Tu es un savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic).
+Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic & @mdou.g).
 
 Consigne STRICTE :
 - N'utilise QUE des versets authentiques du Noble Coran ou des Hadiths SAHIH (Bukhari, Muslim, Tirmidhi, Abu Dawud) ou des invocations authentiques de Hisn al-Muslim (Citadelle du Musulman).
 - Ne cite JAMAIS de hadith faible (Da'if) ou inventé (Mawdoo').
 - Fournis TOUJOURS la référence exacte (Nom du livre + Numéro de hadith ou Nom de sourate + numéro de verset).
-- Génère le contenu en 3 langues : Arabe (avec voyelles/tashkeel), Français et Anglais.
+- Génère le contenu en 3 langues : Arabe (avec voyelles/tashkeel complet), Français et Anglais.
 
 Sujet demandé : "${customTopic}" (Catégorie : "${category}")
 
@@ -45,8 +45,8 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     "bookOrSurah": "Ex: Sahih al-Bukhari ou Sourate Al-Baqarah",
     "numberOrAyah": "Ex: Hadith n° 5027 ou Verset 286",
     "arabicReference": "المرجع بالعربية",
-    "authenticityGrade": "Sahih Bukhari",
-    "verifiedBy": "Imam Al-Bukhari (Authentique)"
+    "authenticityGrade": "Sahih Muslim",
+    "verifiedBy": "Imam Muslim (Authentique)"
   },
   "reflection": {
     "fr": "Courte réflexion spirituelle profonde en français...",
@@ -54,34 +54,47 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     "ar": "تأمل إيماني قصير ومؤثر..."
   },
   "hashtags": {
-    "fr": ["#IslamRappel", "#Coran", "#Patience", "#Foi", "#IslamFrance"],
-    "en": ["#QuranQuotes", "#IslamicReminders", "#Sabr", "#TrustAllah"],
+    "fr": ["#IslamRappel", "#Coran", "#Patience", "#Foi", "#KaelarIslamic"],
+    "en": ["#QuranQuotes", "#IslamicReminders", "#Sabr", "#TrustAllah", "#KaelarIslamic"],
     "ar": ["#قرآن_كريم", "#حديث_شريف", "#أدعية", "#راحة_نفسية"]
   }
 }
 `;
 
-        const response = await fetch(
-          `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
-          {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              contents: [{ parts: [{ text: prompt }] }],
-              generationConfig: {
-                temperature: 0.2, // Low temperature for high factual accuracy
-                maxOutputTokens: 2000,
-              }
-            })
-          }
-        );
+        const modelsToTry = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-3.5-flash'];
+        let rawText = '';
 
-        if (response.ok) {
-          const data = await response.json();
-          const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+        for (const model of modelsToTry) {
+          try {
+            const response = await fetch(
+              `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+              {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                  contents: [{ parts: [{ text: prompt }] }],
+                  generationConfig: {
+                    temperature: 0.2,
+                    maxOutputTokens: 2000,
+                    responseMimeType: 'application/json'
+                  }
+                })
+              }
+            );
+
+            if (response.ok) {
+              const data = await response.json();
+              rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+              if (rawText) break;
+            }
+          } catch (err) {
+            console.warn(`Model ${model} failed, trying next...`, err);
+          }
+        }
+
+        if (rawText) {
           const cleanedJson = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
           const parsed = JSON.parse(cleanedJson);
-
           const randomReciter = VERIFIED_RECITERS[Math.floor(Math.random() * VERIFIED_RECITERS.length)];
 
           return {
@@ -100,7 +113,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
           };
         }
       } catch (e) {
-        console.warn('Gemini Islamic generation fallback to verified database:', e);
+        console.warn('Gemini Islamic generation error:', e);
       }
     }
 
@@ -140,7 +153,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
         text: primaryCaption,
         hook: `${item.arabicText.slice(0, 60)}... ✨ ${item.topic}`,
         hashtags: preferredLanguage === 'en' ? item.hashtags.en : preferredLanguage === 'ar' ? item.hashtags.ar : item.hashtags.fr,
-        videoScript: `[Audio Coran en fond : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'}]\n\n1. Afficher le texte arabe avec calligraphie dorée.\n2. Faire défiler la traduction : "${item.translationFr}"\n3. Afficher la source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Message de fin : Abonne-toi à @kaelarislamic pour ton rappel quotidien.`,
+        videoScript: `[Audio Coran en fond : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'}]\n\n1. Afficher le texte arabe avec calligraphie dorée.\n2. Faire défiler la traduction : "${item.translationFr}"\n3. Afficher la source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Message de fin : Abonne-toi à @kaelarislamic & @mdou.g pour ton rappel quotidien.`,
         audioTrackSuggestion: `${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}`
       };
     });
@@ -159,7 +172,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
         createdAt: new Date().toISOString(),
         engine: 'imagen3'
       } : undefined,
-      scheduledTime: new Date(Date.now() + 3600000).toISOString(), // 1h in future
+      scheduledTime: new Date(Date.now() + 3600000).toISOString(),
       status: 'draft',
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
@@ -175,7 +188,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     aspectRatio: '9:16' | '1:1' = '9:16',
     displayLanguage: IslamicLanguage = 'all'
   ): Promise<string> {
-    const width = aspectRatio === '9:16' ? 1080 : 1080;
+    const width = 1080;
     const height = aspectRatio === '9:16' ? 1920 : 1080;
 
     const canvas = document.createElement('canvas');
@@ -227,7 +240,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.lineWidth = 1;
     ctx.strokeRect(52, 52, width - 104, height - 104);
 
-    // 4. Header Badge (Bismillah / Crescent Icon)
+    // 4. Header Badge (Bismillah)
     ctx.textAlign = 'center';
     ctx.fillStyle = '#f59e0b';
     ctx.font = 'bold 36px "Traditional Arabic", "Amiri", serif';
@@ -253,7 +266,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     // Multi-line Arabic wrap
     const arabicWords = item.arabicText.split(' ');
     let line = '';
-    let startY = aspectRatio === '9:16' ? 460 : 320;
+    let startY = aspectRatio === '9:16' ? 440 : 300;
     const maxWidth = width - 180;
 
     for (let n = 0; n < arabicWords.length; n++) {
@@ -271,7 +284,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.direction = 'ltr';
 
     // 7. Golden Ornamental Divider
-    startY += 60;
+    startY += 50;
     ctx.strokeStyle = '#d97706';
     ctx.lineWidth = 2;
     ctx.beginPath();
@@ -283,11 +296,8 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.font = '24px serif';
     ctx.fillText('۞', width / 2, startY + 8);
 
-    // 8. Translation Texts (French and/or English)
-    startY += 70;
-    ctx.fillStyle = '#e2e8f0';
-    ctx.font = 'italic 32px Georgia, serif';
-
+    // 8. Translation Texts (French and/or English or Arabic Reflection)
+    startY += 60;
     const renderWrappedText = (text: string, fontSize: number, color: string) => {
       ctx.fillStyle = color;
       ctx.font = `italic ${fontSize}px Georgia, serif`;
@@ -300,39 +310,46 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
         if (metrics.width > maxWidth && n > 0) {
           ctx.fillText(currentLine, width / 2, startY);
           currentLine = words[n] + ' ';
-          startY += fontSize + 16;
+          startY += fontSize + 14;
         } else {
           currentLine = testLine;
         }
       }
       ctx.fillText(currentLine, width / 2, startY);
-      startY += fontSize + 20;
+      startY += fontSize + 16;
     };
 
     if (displayLanguage === 'fr' || displayLanguage === 'all') {
-      renderWrappedText(`« ${item.translationFr} »`, 32, '#cbd5e1');
+      renderWrappedText(`« ${item.translationFr} »`, 30, '#cbd5e1');
     }
 
     if (displayLanguage === 'en' || displayLanguage === 'all') {
+      startY += 8;
+      renderWrappedText(`“${item.translationEn}”`, 26, '#94a3b8');
+    }
+
+    if (displayLanguage === 'ar') {
       startY += 10;
-      renderWrappedText(`“${item.translationEn}”`, 28, '#94a3b8');
+      ctx.direction = 'rtl';
+      renderWrappedText(item.reflection.ar, 28, '#f59e0b');
+      ctx.direction = 'ltr';
     }
 
     // 9. Verified Reference Gold Badge
-    const footerSourceY = aspectRatio === '9:16' ? height - 220 : height - 140;
+    const footerSourceY = aspectRatio === '9:16' ? height - 200 : height - 120;
     ctx.fillStyle = 'rgba(217, 119, 6, 0.2)';
-    ctx.fillRect(width / 2 - 280, footerSourceY - 30, 560, 56);
+    ctx.fillRect(width / 2 - 300, footerSourceY - 30, 600, 56);
     ctx.strokeStyle = '#f59e0b';
     ctx.lineWidth = 1.5;
-    ctx.strokeRect(width / 2 - 280, footerSourceY - 30, 560, 56);
+    ctx.strokeRect(width / 2 - 300, footerSourceY - 30, 600, 56);
 
     ctx.fillStyle = '#f59e0b';
     ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, sans-serif';
     ctx.fillText(`📚 ${item.source.bookOrSurah} — ${item.source.numberOrAyah}`, width / 2, footerSourceY + 6);
 
     // 10. Channel Handle Branding Footer
-    const handleY = aspectRatio === '9:16' ? height - 110 : height - 50;
-    ctx.fillStyle = '#64748b';
+    const handleY = aspectRatio === '9:16' ? height - 90 : height - 40;
+    ctx.fillStyle = '#94a3b8';
     ctx.font = '600 22px -apple-system, BlinkMacSystemFont, sans-serif';
     ctx.fillText('TikTok: @mdou.g  •  Instagram: @kaelarislamic', width / 2, handleY);
 

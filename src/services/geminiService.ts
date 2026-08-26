@@ -35,7 +35,7 @@ export const GeminiService = {
     params: GeminiTextGenerationParams, 
     settings: AISettings
   ): Promise<GeneratedSocialPack | null> {
-    const model = settings.geminiModel || 'gemini-1.5-flash';
+    const model = 'gemini-3.6-flash';
     const apiKey = settings.geminiApiKey.trim();
     
     // Support query parameter + x-goog-api-key header + Authorization
