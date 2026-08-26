@@ -1,0 +1,509 @@
+/**
+ * OmniPulse AI - Social Media Preview Mockups Styling
+ * Pixel-accurate dark mockups for TikTok, Instagram, X (Twitter), LinkedIn, and Facebook.
+ */
+
+/* Container & Switcher */
+.preview-showcase {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.preview-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 1rem;
+}
+
+.preview-platform-selector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  overflow-x: auto;
+}
+
+/* ==========================================================================
+   1. TikTok Mobile Video Mockup (9:16 Vertical Phone)
+   ========================================================================== */
+
+.tiktok-phone-frame {
+  width: 320px;
+  height: 568px;
+  margin: 0 auto;
+  border-radius: 36px;
+  background: #000;
+  border: 4px solid #222;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.9), 0 0 20px rgba(254, 44, 85, 0.15);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.tiktok-video-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.tiktok-video-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, transparent 30%, transparent 60%, rgba(0,0,0,0.85) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+.tiktok-top-bar {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 1rem 0;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.tiktok-top-bar span.active {
+  color: #fff;
+  border-bottom: 2px solid #fff;
+  padding-bottom: 2px;
+}
+
+.tiktok-sidebar-actions {
+  position: absolute;
+  right: 0.75rem;
+  bottom: 5rem;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.1rem;
+}
+
+.tiktok-action-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.tiktok-action-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tiktok-avatar-wrapper {
+  position: relative;
+  margin-bottom: 0.25rem;
+}
+
+.tiktok-avatar-img {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+}
+
+.tiktok-avatar-plus {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--color-tiktok);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.tiktok-bottom-info {
+  position: absolute;
+  bottom: 1rem;
+  left: 0.85rem;
+  right: 4.5rem;
+  z-index: 4;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.tiktok-username {
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.tiktok-caption {
+  font-size: 0.8rem;
+  line-height: 1.35;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.tiktok-audio-track {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* ==========================================================================
+   2. Instagram Post Mockup
+   ========================================================================== */
+
+.instagram-post-card {
+  max-width: 470px;
+  margin: 0 auto;
+  background: #000;
+  border: 1px solid #262626;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  color: #fff;
+}
+
+.ig-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem;
+}
+
+.ig-author {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.ig-avatar-ring {
+  padding: 2px;
+  background: var(--color-instagram-grad);
+  border-radius: 50%;
+  display: flex;
+}
+
+.ig-avatar-img {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 2px solid #000;
+}
+
+.ig-username {
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+.ig-media-wrapper {
+  position: relative;
+  width: 100%;
+  background: #111;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.ig-media-img {
+  width: 100%;
+  max-height: 470px;
+  object-fit: cover;
+}
+
+.ig-actions-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1rem 0.4rem 1rem;
+}
+
+.ig-actions-left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ig-likes {
+  padding: 0 1rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.ig-caption-block {
+  padding: 0.35rem 1rem 0.85rem 1rem;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.ig-caption-author {
+  font-weight: 700;
+  margin-right: 0.4rem;
+}
+
+.ig-date-tag {
+  padding: 0 1rem 0.75rem 1rem;
+  font-size: 0.68rem;
+  color: #8E8E8E;
+  text-transform: uppercase;
+}
+
+/* ==========================================================================
+   3. X (Twitter) Post & Thread Mockup
+   ========================================================================== */
+
+.x-post-card {
+  max-width: 550px;
+  margin: 0 auto;
+  background: #000;
+  border: 1px solid #2F3336;
+  border-radius: var(--radius-md);
+  padding: 1rem 1.25rem;
+  color: #E7E9EA;
+}
+
+.x-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.x-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.x-meta {
+  flex: 1;
+}
+
+.x-user-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.92rem;
+}
+
+.x-name {
+  font-weight: 700;
+  color: #E7E9EA;
+}
+
+.x-handle, .x-dot, .x-time {
+  color: #71767B;
+  font-size: 0.88rem;
+}
+
+.x-badge-verified {
+  color: #1D9BF0;
+  width: 16px;
+  height: 16px;
+}
+
+.x-content-text {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin-top: 0.4rem;
+  white-space: pre-wrap;
+}
+
+.x-media-container {
+  margin-top: 0.75rem;
+  border-radius: 14px;
+  border: 1px solid #2F3336;
+  overflow: hidden;
+}
+
+.x-media-img {
+  width: 100%;
+  max-height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.x-metrics-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.85rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid #2F3336;
+  color: #71767B;
+  font-size: 0.82rem;
+}
+
+.x-metric-item {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+/* ==========================================================================
+   4. LinkedIn Post Mockup
+   ========================================================================== */
+
+.linkedin-post-card {
+  max-width: 550px;
+  margin: 0 auto;
+  background: #1B1F23;
+  border: 1px solid #383B40;
+  border-radius: var(--radius-md);
+  color: #E8E8E8;
+  overflow: hidden;
+}
+
+.linkedin-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+}
+
+.linkedin-avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+}
+
+.linkedin-info {
+  flex: 1;
+}
+
+.linkedin-name {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.linkedin-headline {
+  font-size: 0.75rem;
+  color: #9EA3A8;
+}
+
+.linkedin-timestamp {
+  font-size: 0.7rem;
+  color: #6E7378;
+}
+
+.linkedin-text {
+  padding: 0.25rem 1rem 0.75rem 1rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+.linkedin-media {
+  width: 100%;
+  background: #111;
+}
+
+.linkedin-media-img {
+  width: 100%;
+  max-height: 340px;
+  object-fit: cover;
+  display: block;
+}
+
+.linkedin-footer {
+  padding: 0.6rem 1rem;
+  border-top: 1px solid #383B40;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #9EA3A8;
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   5. Facebook Post Mockup
+   ========================================================================== */
+
+.facebook-post-card {
+  max-width: 520px;
+  margin: 0 auto;
+  background: #242526;
+  border: 1px solid #393A3B;
+  border-radius: var(--radius-md);
+  color: #E4E6EB;
+  overflow: hidden;
+}
+
+.facebook-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1rem;
+}
+
+.facebook-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.facebook-name {
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.facebook-time {
+  font-size: 0.75rem;
+  color: #B0B3B8;
+}
+
+.facebook-text {
+  padding: 0.25rem 1rem 0.75rem 1rem;
+  font-size: 0.92rem;
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+.facebook-media-img {
+  width: 100%;
+  max-height: 350px;
+  object-fit: cover;
+  display: block;
+}
+
+.facebook-footer {
+  padding: 0.6rem 1rem;
+  border-top: 1px solid #393A3B;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  color: #B0B3B8;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
