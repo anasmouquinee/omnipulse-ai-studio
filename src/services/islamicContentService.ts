@@ -62,11 +62,12 @@ export const IslamicContentService = {
       const activeTopic = customTopic?.trim() || 'La patience, le repentir et la miséricorde d’Allah';
       try {
         const prompt = `
-Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic & @mdou.g).
+Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic).
 
 Consigne STRICTE :
 - N'utilise QUE des versets authentiques du Noble Coran ou des Hadiths SAHIH (Bukhari, Muslim, Tirmidhi, Abu Dawud) ou des invocations authentiques de Hisn al-Muslim (Citadelle du Musulman).
 - Ne cite JAMAIS de hadith faible (Da'if) ou inventé (Mawdoo').
+- Si le sujet demandé est "${activeTopic}", trouve le verset coranique ou le hadith sahih le plus pertinent pour ce thème précis.
 - Fournis TOUJOURS la référence exacte (Nom du livre + Numéro de hadith ou Nom de sourate + numéro de verset).
 - Si c'est un verset du Coran, donne OBLIGATOIREMENT le numéro exact de la sourate (1 à 114) et le numéro du verset dans "surahNumber" et "ayahNumber".
 - Génère le contenu en 3 langues : Arabe (avec voyelles/tashkeel complet), Français et Anglais.
@@ -82,8 +83,8 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
   "translationEn": "Faithful and elegant English translation...",
   "source": {
     "type": "${category === 'quran_verse' ? 'quran' : category === 'authentic_dua' ? 'dua' : 'hadith'}",
-    "bookOrSurah": "Ex: Sourate Ash-Sharh ou Sahih al-Bukhari",
-    "numberOrAyah": "Ex: Verset 5 ou Hadith n° 5027",
+    "bookOrSurah": "Sourate ... ou Sahih al-Bukhari",
+    "numberOrAyah": "Verset ... ou Hadith n° ...",
     "surahNumber": 94,
     "ayahNumber": 5,
     "arabicReference": "المرجع بالعربية",
@@ -96,14 +97,14 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     "ar": "تأمل إيماني قصير ومؤثر..."
   },
   "hashtags": {
-    "fr": ["#IslamRappel", "#Coran", "#Patience", "#Foi", "#KaelarIslamic"],
-    "en": ["#QuranQuotes", "#IslamicReminders", "#Sabr", "#TrustAllah", "#KaelarIslamic"],
-    "ar": ["#قرآن_كريم", "#حديث_شريف", "#أدعية", "#راحة_نفسية"]
+    "fr": ["#IslamRappel", "#Coran", "#KaelarIslamic"],
+    "en": ["#QuranQuotes", "#IslamicReminders", "#KaelarIslamic"],
+    "ar": ["#قرآن_كريم", "#حديث_شريف", "#أدعية"]
   }
 }
 `;
 
-        const modelsToTry = ['gemini-3.6-flash', 'gemini-flash-latest', 'gemini-3.5-flash'];
+        const modelsToTry = ['gemini-flash-latest', 'gemini-3.6-flash', 'gemini-3.5-flash'];
         let rawText = '';
 
         for (const model of modelsToTry) {
@@ -116,8 +117,8 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
                 body: JSON.stringify({
                   contents: [{ parts: [{ text: prompt }] }],
                   generationConfig: {
-                    temperature: 0.2,
-                    maxOutputTokens: 2000,
+                    temperature: 0.25,
+                    maxOutputTokens: 2048,
                     responseMimeType: 'application/json'
                   }
                 })
@@ -138,6 +139,12 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
           const cleanedJson = rawText.replace(/```json/gi, '').replace(/```/g, '').trim();
           const parsed = JSON.parse(cleanedJson);
 
+          // Clean quotes from translations
+          const cleanQuotes = (str: string = '') => str.replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
+
+          const translationFr = cleanQuotes(parsed.translationFr || parsed.translation_fr || '');
+          const translationEn = cleanQuotes(parsed.translationEn || parsed.translation_en || '');
+
           // If it's a Quran verse, fetch the EXACT matching audio from AlQuran Cloud
           let matchedAudio: ReciterAudio | null = null;
           if (parsed.source?.type === 'quran' && parsed.source?.surahNumber && parsed.source?.ayahNumber) {
@@ -156,15 +163,24 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
             id: `islamic-${Date.now()}`,
             type: category,
             topic: parsed.topic || activeTopic,
-            arabicText: parsed.arabicText,
-            phonetic: parsed.phonetic,
-            translationFr: parsed.translationFr,
-            translationEn: parsed.translationEn,
-            source: parsed.source,
+            arabicText: parsed.arabicText || parsed.arabic_text || 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+            phonetic: parsed.phonetic || '',
+            translationFr,
+            translationEn,
+            source: {
+              type: parsed.source?.type || (category === 'quran_verse' ? 'quran' : 'hadith'),
+              bookOrSurah: parsed.source?.bookOrSurah || parsed.source?.book_or_surah || 'Coran & Sunnah',
+              numberOrAyah: parsed.source?.numberOrAyah || parsed.source?.number_or_ayah || 'Authentifié',
+              surahNumber: parsed.source?.surahNumber ? Number(parsed.source.surahNumber) : undefined,
+              ayahNumber: parsed.source?.ayahNumber ? Number(parsed.source.ayahNumber) : undefined,
+              arabicReference: parsed.source?.arabicReference || '',
+              authenticityGrade: parsed.source?.authenticityGrade || 'Sahih (Authentique)',
+              verifiedBy: parsed.source?.verifiedBy || 'Sources Islamiques Vérifiées'
+            },
             reciterAudio: matchedAudio,
             visualTheme: 'golden_night',
-            reflection: parsed.reflection,
-            hashtags: parsed.hashtags
+            reflection: parsed.reflection || { fr: '', en: '', ar: '' },
+            hashtags: parsed.hashtags || { fr: [], en: [], ar: [] }
           };
         }
       } catch (e) {
@@ -316,169 +332,239 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
     // 2. Cinematic Dark Multi-Vignette (Top, Bottom, and Radial Glow)
     const overlayGradient = ctx.createLinearGradient(0, 0, 0, height);
-    overlayGradient.addColorStop(0, 'rgba(4, 7, 14, 0.78)');
-    overlayGradient.addColorStop(0.2, 'rgba(4, 7, 14, 0.55)');
-    overlayGradient.addColorStop(0.5, 'rgba(6, 12, 22, 0.68)');
-    overlayGradient.addColorStop(0.85, 'rgba(4, 7, 14, 0.88)');
-    overlayGradient.addColorStop(1, 'rgba(2, 4, 8, 0.96)');
+    overlayGradient.addColorStop(0, 'rgba(4, 7, 14, 0.85)');
+    overlayGradient.addColorStop(0.2, 'rgba(4, 7, 14, 0.60)');
+    overlayGradient.addColorStop(0.5, 'rgba(6, 12, 22, 0.72)');
+    overlayGradient.addColorStop(0.85, 'rgba(4, 7, 14, 0.90)');
+    overlayGradient.addColorStop(1, 'rgba(2, 4, 8, 0.98)');
     ctx.fillStyle = overlayGradient;
     ctx.fillRect(0, 0, width, height);
 
     // 3. Ambient Gold / Emerald Soft Backlight Glow
-    const radialGlow = ctx.createRadialGradient(width / 2, height * 0.45, 80, width / 2, height * 0.45, width * 0.7);
-    radialGlow.addColorStop(0, 'rgba(245, 158, 11, 0.14)');
+    const radialGlow = ctx.createRadialGradient(width / 2, height * 0.48, 100, width / 2, height * 0.48, width * 0.8);
+    radialGlow.addColorStop(0, 'rgba(245, 158, 11, 0.16)');
     radialGlow.addColorStop(0.6, 'rgba(16, 185, 129, 0.08)');
     radialGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = radialGlow;
     ctx.fillRect(0, 0, width, height);
 
-    // 4. Frosted Glassmorphism Center Container (Card with subtle border)
-    const cardMarginX = 64;
-    const cardTop = aspectRatio === '9:16' ? 140 : 80;
-    const cardBottom = aspectRatio === '9:16' ? height - 130 : height - 70;
+    // Clean text strings helper
+    const cleanQuotes = (str: string = '') => str.replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
+    const cleanFr = cleanQuotes(item.translationFr);
+    const cleanEn = cleanQuotes(item.translationEn);
+
+    // 4. Measure & Precalculate Typography Layout for Perfect Centering
+    const maxContentWidth = width - 180;
+
+    // Helper to split text into lines
+    const getLines = (text: string, font: string, maxW: number): string[] => {
+      ctx.save();
+      ctx.font = font;
+      const words = text.split(' ');
+      const lines: string[] = [];
+      let cur = '';
+      for (let i = 0; i < words.length; i++) {
+        const test = cur ? cur + ' ' + words[i] : words[i];
+        if (ctx.measureText(test).width > maxW && i > 0) {
+          lines.push(cur);
+          cur = words[i];
+        } else {
+          cur = test;
+        }
+      }
+      if (cur) lines.push(cur);
+      ctx.restore();
+      return lines;
+    };
+
+    const arabicFontSize = aspectRatio === '9:16' ? 62 : 46;
+    const arabicLineHeight = aspectRatio === '9:16' ? 95 : 70;
+    const arabicLines = getLines(item.arabicText, `bold ${arabicFontSize}px "Amiri", serif`, maxContentWidth);
+
+    const frFontSize = aspectRatio === '9:16' ? 36 : 28;
+    const frLineHeight = frFontSize + 20;
+    const frLines = (displayLanguage === 'fr' || displayLanguage === 'all') && cleanFr
+      ? getLines(`« ${cleanFr} »`, `500 ${frFontSize}px Georgia, serif`, maxContentWidth)
+      : [];
+
+    const enFontSize = aspectRatio === '9:16' ? 30 : 24;
+    const enLineHeight = enFontSize + 16;
+    const enLines = (displayLanguage === 'en' || displayLanguage === 'all') && cleanEn
+      ? getLines(`“${cleanEn}”`, `italic 400 ${enFontSize}px Georgia, serif`, maxContentWidth)
+      : [];
+
+    const arRefLines = displayLanguage === 'ar' && item.reflection.ar
+      ? getLines(item.reflection.ar, `500 ${frFontSize}px "Amiri", serif`, maxContentWidth)
+      : [];
+
+    // Calculate total height of inner content
+    const bismillahHeight = 60;
+    const arabicBlockHeight = arabicLines.length * arabicLineHeight;
+    const dividerHeight = 70;
+    const frBlockHeight = frLines.length * frLineHeight;
+    const enBlockHeight = enLines.length * enLineHeight;
+    const arRefBlockHeight = arRefLines.length * frLineHeight;
+    const sourceHeight = 60;
+
+    const totalContentHeight = 
+      bismillahHeight + 
+      30 + // gap
+      arabicBlockHeight + 
+      dividerHeight + 
+      frBlockHeight + 
+      (enBlockHeight > 0 ? enBlockHeight + 15 : 0) + 
+      (arRefBlockHeight > 0 ? arRefBlockHeight + 15 : 0) + 
+      sourceHeight;
+
+    // Centered Card Coordinates
+    const cardPaddingY = aspectRatio === '9:16' ? 60 : 40;
+    const cardHeight = Math.min(height - (aspectRatio === '9:16' ? 260 : 120), totalContentHeight + (cardPaddingY * 2));
+    const cardMarginX = 60;
     const cardWidth = width - (cardMarginX * 2);
-    const cardHeight = cardBottom - cardTop;
+    const cardTop = (height - cardHeight) / 2 - (aspectRatio === '9:16' ? 30 : 10);
     const cardRadius = 24;
 
+    // 5. Frosted Glassmorphism Center Container (Harmoniously Centered)
     ctx.save();
     ctx.beginPath();
     ctx.roundRect(cardMarginX, cardTop, cardWidth, cardHeight, cardRadius);
-    ctx.fillStyle = 'rgba(7, 12, 22, 0.55)';
+    ctx.fillStyle = 'rgba(7, 12, 22, 0.65)';
     ctx.fill();
     
-    // Golden & Emerald subtle card border
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+    // Golden border
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.40)';
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
     // Inner hairline frame
     ctx.beginPath();
-    ctx.roundRect(cardMarginX + 12, cardTop + 12, cardWidth - 24, cardHeight - 24, cardRadius - 8);
-    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+    ctx.roundRect(cardMarginX + 10, cardTop + 10, cardWidth - 20, cardHeight - 20, cardRadius - 8);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.08)';
     ctx.lineWidth = 1;
     ctx.stroke();
     ctx.restore();
 
-    // 5. Ornate Header: Bismillah with Calligraphic Glow
+    // 6. Draw Content Starting from centered Y
+    let curY = cardTop + cardPaddingY + 30;
+
+    // A. Bismillah
     ctx.save();
     ctx.textAlign = 'center';
     ctx.fillStyle = '#f59e0b';
     ctx.shadowColor = 'rgba(245, 158, 11, 0.6)';
     ctx.shadowBlur = 14;
-    ctx.font = 'bold 44px "Amiri", "Traditional Arabic", serif';
-    ctx.fillText('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', width / 2, cardTop + (aspectRatio === '9:16' ? 90 : 70));
+    ctx.font = `bold ${aspectRatio === '9:16' ? 44 : 34}px "Amiri", serif`;
+    ctx.fillText('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', width / 2, curY);
     ctx.restore();
 
-    // 6. Main Arabic Calligraphy Text (Large, Center, Shadowed for High Contrast)
+    curY += 65;
+
+    // B. Arabic Calligraphy Text
     ctx.save();
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
     ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-    ctx.shadowBlur = 20;
+    ctx.shadowBlur = 22;
     ctx.shadowOffsetY = 4;
-    ctx.font = 'bold 58px "Amiri", "Traditional Arabic", "Scheherazade New", serif';
+    ctx.font = `bold ${arabicFontSize}px "Amiri", "Scheherazade New", serif`;
     ctx.direction = 'rtl';
 
-    const arabicWords = item.arabicText.split(' ');
-    let line = '';
-    let startY = cardTop + (aspectRatio === '9:16' ? 220 : 160);
-    const maxWidth = cardWidth - 120;
-
-    for (let n = 0; n < arabicWords.length; n++) {
-      const testLine = line + arabicWords[n] + ' ';
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > maxWidth && n > 0) {
-        ctx.fillText(line, width / 2, startY);
-        line = arabicWords[n] + ' ';
-        startY += 86;
-      } else {
-        line = testLine;
-      }
+    for (const l of arabicLines) {
+      ctx.fillText(l, width / 2, curY);
+      curY += arabicLineHeight;
     }
-    ctx.fillText(line, width / 2, startY);
     ctx.restore();
 
-    // 7. Golden Islamic Medallion Divider (۞ ────── ۞)
-    startY += 55;
+    // C. Golden Islamic Medallion Divider (۞ ────── ۞)
+    curY += 10;
     ctx.save();
     ctx.strokeStyle = 'rgba(245, 158, 11, 0.65)';
     ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(width / 2 - 130, startY);
-    ctx.lineTo(width / 2 - 25, startY);
-    ctx.moveTo(width / 2 + 25, startY);
-    ctx.lineTo(width / 2 + 130, startY);
+    ctx.moveTo(width / 2 - 120, curY);
+    ctx.lineTo(width / 2 - 25, curY);
+    ctx.moveTo(width / 2 + 25, curY);
+    ctx.lineTo(width / 2 + 120, curY);
     ctx.stroke();
 
     ctx.fillStyle = '#f59e0b';
     ctx.font = '26px serif';
     ctx.textAlign = 'center';
-    ctx.fillText('۞', width / 2, startY + 9);
+    ctx.fillText('۞', width / 2, curY + 9);
     ctx.restore();
 
-    // 8. Multilingual Translations (French / English / Arabic Reflection)
-    startY += 65;
-    const renderTranslationBlock = (text: string, fontSize: number, textColor: string) => {
+    curY += 50;
+
+    // D. French Translation
+    if (frLines.length > 0) {
       ctx.save();
       ctx.textAlign = 'center';
-      ctx.fillStyle = textColor;
+      ctx.fillStyle = '#f8fafc';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
       ctx.shadowBlur = 12;
-      ctx.font = `500 ${fontSize}px Georgia, "Plus Jakarta Sans", serif`;
+      ctx.font = `500 ${frFontSize}px Georgia, serif`;
       
-      const words = text.split(' ');
-      let currentLine = '';
-
-      for (let n = 0; n < words.length; n++) {
-        const testLine = currentLine + words[n] + ' ';
-        const metrics = ctx.measureText(testLine);
-        if (metrics.width > maxWidth && n > 0) {
-          ctx.fillText(currentLine, width / 2, startY);
-          currentLine = words[n] + ' ';
-          startY += fontSize + 18;
-        } else {
-          currentLine = testLine;
-        }
+      for (const l of frLines) {
+        ctx.fillText(l, width / 2, curY);
+        curY += frLineHeight;
       }
-      ctx.fillText(currentLine, width / 2, startY);
-      startY += fontSize + 22;
       ctx.restore();
-    };
-
-    if (displayLanguage === 'fr' || displayLanguage === 'all') {
-      renderTranslationBlock(`« ${item.translationFr} »`, 33, '#f8fafc');
     }
 
-    if (displayLanguage === 'en' || displayLanguage === 'all') {
-      startY += 8;
-      renderTranslationBlock(`“${item.translationEn}”`, 28, '#cbd5e1');
+    // E. English Translation
+    if (enLines.length > 0) {
+      curY += 8;
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#cbd5e1';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+      ctx.shadowBlur = 10;
+      ctx.font = `italic 400 ${enFontSize}px Georgia, serif`;
+      
+      for (const l of enLines) {
+        ctx.fillText(l, width / 2, curY);
+        curY += enLineHeight;
+      }
+      ctx.restore();
     }
 
-    if (displayLanguage === 'ar') {
-      startY += 12;
+    // F. Arabic Reflection if selected
+    if (arRefLines.length > 0) {
+      curY += 8;
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#fef08a';
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+      ctx.shadowBlur = 12;
+      ctx.font = `500 ${frFontSize}px "Amiri", serif`;
       ctx.direction = 'rtl';
-      renderTranslationBlock(item.reflection.ar, 32, '#fef08a');
+      
+      for (const l of arRefLines) {
+        ctx.fillText(l, width / 2, curY);
+        curY += frLineHeight;
+      }
       ctx.direction = 'ltr';
+      ctx.restore();
     }
 
-    // 9. Subtle Elegant Source Citation Line (Clean Minimalist, No big box)
-    startY += 20;
+    // G. Subtle Elegant Source Citation Line
+    curY += 24;
     ctx.save();
     ctx.textAlign = 'center';
     ctx.fillStyle = '#f59e0b';
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
-    ctx.shadowBlur = 8;
-    ctx.font = 'italic 600 22px Georgia, "Plus Jakarta Sans", serif';
-    ctx.fillText(`— ${item.source.bookOrSurah}, ${item.source.numberOrAyah} —`, width / 2, startY);
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+    ctx.shadowBlur = 10;
+    ctx.font = `600 ${aspectRatio === '9:16' ? 24 : 19}px Georgia, "Plus Jakarta Sans", serif`;
+    ctx.fillText(`— ${item.source.bookOrSurah}, ${item.source.numberOrAyah} —`, width / 2, curY);
     ctx.restore();
 
-    // 10. Footer Branding & Social Handle - ONLY @kaelarislamic
-    const footerY = height - (aspectRatio === '9:16' ? 70 : 35);
+    // 7. Footer Watermark: ONLY @kaelarislamic
+    const footerY = height - (aspectRatio === '9:16' ? 60 : 30);
     ctx.save();
     ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
     ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
     ctx.shadowBlur = 10;
-    ctx.font = '700 23px -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", sans-serif';
+    ctx.font = '700 24px -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('@kaelarislamic', width / 2, footerY);
     ctx.restore();
