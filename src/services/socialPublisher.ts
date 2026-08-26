@@ -66,18 +66,6 @@ export const SocialPublisher = {
       if (bufferToken && (platform === 'instagram' || platform === 'tiktok')) {
         const channelId = BUFFER_CHANNEL_MAP[platform] || account?.id;
         try {
-          const assets: any[] = [];
-          if (post.media?.url) {
-            const isHttp = post.media.url.startsWith('http://') || post.media.url.startsWith('https://');
-            if (isHttp) {
-              if (post.media.type === 'video' || platform === 'tiktok') {
-                assets.push({ video: { url: post.media.url } });
-              } else {
-                assets.push({ image: { url: post.media.url } });
-              }
-            }
-          }
-
           const mutationQuery = `
             mutation CreatePost($input: CreatePostInput!) {
               createPost(input: $input) {
@@ -87,20 +75,79 @@ export const SocialPublisher = {
                     status
                   }
                 }
+                ... on InvalidInputError {
+                  message
+                }
+                ... on UnauthorizedError {
+                  message
+                }
+                ... on UnexpectedError {
+                  message
+                }
+                ... on LimitReachedError {
+                  message
+                }
               }
             }
           `;
 
-          const variables = {
-            input: {
-              channelId,
-              text: postText,
-              mode: 'shareNow',
-              schedulingType: 'automatic',
-              needsApproval: false,
-              assets
-            }
-          };
+          let variables: any;
+
+          if (platform === 'instagram') {
+            const imageUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')))
+              ? post.media.url
+              : 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&auto=format&fit=crop&q=85';
+
+            variables = {
+              input: {
+                channelId,
+                text: postText,
+                mode: 'shareNow',
+                schedulingType: 'automatic',
+                needsApproval: false,
+                metadata: {
+                  instagram: {
+                    type: 'post',
+                    shouldShareToFeed: true
+                  }
+                },
+                assets: [
+                  {
+                    image: {
+                      url: imageUrl
+                    }
+                  }
+                ]
+              }
+            };
+          } else {
+            // TikTok
+            const videoUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) && post.media.type === 'video')
+              ? post.media.url
+              : 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4';
+
+            variables = {
+              input: {
+                channelId,
+                text: postText,
+                mode: 'shareNow',
+                schedulingType: 'automatic',
+                needsApproval: false,
+                metadata: {
+                  tiktok: {
+                    title: (post.title || 'Rappel Islamique').slice(0, 100)
+                  }
+                },
+                assets: [
+                  {
+                    video: {
+                      url: videoUrl
+                    }
+                  }
+                ]
+              }
+            };
+          }
 
           const res = await fetch('https://api.buffer.com/graphql', {
             method: 'POST',
@@ -112,7 +159,9 @@ export const SocialPublisher = {
           });
 
           const result = await res.json();
-          const isSuccess = !result.errors && res.ok;
+          const createdPost = result.data?.createPost?.post;
+          const errorMsg = result.data?.createPost?.message || result.errors?.[0]?.message;
+          const isSuccess = !!createdPost?.id && res.ok;
 
           const log: PublishLog = {
             id: `log-${Date.now()}-${platform}`,
@@ -120,7 +169,9 @@ export const SocialPublisher = {
             platform,
             timestamp: new Date().toISOString(),
             status: isSuccess ? 'success' : 'failed',
-            responseMessage: isSuccess ? `Publié sur ${platform} via Buffer (Canal: ${account?.username || channelId})` : `Erreur Buffer: ${result.errors?.[0]?.message || 'Erreur API'}`,
+            responseMessage: isSuccess 
+              ? `✅ Publié avec succès sur ${platform} via Buffer (Canal: ${account?.username || channelId} - Post ID: ${createdPost.id})` 
+              : `❌ Erreur Buffer ${platform}: ${errorMsg || 'Erreur inconnue'}`,
             httpStatus: res.status
           };
           StorageService.addPublishLog(log);

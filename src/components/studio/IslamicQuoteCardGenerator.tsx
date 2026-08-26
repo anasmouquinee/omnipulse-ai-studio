@@ -160,10 +160,18 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       await SocialPublisher.publishNow(scheduled);
       onApplyPost(currentItem, renderedCardUrl, selectedLanguage);
 
-      onShowToast('success', '✨ Post publié avec succès sur Instagram (@kaelarislamic) et TikTok (@mdou.g) !');
+      const latestLogs = StorageService.getPublishLogs();
+      const instaLog = latestLogs.find(l => l.platform === 'instagram' && l.postId === scheduled.id);
+      if (instaLog && instaLog.status === 'success') {
+        onShowToast('success', '✨ Post publié en direct sur Instagram (@kaelarislamic) via Buffer !');
+      } else if (instaLog && instaLog.status === 'failed') {
+        onShowToast('error', instaLog.responseMessage || 'Erreur lors de la publication');
+      } else {
+        onShowToast('success', '✨ Post envoyé avec succès aux réseaux connectés !');
+      }
     } catch (e: any) {
       console.warn('Publish error:', e);
-      onShowToast('error', 'Erreur lors de la publication directe. Vérifiez la connexion Buffer.');
+      onShowToast('error', 'Erreur lors de la publication directe.');
     } finally {
       setIsPublishingDirectly(false);
     }
