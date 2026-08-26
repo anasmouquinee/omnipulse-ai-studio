@@ -16,8 +16,7 @@ const INSTAGRAM_CHANNEL_ID = process.env.BUFFER_INSTAGRAM_CHANNEL_ID || '6a8f4ce
 const TIKTOK_CHANNEL_ID = process.env.BUFFER_TIKTOK_CHANNEL_ID || '6a8f4dcfccaf649a672158cf'; // @mdou.g
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'zmgzjmpl';
 const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET || 'ml_default';
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN || '';
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '';
+const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || '';
 
 const REGISTRY_PATH = path.join(__dirname, '..', 'data', 'publishedRegistry.json');
 
@@ -282,34 +281,70 @@ function publishToBuffer(channelId, text, videoUrl) {
   });
 }
 
-// Helper: Send Telegram notification
-function sendTelegramMessage(text) {
-  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) return Promise.resolve();
+// Helper: Send Discord Webhook notification
+function sendDiscordNotification(item, theme, publicVideoUrl) {
+  if (!DISCORD_WEBHOOK_URL || !DISCORD_WEBHOOK_URL.startsWith('http')) return Promise.resolve();
 
   return new Promise((resolve) => {
-    const postData = JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: text,
-      parse_mode: 'Markdown'
-    });
+    try {
+      const urlObj = new URL(DISCORD_WEBHOOK_URL);
+      const embed = {
+        title: `🕋 Auto-Pilot 6h : Nouveau Reel Publié !`,
+        description: `${item.arabicText}\n\n*${item.translationFr}*`,
+        color: 0x10b981,
+        fields: [
+          {
+            name: '📖 Thématique',
+            value: theme.title,
+            inline: true
+          },
+          {
+            name: '📍 Référence',
+            value: `${item.bookOrSurah} (${item.numberOrAyah})`,
+            inline: true
+          },
+          {
+            name: '📱 Réseaux Publiés',
+            value: '📷 Instagram (`@kaelarislamic`)\n🎵 TikTok (`@mdou.g`)',
+            inline: false
+          },
+          {
+            name: '🎬 Lien Direct Vidéo Reel HD',
+            value: `[Cliquer ici pour regarder le Reel MP4](${publicVideoUrl})`,
+            inline: false
+          }
+        ],
+        timestamp: new Date().toISOString(),
+        footer: {
+          text: 'Kaelar Islamic AI Studio • Cloud 24/7 Engine'
+        }
+      };
 
-    const options = {
-      hostname: 'api.telegram.org',
-      port: 443,
-      path: `/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(postData)
-      }
-    };
+      const postData = JSON.stringify({
+        username: 'Kaelar Islamic Studio',
+        embeds: [embed]
+      });
 
-    const req = https.request(options, (res) => {
+      const options = {
+        hostname: urlObj.hostname,
+        port: 443,
+        path: urlObj.pathname + (urlObj.search || ''),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Content-Length': Buffer.byteLength(postData)
+        }
+      };
+
+      const req = https.request(options, (res) => {
+        resolve();
+      });
+      req.on('error', () => resolve());
+      req.write(postData);
+      req.end();
+    } catch (e) {
       resolve();
-    });
-    req.on('error', () => resolve());
-    req.write(postData);
-    req.end();
+    }
   });
 }
 
@@ -463,9 +498,9 @@ async function runCloudAutoPilot() {
   });
   saveRegistry(reg);
 
-  // 8. Send Telegram Notification
-  const telegramMsg = `🕋 *Auto-Pilot 6h : Nouveau Reel Publié !*\n\n📖 *Thème* : ${theme.title}\n📍 *Réf* : ${item.bookOrSurah} (${item.numberOrAyah})\n\n🔗 [Visionner la Vidéo Publiée](${publicVideoUrl})\n\n✨ Diffusé avec succès sur *@kaelarislamic* et *@mdou.g* !`;
-  await sendTelegramMessage(telegramMsg);
+  // 8. Send Discord Notification
+  console.log('🔔 Sending Discord notification...');
+  await sendDiscordNotification(item, theme, publicVideoUrl);
 
   console.log('🎉 Auto-Pilot cycle completed successfully!');
 

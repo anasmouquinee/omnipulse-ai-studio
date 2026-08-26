@@ -299,6 +299,14 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         ['instagram', 'tiktok']
       );
 
+      // Trigger Discord Webhook Notification
+      SocialPublisher.sendDiscordNotification({
+        title: `Nouveau Reel Islamique Publié : ${currentItem.source.bookOrSurah}`,
+        description: `${currentItem.arabicText}\n\n*${currentItem.translationFr}*\n\n📍 ${currentItem.source.bookOrSurah} — ${currentItem.source.numberOrAyah}`,
+        videoUrl: publicVideoUrl,
+        platforms: ['instagram', 'tiktok']
+      });
+
       const latestLogs = StorageService.getPublishLogs();
       const instaLog = latestLogs.find(l => l.platform === 'instagram' && l.postId === scheduled.id);
       const tiktokLog = latestLogs.find(l => l.platform === 'tiktok' && l.postId === scheduled.id);

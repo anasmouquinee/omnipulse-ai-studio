@@ -38,11 +38,8 @@ const DEFAULT_BRIDGE_CONFIG: SocialBridgeConfig = {
     cloudinaryCloudName: 'zmgzjmpl',
     cloudinaryUploadPreset: 'ml_default'
   },
-  telegram: {
-    botToken: '',
-    chatId: '',
-    enabled: false
-  }
+  discordWebhookUrl: '',
+  discordEnabled: false
 };
 
 export const StorageService = {

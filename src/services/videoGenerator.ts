@@ -148,14 +148,54 @@ export class VideoGenerator {
       const timestampUs = Math.round((i / fps) * 1_000_000);
       const keyFrame = i % (fps * 2) === 0;
 
-      // Subtle dynamic zoom
       ctx.clearRect(0, 0, width, height);
-      const scale = 1 + 0.015 * Math.sin((i / totalFrames) * Math.PI);
+
+      // 1. Subtle smooth cinematic zoom
+      const scale = 1 + 0.02 * Math.sin((i / totalFrames) * Math.PI);
       const w = width * scale;
       const h = height * scale;
       const x = (width - w) / 2;
       const y = (height - h) / 2;
       ctx.drawImage(img, x, y, w, h);
+
+      // 2. Dynamic breathing spiritual glow behind Arabic text
+      const glowOpacity = 0.12 + 0.06 * Math.sin((i / 20) * Math.PI);
+      const glowGrad = ctx.createRadialGradient(width / 2, height * 0.32, 20, width / 2, height * 0.32, width * 0.55);
+      glowGrad.addColorStop(0, `rgba(245, 158, 11, ${glowOpacity})`);
+      glowGrad.addColorStop(0.6, `rgba(16, 185, 129, ${glowOpacity * 0.5})`);
+      glowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+      ctx.fillStyle = glowGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      // 3. Floating golden bokeh particles
+      for (let p = 0; p < 22; p++) {
+        const seed = p * 7393;
+        const px = ((Math.sin(seed + i * 0.012) * 0.5 + 0.5) * (width - 120)) + 60;
+        const py = ((seed * 137 + i * 2.2) % (height + 200)) - 100;
+        const pr = 2 + (p % 4);
+        const particleOpacity = 0.2 + 0.25 * Math.sin(i * 0.06 + seed);
+        
+        ctx.fillStyle = `rgba(254, 240, 138, ${Math.max(0, particleOpacity)})`;
+        ctx.beginPath();
+        ctx.arc(px, height - py, pr, 0, Math.PI * 2);
+        ctx.fill();
+      }
+
+      // 4. Sleek bottom audio progress bar
+      const progress = Math.min(1, i / totalFrames);
+      const barY = height - 90;
+      const barW = width - 160;
+      
+      // Track background
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
+      ctx.fillRect(80, barY, barW, 4);
+
+      // Gradient Fill
+      const progGrad = ctx.createLinearGradient(80, 0, width - 80, 0);
+      progGrad.addColorStop(0, '#10b981');
+      progGrad.addColorStop(1, '#f59e0b');
+      ctx.fillStyle = progGrad;
+      ctx.fillRect(80, barY, barW * progress, 4);
 
       const videoFrame = new VideoFrame(canvas, {
         timestamp: timestampUs,

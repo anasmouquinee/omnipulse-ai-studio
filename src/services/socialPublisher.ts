@@ -408,5 +408,73 @@ export const SocialPublisher = {
    */
   getBestTimes(platform: SocialPlatform): BestTimeSlot[] {
     return BEST_POSTING_TIMES[platform] || [];
+  },
+
+  /**
+   * Sends a rich embed notification to a Discord webhook
+   */
+  async sendDiscordNotification(payload: {
+    title: string;
+    description: string;
+    videoUrl?: string;
+    cardUrl?: string;
+    platforms: SocialPlatform[];
+    author?: string;
+  }): Promise<boolean> {
+    const bridgeConfig = StorageService.getBridgeConfig();
+    const webhookUrl = bridgeConfig.discordWebhookUrl;
+    if (!webhookUrl || !webhookUrl.startsWith('http') || bridgeConfig.discordEnabled === false) {
+      return false;
+    }
+
+    try {
+      const embed: any = {
+        title: `🕋 ${payload.title}`,
+        description: payload.description,
+        color: 0x10b981, // Emerald green
+        fields: [
+          {
+            name: '📱 Réseaux Publiés',
+            value: payload.platforms.map(p => p === 'instagram' ? '📷 Instagram (`@kaelarislamic`)' : p === 'tiktok' ? '🎵 TikTok (`@mdou.g`)' : p).join('\n'),
+            inline: true
+          },
+          {
+            name: '✨ Statut',
+            value: '✅ Publié en Direct & En Ligne',
+            inline: true
+          }
+        ],
+        timestamp: new Date().toISOString(),
+        footer: {
+          text: 'Kaelar Islamic AI Studio • Auto-Pilot Engine'
+        }
+      };
+
+      if (payload.videoUrl) {
+        embed.fields.push({
+          name: '🎬 Lien Vidéo MP4 Reel',
+          value: `[Regarder la vidéo HD](${payload.videoUrl})`,
+          inline: false
+        });
+      }
+
+      if (payload.cardUrl && payload.cardUrl.startsWith('http')) {
+        embed.image = { url: payload.cardUrl };
+      }
+
+      const res = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          username: 'Kaelar Islamic Studio',
+          embeds: [embed]
+        })
+      });
+
+      return res.ok;
+    } catch (e) {
+      console.warn('Discord notification error:', e);
+      return false;
+    }
   }
 };

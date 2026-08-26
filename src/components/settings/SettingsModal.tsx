@@ -291,54 +291,71 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           )}
         </div>
 
-        {/* Telegram Notifications */}
+        {/* Discord Notifications */}
         <div style={{ borderTop: '1px solid var(--border-medium)', paddingTop: '1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 600, fontSize: '0.88rem', color: '#60a5fa' }}>
-              <span>🔔</span>
-              <span>Notifications Telegram Instantanées (100% Gratuit)</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 600, fontSize: '0.88rem', color: '#5865F2' }}>
+              <span>👾</span>
+              <span>Notifications Discord Instantanées (100% Gratuit)</span>
             </div>
             <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.78rem', color: 'var(--text-secondary)', cursor: 'pointer' }}>
               <input
                 type="checkbox"
-                checked={bridgeConfig.telegram?.enabled || false}
+                checked={bridgeConfig.discordEnabled || false}
                 onChange={(e) => setBridgeConfig({
                   ...bridgeConfig,
-                  telegram: { ...(bridgeConfig.telegram || { botToken: '', chatId: '' }), enabled: e.target.checked }
+                  discordEnabled: e.target.checked
                 })}
               />
               <span>Activer les alertes</span>
             </label>
           </div>
 
-          {bridgeConfig.telegram?.enabled && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', background: 'rgba(59, 130, 246, 0.05)', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(59, 130, 246, 0.15)' }}>
+          {bridgeConfig.discordEnabled && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', background: 'rgba(88, 101, 242, 0.05)', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(88, 101, 242, 0.2)' }}>
               <div className="form-group" style={{ margin: 0 }}>
-                <label className="form-label" style={{ fontSize: '0.78rem' }}>Telegram Bot Token (obtenu via @BotFather)</label>
-                <input
-                  type="password"
-                  className="form-input"
-                  value={bridgeConfig.telegram?.botToken || ''}
-                  onChange={(e) => setBridgeConfig({
-                    ...bridgeConfig,
-                    telegram: { ...(bridgeConfig.telegram || { chatId: '', enabled: true }), botToken: e.target.value }
-                  })}
-                  placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ..."
-                />
-              </div>
-
-              <div className="form-group" style={{ margin: 0 }}>
-                <label className="form-label" style={{ fontSize: '0.78rem' }}>Telegram Chat ID (votre ID personnel ou de canal)</label>
+                <label className="form-label" style={{ fontSize: '0.78rem' }}>Discord Webhook URL (Paramètres du salon Discord &gt; Intégrations &gt; Webhooks)</label>
                 <input
                   type="text"
                   className="form-input"
-                  value={bridgeConfig.telegram?.chatId || ''}
+                  value={bridgeConfig.discordWebhookUrl || ''}
                   onChange={(e) => setBridgeConfig({
                     ...bridgeConfig,
-                    telegram: { ...(bridgeConfig.telegram || { botToken: '', enabled: true }), chatId: e.target.value }
+                    discordWebhookUrl: e.target.value
                   })}
-                  placeholder="Ex: 987654321 ou @mon_canal"
+                  placeholder="https://discord.com/api/webhooks/123456789/abcdefghijk..."
                 />
+              </div>
+
+              <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '0.25rem' }}>
+                <button
+                  type="button"
+                  className="btn btn-secondary btn-sm"
+                  onClick={async () => {
+                    if (!bridgeConfig.discordWebhookUrl) {
+                      onShowToast('error', 'Veuillez renseigner une URL de webhook Discord.');
+                      return;
+                    }
+                    try {
+                      const ok = await SocialPublisher.sendDiscordNotification({
+                        title: 'Test de Connexion Réussi !',
+                        description: 'Votre Webhook Discord est parfaitement configuré avec le Studio Kaelar Islamic. Vous recevrez des alertes à chaque publication de Reel !',
+                        platforms: ['instagram', 'tiktok'],
+                        videoUrl: 'https://omnipulse-ai-studio.vercel.app'
+                      });
+                      if (ok) {
+                        onShowToast('success', '✨ Message de test envoyé sur votre salon Discord !');
+                      } else {
+                        onShowToast('error', 'Erreur lors de l’envoi au Webhook Discord. Vérifiez l’URL.');
+                      }
+                    } catch (e: any) {
+                      onShowToast('error', `Erreur Discord : ${e.message}`);
+                    }
+                  }}
+                  style={{ fontSize: '0.78rem', gap: '0.3rem' }}
+                >
+                  <span>Tester le Webhook Discord 🚀</span>
+                </button>
               </div>
             </div>
           )}

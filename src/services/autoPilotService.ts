@@ -263,6 +263,14 @@ class AutoPilotServiceClass {
         ['instagram', 'tiktok']
       );
 
+      // 5b. Send Discord Notification
+      SocialPublisher.sendDiscordNotification({
+        title: `Auto-Pilot 6h : ${currentTheme.title}`,
+        description: `${selectedItem.arabicText}\n\n*${selectedItem.translationFr}*\n\n📍 ${selectedItem.source.bookOrSurah} — ${selectedItem.source.numberOrAyah}`,
+        videoUrl: publicVideoUrl,
+        platforms: ['instagram', 'tiktok']
+      });
+
       // 6. Update config & advance theme index to next in line
       const config = this.getConfig();
       config.currentThemeIndex = ((config.currentThemeIndex || 0) + 1) % AUTOPILOT_THEMES.length;
