@@ -1,13 +1,15 @@
 import React from 'react';
 import type { NavView } from './Sidebar';
-import { Sparkles, Plus, Calendar, Zap, Settings, Share2, Layers } from 'lucide-react';
+import { Sparkles, Plus, Calendar, Zap, Settings, Share2, Layers, LogOut, User, Compass } from 'lucide-react';
 import type { SocialAccount } from '../../types/content';
+import { AuthService } from '../../services/authService';
 
 interface HeaderProps {
   currentView: NavView;
   onNewPost: () => void;
   onNavigate: (view: NavView) => void;
   onOpenSettings: () => void;
+  onLogout?: () => void;
   accounts: SocialAccount[];
 }
 
@@ -16,6 +18,16 @@ const VIEW_TITLES: Record<NavView, { title: string; subtitle: string; icon: Reac
     title: 'Studio de Création Islamique',
     subtitle: 'Génération de citations, versets, hadiths authentiques, visuels et vidéos multilingues',
     icon: <Sparkles size={20} color="#10b981" />
+  },
+  autopilot: {
+    title: 'Auto-Pilot Studio (Publication 6h)',
+    subtitle: 'Moteur de génération et publication autonome multi-thématique pour Instagram & TikTok',
+    icon: <Compass size={20} color="#34d399" />
+  },
+  library: {
+    title: 'Bibliothèque & Registre Anti-Doublons',
+    subtitle: 'Historique exhaustif des versets et hadiths publiés pour garantir un contenu 100% inédit',
+    icon: <span style={{ fontSize: '1.25rem' }}>📚</span>
   },
   calendar: {
     title: 'Calendrier des Rappels Spirituels',
@@ -44,10 +56,12 @@ export const Header: React.FC<HeaderProps> = ({
   onNewPost,
   onNavigate,
   onOpenSettings,
+  onLogout,
   accounts
 }) => {
   const current = VIEW_TITLES[currentView];
   const connectedCount = accounts.filter(a => a.connected).length;
+  const user = AuthService.getCurrentUser();
 
   return (
     <header className="app-header">
@@ -76,6 +90,40 @@ export const Header: React.FC<HeaderProps> = ({
             {connectedCount > 0 ? `${connectedCount} Réseaux Connectés (@kaelar & @mdou)` : 'Passerelle Buffer'}
           </span>
         </button>
+
+        {/* User Badge & Logout */}
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
+          background: 'rgba(255, 255, 255, 0.05)',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          borderRadius: 'var(--radius-sm)',
+          padding: '0.35rem 0.65rem'
+        }}>
+          <User size={14} color="#f59e0b" />
+          <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#fef08a' }}>
+            {user?.username || 'anasmouquine'}
+          </span>
+          <button
+            onClick={() => {
+              AuthService.logout();
+              if (onLogout) onLogout();
+            }}
+            title="Se déconnecter"
+            style={{
+              background: 'transparent',
+              border: 'none',
+              color: 'var(--text-tertiary)',
+              cursor: 'pointer',
+              display: 'flex',
+              padding: '0.15rem',
+              marginLeft: '0.25rem'
+            }}
+          >
+            <LogOut size={14} />
+          </button>
+        </div>
 
         {/* New Post Button */}
         <button

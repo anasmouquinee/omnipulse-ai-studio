@@ -5,8 +5,11 @@ import { Header } from './components/common/Header';
 import { ToastNotification } from './components/common/ToastNotification';
 import type { ToastMessage } from './components/common/ToastNotification';
 import { SettingsModal } from './components/settings/SettingsModal';
+import { LoginView } from './components/auth/LoginView';
 
 import { StudioView } from './components/studio/StudioView';
+import { AutoPilotDashboard } from './components/autopilot/AutoPilotDashboard';
+import { IslamicLibraryView } from './components/library/IslamicLibraryView';
 import { CalendarView } from './components/calendar/CalendarView';
 import { CampaignGenerator } from './components/campaigns/CampaignGenerator';
 import { AccountsView } from './components/accounts/AccountsView';
@@ -16,6 +19,7 @@ import type { ScheduledPost, SocialAccount, MediaAsset } from './types/content';
 import type { AISettings } from './types/ai';
 import { StorageService } from './services/storageService';
 import { SocialPublisher } from './services/socialPublisher';
+import { AuthService } from './services/authService';
 
 import './styles/base.css';
 import './styles/layout.css';
@@ -23,6 +27,9 @@ import './styles/components.css';
 import './styles/previews.css';
 
 export const App: React.FC = () => {
+  // Authentication State
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => AuthService.isAuthenticated());
+
   // Global Application State
   const [currentView, setCurrentView] = useState<NavView>('studio');
   const [posts, setPosts] = useState<ScheduledPost[]>(() => StorageService.getPosts());
@@ -123,6 +130,21 @@ export const App: React.FC = () => {
     showToast('success', 'Asset chargé dans le Studio IA !');
   };
 
+  // If user is not authenticated, show protected Login View
+  if (!isAuthenticated) {
+    return (
+      <>
+        <LoginView
+          onLoginSuccess={() => {
+            setIsAuthenticated(true);
+            showToast('success', 'Bienvenue Anas ! Accès au Studio déverrouillé.');
+          }}
+        />
+        <ToastNotification toasts={toasts} onDismiss={handleDismissToast} />
+      </>
+    );
+  }
+
   return (
     <div className="app-container">
       {/* Background Ambients */}
@@ -146,6 +168,10 @@ export const App: React.FC = () => {
           onNewPost={() => handleNewPost()}
           onNavigate={setCurrentView}
           onOpenSettings={() => setIsSettingsOpen(true)}
+          onLogout={() => {
+            setIsAuthenticated(false);
+            showToast('info', 'Session sécurisée fermée.');
+          }}
           accounts={accounts}
         />
 
@@ -155,6 +181,18 @@ export const App: React.FC = () => {
             <StudioView
               editingPost={editingPost}
               onPostSaved={handlePostSaved}
+              onShowToast={showToast}
+            />
+          )}
+
+          {currentView === 'autopilot' && (
+            <AutoPilotDashboard
+              onShowToast={showToast}
+            />
+          )}
+
+          {currentView === 'library' && (
+            <IslamicLibraryView
               onShowToast={showToast}
             />
           )}

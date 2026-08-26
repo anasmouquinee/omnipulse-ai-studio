@@ -12,7 +12,7 @@ import {
 } from 'lucide-react';
 import type { AISettings } from '../../types/ai';
 
-export type NavView = 'studio' | 'calendar' | 'campaigns' | 'accounts' | 'media';
+export type NavView = 'studio' | 'autopilot' | 'library' | 'calendar' | 'campaigns' | 'accounts' | 'media';
 
 interface SidebarProps {
   currentView: NavView;
@@ -59,6 +59,35 @@ export const Sidebar: React.FC<SidebarProps> = ({
         >
           <Sparkles size={18} color="#10b981" />
           <span>Studio de Rappels IA</span>
+        </button>
+
+        <button
+          className={`nav-item ${currentView === 'autopilot' ? 'active' : ''}`}
+          onClick={() => onNavigate('autopilot')}
+          style={{ position: 'relative' }}
+        >
+          <span style={{ fontSize: '1.1rem' }}>🤖</span>
+          <span style={{ fontWeight: 700, color: currentView === 'autopilot' ? '#34d399' : '#a7f3d0' }}>Auto-Pilot 6 Heures</span>
+          <span style={{
+            marginLeft: 'auto',
+            fontSize: '0.65rem',
+            fontWeight: 800,
+            padding: '0.15rem 0.4rem',
+            borderRadius: '999px',
+            background: 'rgba(16, 185, 129, 0.25)',
+            color: '#34d399',
+            border: '1px solid rgba(16, 185, 129, 0.4)'
+          }}>
+            LIVE
+          </span>
+        </button>
+
+        <button
+          className={`nav-item ${currentView === 'library' ? 'active' : ''}`}
+          onClick={() => onNavigate('library')}
+        >
+          <span style={{ fontSize: '1.1rem' }}>📚</span>
+          <span>Bibliothèque & Doublons</span>
         </button>
 
         <button

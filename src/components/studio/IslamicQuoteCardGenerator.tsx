@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { IslamicPostItem, IslamicContentType, IslamicLanguage } from '../../types/islamic';
 import { IslamicContentService, AVAILABLE_RECITERS, parseSurahNumber, parseAyahNumber } from '../../services/islamicContentService';
+import { IslamicLibraryService } from '../../services/islamicLibraryService';
 import { SocialPublisher } from '../../services/socialPublisher';
 import { StorageService } from '../../services/storageService';
 import { VideoGenerator } from '../../services/videoGenerator';
@@ -217,6 +218,15 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       // Publish to Buffer for @kaelarislamic
       await SocialPublisher.publishNow(scheduled);
 
+      // Record to Library
+      IslamicLibraryService.recordPublication(
+        currentItem,
+        renderedCardUrl,
+        undefined,
+        'photo',
+        ['instagram']
+      );
+
       const latestLogs = StorageService.getPublishLogs();
       const instaLog = latestLogs.find(l => l.platform === 'instagram' && l.postId === scheduled.id);
       if (instaLog && instaLog.status === 'success') {
@@ -279,6 +289,15 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       };
 
       await SocialPublisher.publishNow(scheduled);
+
+      // Record to Library
+      IslamicLibraryService.recordPublication(
+        currentItem,
+        renderedCardUrl,
+        publicVideoUrl,
+        'reel',
+        ['instagram', 'tiktok']
+      );
 
       const latestLogs = StorageService.getPublishLogs();
       const instaLog = latestLogs.find(l => l.platform === 'instagram' && l.postId === scheduled.id);
