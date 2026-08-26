@@ -13,29 +13,29 @@ interface HeaderProps {
 
 const VIEW_TITLES: Record<NavView, { title: string; subtitle: string; icon: React.ReactNode }> = {
   studio: {
-    title: 'Studio de Création IA',
-    subtitle: 'Génération de posts, hooks, visuels Imagen 3 et vidéos pour 5 réseaux',
-    icon: <Sparkles size={20} color="var(--accent-primary)" />
+    title: 'Studio de Création Islamique',
+    subtitle: 'Génération de citations, versets, hadiths authentiques, visuels et vidéos multilingues',
+    icon: <Sparkles size={20} color="#10b981" />
   },
   calendar: {
-    title: 'Calendrier & Planification',
-    subtitle: 'Vue d’ensemble des publications programmées et automatisation multi-canaux',
-    icon: <Calendar size={20} color="var(--accent-cyan)" />
+    title: 'Calendrier des Rappels Spirituels',
+    subtitle: 'Vue d’ensemble des publications programmées pour TikTok et Instagram',
+    icon: <Calendar size={20} color="#06b6d4" />
   },
   campaigns: {
-    title: 'Générateur de Campagnes 7 Jours',
-    subtitle: 'Planification stratégique automatisée pour dominer votre niche en 1 clic',
-    icon: <Zap size={20} color="var(--accent-amber)" />
+    title: 'Routines Spirituelles 7 Jours',
+    subtitle: 'Génération automatisée d’une semaine de rappels, invocations du matin et Jumu’ah',
+    icon: <Zap size={20} color="#f59e0b" />
   },
   accounts: {
-    title: 'Comptes Réseaux Sociaux',
-    subtitle: 'Passerelles de publication TikTok, Instagram, X, LinkedIn et Facebook',
+    title: 'Comptes TikTok & Instagram',
+    subtitle: 'Diffusion directe vers @kaelarislamic et @mdou.g via Buffer API',
     icon: <Share2 size={20} color="#FE2C55" />
   },
   media: {
-    title: 'Médiathèque Multimodale',
-    subtitle: 'Visuels générés par Imagen 3 et clips animés prêts à être réutilisés',
-    icon: <Layers size={20} color="var(--accent-pink)" />
+    title: 'Médiathèque Coran & Visuels',
+    subtitle: 'Cartes de citations, récitateurs célèbres et clips vidéo prêts à diffuser',
+    icon: <Layers size={20} color="#ec4899" />
   }
 };
 
@@ -64,37 +64,28 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Header Actions */}
       <div className="header-actions">
-        {/* Connected Accounts Indicator */}
+        {/* Connected Channels Pill */}
         <button
-          className="btn btn-secondary btn-sm"
+          className="header-pill-btn"
           onClick={() => onNavigate('accounts')}
-          title="Gérer les comptes reliés"
-          style={{ gap: '0.4rem' }}
+          title="Gérer les canaux connectés"
+          style={{ background: 'rgba(6, 78, 59, 0.25)', border: '1px solid rgba(16, 185, 129, 0.3)' }}
         >
-          <div className="status-dot" style={{ background: connectedCount > 0 ? 'var(--accent-emerald)' : 'var(--accent-rose)' }} />
-          <span>{connectedCount}/5 Réseaux</span>
+          <div className="status-dot online" />
+          <span style={{ fontSize: '0.8rem', fontWeight: 600, color: '#10b981' }}>
+            {connectedCount > 0 ? `${connectedCount} Réseaux Connectés (@kaelar & @mdou)` : 'Passerelle Buffer'}
+          </span>
         </button>
 
-        {/* Settings button */}
+        {/* New Post Button */}
         <button
-          className="btn btn-secondary btn-sm"
-          onClick={onOpenSettings}
-          title="Réglages et Clés API"
+          className="btn btn-primary"
+          onClick={onNewPost}
+          style={{ gap: '0.4rem', background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)' }}
         >
-          <Settings size={15} />
+          <Plus size={16} />
+          <span>Nouveau Rappel</span>
         </button>
-
-        {/* Quick New Post Action */}
-        {currentView !== 'studio' && (
-          <button
-            className="btn btn-primary btn-sm"
-            onClick={onNewPost}
-            style={{ gap: '0.4rem' }}
-          >
-            <Plus size={15} />
-            <span>Nouveau Post IA</span>
-          </button>
-        )}
       </div>
     </header>
   );

@@ -12,12 +12,15 @@ import type {
   VideoMotionPreset, 
   GeneratedSocialPack 
 } from '../../types/ai';
+import type { IslamicPostItem, IslamicLanguage } from '../../types/islamic';
 import { GeminiService } from '../../services/geminiService';
 import { ImagenService } from '../../services/imagenService';
 import { VideoService } from '../../services/videoService';
 import { SocialPublisher } from '../../services/socialPublisher';
 import { StorageService } from '../../services/storageService';
+import { IslamicContentService } from '../../services/islamicContentService';
 
+import { IslamicQuoteCardGenerator } from './IslamicQuoteCardGenerator';
 import { AITextGenerator } from './AITextGenerator';
 import { AIImageGenerator } from './AIImageGenerator';
 import { AIVideoGenerator } from './AIVideoGenerator';
@@ -32,7 +35,9 @@ import {
   Layers, 
   Sparkles, 
   Image as ImageIcon, 
-  Film
+  Film,
+  Compass,
+  CheckCircle2
 } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
@@ -42,7 +47,7 @@ interface StudioViewProps {
   onShowToast: (type: 'success' | 'error' | 'info', msg: string) => void;
 }
 
-type StudioTab = 'text' | 'image' | 'video' | 'customize';
+type StudioTab = 'islamic' | 'text' | 'image' | 'video' | 'customize';
 
 export const StudioView: React.FC<StudioViewProps> = ({
   editingPost,
@@ -50,9 +55,9 @@ export const StudioView: React.FC<StudioViewProps> = ({
   onShowToast
 }) => {
   // Main Studio State
-  const [activeTab, setActiveTab] = useState<StudioTab>('text');
-  const [prompt, setPrompt] = useState(editingPost?.originalIdea || 'Lancement de notre nouveau studio IA tout-en-un pour réseaux sociaux');
-  const [tone, setTone] = useState<AITone>('viral');
+  const [activeTab, setActiveTab] = useState<StudioTab>('islamic');
+  const [prompt, setPrompt] = useState(editingPost?.originalIdea || 'La patience (Sabr) et la délivrance selon le Coran et la Sunnah');
+  const [tone, setTone] = useState<AITone>('educational');
   const [selectedPlatforms, setSelectedPlatforms] = useState<SocialPlatform[]>(
     editingPost?.platforms || ['tiktok', 'instagram', 'x', 'linkedin', 'facebook']
   );
@@ -60,11 +65,11 @@ export const StudioView: React.FC<StudioViewProps> = ({
   // Platform-specific content
   const [platformContent, setPlatformContent] = useState<Record<SocialPlatform, PlatformContent>>(
     editingPost?.platformContent || {
-      tiktok: { text: '', hashtags: ['#fyp', '#tech', '#viral'] },
-      instagram: { text: '', hashtags: ['#automation', '#contentcreator', '#ia'] },
-      x: { text: '', hashtags: ['#IA', '#Productivity'] },
-      linkedin: { text: '', hashtags: ['#MarketingStrategy', '#Innovation'] },
-      facebook: { text: '', hashtags: ['#entrepreneuriat', '#marketing'] },
+      tiktok: { text: '', hashtags: ['#IslamRappels', '#Coran', '#Sabr', '#MuslimTikTok', '#Dua'] },
+      instagram: { text: '', hashtags: ['#IslamFrance', '#HadithSahih', '#Tawakkul', '#KaelarIslamic'] },
+      x: { text: '', hashtags: ['#Islam', '#Rappels', '#Coran'] },
+      linkedin: { text: '', hashtags: ['#Wisdom', '#Spiritualite', '#Ethique'] },
+      facebook: { text: '', hashtags: ['#IslamRappel', '#CoranFrançais', '#Priere'] },
     }
   );
 
@@ -82,14 +87,14 @@ export const StudioView: React.FC<StudioViewProps> = ({
   const [isGeneratingVideo, setIsGeneratingVideo] = useState(false);
 
   // Image generation parameters
-  const [imagePrompt, setImagePrompt] = useState('Futuristic glowing neural network visualization in cyber-violet and cyan, 8k render');
-  const [imageRatio, setImageRatio] = useState<ImageAspectRatio>('1:1');
+  const [imagePrompt, setImagePrompt] = useState('Majestic golden crescent moon over minimalist mosque architecture at night, celestial starry sky, warm golden atmospheric lighting, 8k render');
+  const [imageRatio, setImageRatio] = useState<ImageAspectRatio>('9:16');
   const [imageStyle, setImageStyle] = useState<ImageStylePreset>('cinematic');
 
   // Video generation parameters
-  const [videoPrompt, setVideoPrompt] = useState('Dynamic camera zoom into futuristic holographic interface, smooth 60fps cinematic motion');
+  const [videoPrompt, setVideoPrompt] = useState('Slow cinematic golden dust particles floating in peaceful night mosque arches, atmospheric spiritual ambience 4k');
   const [videoDuration, setVideoDuration] = useState<5 | 10 | 15>(10);
-  const [videoMotion, setVideoMotion] = useState<VideoMotionPreset>('dynamic_pan');
+  const [videoMotion, setVideoMotion] = useState<VideoMotionPreset>('slow_zoom');
   const [videoRatio, setVideoRatio] = useState<'9:16' | '16:9' | '1:1'>('9:16');
 
   // Schedule Modal State
@@ -99,339 +104,370 @@ export const StudioView: React.FC<StudioViewProps> = ({
   const handleTogglePlatform = (platform: SocialPlatform) => {
     setSelectedPlatforms(prev => 
       prev.includes(platform) 
-        ? prev.filter(p => p !== platform) 
+        ? prev.filter(p => p !== platform)
         : [...prev, platform]
     );
   };
 
-  // Update specific platform content
-  const handleUpdateContent = (platform: SocialPlatform, updated: Partial<PlatformContent>) => {
-    setPlatformContent(prev => ({
-      ...prev,
-      [platform]: { ...prev[platform], ...updated }
-    }));
+  // 1. Apply Islamic Quote Card to Studio
+  const handleApplyIslamicPost = (item: IslamicPostItem, cardUrl: string, language: IslamicLanguage) => {
+    const scheduled = IslamicContentService.convertToScheduledPost(item, language, cardUrl);
+    setPlatformContent(scheduled.platformContent);
+    setPrompt(item.topic);
+    setCurrentMedia(scheduled.media);
+    setActivePreviewPlatform('tiktok');
   };
 
-  // 1. Generate Multi-Network Text with Gemini Flash
+  // 2. Generate Copywriting via Gemini
   const handleGenerateText = async () => {
-    if (!prompt.trim()) return;
-    setIsGeneratingText(true);
+    if (!prompt.trim()) {
+      onShowToast('error', 'Veuillez saisir un sujet ou thème islamique.');
+      return;
+    }
 
+    setIsGeneratingText(true);
     try {
-      const result: GeneratedSocialPack = await GeminiService.generateSocialPack({
+      const pack: GeneratedSocialPack = await GeminiService.generateMultiPlatformPack(
         prompt,
         tone,
-        targetPlatforms: selectedPlatforms
-      });
+        selectedPlatforms
+      );
 
-      // Update platform content
-      setPlatformContent({
-        tiktok: {
-          text: result.platforms.tiktok.caption,
-          hook: result.platforms.tiktok.hook,
-          videoScript: result.platforms.tiktok.videoScript,
-          hashtags: result.platforms.tiktok.hashtags,
-          audioTrackSuggestion: result.platforms.tiktok.audioTrackSuggestion
-        },
-        instagram: {
-          text: result.platforms.instagram.caption,
-          hook: result.platforms.instagram.hook,
-          callToAction: result.platforms.instagram.callToAction,
-          hashtags: result.platforms.instagram.hashtags
-        },
-        facebook: {
-          text: result.platforms.facebook.text,
-          hook: result.platforms.facebook.hook,
-          callToAction: result.platforms.facebook.callToAction,
-          hashtags: result.platforms.facebook.hashtags
-        },
-        linkedin: {
-          text: result.platforms.linkedin.text,
-          hook: result.platforms.linkedin.headline,
-          callToAction: result.platforms.linkedin.callToAction,
-          hashtags: result.platforms.linkedin.hashtags
-        },
-        x: {
-          text: result.platforms.x.tweet,
-          hook: result.platforms.x.threadParts?.[0],
-          hashtags: result.platforms.x.hashtags
-        }
-      });
+      setPlatformContent(prev => ({
+        ...prev,
+        ...pack.platforms
+      }));
 
-      setSuggestedImagePrompt(result.suggestedImagePrompt);
-      setSuggestedVideoPrompt(result.suggestedVideoPrompt);
-      setImagePrompt(result.suggestedImagePrompt);
-      setVideoPrompt(result.suggestedVideoPrompt);
+      if (pack.suggestedVisualPrompt) {
+        setSuggestedImagePrompt(pack.suggestedVisualPrompt);
+        setImagePrompt(pack.suggestedVisualPrompt);
+      }
+      if (pack.suggestedVideoPrompt) {
+        setSuggestedVideoPrompt(pack.suggestedVideoPrompt);
+        setVideoPrompt(pack.suggestedVideoPrompt);
+      }
 
-      onShowToast('success', 'Pack social généré avec succès par Gemini Flash !');
-      setActiveTab('customize');
-    } catch (err) {
-      console.error(err);
-      onShowToast('error', 'Erreur lors de la génération Gemini Flash.');
+      onShowToast('success', 'Pack de rappels islamiques généré par Gemini !');
+    } catch (error: any) {
+      onShowToast('error', error?.message || 'Échec de génération du texte.');
     } finally {
       setIsGeneratingText(false);
     }
   };
 
-  // 2. Generate Image with Imagen 3
+  // 3. Generate Visual Image with Imagen 3
   const handleGenerateImage = async () => {
-    if (!imagePrompt.trim()) return;
-    setIsGeneratingImage(true);
+    if (!imagePrompt.trim()) {
+      onShowToast('error', 'Veuillez décrire le visuel souhaité.');
+      return;
+    }
 
+    setIsGeneratingImage(true);
     try {
       const asset = await ImagenService.generateImage({
         prompt: imagePrompt,
         aspectRatio: imageRatio,
         style: imageStyle
       });
+
       setCurrentMedia(asset);
-      onShowToast('success', 'Visuel Imagen 3 généré et ajouté au post !');
-    } catch (err) {
-      console.error(err);
-      onShowToast('error', 'Erreur lors de la génération Imagen 3.');
+      StorageService.saveMediaAsset(asset);
+      onShowToast('success', 'Visuel islamique 8K généré avec succès !');
+    } catch (error: any) {
+      onShowToast('error', error?.message || 'Erreur de génération d’image.');
     } finally {
       setIsGeneratingImage(false);
     }
   };
 
-  // 3. Generate Video
-  const handleGenerateVideo = async () => {
-    if (!videoPrompt.trim()) return;
+  // 4. Generate AI Video Clip
+  const handleGenerateVideo = async (mode: 'text_to_video' | 'image_to_video' = 'text_to_video') => {
     setIsGeneratingVideo(true);
-
     try {
       const asset = await VideoService.generateVideo({
         prompt: videoPrompt,
+        mode,
+        sourceImageUrl: mode === 'image_to_video' ? currentMedia?.url : undefined,
         durationSeconds: videoDuration,
-        motion: videoMotion,
         aspectRatio: videoRatio,
-        sourceImageUrl: currentMedia?.type === 'image' ? currentMedia.url : undefined
+        motionPreset: videoMotion
       });
+
       setCurrentMedia(asset);
-      onShowToast('success', 'Clip vidéo IA généré avec succès !');
-    } catch (err) {
-      console.error(err);
-      onShowToast('error', 'Erreur lors de la génération vidéo.');
+      StorageService.saveMediaAsset(asset);
+      onShowToast('success', 'Clip vidéo IA généré et prêt pour TikTok / Reels !');
+    } catch (error: any) {
+      onShowToast('error', error?.message || 'Erreur de génération vidéo.');
     } finally {
       setIsGeneratingVideo(false);
     }
   };
 
-  // Build the Post Object
-  const buildCurrentPost = (status: ScheduledPost['status'] = 'draft'): ScheduledPost => {
+  // 5. Construct Post Object
+  const getPostObject = (): ScheduledPost => {
     return {
       id: editingPost?.id || `post-${Date.now()}`,
-      title: prompt.length > 50 ? prompt.substring(0, 47) + '...' : prompt,
+      title: prompt.slice(0, 50) || 'Rappel Islamique Authentique',
       originalIdea: prompt,
-      platforms: selectedPlatforms.length > 0 ? selectedPlatforms : ['tiktok', 'instagram', 'x'],
-      platformContent,
+      platforms: selectedPlatforms,
+      platformContent: platformContent,
       media: currentMedia,
-      scheduledTime: editingPost?.scheduledTime || new Date(Date.now() + 1000 * 60 * 60 * 24).toISOString(),
-      status,
+      scheduledTime: editingPost?.scheduledTime || new Date(Date.now() + 3600000).toISOString(),
+      status: editingPost?.status || 'draft',
       createdAt: editingPost?.createdAt || new Date().toISOString(),
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     };
   };
 
-  // 4. Save as Draft
+  // Save Draft
   const handleSaveDraft = () => {
-    const post = buildCurrentPost('draft');
+    const post = getPostObject();
+    post.status = 'draft';
     StorageService.savePost(post);
     onPostSaved(post);
-    onShowToast('info', 'Brouillon sauvegardé avec succès.');
+    onShowToast('success', 'Brouillon enregistré avec succès !');
   };
 
-  // 5. Direct Publish Now
+  // Direct Publish (Buffer TikTok & Instagram + Webhook)
   const handlePublishNow = async () => {
-    const post = buildCurrentPost('publishing');
+    const post = getPostObject();
     try {
-      await SocialPublisher.publishNow(post);
-      onPostSaved(post);
+      const published = await SocialPublisher.publishNow(post);
+      onPostSaved(published);
       confetti({
-        particleCount: 100,
+        particleCount: 80,
         spread: 70,
-        origin: { y: 0.6 }
+        origin: { y: 0.6 },
+        colors: ['#10b981', '#f59e0b', '#059669', '#d97706']
       });
-      onShowToast('success', 'Publication diffusée sur tous vos réseaux ! 🚀');
-    } catch (err) {
-      console.error(err);
+      onShowToast('success', 'Publié en direct sur @kaelarislamic & @mdou.g !');
+    } catch (error: any) {
       onShowToast('error', 'Erreur lors de la publication directe.');
     }
   };
 
-  // 6. Schedule Confirmation
-  const handleConfirmSchedule = (post: ScheduledPost, targetTime: Date) => {
-    const scheduled = SocialPublisher.schedulePost(post, targetTime);
-    onPostSaved(scheduled);
-    onShowToast('success', `Publication programmée pour le ${targetTime.toLocaleDateString('fr-FR')} à ${targetTime.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })} !`);
-  };
-
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.15fr) minmax(0, 0.85fr)', gap: '1.75rem', alignItems: 'start' }}>
-      {/* Left Column: AI Creation Studio & Tools */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-        {/* Navigation Tabs between Text, Image, Video, Customizer */}
-        <div className="tabs-container" style={{ padding: '0.4rem' }}>
-          <button
-            type="button"
-            className={`tab-btn ${activeTab === 'text' ? 'active' : ''}`}
-            onClick={() => setActiveTab('text')}
-            style={{ flex: 1, justifyContent: 'center' }}
-          >
-            <Sparkles size={15} color="var(--accent-primary)" />
-            <span>1. Texte Gemini</span>
-          </button>
-
-          <button
-            type="button"
-            className={`tab-btn ${activeTab === 'image' ? 'active' : ''}`}
-            onClick={() => setActiveTab('image')}
-            style={{ flex: 1, justifyContent: 'center' }}
-          >
-            <ImageIcon size={15} color="var(--accent-pink)" />
-            <span>2. Image Imagen 3</span>
-          </button>
-
-          <button
-            type="button"
-            className={`tab-btn ${activeTab === 'video' ? 'active' : ''}`}
-            onClick={() => setActiveTab('video')}
-            style={{ flex: 1, justifyContent: 'center' }}
-          >
-            <Film size={15} color="var(--accent-amber)" />
-            <span>3. Vidéo IA</span>
-          </button>
-
-          <button
-            type="button"
-            className={`tab-btn ${activeTab === 'customize' ? 'active' : ''}`}
-            onClick={() => setActiveTab('customize')}
-            style={{ flex: 1, justifyContent: 'center' }}
-          >
-            <Layers size={15} color="var(--accent-cyan)" />
-            <span>4. Ajustement</span>
-          </button>
-        </div>
-
-        {/* Tab Content 1: Gemini Flash Text */}
-        {activeTab === 'text' && (
-          <AITextGenerator
-            prompt={prompt}
-            onPromptChange={setPrompt}
-            tone={tone}
-            onToneChange={setTone}
-            selectedPlatforms={selectedPlatforms}
-            onTogglePlatform={handleTogglePlatform}
-            isGenerating={isGeneratingText}
-            onGenerate={handleGenerateText}
-          />
-        )}
-
-        {/* Tab Content 2: Imagen 3 Image */}
-        {activeTab === 'image' && (
-          <AIImageGenerator
-            imagePrompt={imagePrompt}
-            onImagePromptChange={setImagePrompt}
-            aspectRatio={imageRatio}
-            onAspectRatioChange={setImageRatio}
-            style={imageStyle}
-            onStyleChange={setImageStyle}
-            isGenerating={isGeneratingImage}
-            onGenerate={handleGenerateImage}
-            currentMedia={currentMedia}
-            suggestedPrompt={suggestedImagePrompt}
-            onApplySuggestedPrompt={() => setImagePrompt(suggestedImagePrompt)}
-          />
-        )}
-
-        {/* Tab Content 3: Video AI */}
-        {activeTab === 'video' && (
-          <AIVideoGenerator
-            videoPrompt={videoPrompt}
-            onVideoPromptChange={setVideoPrompt}
-            duration={videoDuration}
-            onDurationChange={setVideoDuration}
-            motion={videoMotion}
-            onMotionChange={setVideoMotion}
-            aspectRatio={videoRatio}
-            onAspectRatioChange={setVideoRatio}
-            isGenerating={isGeneratingVideo}
-            onGenerate={handleGenerateVideo}
-            currentMedia={currentMedia}
-            suggestedPrompt={suggestedVideoPrompt}
-            onApplySuggestedPrompt={() => setVideoPrompt(suggestedVideoPrompt)}
-          />
-        )}
-
-        {/* Tab Content 4: Platform-Specific Customizer */}
-        {activeTab === 'customize' && (
-          <PlatformCustomizer
-            platformContent={platformContent}
-            onUpdateContent={handleUpdateContent}
-            activePlatform={activePreviewPlatform}
-            onSelectPlatform={setActivePreviewPlatform}
-          />
-        )}
-
-        {/* Action Controls Bar */}
-        <div style={{
-          display: 'flex',
-          flexWrap: 'wrap',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: '0.75rem',
-          background: 'var(--bg-surface)',
-          padding: '1.25rem',
-          borderRadius: 'var(--radius-md)',
-          border: '1px solid var(--border-subtle)'
-        }}>
-          <button
-            className="btn btn-secondary"
-            onClick={handleSaveDraft}
-          >
-            <Save size={16} />
-            <span>Sauvegarder Brouillon</span>
-          </button>
-
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <button
-              className="btn btn-secondary"
-              onClick={() => setIsScheduleModalOpen(true)}
-              style={{ gap: '0.4rem', border: '1px solid var(--accent-cyan)' }}
-            >
-              <Calendar size={16} color="var(--accent-cyan)" />
-              <span>Programmer...</span>
-            </button>
-
-            <button
-              className="btn btn-primary"
-              onClick={handlePublishNow}
-              style={{ gap: '0.4rem' }}
-            >
-              <Send size={16} />
-              <span>Publier Maintenant</span>
-            </button>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+      
+      {/* Studio Header Bar */}
+      <div className="glass-card" style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        flexWrap: 'wrap',
+        gap: '1rem',
+        padding: '1rem 1.5rem',
+        border: '1px solid var(--border-accent)',
+        background: 'linear-gradient(135deg, rgba(6, 78, 59, 0.15) 0%, rgba(13, 21, 39, 0.9) 100%)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+          <div style={{
+            width: 42,
+            height: 42,
+            borderRadius: 'var(--radius-sm)',
+            background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            color: '#fff',
+            fontSize: '1.3rem'
+          }}>
+            🕌
+          </div>
+          <div>
+            <h2 style={{ fontSize: '1.2rem', fontWeight: 800 }}>Kaelar Islamic AI Studio</h2>
+            <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+              Diffusion automatique pour <strong>@kaelarislamic</strong> & <strong>@mdou.g</strong>
+            </p>
           </div>
         </div>
+
+        {/* Global Action Buttons */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+          <button 
+            className="btn btn-secondary btn-sm"
+            onClick={handleSaveDraft}
+            style={{ gap: '0.4rem' }}
+          >
+            <Save size={15} />
+            <span>Enregistrer</span>
+          </button>
+
+          <button 
+            className="btn btn-secondary btn-sm"
+            onClick={() => setIsScheduleModalOpen(true)}
+            style={{ gap: '0.4rem' }}
+          >
+            <Calendar size={15} color="var(--accent-primary)" />
+            <span>Programmer</span>
+          </button>
+
+          <button 
+            className="btn btn-primary btn-sm"
+            onClick={handlePublishNow}
+            style={{ gap: '0.4rem', background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)' }}
+          >
+            <Send size={15} />
+            <span>Publier Maintenant</span>
+          </button>
+        </div>
       </div>
 
-      {/* Right Column: Live Real-time Multi-Platform Preview */}
-      <div style={{ position: 'sticky', top: '90px' }}>
-        <MultiPlatformPreview
-          platformContent={platformContent}
-          media={currentMedia}
-          activePlatform={activePreviewPlatform}
-          onSelectPlatform={setActivePreviewPlatform}
-        />
+      {/* Main Studio Tabs */}
+      <div className="tabs-container">
+        <button 
+          className={`tab-btn ${activeTab === 'islamic' ? 'active' : ''}`}
+          onClick={() => setActiveTab('islamic')}
+          style={{ gap: '0.4rem', fontWeight: 700 }}
+        >
+          <span>🕌</span>
+          <span>1. Rappels & Citations Vérifiés</span>
+        </button>
+
+        <button 
+          className={`tab-btn ${activeTab === 'text' ? 'active' : ''}`}
+          onClick={() => setActiveTab('text')}
+          style={{ gap: '0.4rem' }}
+        >
+          <Sparkles size={15} />
+          <span>2. Textes & Scripts Gemini</span>
+        </button>
+
+        <button 
+          className={`tab-btn ${activeTab === 'image' ? 'active' : ''}`}
+          onClick={() => setActiveTab('image')}
+          style={{ gap: '0.4rem' }}
+        >
+          <ImageIcon size={15} />
+          <span>3. Visuels Imagen 3</span>
+        </button>
+
+        <button 
+          className={`tab-btn ${activeTab === 'video' ? 'active' : ''}`}
+          onClick={() => setActiveTab('video')}
+          style={{ gap: '0.4rem' }}
+        >
+          <Film size={15} />
+          <span>4. Vidéo IA & Audio</span>
+        </button>
+
+        <button 
+          className={`tab-btn ${activeTab === 'customize' ? 'active' : ''}`}
+          onClick={() => setActiveTab('customize')}
+          style={{ gap: '0.4rem' }}
+        >
+          <Layers size={15} />
+          <span>5. Personnalisation Réseaux</span>
+        </button>
       </div>
+
+      {/* Tab 1: Dedicated Islamic Quote Card Generator */}
+      {activeTab === 'islamic' && (
+        <IslamicQuoteCardGenerator
+          onApplyPost={handleApplyIslamicPost}
+          onShowToast={onShowToast}
+        />
+      )}
+
+      {/* Layout for Tabs 2, 3, 4, 5: Generator Left + Live Mockup Right */}
+      {activeTab !== 'islamic' && (
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(400px, 1fr))', 
+          gap: '1.5rem',
+          alignItems: 'start'
+        }}>
+          
+          {/* Left Panel: Active Generator */}
+          <div>
+            {activeTab === 'text' && (
+              <AITextGenerator
+                prompt={prompt}
+                setPrompt={setPrompt}
+                tone={tone}
+                setTone={setTone}
+                selectedPlatforms={selectedPlatforms}
+                onTogglePlatform={handleTogglePlatform}
+                onGenerate={handleGenerateText}
+                isGenerating={isGeneratingText}
+                onShowToast={onShowToast}
+              />
+            )}
+
+            {activeTab === 'image' && (
+              <AIImageGenerator
+                imagePrompt={imagePrompt}
+                setImagePrompt={setImagePrompt}
+                imageRatio={imageRatio}
+                setImageRatio={setImageRatio}
+                imageStyle={imageStyle}
+                setImageStyle={setImageStyle}
+                suggestedPrompt={suggestedImagePrompt}
+                onGenerate={handleGenerateImage}
+                isGenerating={isGeneratingImage}
+                generatedImage={currentMedia}
+              />
+            )}
+
+            {activeTab === 'video' && (
+              <AIVideoGenerator
+                videoPrompt={videoPrompt}
+                setVideoPrompt={setVideoPrompt}
+                videoDuration={videoDuration}
+                setVideoDuration={setVideoDuration}
+                videoMotion={videoMotion}
+                setVideoMotion={setVideoMotion}
+                videoRatio={videoRatio}
+                setVideoRatio={setVideoRatio}
+                suggestedPrompt={suggestedVideoPrompt}
+                onGenerate={handleGenerateVideo}
+                isGenerating={isGeneratingVideo}
+                generatedVideo={currentMedia}
+                currentImage={currentMedia}
+              />
+            )}
+
+            {activeTab === 'customize' && (
+              <PlatformCustomizer
+                selectedPlatforms={selectedPlatforms}
+                platformContent={platformContent}
+                setPlatformContent={setPlatformContent}
+                activePreviewPlatform={activePreviewPlatform}
+                setActivePreviewPlatform={setActivePreviewPlatform}
+              />
+            )}
+          </div>
+
+          {/* Right Panel: Interactive Social Mockups (TikTok / Instagram) */}
+          <div style={{ position: 'sticky', top: '1.5rem' }}>
+            <MultiPlatformPreview
+              activePlatform={activePreviewPlatform}
+              onSelectPlatform={setActivePreviewPlatform}
+              platformContent={platformContent[activePreviewPlatform]}
+              media={currentMedia}
+              selectedPlatforms={selectedPlatforms}
+            />
+          </div>
+
+        </div>
+      )}
 
       {/* Schedule Modal */}
-      <ScheduleModal
-        isOpen={isScheduleModalOpen}
-        onClose={() => setIsScheduleModalOpen(false)}
-        post={buildCurrentPost('scheduled')}
-        onSchedule={handleConfirmSchedule}
-      />
+      {isScheduleModalOpen && (
+        <ScheduleModal
+          isOpen={true}
+          onClose={() => setIsScheduleModalOpen(false)}
+          targetPlatform={activePreviewPlatform}
+          onScheduleConfirm={(scheduledDate) => {
+            const post = getPostObject();
+            SocialPublisher.schedulePost(post, scheduledDate);
+            onPostSaved(post);
+            setIsScheduleModalOpen(false);
+            onShowToast('success', `Rappel programmé avec succès pour le ${scheduledDate.toLocaleDateString('fr-FR')} !`);
+          }}
+        />
+      )}
+
     </div>
   );
 };

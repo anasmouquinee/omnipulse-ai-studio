@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import type { CampaignTemplate, ScheduledPost } from '../../types/content';
-import { CAMPAIGN_TEMPLATES } from '../../data/mockData';
-import { GeminiService } from '../../services/geminiService';
-import { ImagenService } from '../../services/imagenService';
+import type { ScheduledPost } from '../../types/content';
+import { IslamicContentService } from '../../services/islamicContentService';
+import { VERIFIED_ISLAMIC_POSTS } from '../../data/verifiedIslamicData';
 import { StorageService } from '../../services/storageService';
-import { Zap, Sparkles, RefreshCw, Layers, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Zap, Sparkles, RefreshCw, Layers, CheckCircle2, ArrowRight, ShieldCheck, BookOpen } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 interface CampaignGeneratorProps {
@@ -13,114 +12,79 @@ interface CampaignGeneratorProps {
   onNavigateToCalendar: () => void;
 }
 
+const ISLAMIC_7DAY_THEMES = [
+  { day: 1, name: 'Lundi : Verset du Coran sur la Délivrance (Al-Yusr)', category: 'quran_verse' as const, topic: 'La promesse du soulagement après l’épreuve' },
+  { day: 2, name: 'Mardi : Hadith Sahih sur la Patience (Sabr)', category: 'sahih_hadith' as const, topic: 'L’émerveillement face au croyant et le bienfait de la patience' },
+  { day: 3, name: 'Mercredi : Invocation contre l’angoisse (Hisn al-Muslim)', category: 'authentic_dua' as const, topic: 'Invocation pour apaiser le cœur et dissiper les soucis' },
+  { day: 4, name: 'Jeudi : Motivation pour la Prière de Nuit (Tahajjud)', category: 'tahajjud_motivation' as const, topic: 'Le secret des prières exaucées au dernier tiers de la nuit' },
+  { day: 5, name: 'Vendredi : Spécial Jumu’ah & Sourate Al-Kahf', category: 'jumua_special' as const, topic: 'La lumière entre les deux vendredis et les prières sur le Prophète ﷺ' },
+  { day: 6, name: 'Samedi : Rappel sur la Confiance en Allah (Tawakkul)', category: 'islamic_reminder' as const, topic: 'Placer sa confiance totale en Allah et lâcher prise' },
+  { day: 7, name: 'Dimanche : Le Pouvoir du Repentir & Istighfar', category: 'authentic_dua' as const, topic: 'Les bienfaits de la demande de pardon quotidienne' },
+];
+
 export const CampaignGenerator: React.FC<CampaignGeneratorProps> = ({
   onCampaignCreated,
   onShowToast,
   onNavigateToCalendar
 }) => {
-  const [selectedTemplate, setSelectedTemplate] = useState<CampaignTemplate>(CAMPAIGN_TEMPLATES[0]);
-  const [campaignTopic, setCampaignTopic] = useState('Automatisation et productivité avec l’intelligence artificielle en 2026');
-  const [targetAudience, setTargetAudience] = useState('Créateurs de contenu, agences, indépendants');
+  const [selectedLanguage, setSelectedLanguage] = useState<'all' | 'fr' | 'en' | 'ar'>('all');
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedPosts, setGeneratedPosts] = useState<ScheduledPost[]>([]);
 
   const handleGenerateCampaign = async () => {
-    if (!campaignTopic.trim()) return;
     setIsGenerating(true);
     setGeneratedPosts([]);
 
     try {
-      const daysCount = selectedTemplate.days;
       const newPosts: ScheduledPost[] = [];
       const now = new Date();
 
-      // Strategic day-by-day angles
-      const angles = [
-        { dayOffset: 1, angle: 'Hook & Prise de conscience du problème', promptSuffix: 'Mettre en lumière le problème majeur et pourquoi les anciennes méthodes échouent.' },
-        { dayOffset: 2, angle: 'Valeur éducative & Blueprint concret', promptSuffix: 'Donner 3 étapes précises et actionnables pour résoudre le problème.' },
-        { dayOffset: 3, angle: 'Storytelling & Étude de cas inspirante', promptSuffix: 'Raconter une transformation ou un cas client réel avec des métriques chiffrées.' },
-        { dayOffset: 4, angle: 'Contre-intuitif & Débat sectoriel', promptSuffix: 'Défendre une opinion tranchée qui va à contre-courant des idées reçues.' },
-        { dayOffset: 5, angle: 'Tutoriel rapide / Démo en coulisses', promptSuffix: 'Montrer les coulisses ou un tutoriel court pas à pas.' },
-        { dayOffset: 6, angle: 'FAQ & Réponses aux objections', promptSuffix: 'Répondre aux 3 freins les plus fréquents de l’audience.' },
-        { dayOffset: 7, angle: 'Récapitulatif & Appel à l’action fort', promptSuffix: 'Synthèse de la semaine avec invitation claire à passer à l’action.' }
-      ];
+      for (let i = 0; i < ISLAMIC_7DAY_THEMES.length; i++) {
+        const theme = ISLAMIC_7DAY_THEMES[i];
+        const scheduledDate = new Date(now.getTime() + (i + 1) * 24 * 60 * 60 * 1000);
+        // Set posting hour at 18:45 (ideal peak time)
+        scheduledDate.setHours(18, 45, 0, 0);
 
-      for (let i = 0; i < Math.min(daysCount, angles.length); i++) {
-        const item = angles[i];
-        const scheduledDate = new Date(now.getTime() + item.dayOffset * 24 * 60 * 60 * 1000);
-        scheduledDate.setHours(18, 30, 0, 0);
+        // Fetch or generate authentic verified post item
+        const islamicItem = await IslamicContentService.generateIslamicPost(
+          theme.category,
+          theme.topic,
+          selectedLanguage
+        );
 
-        const subPrompt = `${campaignTopic} - Angle du jour : ${item.angle}. ${item.promptSuffix} Cible : ${targetAudience}`;
+        // Render aesthetic quote card for this day
+        const cardUrl = await IslamicContentService.renderQuoteCardCanvas(
+          islamicItem,
+          '9:16',
+          selectedLanguage
+        );
 
-        const socialPack = await GeminiService.generateSocialPack({
-          prompt: subPrompt,
-          tone: selectedTemplate.tone as any,
-          targetPlatforms: ['tiktok', 'instagram', 'x', 'linkedin', 'facebook']
-        });
+        const scheduledPost = IslamicContentService.convertToScheduledPost(
+          islamicItem,
+          selectedLanguage,
+          cardUrl
+        );
 
-        // Generate matching visual
-        const media = await ImagenService.generateImage({
-          prompt: socialPack.suggestedImagePrompt,
-          aspectRatio: '1:1',
-          style: 'cinematic'
-        });
+        scheduledPost.scheduledTime = scheduledDate.toISOString();
+        scheduledPost.status = 'scheduled';
 
-        const post: ScheduledPost = {
-          id: `camp-post-${Date.now()}-${i}`,
-          title: `Jour ${item.dayOffset} : ${item.angle}`,
-          originalIdea: subPrompt,
-          platforms: ['tiktok', 'instagram', 'x', 'linkedin', 'facebook'],
-          platformContent: {
-            tiktok: {
-              text: socialPack.platforms.tiktok.caption,
-              hook: socialPack.platforms.tiktok.hook,
-              videoScript: socialPack.platforms.tiktok.videoScript,
-              hashtags: socialPack.platforms.tiktok.hashtags,
-              audioTrackSuggestion: socialPack.platforms.tiktok.audioTrackSuggestion
-            },
-            instagram: {
-              text: socialPack.platforms.instagram.caption,
-              hook: socialPack.platforms.instagram.hook,
-              callToAction: socialPack.platforms.instagram.callToAction,
-              hashtags: socialPack.platforms.instagram.hashtags
-            },
-            facebook: {
-              text: socialPack.platforms.facebook.text,
-              hook: socialPack.platforms.facebook.hook,
-              callToAction: socialPack.platforms.facebook.callToAction,
-              hashtags: socialPack.platforms.facebook.hashtags
-            },
-            linkedin: {
-              text: socialPack.platforms.linkedin.text,
-              hook: socialPack.platforms.linkedin.headline,
-              callToAction: socialPack.platforms.linkedin.callToAction,
-              hashtags: socialPack.platforms.linkedin.hashtags
-            },
-            x: {
-              text: socialPack.platforms.x.tweet,
-              hook: socialPack.platforms.x.threadParts?.[0],
-              hashtags: socialPack.platforms.x.hashtags
-            }
-          },
-          media,
-          scheduledTime: scheduledDate.toISOString(),
-          status: 'scheduled',
-          campaignTag: selectedTemplate.name,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString()
-        };
-
-        StorageService.savePost(post);
-        newPosts.push(post);
+        StorageService.savePost(scheduledPost);
+        newPosts.push(scheduledPost);
       }
 
       setGeneratedPosts(newPosts);
       onCampaignCreated(newPosts);
-      confetti({ particleCount: 150, spread: 80, origin: { y: 0.5 } });
-      onShowToast('success', `Campagne de ${newPosts.length} jours créée et programmée dans le calendrier !`);
-    } catch (err) {
-      console.error(err);
-      onShowToast('error', 'Erreur lors de la génération de la campagne.');
+
+      confetti({
+        particleCount: 100,
+        spread: 80,
+        origin: { y: 0.6 },
+        colors: ['#10b981', '#f59e0b', '#059669', '#d97706']
+      });
+
+      onShowToast('success', 'Programme islamique de 7 jours généré et planifié avec succès !');
+    } catch (e: any) {
+      onShowToast('error', 'Erreur lors de la génération du programme.');
     } finally {
       setIsGenerating(false);
     }
@@ -128,187 +92,214 @@ export const CampaignGenerator: React.FC<CampaignGeneratorProps> = ({
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.75rem' }}>
+      
       {/* Header Banner */}
-      <div className="glass-card glass-card-glow" style={{
-        background: 'var(--grad-glow-banner)',
-        border: '1px solid var(--border-accent)',
+      <div className="glass-card" style={{
+        background: 'linear-gradient(135deg, rgba(6, 78, 59, 0.25) 0%, rgba(13, 21, 39, 0.95) 100%)',
+        border: '1px solid rgba(16, 185, 129, 0.3)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
         flexWrap: 'wrap',
         gap: '1rem'
       }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
           <div style={{
-            width: 44,
-            height: 44,
+            width: 48,
+            height: 48,
             borderRadius: 'var(--radius-sm)',
-            background: 'var(--grad-gemini)',
+            background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: '#fff',
-            boxShadow: '0 0 20px var(--accent-primary-glow)'
+            fontSize: '1.5rem',
+            boxShadow: '0 0 20px rgba(16, 185, 129, 0.4)'
           }}>
-            <Zap size={24} />
+            🕌
           </div>
           <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Générateur de Campagne IA Automatisée</h2>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>
+              Programme de Rappels Spirituels 7 Jours
+            </h2>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-              Planifiez une semaine complète de contenu stratégique sur 5 réseaux en un seul clic
+              Générez 7 jours complets de versets, hadiths Sahih et invocations avec cartes HD et audio
             </p>
           </div>
         </div>
+
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: '#10b981' }}>
+          <ShieldCheck size={18} />
+          <span>100% Vérifié & Sourcé (Bukhari / Muslim)</span>
+        </div>
       </div>
 
-      {/* Campaign Setup Form */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) minmax(0, 1fr)', gap: '1.5rem' }}>
-        {/* Templates Selection */}
-        <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <Layers size={16} color="var(--accent-primary)" />
-            1. Choisissez un Modèle Stratégique
-          </h3>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-            {CAMPAIGN_TEMPLATES.map(template => (
-              <div
-                key={template.id}
-                onClick={() => setSelectedTemplate(template)}
+      {/* Campaign Controls */}
+      <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        
+        {/* Language Selection */}
+        <div className="form-group">
+          <label className="form-label">Langue de la routine 7 jours</label>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '0.5rem' }}>
+            {[
+              { id: 'all', label: 'Trilingue (AR + FR + EN) 🌍' },
+              { id: 'fr', label: 'Français 🇫🇷' },
+              { id: 'en', label: 'English 🇬🇧' },
+              { id: 'ar', label: 'العربية 🇸🇦' },
+            ].map(l => (
+              <button
+                key={l.id}
+                type="button"
+                onClick={() => setSelectedLanguage(l.id as any)}
                 style={{
-                  background: selectedTemplate.id === template.id ? 'var(--bg-surface-elevated)' : 'var(--bg-surface)',
-                  border: selectedTemplate.id === template.id ? '1px solid var(--accent-primary)' : '1px solid var(--border-subtle)',
-                  borderRadius: 'var(--radius-sm)',
-                  padding: '1rem',
-                  cursor: 'pointer',
-                  transition: 'all var(--transition-fast)'
+                  padding: '0.65rem 0.85rem',
+                  fontSize: '0.82rem',
+                  fontWeight: 700,
+                  borderRadius: 'var(--radius-xs)',
+                  background: selectedLanguage === l.id ? 'var(--grad-primary)' : 'var(--bg-input)',
+                  border: `1px solid ${selectedLanguage === l.id ? 'var(--accent-primary)' : 'var(--border-subtle)'}`,
+                  color: selectedLanguage === l.id ? '#fff' : 'var(--text-secondary)',
+                  cursor: 'pointer'
                 }}
-                className="glass-card"
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontWeight: 700, fontSize: '0.95rem', color: 'var(--text-primary)' }}>
-                    {template.name}
+                {l.label}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Day-by-Day Schedule Preview */}
+        <div>
+          <label className="form-label" style={{ marginBottom: '0.75rem' }}>
+            Programme Prévu pour les 7 Prochains Jours
+          </label>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+            {ISLAMIC_7DAY_THEMES.map((theme, idx) => (
+              <div
+                key={theme.day}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '0.65rem 1rem',
+                  background: 'var(--bg-input)',
+                  borderRadius: 'var(--radius-xs)',
+                  fontSize: '0.82rem'
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <span style={{
+                    width: 24,
+                    height: 24,
+                    borderRadius: '50%',
+                    background: 'rgba(16, 185, 129, 0.2)',
+                    color: '#10b981',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontWeight: 700,
+                    fontSize: '0.75rem'
+                  }}>
+                    {idx + 1}
                   </span>
-                  <span className="badge badge-scheduled">{template.days} Jours</span>
+                  <span style={{ fontWeight: 600, color: '#f8fafc' }}>{theme.name}</span>
                 </div>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.35rem' }}>
-                  {template.description}
-                </p>
+
+                <span style={{ fontSize: '0.75rem', color: '#f59e0b', fontWeight: 600 }}>
+                  18:45 (Pic TikTok/Insta)
+                </span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Campaign Parameters */}
-        <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-            <Sparkles size={16} color="var(--accent-cyan)" />
-            2. Thématique & Cible
-          </h3>
+        {/* Generate Button */}
+        <button
+          className="btn btn-primary"
+          onClick={handleGenerateCampaign}
+          disabled={isGenerating}
+          style={{
+            padding: '0.9rem',
+            fontSize: '0.95rem',
+            fontWeight: 800,
+            background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)',
+            gap: '0.5rem',
+            justifyContent: 'center'
+          }}
+        >
+          {isGenerating ? (
+            <>
+              <RefreshCw size={18} className="animate-spin" />
+              <span>Génération des 7 cartes de rappel & planification en cours...</span>
+            </>
+          ) : (
+            <>
+              <Sparkles size={18} />
+              <span>Générer & Planifier la Semaine (7 Posts) en 1 Clic</span>
+            </>
+          )}
+        </button>
 
-          <div className="form-group">
-            <label className="form-label">Sujet central de la campagne</label>
-            <textarea
-              className="form-textarea"
-              rows={3}
-              value={campaignTopic}
-              onChange={(e) => setCampaignTopic(e.target.value)}
-              placeholder="Ex: Lancement de notre nouveau service, Astuces de croissance TikTok, Promotion Black Friday..."
-            />
-          </div>
-
-          <div className="form-group">
-            <label className="form-label">Audience cible & Personas</label>
-            <input
-              type="text"
-              className="form-input"
-              value={targetAudience}
-              onChange={(e) => setTargetAudience(e.target.value)}
-              placeholder="Ex: Freelances, Créateurs vidéo, Décideurs B2B..."
-            />
-          </div>
-
-          <button
-            className="btn btn-gemini btn-lg"
-            onClick={handleGenerateCampaign}
-            disabled={isGenerating || !campaignTopic.trim()}
-            style={{ marginTop: 'auto' }}
-          >
-            {isGenerating ? (
-              <>
-                <RefreshCw size={18} className="animate-spin" />
-                <span>Génération des 7 publications IA en cours...</span>
-              </>
-            ) : (
-              <>
-                <Zap size={18} />
-                <span>Générer et Programmer la Campagne (7 Jours)</span>
-              </>
-            )}
-          </button>
-        </div>
       </div>
 
-      {/* Generated Campaign Results Summary */}
+      {/* Generated Posts Result */}
       {generatedPosts.length > 0 && (
         <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <CheckCircle2 size={20} color="var(--accent-emerald)" />
-              <h3 style={{ fontSize: '1.1rem', fontWeight: 700 }}>
-                {generatedPosts.length} Publications Planifiées dans votre Calendrier
+              <CheckCircle2 size={20} color="#10b981" />
+              <h3 style={{ fontSize: '1.05rem', fontWeight: 700 }}>
+                7 Rappels Islamiques Prêts & Programmés
               </h3>
             </div>
 
-            <button 
-              className="btn btn-primary btn-sm"
+            <button
+              className="btn btn-secondary btn-sm"
               onClick={onNavigateToCalendar}
-              style={{ gap: '0.4rem' }}
+              style={{ gap: '0.4rem', color: '#10b981' }}
             >
               <span>Voir dans le Calendrier</span>
               <ArrowRight size={14} />
             </button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem' }}>
-            {generatedPosts.map(p => (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem' }}>
+            {generatedPosts.map((p, idx) => (
               <div
                 key={p.id}
                 style={{
-                  background: 'var(--bg-surface)',
-                  border: '1px solid var(--border-medium)',
+                  background: 'var(--bg-input)',
                   borderRadius: 'var(--radius-sm)',
                   padding: '0.85rem',
                   display: 'flex',
-                  flexDirection: 'column',
-                  gap: '0.5rem'
+                  gap: '0.75rem',
+                  alignItems: 'center',
+                  border: '1px solid rgba(16, 185, 129, 0.2)'
                 }}
               >
-                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                  <span style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--accent-primary)' }}>
-                    {p.title}
-                  </span>
-                  <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
-                    {new Date(p.scheduledTime).toLocaleDateString('fr-FR', { weekday: 'short', day: 'numeric' })}
-                  </span>
-                </div>
-
                 {p.media?.url && (
-                  <img 
-                    src={p.media.url} 
-                    alt="Preview" 
-                    style={{ width: '100%', height: 120, objectFit: 'cover', borderRadius: 'var(--radius-xs)' }} 
+                  <img
+                    src={p.media.url}
+                    alt="Quote Card"
+                    style={{ width: 50, height: 75, objectFit: 'cover', borderRadius: 'var(--radius-xs)' }}
                   />
                 )}
-
-                <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical', overflow: 'hidden' }}>
-                  {p.platformContent.tiktok.hook || p.platformContent.instagram.caption}
-                </p>
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <div style={{ fontSize: '0.8rem', fontWeight: 700, color: '#f8fafc', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                    {p.title}
+                  </div>
+                  <div style={{ fontSize: '0.72rem', color: '#10b981', marginTop: 2 }}>
+                    📅 {new Date(p.scheduledTime).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' })} à 18:45
+                  </div>
+                  <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: 2 }}>
+                    Cibles : TikTok (@mdou.g) & Instagram (@kaelarislamic)
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       )}
+
     </div>
   );
 };
