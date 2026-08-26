@@ -57,9 +57,10 @@ export const IslamicContentService = {
     preferredReciterId: string = 'ar.alafasy'
   ): Promise<IslamicPostItem> {
     const apiKey = StorageService.getApiKey();
+    const activeTopic = customTopic?.trim() || '';
 
     if (apiKey && apiKey.trim() !== '') {
-      const activeTopic = customTopic?.trim() || 'La patience, le repentir et la miséricorde d’Allah';
+      const searchTopic = activeTopic || 'La foi, la patience et le pardon en Islam';
       try {
         const prompt = `
 Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic).
@@ -67,26 +68,25 @@ Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialis�
 Consigne STRICTE :
 - N'utilise QUE des versets authentiques du Noble Coran ou des Hadiths SAHIH (Bukhari, Muslim, Tirmidhi, Abu Dawud) ou des invocations authentiques de Hisn al-Muslim (Citadelle du Musulman).
 - Ne cite JAMAIS de hadith faible (Da'if) ou inventé (Mawdoo').
-- Si le sujet demandé est "${activeTopic}", trouve le verset coranique ou le hadith sahih le plus pertinent pour ce thème précis.
+- Sujet demandé par l'utilisateur : "${searchTopic}".
+- Trouve le verset coranique le plus majestueux, le hadith sahih le plus pertinent ou la meilleure invocation pour ce sujet précis (« ${searchTopic} »).
 - Fournis TOUJOURS la référence exacte (Nom du livre + Numéro de hadith ou Nom de sourate + numéro de verset).
 - Si c'est un verset du Coran, donne OBLIGATOIREMENT le numéro exact de la sourate (1 à 114) et le numéro du verset dans "surahNumber" et "ayahNumber".
 - Génère le contenu en 3 langues : Arabe (avec voyelles/tashkeel complet), Français et Anglais.
 
-Sujet demandé : "${activeTopic}" (Catégorie : "${category}")
-
 Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 {
-  "topic": "${activeTopic}",
+  "topic": "${searchTopic}",
   "arabicText": "Texte arabe exact avec tashkeel...",
   "phonetic": "Transcription phonétique...",
   "translationFr": "Traduction française fidèle et élégante...",
   "translationEn": "Faithful and elegant English translation...",
   "source": {
-    "type": "${category === 'quran_verse' ? 'quran' : category === 'authentic_dua' ? 'dua' : 'hadith'}",
+    "type": "quran",
     "bookOrSurah": "Sourate ... ou Sahih al-Bukhari",
     "numberOrAyah": "Verset ... ou Hadith n° ...",
-    "surahNumber": 94,
-    "ayahNumber": 5,
+    "surahNumber": 11,
+    "ayahNumber": 114,
     "arabicReference": "المرجع بالعربية",
     "authenticityGrade": "Coran (Parole d’Allah)",
     "verifiedBy": "Texte Sacré Authentifié"
@@ -104,7 +104,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 }
 `;
 
-        const modelsToTry = ['gemini-flash-latest', 'gemini-3.6-flash', 'gemini-3.5-flash'];
+        const modelsToTry = ['gemini-3.6-flash', 'gemini-3.5-flash', 'gemini-flash-latest'];
         let rawText = '';
 
         for (const model of modelsToTry) {
@@ -117,7 +117,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
                 body: JSON.stringify({
                   contents: [{ parts: [{ text: prompt }] }],
                   generationConfig: {
-                    temperature: 0.25,
+                    temperature: 0.2,
                     maxOutputTokens: 2048,
                     responseMimeType: 'application/json'
                   }
@@ -161,8 +161,8 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
           return {
             id: `islamic-${Date.now()}`,
-            type: category,
-            topic: parsed.topic || activeTopic,
+            type: parsed.source?.type === 'quran' ? 'quran_verse' : parsed.source?.type === 'dua' ? 'authentic_dua' : 'sahih_hadith',
+            topic: parsed.topic || searchTopic,
             arabicText: parsed.arabicText || parsed.arabic_text || 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
             phonetic: parsed.phonetic || '',
             translationFr,
@@ -188,7 +188,21 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       }
     }
 
-    // Fallback to verified internal database
+    // Fallback: Smart keyword match from internal verified database
+    if (activeTopic) {
+      const lower = activeTopic.toLowerCase();
+      const keywordMatch = VERIFIED_ISLAMIC_POSTS.find(p => 
+        p.topic.toLowerCase().includes(lower) || 
+        p.translationFr.toLowerCase().includes(lower) ||
+        (lower.includes('kaffar') && p.id === 'islamic-2') ||
+        (lower.includes('pardon') && p.id === 'islamic-2') ||
+        (lower.includes('angoisse') && p.id === 'islamic-3') ||
+        (lower.includes('vendredi') && p.id === 'islamic-4') ||
+        (lower.includes('nuit') && p.id === 'islamic-5')
+      );
+      if (keywordMatch) return keywordMatch;
+    }
+
     const matching = VERIFIED_ISLAMIC_POSTS.filter(p => p.type === category);
     if (matching.length > 0) {
       return matching[Math.floor(Math.random() * matching.length)];
