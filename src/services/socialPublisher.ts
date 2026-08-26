@@ -45,6 +45,22 @@ const BUFFER_CHANNEL_MAP: Partial<Record<SocialPlatform, string>> = {
 
 // Helper to upload base64 canvas card to get direct public URL for Buffer
 async function uploadBase64Image(dataUri: string): Promise<string | null> {
+  // 1. Try internal serverless API route (/api/upload)
+  try {
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ imageBase64: dataUri })
+    });
+    if (res.ok) {
+      const json = await res.json();
+      if (json.url) return json.url;
+    }
+  } catch (err) {
+    // ignore, try fallback
+  }
+
+  // 2. Direct Imgur client fallback
   try {
     const base64Data = dataUri.replace(/^data:image\/\w+;base64,/, '');
     const form = new FormData();

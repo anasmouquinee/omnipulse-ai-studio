@@ -214,20 +214,19 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       
       // Publish to selected Buffer accounts & Make.com Webhook
       await SocialPublisher.publishNow(scheduled);
-      onApplyPost(currentItem, renderedCardUrl, selectedLanguage);
 
       const latestLogs = StorageService.getPublishLogs();
       const instaLog = latestLogs.find(l => l.platform === 'instagram' && l.postId === scheduled.id);
       if (instaLog && instaLog.status === 'success') {
-        onShowToast('success', '✨ Post publié en direct sur Instagram (@kaelarislamic) via Buffer !');
+        onShowToast('success', '✨ Affiche islamique publiée en direct sur Instagram (@kaelarislamic) !');
       } else if (instaLog && instaLog.status === 'failed') {
-        onShowToast('error', instaLog.responseMessage || 'Erreur lors de la publication');
+        onShowToast('error', instaLog.responseMessage || 'Erreur lors de la publication sur Buffer.');
       } else {
-        onShowToast('success', '✨ Post envoyé avec succès aux réseaux connectés !');
+        onShowToast('success', '✨ Post transmis avec succès à Buffer (@kaelarislamic) !');
       }
     } catch (e: any) {
       console.warn('Publish error:', e);
-      onShowToast('error', 'Erreur lors de la publication directe.');
+      onShowToast('error', `Erreur de publication: ${e?.message || 'Vérifiez la connexion Buffer.'}`);
     } finally {
       setIsPublishingDirectly(false);
     }
