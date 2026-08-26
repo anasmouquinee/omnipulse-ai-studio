@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { IslamicPostItem, IslamicContentType, IslamicLanguage } from '../../types/islamic';
 import { IslamicContentService, AVAILABLE_RECITERS } from '../../services/islamicContentService';
+import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../../data/islamicBackgrounds';
 import { VERIFIED_ISLAMIC_POSTS, ISLAMIC_THEME_PRESETS, VERIFIED_RECITERS } from '../../data/verifiedIslamicData';
 import { 
   Sparkles, 
@@ -14,7 +15,9 @@ import {
   Languages,
   BookOpen,
   Mic,
-  Share2
+  Share2,
+  Image as ImageIcon,
+  Palette
 } from 'lucide-react';
 
 interface IslamicQuoteCardGeneratorProps {
@@ -30,7 +33,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   const [customTopic, setCustomTopic] = useState('');
   const [selectedLanguage, setSelectedLanguage] = useState<IslamicLanguage>('all');
   const [aspectRatio, setAspectRatio] = useState<'9:16' | '1:1'>('9:16');
-  const [selectedTheme, setSelectedTheme] = useState<'golden_night' | 'emerald_mosque' | 'desert_dunes' | 'celestial_sky'>('golden_night');
+  const [selectedThemeId, setSelectedThemeId] = useState<string>(ISLAMIC_BACKGROUND_THEMES[0].id);
   const [selectedReciterId, setSelectedReciterId] = useState<string>('ar.alafasy');
 
   const [currentItem, setCurrentItem] = useState<IslamicPostItem>(VERIFIED_ISLAMIC_POSTS[0]);
@@ -48,9 +51,10 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     const generateCanvas = async () => {
       setIsRendering(true);
       const cardUrl = await IslamicContentService.renderQuoteCardCanvas(
-        { ...currentItem, visualTheme: selectedTheme },
+        currentItem,
         aspectRatio,
-        selectedLanguage
+        selectedLanguage,
+        selectedThemeId
       );
       if (isMounted) {
         setRenderedCardUrl(cardUrl);
@@ -62,7 +66,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     return () => {
       isMounted = false;
     };
-  }, [currentItem, aspectRatio, selectedLanguage, selectedTheme]);
+  }, [currentItem, aspectRatio, selectedLanguage, selectedThemeId]);
 
   // When reciter changes on a Quran verse, fetch exact matching audio
   const handleReciterChange = async (reciterId: string) => {
@@ -84,7 +88,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     setSelectedCategory(preset.category);
     const matching = VERIFIED_ISLAMIC_POSTS.find(p => p.type === preset.category);
     if (matching) {
-      setCurrentItem({ ...matching, visualTheme: selectedTheme });
+      setCurrentItem(matching);
     }
   };
 
@@ -100,8 +104,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       );
       const updatedItem: IslamicPostItem = { 
         ...generated, 
-        id: `islamic-${Date.now()}`, 
-        visualTheme: selectedTheme 
+        id: `islamic-${Date.now()}`
       };
       setCurrentItem(updatedItem);
 
@@ -109,7 +112,8 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       const newCardUrl = await IslamicContentService.renderQuoteCardCanvas(
         updatedItem,
         aspectRatio,
-        selectedLanguage
+        selectedLanguage,
+        selectedThemeId
       );
       setRenderedCardUrl(newCardUrl);
 
@@ -187,10 +191,10 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
           </div>
           <div>
             <h2 style={{ fontSize: '1.25rem', fontWeight: 800, color: '#f8fafc' }}>
-              Générateur de Citations & Rappels Islamiques Authentiques
+              Studio Visuel & Rappels Islamiques Cinématiques
             </h2>
             <p style={{ fontSize: '0.85rem', color: '#94a3b8' }}>
-              Coran, Hadiths Sahih et Invocations vérifiés avec calligraphie arabe et audio synchronisé
+              Fonds photographiques réels, calligraphie ornée et audio synchronisé pour TikTok & Reels
             </p>
           </div>
         </div>
@@ -209,7 +213,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
             color: '#10b981'
           }}>
             <ShieldCheck size={14} />
-            100% Sources Sahih & Audio Exact
+            100% Sources Sahih & Rendu HD
           </span>
         </div>
       </div>
@@ -247,7 +251,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       </div>
 
       {/* Main Grid: Controls Left + Canvas Preview Right */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))', gap: '1.5rem', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.5rem', alignItems: 'start' }}>
         
         {/* Left: Customization Controls */}
         <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
@@ -277,12 +281,62 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
             </div>
           </div>
 
+          {/* Photographic Background Themes Selector */}
+          <div className="form-group">
+            <label className="form-label">
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <Palette size={15} color="#f59e0b" />
+                Arrière-plan Photographique & Ambiance
+              </span>
+            </label>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.6rem' }}>
+              {ISLAMIC_BACKGROUND_THEMES.map(theme => (
+                <button
+                  key={theme.id}
+                  type="button"
+                  onClick={() => setSelectedThemeId(theme.id)}
+                  style={{
+                    position: 'relative',
+                    height: 64,
+                    borderRadius: 'var(--radius-xs)',
+                    overflow: 'hidden',
+                    border: `2px solid ${selectedThemeId === theme.id ? '#f59e0b' : 'rgba(255, 255, 255, 0.1)'}`,
+                    cursor: 'pointer',
+                    padding: 0,
+                    boxShadow: selectedThemeId === theme.id ? '0 0 12px rgba(245, 158, 11, 0.4)' : 'none',
+                    transition: 'all 0.2s ease'
+                  }}
+                >
+                  <img
+                    src={theme.imageUrl}
+                    alt={theme.name}
+                    style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                  />
+                  <div style={{
+                    position: 'absolute',
+                    inset: 0,
+                    background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%)',
+                    display: 'flex',
+                    alignItems: 'flex-end',
+                    padding: '0.35rem 0.5rem',
+                    fontSize: '0.7rem',
+                    fontWeight: 700,
+                    color: '#fff',
+                    textAlign: 'left'
+                  }}>
+                    {theme.name}
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Languages Selector */}
           <div className="form-group">
             <label className="form-label">
               <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                 <Languages size={15} color="#f59e0b" />
-                Langues affichées sur la carte & les légendes
+                Langues affichées sur la carte
               </span>
             </label>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '0.4rem' }}>
@@ -330,40 +384,6 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 <option key={rec.id} value={rec.id}>{rec.name}</option>
               ))}
             </select>
-          </div>
-
-          {/* Visual Theme Preset */}
-          <div className="form-group">
-            <label className="form-label">Ambiance Visuelle & Couleurs</label>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '0.5rem' }}>
-              {[
-                { id: 'golden_night', name: 'Nuit Étoilée & Or', icon: '🌌' },
-                { id: 'emerald_mosque', name: 'Mosquée Émeraude', icon: '🕌' },
-                { id: 'desert_dunes', name: 'Dunes Dorées', icon: '🏜️' },
-                { id: 'celestial_sky', name: 'Ciel Céleste', icon: '✨' },
-              ].map(theme => (
-                <button
-                  key={theme.id}
-                  type="button"
-                  onClick={() => setSelectedTheme(theme.id as any)}
-                  style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: '0.5rem',
-                    padding: '0.6rem 0.8rem',
-                    fontSize: '0.78rem',
-                    borderRadius: 'var(--radius-xs)',
-                    background: selectedTheme === theme.id ? 'rgba(245, 158, 11, 0.2)' : 'var(--bg-input)',
-                    border: `1px solid ${selectedTheme === theme.id ? '#f59e0b' : 'var(--border-subtle)'}`,
-                    color: selectedTheme === theme.id ? '#f59e0b' : 'var(--text-secondary)',
-                    cursor: 'pointer'
-                  }}
-                >
-                  <span>{theme.icon}</span>
-                  <span style={{ fontWeight: 600 }}>{theme.name}</span>
-                </button>
-              ))}
-            </div>
           </div>
 
           {/* Aspect Ratio */}
@@ -497,11 +517,11 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
           <div style={{
             width: '100%',
-            maxWidth: aspectRatio === '9:16' ? 320 : 380,
+            maxWidth: aspectRatio === '9:16' ? 330 : 380,
             borderRadius: 'var(--radius-md)',
             overflow: 'hidden',
-            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(16, 185, 129, 0.15)',
-            border: '2px solid rgba(217, 119, 6, 0.4)',
+            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(245, 158, 11, 0.2)',
+            border: '2px solid rgba(245, 158, 11, 0.45)',
             background: '#000',
             position: 'relative'
           }}>
@@ -509,12 +529,18 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
               <img
                 src={renderedCardUrl}
                 alt="Islamic Quote Preview"
-                style={{ width: '100%', display: 'block', height: 'auto' }}
+                style={{ 
+                  width: '100%', 
+                  display: 'block', 
+                  height: 'auto',
+                  opacity: isRendering ? 0.6 : 1,
+                  transition: 'opacity 0.2s ease'
+                }}
               />
             ) : (
-              <div style={{ padding: '4rem 2rem', textAlign: 'center', color: '#94a3b8' }}>
-                <RefreshCw size={24} className="animate-spin" />
-                <p style={{ marginTop: '0.5rem', fontSize: '0.85rem' }}>Rendu de la calligraphie...</p>
+              <div style={{ padding: '5rem 2rem', textAlign: 'center', color: '#94a3b8' }}>
+                <RefreshCw size={28} className="animate-spin" color="#f59e0b" />
+                <p style={{ marginTop: '0.75rem', fontSize: '0.85rem' }}>Rendu cinématique en cours...</p>
               </div>
             )}
 
@@ -524,19 +550,20 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 position: 'absolute',
                 top: 15,
                 right: 15,
-                background: 'rgba(16, 185, 129, 0.9)',
+                background: 'rgba(16, 185, 129, 0.95)',
                 color: '#fff',
-                padding: '0.25rem 0.6rem',
+                padding: '0.3rem 0.7rem',
                 borderRadius: '999px',
-                fontSize: '0.72rem',
+                fontSize: '0.75rem',
                 fontWeight: 700,
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.3rem',
-                backdropFilter: 'blur(4px)'
+                gap: '0.35rem',
+                backdropFilter: 'blur(6px)',
+                boxShadow: '0 0 15px rgba(16, 185, 129, 0.5)'
               }}>
-                <Volume2 size={12} className="animate-bounce" />
-                <span>Récitation exacte</span>
+                <Volume2 size={13} className="animate-bounce" />
+                <span>Récitation en cours</span>
               </div>
             )}
           </div>

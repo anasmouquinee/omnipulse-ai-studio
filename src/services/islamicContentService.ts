@@ -1,11 +1,12 @@
 /**
- * Kaelar Islamic AI Studio - Islamic Content & Quote Card Service
- * Handles authentic multilingual generation (FR, EN, AR), Exact Quran Audio Matching, and Quote Card Canvas rendering.
+ * Kaelar Islamic AI Studio - Islamic Content & Aesthetic Quote Card Engine
+ * Handles authentic multilingual generation (FR, EN, AR), Exact Quran Audio Matching, and Photographic Canvas Rendering.
  */
 
 import type { IslamicPostItem, IslamicContentType, IslamicLanguage, VerifiedSource, ReciterAudio } from '../types/islamic';
 import type { ScheduledPost, SocialPlatform } from '../types/content';
 import { VERIFIED_ISLAMIC_POSTS, VERIFIED_RECITERS } from '../data/verifiedIslamicData';
+import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../data/islamicBackgrounds';
 import { StorageService } from './storageService';
 
 export const AVAILABLE_RECITERS = [
@@ -57,7 +58,6 @@ export const IslamicContentService = {
   ): Promise<IslamicPostItem> {
     const apiKey = StorageService.getApiKey();
 
-    // If Gemini API is available, generate via Gemini with strict Islamic verification prompt
     if (apiKey && apiKey.trim() !== '') {
       const activeTopic = customTopic?.trim() || 'La patience, le repentir et la miséricorde d’Allah';
       try {
@@ -190,7 +190,6 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
   ): ScheduledPost {
     const platforms: SocialPlatform[] = ['tiktok', 'instagram', 'x', 'facebook', 'linkedin'];
 
-    // Construct multilingual captions
     let fullCaptionFr = `${item.arabicText}\n\n📖 « ${item.translationFr} »\n\n📌 Source : ${item.source.bookOrSurah}, ${item.source.numberOrAyah} [${item.source.authenticityGrade}]\n\n✨ Réflexion : ${item.reflection.fr}\n\n${item.hashtags.fr.join(' ')}`;
     let fullCaptionEn = `${item.arabicText}\n\n📖 “${item.translationEn}”\n\n📌 Source: ${item.source.bookOrSurah}, ${item.source.numberOrAyah} [${item.source.authenticityGrade}]\n\n✨ Reflection: ${item.reflection.en}\n\n${item.hashtags.en.join(' ')}`;
     let fullCaptionAr = `${item.arabicText}\n\n📌 المرجع: ${item.source.arabicReference} [${item.source.authenticityGrade}]\n\n✨ تأمل: ${item.reflection.ar}\n\n${item.hashtags.ar.join(' ')}`;
@@ -236,12 +235,26 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
   },
 
   /**
-   * Generates a high-definition Islamic Quote Card on HTML Canvas (9:16 or 1:1)
+   * Helper to load an image with promise
+   */
+  loadImage(src: string): Promise<HTMLImageElement> {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.onload = () => resolve(img);
+      img.onerror = () => reject(new Error(`Failed to load image from ${src}`));
+      img.src = src;
+    });
+  },
+
+  /**
+   * Generates a high-definition, authentic photographic Islamic Quote Card on HTML Canvas (9:16 or 1:1)
    */
   async renderQuoteCardCanvas(
     item: IslamicPostItem,
     aspectRatio: '9:16' | '1:1' = '9:16',
-    displayLanguage: IslamicLanguage = 'all'
+    displayLanguage: IslamicLanguage = 'all',
+    themeOrCustomUrl?: string | IslamicBackgroundTheme
   ): Promise<string> {
     const width = 1080;
     const height = aspectRatio === '9:16' ? 1920 : 1080;
@@ -253,76 +266,141 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
     if (!ctx) return '';
 
-    // 1. Background Gradient (Majestic Islamic Night / Emerald Gradient)
-    const grad = ctx.createLinearGradient(0, 0, 0, height);
-    if (item.visualTheme === 'golden_night') {
-      grad.addColorStop(0, '#0a0d14');
-      grad.addColorStop(0.5, '#0d1527');
-      grad.addColorStop(1, '#05070c');
-    } else if (item.visualTheme === 'emerald_mosque') {
-      grad.addColorStop(0, '#042217');
-      grad.addColorStop(0.5, '#064e3b');
-      grad.addColorStop(1, '#021810');
-    } else if (item.visualTheme === 'desert_dunes') {
-      grad.addColorStop(0, '#1c1307');
-      grad.addColorStop(0.5, '#2d1b09');
-      grad.addColorStop(1, '#0f0a04');
-    } else {
-      grad.addColorStop(0, '#05070d');
-      grad.addColorStop(0.5, '#0b1120');
-      grad.addColorStop(1, '#020408');
+    // Determine Background Theme
+    let bgTheme: IslamicBackgroundTheme = ISLAMIC_BACKGROUND_THEMES[0];
+    let customImgUrl: string | undefined;
+
+    if (typeof themeOrCustomUrl === 'string') {
+      const found = ISLAMIC_BACKGROUND_THEMES.find(t => t.id === themeOrCustomUrl);
+      if (found) {
+        bgTheme = found;
+      } else if (themeOrCustomUrl.startsWith('http') || themeOrCustomUrl.startsWith('data:')) {
+        customImgUrl = themeOrCustomUrl;
+      }
+    } else if (themeOrCustomUrl && typeof themeOrCustomUrl === 'object') {
+      bgTheme = themeOrCustomUrl;
     }
-    ctx.fillStyle = grad;
+
+    const bgUrlToLoad = customImgUrl || bgTheme.imageUrl;
+
+    // 1. Draw Photographic Background Image (Aspect Cover)
+    try {
+      const img = await this.loadImage(bgUrlToLoad);
+      const imgRatio = img.width / img.height;
+      const canvasRatio = width / height;
+      let renderWidth = width;
+      let renderHeight = height;
+      let offsetX = 0;
+      let offsetY = 0;
+
+      if (imgRatio > canvasRatio) {
+        renderHeight = height;
+        renderWidth = height * imgRatio;
+        offsetX = -(renderWidth - width) / 2;
+      } else {
+        renderWidth = width;
+        renderHeight = width / imgRatio;
+        offsetY = -(renderHeight - height) / 2;
+      }
+
+      ctx.drawImage(img, offsetX, offsetY, renderWidth, renderHeight);
+    } catch (e) {
+      // Fallback elegant gradient if image cannot load
+      const grad = ctx.createLinearGradient(0, 0, 0, height);
+      grad.addColorStop(0, '#06131c');
+      grad.addColorStop(0.5, '#042217');
+      grad.addColorStop(1, '#02080d');
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, width, height);
+    }
+
+    // 2. Cinematic Dark Multi-Vignette (Top, Bottom, and Radial Glow)
+    const overlayGradient = ctx.createLinearGradient(0, 0, 0, height);
+    overlayGradient.addColorStop(0, 'rgba(4, 7, 14, 0.78)');
+    overlayGradient.addColorStop(0.2, 'rgba(4, 7, 14, 0.55)');
+    overlayGradient.addColorStop(0.5, 'rgba(6, 12, 22, 0.68)');
+    overlayGradient.addColorStop(0.85, 'rgba(4, 7, 14, 0.88)');
+    overlayGradient.addColorStop(1, 'rgba(2, 4, 8, 0.96)');
+    ctx.fillStyle = overlayGradient;
     ctx.fillRect(0, 0, width, height);
 
-    // 2. Subtle Star Particles
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-    for (let i = 0; i < 40; i++) {
-      const x = Math.random() * width;
-      const y = Math.random() * height;
-      const r = Math.random() * 2;
-      ctx.beginPath();
-      ctx.arc(x, y, r, 0, Math.PI * 2);
-      ctx.fill();
-    }
+    // 3. Ambient Gold / Emerald Soft Backlight Glow
+    const radialGlow = ctx.createRadialGradient(width / 2, height * 0.45, 80, width / 2, height * 0.45, width * 0.7);
+    radialGlow.addColorStop(0, 'rgba(245, 158, 11, 0.14)');
+    radialGlow.addColorStop(0.6, 'rgba(16, 185, 129, 0.08)');
+    radialGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = radialGlow;
+    ctx.fillRect(0, 0, width, height);
 
-    // 3. Elegant Gold Geometric Border Frame
-    ctx.strokeStyle = 'rgba(217, 119, 6, 0.35)';
-    ctx.lineWidth = 3;
-    ctx.strokeRect(40, 40, width - 80, height - 80);
+    // 4. Frosted Glassmorphism Center Container (Card with subtle border)
+    const cardMarginX = 64;
+    const cardTop = aspectRatio === '9:16' ? 140 : 80;
+    const cardBottom = aspectRatio === '9:16' ? height - 130 : height - 70;
+    const cardWidth = width - (cardMarginX * 2);
+    const cardHeight = cardBottom - cardTop;
+    const cardRadius = 24;
 
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
+    ctx.save();
+    ctx.beginPath();
+    ctx.roundRect(cardMarginX, cardTop, cardWidth, cardHeight, cardRadius);
+    ctx.fillStyle = 'rgba(7, 12, 22, 0.55)';
+    ctx.fill();
+    
+    // Golden & Emerald subtle card border
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.45)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
+
+    // Inner hairline frame
+    ctx.beginPath();
+    ctx.roundRect(cardMarginX + 12, cardTop + 12, cardWidth - 24, cardHeight - 24, cardRadius - 8);
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
     ctx.lineWidth = 1;
-    ctx.strokeRect(52, 52, width - 104, height - 104);
+    ctx.stroke();
+    ctx.restore();
 
-    // 4. Header Badge (Bismillah)
+    // 5. Ornate Header: Bismillah with Calligraphic Shadow
+    ctx.save();
     ctx.textAlign = 'center';
     ctx.fillStyle = '#f59e0b';
-    ctx.font = 'bold 36px "Traditional Arabic", "Amiri", serif';
-    ctx.fillText('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', width / 2, aspectRatio === '9:16' ? 200 : 130);
+    ctx.shadowColor = 'rgba(245, 158, 11, 0.5)';
+    ctx.shadowBlur = 12;
+    ctx.font = 'bold 38px "Amiri", "Traditional Arabic", serif';
+    ctx.fillText('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', width / 2, cardTop + (aspectRatio === '9:16' ? 75 : 60));
+    ctx.restore();
 
-    // 5. Category Pill / Badge
-    ctx.fillStyle = 'rgba(16, 185, 129, 0.15)';
-    const badgeY = aspectRatio === '9:16' ? 260 : 180;
-    ctx.fillRect(width / 2 - 160, badgeY - 26, 320, 44);
-    ctx.strokeStyle = '#10b981';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(width / 2 - 160, badgeY - 26, 320, 44);
+    // 6. Verified Category Pill Badge
+    const badgeY = cardTop + (aspectRatio === '9:16' ? 130 : 105);
+    const badgeText = `✨ ${item.source.authenticityGrade.toUpperCase()}`;
+    ctx.save();
+    ctx.fillStyle = 'rgba(16, 185, 129, 0.2)';
+    ctx.beginPath();
+    ctx.roundRect(width / 2 - 170, badgeY - 24, 340, 42, 21);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(16, 185, 129, 0.7)';
+    ctx.lineWidth = 1.5;
+    ctx.stroke();
 
-    ctx.fillStyle = '#10b981';
-    ctx.font = '600 20px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillText(`✨ ${item.source.authenticityGrade.toUpperCase()}`, width / 2, badgeY + 4);
+    ctx.fillStyle = '#34d399';
+    ctx.font = 'bold 19px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(badgeText, width / 2, badgeY + 4);
+    ctx.restore();
 
-    // 6. Main Arabic Calligraphy Text
+    // 7. Main Arabic Calligraphy Text (Large, Center, Shadowed for High Contrast)
+    ctx.save();
+    ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 52px "Traditional Arabic", "Amiri", "Scheherazade New", serif';
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
+    ctx.shadowBlur = 18;
+    ctx.shadowOffsetY = 4;
+    ctx.font = 'bold 56px "Amiri", "Traditional Arabic", "Scheherazade New", serif';
     ctx.direction = 'rtl';
-    
-    // Multi-line Arabic wrap
+
     const arabicWords = item.arabicText.split(' ');
     let line = '';
-    let startY = aspectRatio === '9:16' ? 440 : 300;
-    const maxWidth = width - 180;
+    let startY = cardTop + (aspectRatio === '9:16' ? 270 : 190);
+    const maxWidth = cardWidth - 140;
 
     for (let n = 0; n < arabicWords.length; n++) {
       const testLine = line + arabicWords[n] + ' ';
@@ -330,32 +408,42 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       if (metrics.width > maxWidth && n > 0) {
         ctx.fillText(line, width / 2, startY);
         line = arabicWords[n] + ' ';
-        startY += 80;
+        startY += 82;
       } else {
         line = testLine;
       }
     }
     ctx.fillText(line, width / 2, startY);
-    ctx.direction = 'ltr';
+    ctx.restore();
 
-    // 7. Golden Ornamental Divider
+    // 8. Golden Islamic Medallion Divider (۞ ────── ۞)
     startY += 50;
-    ctx.strokeStyle = '#d97706';
-    ctx.lineWidth = 2;
+    ctx.save();
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
+    ctx.lineWidth = 1.5;
     ctx.beginPath();
-    ctx.moveTo(width / 2 - 120, startY);
-    ctx.lineTo(width / 2 + 120, startY);
+    ctx.moveTo(width / 2 - 130, startY);
+    ctx.lineTo(width / 2 - 25, startY);
+    ctx.moveTo(width / 2 + 25, startY);
+    ctx.lineTo(width / 2 + 130, startY);
     ctx.stroke();
 
     ctx.fillStyle = '#f59e0b';
-    ctx.font = '24px serif';
-    ctx.fillText('۞', width / 2, startY + 8);
+    ctx.font = '26px serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('۞', width / 2, startY + 9);
+    ctx.restore();
 
-    // 8. Translation Texts (French and/or English or Arabic Reflection)
-    startY += 60;
-    const renderWrappedText = (text: string, fontSize: number, color: string) => {
-      ctx.fillStyle = color;
-      ctx.font = `italic ${fontSize}px Georgia, serif`;
+    // 9. Multilingual Translations (French / English / Arabic Reflection)
+    startY += 65;
+    const renderTranslationBlock = (text: string, fontSize: number, textColor: string) => {
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.fillStyle = textColor;
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+      ctx.shadowBlur = 10;
+      ctx.font = `500 ${fontSize}px Georgia, "Plus Jakarta Sans", serif`;
+      
       const words = text.split(' ');
       let currentLine = '';
 
@@ -365,48 +453,57 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
         if (metrics.width > maxWidth && n > 0) {
           ctx.fillText(currentLine, width / 2, startY);
           currentLine = words[n] + ' ';
-          startY += fontSize + 14;
+          startY += fontSize + 16;
         } else {
           currentLine = testLine;
         }
       }
       ctx.fillText(currentLine, width / 2, startY);
-      startY += fontSize + 16;
+      startY += fontSize + 20;
+      ctx.restore();
     };
 
     if (displayLanguage === 'fr' || displayLanguage === 'all') {
-      renderWrappedText(`« ${item.translationFr} »`, 30, '#cbd5e1');
+      renderTranslationBlock(`« ${item.translationFr} »`, 32, '#f1f5f9');
     }
 
     if (displayLanguage === 'en' || displayLanguage === 'all') {
-      startY += 8;
-      renderWrappedText(`“${item.translationEn}”`, 26, '#94a3b8');
+      startY += 6;
+      renderTranslationBlock(`“${item.translationEn}”`, 27, '#cbd5e1');
     }
 
     if (displayLanguage === 'ar') {
       startY += 10;
       ctx.direction = 'rtl';
-      renderWrappedText(item.reflection.ar, 28, '#f59e0b');
+      renderTranslationBlock(item.reflection.ar, 30, '#fef08a');
       ctx.direction = 'ltr';
     }
 
-    // 9. Verified Reference Gold Badge
-    const footerSourceY = aspectRatio === '9:16' ? height - 200 : height - 120;
-    ctx.fillStyle = 'rgba(217, 119, 6, 0.2)';
-    ctx.fillRect(width / 2 - 300, footerSourceY - 30, 600, 56);
-    ctx.strokeStyle = '#f59e0b';
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(width / 2 - 300, footerSourceY - 30, 600, 56);
+    // 10. Verified Source Bottom Banner Card
+    const sourceCardY = cardBottom - (aspectRatio === '9:16' ? 95 : 75);
+    ctx.save();
+    ctx.fillStyle = 'rgba(245, 158, 11, 0.16)';
+    ctx.beginPath();
+    ctx.roundRect(width / 2 - 280, sourceCardY - 26, 560, 52, 12);
+    ctx.fill();
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.7)';
+    ctx.lineWidth = 1.2;
+    ctx.stroke();
 
-    ctx.fillStyle = '#f59e0b';
-    ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillText(`📚 ${item.source.bookOrSurah} — ${item.source.numberOrAyah}`, width / 2, footerSourceY + 6);
+    ctx.fillStyle = '#fde68a';
+    ctx.font = 'bold 21px -apple-system, BlinkMacSystemFont, "Plus Jakarta Sans", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText(`📚 ${item.source.bookOrSurah} — ${item.source.numberOrAyah}`, width / 2, sourceCardY + 6);
+    ctx.restore();
 
-    // 10. Channel Handle Branding Footer
-    const handleY = aspectRatio === '9:16' ? height - 90 : height - 40;
+    // 11. Footer Branding & Social Handle
+    const footerY = height - (aspectRatio === '9:16' ? 65 : 28);
+    ctx.save();
     ctx.fillStyle = '#94a3b8';
-    ctx.font = '600 22px -apple-system, BlinkMacSystemFont, sans-serif';
-    ctx.fillText('TikTok: @mdou.g  •  Instagram: @kaelarislamic', width / 2, handleY);
+    ctx.font = '600 20px -apple-system, BlinkMacSystemFont, sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('TikTok: @mdou.g  •  Instagram: @kaelarislamic', width / 2, footerY);
+    ctx.restore();
 
     return canvas.toDataURL('image/png');
   }
