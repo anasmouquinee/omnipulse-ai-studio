@@ -415,3 +415,65 @@
 .toggle-track.checked .toggle-thumb {
   transform: translateX(20px);
 }
+
+/* ==========================================================================
+   Cinematic Video Reel Player & Particle Effects
+   ========================================================================== */
+
+@keyframes floatingBokeh {
+  0% {
+    transform: translateY(100%) scale(0.6);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-20%) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes breathingGlow {
+  0%, 100% {
+    opacity: 0.15;
+    transform: scale(0.95);
+  }
+  50% {
+    opacity: 0.45;
+    transform: scale(1.1);
+  }
+}
+
+@keyframes spinDisc {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes cinematicSlowZoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cinematic-zoom-motion {
+  animation: cinematicSlowZoom 25s ease-in-out infinite;
+}
+
+.spin-disc-active {
+  animation: spinDisc 4s linear infinite;
+}
+

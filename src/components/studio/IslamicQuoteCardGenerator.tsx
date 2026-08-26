@@ -47,8 +47,10 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   const [isGeneratingGemini, setIsGeneratingGemini] = useState(false);
   const [isPublishingDirectly, setIsPublishingDirectly] = useState(false);
 
-  // Audio Playback
+  // Audio Playback & Interactive Live Reel Mode
+  const [previewMode, setPreviewMode] = useState<'video' | 'photo'>('video');
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
+  const [audioProgressPercent, setAudioProgressPercent] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   // Render canvas card when currentItem, aspectRatio, selectedLanguage or theme changes
@@ -803,63 +805,261 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
           </div>
         </div>
 
-        {/* Right: Live Canvas Render Preview */}
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
+        {/* Right: Live Canvas & Video Reel Render Preview */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.85rem' }}>
+          
+          {/* Mode Switcher */}
           <div style={{
+            display: 'flex',
+            gap: '0.35rem',
+            background: 'var(--bg-input)',
+            padding: '0.25rem',
+            borderRadius: 'var(--radius-sm)',
             width: '100%',
-            maxWidth: aspectRatio === '9:16' ? 330 : 380,
-            borderRadius: 'var(--radius-md)',
-            overflow: 'hidden',
-            boxShadow: '0 20px 50px rgba(0, 0, 0, 0.75), 0 0 30px rgba(245, 158, 11, 0.2)',
-            border: '2px solid rgba(245, 158, 11, 0.45)',
-            background: '#000',
-            position: 'relative'
+            maxWidth: aspectRatio === '9:16' ? 340 : 380,
+            border: '1px solid var(--border-subtle)'
           }}>
+            <button
+              type="button"
+              onClick={() => setPreviewMode('video')}
+              style={{
+                flex: 1,
+                padding: '0.45rem 0.6rem',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                borderRadius: 'var(--radius-xs)',
+                background: previewMode === 'video' ? 'linear-gradient(135deg, #10b981 0%, #d97706 100%)' : 'transparent',
+                color: previewMode === 'video' ? '#fff' : 'var(--text-secondary)',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.35rem',
+                boxShadow: previewMode === 'video' ? '0 0 10px rgba(16, 185, 129, 0.4)' : 'none'
+              }}
+            >
+              <span>🎬 Mode Reel Vidéo (Animé)</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setPreviewMode('photo')}
+              style={{
+                flex: 1,
+                padding: '0.45rem 0.6rem',
+                fontSize: '0.78rem',
+                fontWeight: 700,
+                borderRadius: 'var(--radius-xs)',
+                background: previewMode === 'photo' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
+                color: previewMode === 'photo' ? '#fff' : 'var(--text-secondary)',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.35rem'
+              }}
+            >
+              <span>🖼️ Affiche Fixe</span>
+            </button>
+          </div>
+
+          {/* Interactive Player Screen */}
+          <div 
+            onClick={toggleAudio}
+            style={{
+              width: '100%',
+              maxWidth: aspectRatio === '9:16' ? 340 : 380,
+              borderRadius: 'var(--radius-md)',
+              overflow: 'hidden',
+              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(245, 158, 11, 0.25)',
+              border: `2px solid ${isPlayingAudio ? '#10b981' : 'rgba(245, 158, 11, 0.5)'}`,
+              background: '#040711',
+              position: 'relative',
+              cursor: 'pointer',
+              transition: 'border-color 0.3s ease'
+            }}
+          >
             {renderedCardUrl ? (
-              <img
-                src={renderedCardUrl}
-                alt="Islamic Quote Preview"
-                style={{ 
-                  width: '100%', 
-                  display: 'block', 
-                  height: 'auto',
-                  opacity: isRendering ? 0.6 : 1,
-                  transition: 'opacity 0.2s ease'
-                }}
-              />
+              <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
+                {/* Visual Card Image with Cinematic Zoom */}
+                <img
+                  src={renderedCardUrl}
+                  alt="Islamic Quote Preview"
+                  className={previewMode === 'video' && isPlayingAudio ? 'cinematic-zoom-motion' : ''}
+                  style={{ 
+                    width: '100%', 
+                    display: 'block', 
+                    height: 'auto',
+                    opacity: isRendering ? 0.5 : 1,
+                    transition: 'opacity 0.2s ease, transform 0.3s ease'
+                  }}
+                />
+
+                {/* Video Mode Overlays */}
+                {previewMode === 'video' && (
+                  <>
+                    {/* Breathing Spiritual Light Aura */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '25%',
+                      left: '20%',
+                      width: '60%',
+                      height: '40%',
+                      background: 'radial-gradient(circle, rgba(245, 158, 11, 0.22) 0%, rgba(16, 185, 129, 0.1) 50%, transparent 75%)',
+                      animation: 'breathingGlow 4s ease-in-out infinite',
+                      pointerEvents: 'none'
+                    }} />
+
+                    {/* Floating Golden Bokeh Particles */}
+                    <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', overflow: 'hidden' }}>
+                      {[...Array(14)].map((_, idx) => (
+                        <div
+                          key={idx}
+                          style={{
+                            position: 'absolute',
+                            left: `${(idx * 7.5 + 4) % 92}%`,
+                            bottom: 0,
+                            width: `${3 + (idx % 4)}px`,
+                            height: `${3 + (idx % 4)}px`,
+                            borderRadius: '50%',
+                            background: idx % 2 === 0 ? '#fef08a' : '#34d399',
+                            boxShadow: `0 0 8px ${idx % 2 === 0 ? '#f59e0b' : '#10b981'}`,
+                            animation: `floatingBokeh ${5 + (idx % 4)}s linear infinite`,
+                            animationDelay: `${idx * 0.45}s`
+                          }}
+                        />
+                      ))}
+                    </div>
+
+                    {/* Center Play / Pause Pulsing Action Button */}
+                    <div style={{
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      transform: 'translate(-50%, -50%)',
+                      width: 58,
+                      height: 58,
+                      borderRadius: '50%',
+                      background: isPlayingAudio ? 'rgba(0, 0, 0, 0.35)' : 'linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(217, 119, 6, 0.9) 100%)',
+                      backdropFilter: 'blur(8px)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: '#ffffff',
+                      boxShadow: '0 0 25px rgba(0,0,0,0.6)',
+                      opacity: isPlayingAudio ? 0 : 0.95,
+                      transition: 'all 0.3s ease',
+                      border: '2px solid rgba(255,255,255,0.4)',
+                      pointerEvents: 'none'
+                    }}>
+                      {isPlayingAudio ? <Pause size={24} /> : <Play size={24} style={{ marginLeft: 3 }} />}
+                    </div>
+
+                    {/* Top Live Badge */}
+                    <div style={{
+                      position: 'absolute',
+                      top: 12,
+                      left: 12,
+                      background: 'rgba(0, 0, 0, 0.65)',
+                      backdropFilter: 'blur(8px)',
+                      color: '#f8fafc',
+                      padding: '0.25rem 0.6rem',
+                      borderRadius: '999px',
+                      fontSize: '0.68rem',
+                      fontWeight: 800,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.35rem',
+                      border: '1px solid rgba(255,255,255,0.15)'
+                    }}>
+                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: isPlayingAudio ? '#10b981' : '#f59e0b' }} />
+                      <span>{isPlayingAudio ? 'LECTURE REEL EN DIRECT' : 'CLIQUEZ POUR LIRE LE REEL'}</span>
+                    </div>
+
+                    {/* TikTok / Instagram Right Sidebar Simulation */}
+                    <div style={{
+                      position: 'absolute',
+                      right: 10,
+                      bottom: 75,
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      gap: '0.9rem',
+                      color: '#ffffff',
+                      textShadow: '0 2px 4px rgba(0,0,0,0.8)'
+                    }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <span style={{ fontSize: '1.1rem' }}>❤️</span>
+                        </div>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 700, marginTop: '2px' }}>38.4k</span>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <span style={{ fontSize: '1.05rem' }}>💬</span>
+                        </div>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 700, marginTop: '2px' }}>1.2k</span>
+                      </div>
+
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                        <div style={{ width: 34, height: 34, borderRadius: '50%', background: 'rgba(255,255,255,0.15)', backdropFilter: 'blur(6px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          <span style={{ fontSize: '1.05rem' }}>✈️</span>
+                        </div>
+                        <span style={{ fontSize: '0.65rem', fontWeight: 700, marginTop: '2px' }}>9.5k</span>
+                      </div>
+
+                      {/* Spinning Vinyl Record Disc */}
+                      <div 
+                        className={isPlayingAudio ? 'spin-disc-active' : ''}
+                        style={{
+                          width: 32,
+                          height: 32,
+                          borderRadius: '50%',
+                          background: 'radial-gradient(circle, #020617 35%, #d97706 70%, #f59e0b 100%)',
+                          border: '2px solid rgba(255,255,255,0.5)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 0 10px rgba(0,0,0,0.8)'
+                        }}
+                      >
+                        <span style={{ fontSize: '0.65rem' }}>🎵</span>
+                      </div>
+                    </div>
+
+                    {/* Bottom Audio Progress Bar */}
+                    <div style={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      height: 5,
+                      background: 'rgba(255, 255, 255, 0.15)'
+                    }}>
+                      <div style={{
+                        height: '100%',
+                        width: `${audioProgressPercent}%`,
+                        background: 'linear-gradient(90deg, #10b981 0%, #f59e0b 100%)',
+                        boxShadow: '0 0 10px #f59e0b',
+                        transition: 'width 0.1s linear'
+                      }} />
+                    </div>
+                  </>
+                )}
+              </div>
             ) : (
               <div style={{ padding: '5rem 2rem', textAlign: 'center', color: '#94a3b8' }}>
                 <RefreshCw size={28} className="animate-spin" color="#f59e0b" />
                 <p style={{ marginTop: '0.75rem', fontSize: '0.85rem' }}>Rendu cinématique en cours...</p>
               </div>
             )}
-
-            {/* Audio Indicator Overlay */}
-            {isPlayingAudio && (
-              <div style={{
-                position: 'absolute',
-                top: 15,
-                right: 15,
-                background: 'rgba(16, 185, 129, 0.95)',
-                color: '#fff',
-                padding: '0.3rem 0.7rem',
-                borderRadius: '999px',
-                fontSize: '0.75rem',
-                fontWeight: 700,
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.35rem',
-                backdropFilter: 'blur(6px)',
-                boxShadow: '0 0 15px rgba(16, 185, 129, 0.5)'
-              }}>
-                <Volume2 size={13} className="animate-bounce" />
-                <span>Récitation en cours</span>
-              </div>
-            )}
           </div>
 
           <div style={{ fontSize: '0.78rem', color: '#94a3b8', textAlign: 'center' }}>
-            Prêt pour publication directe sur <strong>@kaelarislamic</strong>
+            {previewMode === 'video' ? '🎬 Rendu vidéo cinématique actif • Synchronisé avec la récitation' : '🖼️ Mode affiche photo • Haute définition 1080x1920'}
           </div>
         </div>
 
