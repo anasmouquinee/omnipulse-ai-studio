@@ -116,6 +116,7 @@ export const StudioView: React.FC<StudioViewProps> = ({
     setPrompt(item.topic);
     setCurrentMedia(scheduled.media);
     setActivePreviewPlatform('tiktok');
+    setActiveTab('text');
   };
 
   // 2. Generate Copywriting via Gemini

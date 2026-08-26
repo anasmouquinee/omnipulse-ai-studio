@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { IslamicPostItem, IslamicContentType, IslamicLanguage } from '../../types/islamic';
 import { IslamicContentService, AVAILABLE_RECITERS } from '../../services/islamicContentService';
+import { SocialPublisher } from '../../services/socialPublisher';
 import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../../data/islamicBackgrounds';
 import { VERIFIED_ISLAMIC_POSTS, ISLAMIC_THEME_PRESETS, VERIFIED_RECITERS } from '../../data/verifiedIslamicData';
 import { 
@@ -16,6 +17,7 @@ import {
   BookOpen,
   Mic,
   Share2,
+  Send,
   Image as ImageIcon,
   Palette
 } from 'lucide-react';
@@ -40,6 +42,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   const [renderedCardUrl, setRenderedCardUrl] = useState<string>('');
   const [isRendering, setIsRendering] = useState(false);
   const [isGeneratingGemini, setIsGeneratingGemini] = useState(false);
+  const [isPublishingDirectly, setIsPublishingDirectly] = useState(false);
 
   // Audio Playback
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
@@ -141,7 +144,29 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
 
   const handleApplyToStudio = () => {
     onApplyPost(currentItem, renderedCardUrl, selectedLanguage);
-    onShowToast('success', 'Rappel islamique et carte visuelle appliqués au studio !');
+    onShowToast('success', 'Rappel islamique chargé dans l’éditeur du studio !');
+  };
+
+  const handleDirectPublish = async () => {
+    setIsPublishingDirectly(true);
+    try {
+      const scheduled = IslamicContentService.convertToScheduledPost(
+        currentItem,
+        selectedLanguage,
+        renderedCardUrl
+      );
+      
+      // Publish to selected Buffer accounts & Make.com Webhook
+      await SocialPublisher.publishNow(scheduled);
+      onApplyPost(currentItem, renderedCardUrl, selectedLanguage);
+
+      onShowToast('success', '✨ Post publié avec succès sur Instagram (@kaelarislamic) et TikTok (@mdou.g) !');
+    } catch (e: any) {
+      console.warn('Publish error:', e);
+      onShowToast('error', 'Erreur lors de la publication directe. Vérifiez la connexion Buffer.');
+    } finally {
+      setIsPublishingDirectly(false);
+    }
   };
 
   const handleDownload = () => {
@@ -492,24 +517,55 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
           </div>
 
           {/* Action Buttons */}
-          <div style={{ display: 'flex', gap: '0.75rem' }}>
-            <button
-              className="btn btn-secondary"
-              onClick={handleDownload}
-              style={{ flex: 1, gap: '0.4rem' }}
-            >
-              <Download size={15} />
-              <span>Télécharger HD</span>
-            </button>
-
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
             <button
               className="btn btn-primary"
-              onClick={handleApplyToStudio}
-              style={{ flex: 1.5, gap: '0.4rem', background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)' }}
+              onClick={handleDirectPublish}
+              disabled={isPublishingDirectly}
+              style={{
+                width: '100%',
+                padding: '0.85rem',
+                fontSize: '0.92rem',
+                fontWeight: 700,
+                gap: '0.5rem',
+                background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)',
+                boxShadow: '0 0 20px rgba(16, 185, 129, 0.35)'
+              }}
             >
-              <Share2 size={16} />
-              <span>Appliquer & Publier</span>
+              {isPublishingDirectly ? (
+                <>
+                  <RefreshCw size={17} className="animate-spin" />
+                  <span>Publication en cours sur Buffer & Make.com...</span>
+                </>
+              ) : (
+                <>
+                  <Send size={17} />
+                  <span>🚀 Publier Directement sur @kaelarislamic & TikTok</span>
+                </>
+              )}
             </button>
+
+            <div style={{ display: 'flex', gap: '0.6rem' }}>
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleDownload}
+                style={{ flex: 1, gap: '0.4rem', fontSize: '0.82rem' }}
+              >
+                <Download size={14} />
+                <span>Télécharger HD</span>
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-secondary"
+                onClick={handleApplyToStudio}
+                style={{ flex: 1.2, gap: '0.4rem', fontSize: '0.82rem' }}
+              >
+                <Share2 size={14} />
+                <span>Éditer dans le Studio</span>
+              </button>
+            </div>
           </div>
         </div>
 

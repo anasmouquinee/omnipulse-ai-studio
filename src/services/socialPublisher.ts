@@ -68,10 +68,13 @@ export const SocialPublisher = {
         try {
           const assets: any[] = [];
           if (post.media?.url) {
-            if (post.media.type === 'video' || platform === 'tiktok') {
-              assets.push({ video: { url: post.media.url } });
-            } else {
-              assets.push({ image: { url: post.media.url } });
+            const isHttp = post.media.url.startsWith('http://') || post.media.url.startsWith('https://');
+            if (isHttp) {
+              if (post.media.type === 'video' || platform === 'tiktok') {
+                assets.push({ video: { url: post.media.url } });
+              } else {
+                assets.push({ image: { url: post.media.url } });
+              }
             }
           }
 
