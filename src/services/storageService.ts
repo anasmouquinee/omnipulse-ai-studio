@@ -35,7 +35,7 @@ const DEFAULT_BRIDGE_CONFIG: SocialBridgeConfig = {
   },
   cloudStorage: {
     provider: 'cloudinary',
-    cloudinaryCloudName: '',
+    cloudinaryCloudName: 'zmgzjmpl',
     cloudinaryUploadPreset: ''
   }
 };
