@@ -413,7 +413,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       id: `post-islamic-${Date.now()}`,
       title: `✨ Rappel : ${item.topic}`,
       originalIdea: item.topic,
-      platforms: ['tiktok', 'instagram'],
+      platforms: ['instagram'],
       platformContent,
       media: customImageUrl ? {
         id: `med-islamic-${Date.now()}`,

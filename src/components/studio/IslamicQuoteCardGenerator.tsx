@@ -233,6 +233,100 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     }
   };
 
+  const [isExportingVideo, setIsExportingVideo] = useState(false);
+
+  const handleExportVideoReel = async () => {
+    if (!renderedCardUrl || !currentItem.reciterAudio?.audioUrl) {
+      onShowToast('info', 'Audio non disponible pour l’export vidéo');
+      return;
+    }
+
+    setIsExportingVideo(true);
+    onShowToast('info', '🎬 Création du Reel vidéo avec audio Coranique...');
+
+    try {
+      const audio = new Audio();
+      audio.crossOrigin = 'anonymous';
+      audio.src = currentItem.reciterAudio.audioUrl;
+
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+      img.src = renderedCardUrl;
+
+      await Promise.all([
+        new Promise((res) => { 
+          audio.oncanplaythrough = res; 
+          audio.onerror = res; 
+          setTimeout(res, 4000); 
+        }),
+        new Promise((res, rej) => { img.onload = res; img.onerror = rej; })
+      ]);
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 1080;
+      canvas.height = 1920;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Canvas context not available');
+
+      ctx.drawImage(img, 0, 0, 1080, 1920);
+
+      const canvasStream = canvas.captureStream(30);
+      
+      const AudioCtx = window.AudioContext || (window as any).webkitAudioContext;
+      const audioCtx = new AudioCtx();
+      const dest = audioCtx.createMediaStreamDestination();
+      const source = audioCtx.createMediaElementSource(audio);
+      source.connect(dest);
+      source.connect(audioCtx.destination);
+
+      const combinedTracks = [
+        ...canvasStream.getVideoTracks(),
+        ...dest.stream.getAudioTracks()
+      ];
+      const combinedStream = new MediaStream(combinedTracks);
+
+      const mimeType = MediaRecorder.isTypeSupported('video/mp4') 
+        ? 'video/mp4' 
+        : (MediaRecorder.isTypeSupported('video/webm;codecs=vp9,opus') ? 'video/webm;codecs=vp9,opus' : 'video/webm');
+
+      const recorder = new MediaRecorder(combinedStream, { mimeType });
+      const chunks: Blob[] = [];
+
+      recorder.ondataavailable = (e) => {
+        if (e.data.size > 0) chunks.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: mimeType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        const ext = mimeType.includes('mp4') ? 'mp4' : 'webm';
+        a.download = `reel-${(currentItem.source.bookOrSurah || 'quran').replace(/[^a-zA-Z0-9]/g, '-')}-${Date.now()}.${ext}`;
+        a.click();
+        audioCtx.close();
+        setIsExportingVideo(false);
+        onShowToast('success', '✨ Vidéo Reel avec audio Coranique téléchargée pour TikTok et Instagram !');
+      };
+
+      recorder.start();
+      await audio.play();
+
+      const duration = Math.min(audio.duration || 12, 45);
+      setTimeout(() => {
+        if (recorder.state === 'recording') {
+          recorder.stop();
+          audio.pause();
+        }
+      }, duration * 1000 + 500);
+
+    } catch (err: any) {
+      console.warn('Video export error:', err);
+      setIsExportingVideo(false);
+      onShowToast('error', 'Erreur lors de la création vidéo dans le navigateur.');
+    }
+  };
+
   const handleDownload = () => {
     if (!renderedCardUrl) return;
     const link = document.createElement('a');
@@ -599,37 +693,54 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
               {isPublishingDirectly ? (
                 <>
                   <RefreshCw size={17} className="animate-spin" />
-                  <span>Publication en cours sur Buffer & Make.com...</span>
+                  <span>Publication en cours sur Buffer...</span>
                 </>
               ) : (
                 <>
                   <Send size={17} />
-                  <span>🚀 Publier Directement sur @kaelarislamic & TikTok</span>
+                  <span>🚀 Publier l'Affiche sur @kaelarislamic (Instagram)</span>
                 </>
               )}
             </button>
 
-            <div style={{ display: 'flex', gap: '0.6rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
               <button
                 type="button"
                 className="btn btn-secondary"
-                onClick={handleDownload}
-                style={{ flex: 1, gap: '0.4rem', fontSize: '0.82rem' }}
+                onClick={handleExportVideoReel}
+                disabled={isExportingVideo}
+                style={{ 
+                  gap: '0.4rem', 
+                  fontSize: '0.82rem',
+                  background: 'rgba(245, 158, 11, 0.12)',
+                  borderColor: 'rgba(245, 158, 11, 0.4)',
+                  color: '#fbbf24'
+                }}
               >
-                <Download size={14} />
-                <span>Télécharger HD</span>
+                {isExportingVideo ? <RefreshCw size={14} className="animate-spin" /> : <Mic size={14} />}
+                <span>{isExportingVideo ? 'Enregistrement...' : '🎬 Vidéo Reel + Audio (TikTok)'}</span>
               </button>
 
               <button
                 type="button"
                 className="btn btn-secondary"
-                onClick={handleApplyToStudio}
-                style={{ flex: 1.2, gap: '0.4rem', fontSize: '0.82rem' }}
+                onClick={handleDownload}
+                style={{ gap: '0.4rem', fontSize: '0.82rem' }}
               >
-                <Share2 size={14} />
-                <span>Éditer dans le Studio</span>
+                <Download size={14} />
+                <span>Télécharger Image HD</span>
               </button>
             </div>
+
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleApplyToStudio}
+              style={{ width: '100%', gap: '0.4rem', fontSize: '0.82rem' }}
+            >
+              <Share2 size={14} />
+              <span>Éditer le texte dans le Studio</span>
+            </button>
           </div>
         </div>
 
