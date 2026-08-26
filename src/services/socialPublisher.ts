@@ -138,47 +138,76 @@ export const SocialPublisher = {
           let variables: any;
 
           if (platform === 'instagram') {
-            let imageUrl = 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&auto=format&fit=crop&q=85';
+            const isVideo = post.media?.type === 'video';
 
-            if (post.media?.url) {
-              if (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) {
-                imageUrl = post.media.url;
-              } else if (post.media.url.startsWith('data:image/')) {
-                // Real canvas card image: upload to Imgur to give Buffer a direct public HTTPS URL
-                const uploaded = await uploadBase64Image(post.media.url);
-                if (uploaded) {
-                  imageUrl = uploaded;
+            if (isVideo) {
+              const videoUrl = post.media?.url || 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
+              variables = {
+                input: {
+                  channelId,
+                  text: postText,
+                  mode: 'shareNow',
+                  schedulingType: 'automatic',
+                  needsApproval: false,
+                  metadata: {
+                    instagram: {
+                      type: 'reel',
+                      shouldShareToFeed: true
+                    }
+                  },
+                  assets: [
+                    {
+                      video: {
+                        url: videoUrl
+                      }
+                    }
+                  ]
+                }
+              };
+            } else {
+              // Photo Post
+              let imageUrl = 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&auto=format&fit=crop&q=85';
+
+              if (post.media?.url) {
+                if (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) {
+                  imageUrl = post.media.url;
+                } else if (post.media.url.startsWith('data:image/')) {
+                  // Real canvas card image: upload to Imgur to give Buffer a direct public HTTPS URL
+                  const uploaded = await uploadBase64Image(post.media.url);
+                  if (uploaded) {
+                    imageUrl = uploaded;
+                  }
                 }
               }
-            }
 
-            variables = {
-              input: {
-                channelId,
-                text: postText,
-                mode: 'shareNow',
-                schedulingType: 'automatic',
-                needsApproval: false,
-                metadata: {
-                  instagram: {
-                    type: 'post',
-                    shouldShareToFeed: true
-                  }
-                },
-                assets: [
-                  {
-                    image: {
-                      url: imageUrl
+              variables = {
+                input: {
+                  channelId,
+                  text: postText,
+                  mode: 'shareNow',
+                  schedulingType: 'automatic',
+                  needsApproval: false,
+                  metadata: {
+                    instagram: {
+                      type: 'post',
+                      shouldShareToFeed: true
                     }
-                  }
-                ]
-              }
-            };
+                  },
+                  assets: [
+                    {
+                      image: {
+                        url: imageUrl
+                      }
+                    }
+                  ]
+                }
+              };
+            }
           } else {
-            // TikTok
+            // TikTok (Requires video)
             const videoUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) && post.media.type === 'video')
               ? post.media.url
-              : 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4';
+              : 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
 
             variables = {
               input: {
@@ -189,7 +218,8 @@ export const SocialPublisher = {
                 needsApproval: false,
                 metadata: {
                   tiktok: {
-                    title: (post.title || 'Rappel Islamique').slice(0, 100)
+                    title: (post.title || 'Rappel Islamique').slice(0, 100),
+                    isAiGenerated: false
                   }
                 },
                 assets: [
