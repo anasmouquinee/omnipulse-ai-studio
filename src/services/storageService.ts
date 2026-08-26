@@ -38,8 +38,8 @@ const DEFAULT_BRIDGE_CONFIG: SocialBridgeConfig = {
     cloudinaryCloudName: 'zmgzjmpl',
     cloudinaryUploadPreset: 'ml_default'
   },
-  discordWebhookUrl: '',
-  discordEnabled: false
+  discordWebhookUrl: 'https://discord.com/api/webhooks/1542317690255839402/lJKv3K4988iwAhvc7Jpay8zvBhJ4aXB3dL6GMPGR8o4D9FauC3cuGoIcrOTfJBzAZkPU',
+  discordEnabled: true
 };
 
 export const StorageService = {

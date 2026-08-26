@@ -16,7 +16,7 @@ const INSTAGRAM_CHANNEL_ID = process.env.BUFFER_INSTAGRAM_CHANNEL_ID || '6a8f4ce
 const TIKTOK_CHANNEL_ID = process.env.BUFFER_TIKTOK_CHANNEL_ID || '6a8f4dcfccaf649a672158cf'; // @mdou.g
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'zmgzjmpl';
 const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET || 'ml_default';
-const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || '';
+const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || 'https://discord.com/api/webhooks/1542317690255839402/lJKv3K4988iwAhvc7Jpay8zvBhJ4aXB3dL6GMPGR8o4D9FauC3cuGoIcrOTfJBzAZkPU';
 
 const REGISTRY_PATH = path.join(__dirname, '..', 'data', 'publishedRegistry.json');
 
