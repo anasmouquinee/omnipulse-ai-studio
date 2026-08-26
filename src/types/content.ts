@@ -60,12 +60,13 @@ export interface SocialAccount {
   followerCount: number;
   lastSync?: string;
   webhookUrl?: string;
-  accountType?: 'direct_webhook' | 'ayrshare' | 'make';
+  accountType?: 'direct_webhook' | 'buffer' | 'ayrshare' | 'make';
 }
 
 export interface SocialBridgeConfig {
-  bridgeType: 'make_webhook' | 'n8n_webhook' | 'zapier_webhook' | 'ayrshare' | 'custom_webhook';
+  bridgeType: 'make_webhook' | 'buffer' | 'n8n_webhook' | 'zapier_webhook' | 'ayrshare' | 'custom_webhook';
   universalWebhookUrl: string;
+  bufferAccessToken?: string;
   ayrshareApiKey?: string;
   autoDispatch: boolean;
   platformWebhooks?: Partial<Record<SocialPlatform, string>>;

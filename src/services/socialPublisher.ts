@@ -1,6 +1,6 @@
 /**
  * OmniPulse AI - Social Media Publisher & Auto-Scheduler Service
- * Handles multi-network publication dispatching, webhook bridges, optimal posting hours, and status updates.
+ * Handles multi-network publication dispatching, Buffer API, Make.com webhook bridges, and status updates.
  */
 
 import type { ScheduledPost, SocialPlatform, PublishLog } from '../types/content';
@@ -39,7 +39,7 @@ export const BEST_POSTING_TIMES: Record<SocialPlatform, BestTimeSlot[]> = {
 
 export const SocialPublisher = {
   /**
-   * Publishes a post across all selected platforms, triggering live Webhooks / API Bridges if configured.
+   * Publishes a post across all selected platforms, triggering Buffer API or live Webhooks.
    */
   async publishNow(post: ScheduledPost): Promise<ScheduledPost> {
     post.status = 'publishing';
@@ -54,7 +54,45 @@ export const SocialPublisher = {
       const platformData = post.platformContent[platform];
       const account = accounts.find(a => a.platform === platform);
 
-      // Determine webhook destination (account-specific, platform-specific, or universal)
+      // 1. Direct Buffer API if token provided
+      if (bridgeConfig.bufferAccessToken && bridgeConfig.bufferAccessToken.trim() !== '') {
+        try {
+          const bufferBody = new URLSearchParams();
+          bufferBody.append('access_token', bridgeConfig.bufferAccessToken.trim());
+          bufferBody.append('text', `${platformData?.hook ? platformData.hook + '\n\n' : ''}${platformData?.text || ''}\n\n${(platformData?.hashtags || []).join(' ')}`.trim());
+          bufferBody.append('now', 'true');
+          
+          if (post.media?.url) {
+            if (post.media.type === 'video') {
+              bufferBody.append('media[video]', post.media.url);
+            } else {
+              bufferBody.append('media[photo]', post.media.url);
+            }
+          }
+
+          const res = await fetch('https://api.bufferapp.com/1/updates/create.json', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: bufferBody.toString()
+          });
+
+          const log: PublishLog = {
+            id: `log-${Date.now()}-${platform}`,
+            postId: post.id,
+            platform,
+            timestamp: new Date().toISOString(),
+            status: res.ok ? 'success' : 'failed',
+            responseMessage: res.ok ? 'Publié via Buffer API' : `Buffer API HTTP ${res.status}`,
+            httpStatus: res.status
+          };
+          StorageService.addPublishLog(log);
+          continue;
+        } catch (err: any) {
+          console.warn(`Buffer direct API dispatch error for ${platform}:`, err);
+        }
+      }
+
+      // 2. Webhook Bridge (Make.com / n8n / Zapier)
       const targetWebhook = account?.webhookUrl || 
                             bridgeConfig.platformWebhooks?.[platform] || 
                             bridgeConfig.universalWebhookUrl;
@@ -91,7 +129,7 @@ export const SocialPublisher = {
             platform,
             timestamp: new Date().toISOString(),
             status: res.ok ? 'success' : 'failed',
-            responseMessage: `HTTP ${res.status} ${res.statusText}`,
+            responseMessage: `Webhook HTTP ${res.status} ${res.statusText}`,
             httpStatus: res.status
           };
           StorageService.addPublishLog(log);
@@ -136,7 +174,7 @@ export const SocialPublisher = {
   },
 
   /**
-   * Tests pinging a live Webhook (Make / n8n / Zapier / Custom).
+   * Tests pinging a live Webhook or Buffer token.
    */
   async testWebhookPing(webhookUrl: string, samplePlatform: SocialPlatform = 'tiktok'): Promise<{ success: boolean; message: string; httpStatus?: number }> {
     if (!webhookUrl || !webhookUrl.startsWith('http')) {

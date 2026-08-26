@@ -15,7 +15,8 @@ import {
   Settings2, 
   Activity,
   Zap,
-  Globe
+  Layers,
+  Key
 } from 'lucide-react';
 
 interface AccountsViewProps {
@@ -38,6 +39,7 @@ export const AccountsView: React.FC<AccountsViewProps> = ({
   onShowToast
 }) => {
   const [bridgeConfig, setBridgeConfig] = useState<SocialBridgeConfig>(StorageService.getBridgeConfig());
+  const [activeTab, setActiveTab] = useState<'buffer' | 'make'>('buffer');
   const [logs, setLogs] = useState<PublishLog[]>(StorageService.getPublishLogs());
   const [isTestingWebhook, setIsTestingWebhook] = useState(false);
   const [testResult, setTestResult] = useState<{ success: boolean; message: string } | null>(null);
@@ -49,7 +51,7 @@ export const AccountsView: React.FC<AccountsViewProps> = ({
 
   const handleSaveBridge = () => {
     StorageService.saveBridgeConfig(bridgeConfig);
-    onShowToast('success', 'Passerelle Webhook Cloud enregistrée !');
+    onShowToast('success', 'Configuration de diffusion enregistrée avec succès !');
   };
 
   const handleTestBridge = async () => {
@@ -128,20 +130,20 @@ export const AccountsView: React.FC<AccountsViewProps> = ({
             <Share2 size={22} />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Passerelles Réseaux Sociaux & Cloud Webhooks</h2>
+            <h2 style={{ fontSize: '1.25rem', fontWeight: 800 }}>Passerelles de Publication Réelle</h2>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-              Connectez vos 5 réseaux via Webhooks unifiés (Make, n8n, Zapier, Ayrshare) ou API directes
+              Publiez directement sur TikTok, Instagram, X, LinkedIn et Facebook via Buffer ou Make.com
             </p>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
           <ShieldCheck size={16} color="var(--accent-emerald)" />
-          <span>Diffusion chiffrée SSL / HTTPS</span>
+          <span>Connexions sécurisées SSL / HTTPS</span>
         </div>
       </div>
 
-      {/* Option B: Unified Cloud Webhook Bridge Hub */}
+      {/* Bridge Selector Tabs */}
       <div className="glass-card" style={{
         border: '1px solid var(--border-accent)',
         background: 'linear-gradient(180deg, rgba(139, 92, 246, 0.06) 0%, rgba(18, 23, 34, 0.95) 100%)',
@@ -164,117 +166,175 @@ export const AccountsView: React.FC<AccountsViewProps> = ({
               <Zap size={18} />
             </div>
             <div>
-              <h3 style={{ fontSize: '1.05rem', fontWeight: 700 }}>Passerelle Cloud Unifiée (Option B — Gratuite)</h3>
+              <h3 style={{ fontSize: '1.05rem', fontWeight: 700 }}>Méthode de Diffusion Automatique</h3>
               <p style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>
-                Envoyez automatiquement vos publications vers un scénario Make.com (1000 posts gratuits/mois), n8n ou Zapier
+                Choisissez comment OmniPulse envoie vos vidéos et posts vers vos réseaux
               </p>
             </div>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-            <a 
-              href="https://www.make.com/en/register" 
-              target="_blank" 
-              rel="noreferrer" 
-              className="btn btn-secondary btn-sm"
-              style={{ gap: '0.35rem', fontSize: '0.75rem' }}
-            >
-              <span>Créer un compte Make gratuit</span>
-              <ExternalLink size={13} />
-            </a>
-          </div>
-        </div>
-
-        {/* Webhook Input Row */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', alignItems: 'flex-end' }}>
-          <div className="form-group" style={{ flex: 2 }}>
-            <label className="form-label">
-              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <Webhook size={15} color="var(--accent-primary)" />
-                URL du Webhook Cloud (Make.com / n8n / Zapier / Backend)
-              </span>
-            </label>
-            <input
-              type="url"
-              className="form-input"
-              value={bridgeConfig.universalWebhookUrl}
-              onChange={(e) => setBridgeConfig({ ...bridgeConfig, universalWebhookUrl: e.target.value })}
-              placeholder="https://hook.eu1.make.com/votre-cle-webhook-unique"
-            />
-          </div>
-
-          <div style={{ display: 'flex', gap: '0.5rem', flex: 1 }}>
+          {/* Tabs */}
+          <div className="tabs-container">
             <button
-              className="btn btn-secondary"
-              onClick={handleTestBridge}
-              disabled={isTestingWebhook || !bridgeConfig.universalWebhookUrl}
-              style={{ flex: 1, gap: '0.4rem' }}
+              className={`tab-btn ${activeTab === 'buffer' ? 'active' : ''}`}
+              onClick={() => setActiveTab('buffer')}
             >
-              {isTestingWebhook ? (
-                <>
-                  <RefreshCw size={15} className="animate-spin" />
-                  <span>Test en cours...</span>
-                </>
-              ) : (
-                <>
-                  <Send size={15} />
-                  <span>Tester le Webhook</span>
-                </>
-              )}
+              <Layers size={14} />
+              <span>1. Buffer API (Recommandé TikTok/Insta)</span>
             </button>
-
             <button
-              className="btn btn-primary"
-              onClick={handleSaveBridge}
-              style={{ flex: 1 }}
+              className={`tab-btn ${activeTab === 'make' ? 'active' : ''}`}
+              onClick={() => setActiveTab('make')}
             >
-              Enregistrer
+              <Webhook size={14} />
+              <span>2. Make.com Webhook</span>
             </button>
           </div>
         </div>
 
-        {/* Test Result Message */}
-        {testResult && (
-          <div style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.6rem',
-            padding: '0.75rem 1rem',
-            borderRadius: 'var(--radius-xs)',
-            background: testResult.success ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
-            border: `1px solid ${testResult.success ? 'var(--accent-emerald)' : 'var(--color-tiktok)'}`,
-            fontSize: '0.82rem',
-            color: testResult.success ? 'var(--accent-emerald)' : 'var(--text-primary)'
-          }}>
-            {testResult.success ? <CheckCircle2 size={16} /> : <AlertCircle size={16} color="var(--color-tiktok)" />}
-            <span>{testResult.message}</span>
+        {/* Tab 1: Buffer Direct Integration */}
+        {activeTab === 'buffer' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{
+              background: 'var(--bg-input)',
+              padding: '0.85rem 1rem',
+              borderRadius: 'var(--radius-sm)',
+              fontSize: '0.82rem',
+              color: 'var(--text-secondary)',
+              lineHeight: 1.5,
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              flexWrap: 'wrap',
+              gap: '0.5rem'
+            }}>
+              <div>
+                🚀 <strong>Buffer est le partenaire certifié officiel</strong> pour publier automatiquement sur <strong>TikTok</strong> et <strong>Instagram Reels</strong> en direct !
+              </div>
+              <a
+                href="https://buffer.com/manage/channels"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-secondary btn-sm"
+                style={{ gap: '0.35rem', fontSize: '0.75rem' }}
+              >
+                <span>Gérer mes canaux sur Buffer</span>
+                <ExternalLink size={13} />
+              </a>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', alignItems: 'flex-end' }}>
+              <div className="form-group" style={{ flex: 2 }}>
+                <label className="form-label">
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <Key size={15} color="var(--accent-primary)" />
+                    Jeton d'accès Buffer (Buffer Access Token)
+                  </span>
+                  <a
+                    href="https://buffer.com/developers/api"
+                    target="_blank"
+                    rel="noreferrer"
+                    style={{ fontSize: '0.75rem', color: 'var(--accent-primary)' }}
+                  >
+                    Obtenir mon token Buffer ↗
+                  </a>
+                </label>
+                <input
+                  type="password"
+                  className="form-input"
+                  value={bridgeConfig.bufferAccessToken || ''}
+                  onChange={(e) => setBridgeConfig({ ...bridgeConfig, bufferAccessToken: e.target.value })}
+                  placeholder="1/abcdef123456789..."
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.5rem', flex: 1 }}>
+                <button
+                  className="btn btn-primary"
+                  onClick={handleSaveBridge}
+                  style={{ flex: 1 }}
+                >
+                  Enregistrer Token Buffer
+                </button>
+              </div>
+            </div>
           </div>
         )}
 
-        {/* Explanatory Payload Structure */}
-        <div style={{
-          background: 'var(--bg-input)',
-          padding: '0.75rem 1rem',
-          borderRadius: 'var(--radius-xs)',
-          fontSize: '0.75rem',
-          color: 'var(--text-secondary)',
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '0.5rem'
-        }}>
-          <div>
-            📦 <strong>Payload envoyé en direct :</strong> <code>{`{ platform, text, hook, hashtags, media: { url, type } }`}</code>
+        {/* Tab 2: Make.com Webhook Integration */}
+        {activeTab === 'make' && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1rem', alignItems: 'flex-end' }}>
+              <div className="form-group" style={{ flex: 2 }}>
+                <label className="form-label">
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                    <Webhook size={15} color="var(--accent-primary)" />
+                    URL du Webhook Make.com
+                  </span>
+                </label>
+                <input
+                  type="url"
+                  className="form-input"
+                  value={bridgeConfig.universalWebhookUrl}
+                  onChange={(e) => setBridgeConfig({ ...bridgeConfig, universalWebhookUrl: e.target.value })}
+                  placeholder="https://hook.eu1.make.com/5ftvjpexv24p5bwyvu9fifjhokrn7exs"
+                />
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.5rem', flex: 1 }}>
+                <button
+                  className="btn btn-secondary"
+                  onClick={handleTestBridge}
+                  disabled={isTestingWebhook || !bridgeConfig.universalWebhookUrl}
+                  style={{ flex: 1, gap: '0.4rem' }}
+                >
+                  {isTestingWebhook ? (
+                    <>
+                      <RefreshCw size={15} className="animate-spin" />
+                      <span>Test...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={15} />
+                      <span>Tester Webhook</span>
+                    </>
+                  )}
+                </button>
+
+                <button
+                  className="btn btn-primary"
+                  onClick={handleSaveBridge}
+                  style={{ flex: 1 }}
+                >
+                  Enregistrer
+                </button>
+              </div>
+            </div>
+
+            {testResult && (
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.6rem',
+                padding: '0.75rem 1rem',
+                borderRadius: 'var(--radius-xs)',
+                background: testResult.success ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+                border: `1px solid ${testResult.success ? 'var(--accent-emerald)' : 'var(--color-tiktok)'}`,
+                fontSize: '0.82rem',
+                color: testResult.success ? 'var(--accent-emerald)' : 'var(--text-primary)'
+              }}>
+                {testResult.success ? <CheckCircle2 size={16} /> : <AlertCircle size={16} color="var(--color-tiktok)" />}
+                <span>{testResult.message}</span>
+              </div>
+            )}
           </div>
-          <span style={{ color: 'var(--accent-primary)', fontWeight: 600 }}>100% Automatisé lors des publications</span>
-        </div>
+        )}
       </div>
 
       {/* Accounts Grid */}
       <div>
         <h3 style={{ fontSize: '1.1rem', fontWeight: 700, marginBottom: '1rem' }}>
-          Vos 5 Canaux de Diffusion
+          Vos Canaux Connectés
         </h3>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', gap: '1.25rem' }}>
@@ -318,7 +378,7 @@ export const AccountsView: React.FC<AccountsViewProps> = ({
                   {detail.desc}
                 </p>
 
-                {/* Account Status / Webhook status */}
+                {/* Account Status */}
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -329,16 +389,16 @@ export const AccountsView: React.FC<AccountsViewProps> = ({
                   fontSize: '0.75rem'
                 }}>
                   <div>
-                    <span style={{ color: 'var(--text-muted)' }}>Webhook dédié : </span>
-                    <span style={{ fontWeight: 600, color: acc.webhookUrl ? 'var(--accent-primary)' : 'var(--text-muted)' }}>
-                      {acc.webhookUrl ? 'Configuré ✓' : 'Hérité du global'}
+                    <span style={{ color: 'var(--text-muted)' }}>Passerelle : </span>
+                    <span style={{ fontWeight: 600, color: 'var(--accent-primary)' }}>
+                      Buffer / Webhook Cloud
                     </span>
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
                     <div className={`status-dot ${acc.connected ? '' : 'simulated'}`} />
                     <span style={{ color: acc.connected ? 'var(--accent-emerald)' : 'var(--text-muted)', fontWeight: 600 }}>
-                      {acc.connected ? 'Actif' : 'Désactivé'}
+                      {acc.connected ? 'Connecté (Buffer)' : 'En attente'}
                     </span>
                   </div>
                 </div>
@@ -351,7 +411,7 @@ export const AccountsView: React.FC<AccountsViewProps> = ({
                     style={{ gap: '0.3rem' }}
                   >
                     <Settings2 size={14} />
-                    <span>Configurer</span>
+                    <span>Modifier</span>
                   </button>
 
                   <button
@@ -415,7 +475,7 @@ export const AccountsView: React.FC<AccountsViewProps> = ({
           isOpen={true}
           onClose={() => setEditingAccount(null)}
           title={`Configuration du compte ${PLATFORM_DETAILS[editingAccount.platform].name}`}
-          subtitle="Personnalisez le nom d'utilisateur et le webhook dédié si nécessaire"
+          subtitle="Personnalisez le nom d'utilisateur et l'identifiant de canal"
           footer={
             <>
               <button className="btn btn-secondary" onClick={() => setEditingAccount(null)}>
