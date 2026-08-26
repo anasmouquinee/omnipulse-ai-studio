@@ -17,7 +17,8 @@ export default async function handler(req, res) {
   }
 
   try {
-    const { imageBase64 } = req.body || {};
+    const body = typeof req.body === 'string' ? JSON.parse(req.body) : (req.body || {});
+    const imageBase64 = body.imageBase64 || body.image;
     if (!imageBase64) {
       return res.status(400).json({ error: 'Missing imageBase64' });
     }

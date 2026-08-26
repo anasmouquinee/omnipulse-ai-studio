@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import type { IslamicPostItem, IslamicContentType, IslamicLanguage } from '../../types/islamic';
-import { IslamicContentService, AVAILABLE_RECITERS } from '../../services/islamicContentService';
+import { IslamicContentService, AVAILABLE_RECITERS, parseSurahNumber, parseAyahNumber } from '../../services/islamicContentService';
 import { SocialPublisher } from '../../services/socialPublisher';
+import { StorageService } from '../../services/storageService';
 import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../../data/islamicBackgrounds';
 import { VERIFIED_ISLAMIC_POSTS, ISLAMIC_THEME_PRESETS, VERIFIED_RECITERS } from '../../data/verifiedIslamicData';
 import { 
