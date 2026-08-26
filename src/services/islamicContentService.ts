@@ -366,20 +366,20 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       ctx.fillRect(0, 0, width, height);
     }
 
-    // 2. Cinematic Multi-Layer Dark Vignette
+    // 2. Cinematic Multi-Layer Soft Vignette (Leaves photo vibrant & visible)
     const overlayGradient = ctx.createLinearGradient(0, 0, 0, height);
-    overlayGradient.addColorStop(0, 'rgba(4, 7, 14, 0.88)');
-    overlayGradient.addColorStop(0.25, 'rgba(4, 7, 14, 0.65)');
-    overlayGradient.addColorStop(0.5, 'rgba(6, 12, 22, 0.76)');
-    overlayGradient.addColorStop(0.85, 'rgba(4, 7, 14, 0.90)');
-    overlayGradient.addColorStop(1, 'rgba(2, 4, 8, 0.98)');
+    overlayGradient.addColorStop(0, 'rgba(3, 7, 18, 0.55)');
+    overlayGradient.addColorStop(0.2, 'rgba(3, 7, 18, 0.35)');
+    overlayGradient.addColorStop(0.5, 'rgba(4, 9, 20, 0.45)');
+    overlayGradient.addColorStop(0.8, 'rgba(3, 7, 18, 0.70)');
+    overlayGradient.addColorStop(1, 'rgba(2, 4, 10, 0.92)');
     ctx.fillStyle = overlayGradient;
     ctx.fillRect(0, 0, width, height);
 
-    // 3. Subtle Center Ambient Glow
-    const radialGlow = ctx.createRadialGradient(width / 2, height * 0.5, 60, width / 2, height * 0.5, width * 0.7);
-    radialGlow.addColorStop(0, 'rgba(245, 158, 11, 0.15)');
-    radialGlow.addColorStop(0.5, 'rgba(16, 185, 129, 0.08)');
+    // 3. Warm Center Ambient Glow
+    const radialGlow = ctx.createRadialGradient(width / 2, height * 0.48, 50, width / 2, height * 0.48, width * 0.75);
+    radialGlow.addColorStop(0, 'rgba(245, 158, 11, 0.22)');
+    radialGlow.addColorStop(0.4, 'rgba(16, 185, 129, 0.12)');
     radialGlow.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = radialGlow;
     ctx.fillRect(0, 0, width, height);
@@ -390,9 +390,9 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     const cleanEn = cleanQuotes(item.translationEn);
 
     // 4. Measure & Precalculate Typography Layout
-    const cardMarginX = aspectRatio === '9:16' ? 90 : 70;
+    const cardMarginX = aspectRatio === '9:16' ? 55 : 45;
     const cardWidth = width - (cardMarginX * 2);
-    const maxTextWidth = cardWidth - 120;
+    const maxTextWidth = cardWidth - 100;
 
     // Helper to wrap text cleanly
     const wrapText = (text: string, font: string, maxW: number): string[] => {
@@ -415,92 +415,95 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       return lines;
     };
 
-    const arabicFont = `bold ${aspectRatio === '9:16' ? 52 : 42}px "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif`;
-    const arabicLineHeight = aspectRatio === '9:16' ? 92 : 72;
+    const arabicFont = `bold ${aspectRatio === '9:16' ? 62 : 46}px "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif`;
+    const arabicLineHeight = aspectRatio === '9:16' ? 106 : 78;
     const arabicLines = wrapText(item.arabicText, arabicFont, maxTextWidth);
 
-    const frFont = `500 ${aspectRatio === '9:16' ? 31 : 25}px "Plus Jakarta Sans", -apple-system, sans-serif`;
-    const frLineHeight = aspectRatio === '9:16' ? 48 : 38;
+    const frFont = `600 ${aspectRatio === '9:16' ? 36 : 28}px "Plus Jakarta Sans", -apple-system, sans-serif`;
+    const frLineHeight = aspectRatio === '9:16' ? 56 : 42;
     const frLines = (displayLanguage === 'fr' || displayLanguage === 'all') && cleanFr
       ? wrapText(`« ${cleanFr} »`, frFont, maxTextWidth)
       : [];
 
-    const enFont = `400 ${aspectRatio === '9:16' ? 26 : 22}px "Plus Jakarta Sans", -apple-system, sans-serif`;
-    const enLineHeight = aspectRatio === '9:16' ? 40 : 32;
+    const enFont = `400 ${aspectRatio === '9:16' ? 30 : 24}px "Plus Jakarta Sans", -apple-system, sans-serif`;
+    const enLineHeight = aspectRatio === '9:16' ? 46 : 36;
     const enLines = (displayLanguage === 'en' || displayLanguage === 'all') && cleanEn
       ? wrapText(`“${cleanEn}”`, enFont, maxTextWidth)
       : [];
 
     const arRefLines = displayLanguage === 'ar' && item.reflection.ar
-      ? wrapText(item.reflection.ar, `500 ${aspectRatio === '9:16' ? 32 : 26}px "Noto Naskh Arabic", serif`, maxTextWidth)
+      ? wrapText(item.reflection.ar, `500 ${aspectRatio === '9:16' ? 36 : 28}px "Noto Naskh Arabic", serif`, maxTextWidth)
       : [];
 
     // Calculate content heights
-    const bismillahHeight = 50;
+    const bismillahHeight = 55;
     const arabicBlockHeight = arabicLines.length * arabicLineHeight;
-    const dividerHeight = 60;
+    const dividerHeight = 65;
     const frBlockHeight = frLines.length * frLineHeight;
     const enBlockHeight = enLines.length * enLineHeight;
     const arRefBlockHeight = arRefLines.length * frLineHeight;
-    const sourceHeight = 45;
+    const sourceHeight = 55;
 
     const innerContentHeight = 
       bismillahHeight + 
-      30 + 
+      35 + 
       arabicBlockHeight + 
       dividerHeight + 
-      (frBlockHeight > 0 ? frBlockHeight + 15 : 0) + 
-      (enBlockHeight > 0 ? enBlockHeight + 15 : 0) + 
-      (arRefBlockHeight > 0 ? arRefBlockHeight + 15 : 0) + 
+      (frBlockHeight > 0 ? frBlockHeight + 20 : 0) + 
+      (enBlockHeight > 0 ? enBlockHeight + 20 : 0) + 
+      (arRefBlockHeight > 0 ? arRefBlockHeight + 20 : 0) + 
       sourceHeight;
 
-    const cardPaddingY = aspectRatio === '9:16' ? 55 : 35;
-    const cardHeight = Math.min(height - (aspectRatio === '9:16' ? 240 : 100), innerContentHeight + (cardPaddingY * 2));
-    const cardTop = (height - cardHeight) / 2 - (aspectRatio === '9:16' ? 25 : 5);
-    const cardRadius = 26;
+    const cardPaddingY = aspectRatio === '9:16' ? 60 : 40;
+    const cardHeight = Math.min(height - (aspectRatio === '9:16' ? 220 : 90), innerContentHeight + (cardPaddingY * 2));
+    const cardTop = (height - cardHeight) / 2 - (aspectRatio === '9:16' ? 20 : 5);
+    const cardRadius = 30;
 
-    // 5. Frosted Glass Container
+    // 5. Frosted Glass Container with Premium Gold Glow
     ctx.save();
     ctx.beginPath();
     ctx.roundRect(cardMarginX, cardTop, cardWidth, cardHeight, cardRadius);
-    ctx.fillStyle = 'rgba(7, 12, 22, 0.72)';
+    ctx.fillStyle = 'rgba(8, 14, 25, 0.76)';
     ctx.fill();
     
-    // Golden border
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.38)';
-    ctx.lineWidth = 1.5;
+    // Outer glowing gold border
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.55)';
+    ctx.lineWidth = 2;
+    ctx.shadowColor = 'rgba(245, 158, 11, 0.35)';
+    ctx.shadowBlur = 20;
     ctx.stroke();
 
-    // Inner subtle gold frame
+    // Inner subtle frame
     ctx.beginPath();
-    ctx.roundRect(cardMarginX + 12, cardTop + 12, cardWidth - 24, cardHeight - 24, cardRadius - 8);
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.12)';
+    ctx.roundRect(cardMarginX + 14, cardTop + 14, cardWidth - 28, cardHeight - 28, cardRadius - 10);
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.20)';
     ctx.lineWidth = 1;
+    ctx.shadowBlur = 0;
     ctx.stroke();
     ctx.restore();
 
     // 6. Draw Content Starting from centered Y
-    let curY = cardTop + cardPaddingY + 30;
+    let curY = cardTop + cardPaddingY + 35;
 
     // A. Bismillah with Warm Golden Glow
     ctx.save();
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#f59e0b';
-    ctx.shadowColor = 'rgba(245, 158, 11, 0.6)';
-    ctx.shadowBlur = 12;
-    ctx.font = `bold ${aspectRatio === '9:16' ? 42 : 32}px "Noto Naskh Arabic", "Amiri", serif`;
+    ctx.fillStyle = '#fbbf24';
+    ctx.shadowColor = 'rgba(245, 158, 11, 0.8)';
+    ctx.shadowBlur = 16;
+    ctx.font = `bold ${aspectRatio === '9:16' ? 46 : 34}px "Noto Naskh Arabic", "Amiri", serif`;
     ctx.fillText('بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ', width / 2, curY);
     ctx.restore();
 
-    curY += 65;
+    curY += 75;
 
-    // B. Arabic Calligraphy Text
+    // B. Arabic Calligraphy Text (Large, Majestic, Crisp)
     ctx.save();
     ctx.textAlign = 'center';
     ctx.fillStyle = '#ffffff';
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-    ctx.shadowBlur = 18;
-    ctx.shadowOffsetY = 4;
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.98)';
+    ctx.shadowBlur = 20;
+    ctx.shadowOffsetY = 5;
     ctx.font = arabicFont;
     ctx.direction = 'rtl';
 
@@ -511,24 +514,24 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.restore();
 
     // C. Golden Islamic Medallion Divider (۞ ────── ۞)
-    curY += 10;
+    curY += 15;
     ctx.save();
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.6)';
-    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = 'rgba(245, 158, 11, 0.7)';
+    ctx.lineWidth = 2;
     ctx.beginPath();
-    ctx.moveTo(width / 2 - 120, curY);
-    ctx.lineTo(width / 2 - 25, curY);
-    ctx.moveTo(width / 2 + 25, curY);
-    ctx.lineTo(width / 2 + 120, curY);
+    ctx.moveTo(width / 2 - 140, curY);
+    ctx.lineTo(width / 2 - 30, curY);
+    ctx.moveTo(width / 2 + 30, curY);
+    ctx.lineTo(width / 2 + 140, curY);
     ctx.stroke();
 
     ctx.fillStyle = '#f59e0b';
-    ctx.font = '24px serif';
+    ctx.font = '28px serif';
     ctx.textAlign = 'center';
-    ctx.fillText('۞', width / 2, curY + 8);
+    ctx.fillText('۞', width / 2, curY + 9);
     ctx.restore();
 
-    curY += 45;
+    curY += 55;
 
     // D. French Translation
     if (frLines.length > 0) {
@@ -536,7 +539,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       ctx.textAlign = 'center';
       ctx.fillStyle = '#f8fafc';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 12;
       ctx.font = frFont;
       
       for (const l of frLines) {
@@ -548,12 +551,12 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
     // E. English Translation
     if (enLines.length > 0) {
-      curY += 8;
+      curY += 10;
       ctx.save();
       ctx.textAlign = 'center';
       ctx.fillStyle = '#cbd5e1';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-      ctx.shadowBlur = 8;
+      ctx.shadowBlur = 10;
       ctx.font = enFont;
       
       for (const l of enLines) {
@@ -565,13 +568,13 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
     // F. Arabic Reflection if selected
     if (arRefLines.length > 0) {
-      curY += 8;
+      curY += 10;
       ctx.save();
       ctx.textAlign = 'center';
       ctx.fillStyle = '#fef08a';
       ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-      ctx.shadowBlur = 10;
-      ctx.font = `500 ${aspectRatio === '9:16' ? 32 : 26}px "Noto Naskh Arabic", serif`;
+      ctx.shadowBlur = 12;
+      ctx.font = `500 ${aspectRatio === '9:16' ? 36 : 28}px "Noto Naskh Arabic", serif`;
       ctx.direction = 'rtl';
       
       for (const l of arRefLines) {
@@ -583,23 +586,23 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     }
 
     // G. Subtle Elegant Source Citation Line
-    curY += 22;
+    curY += 28;
     ctx.save();
     ctx.textAlign = 'center';
-    ctx.fillStyle = '#fbbf24';
+    ctx.fillStyle = '#fde68a';
     ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
-    ctx.shadowBlur = 8;
-    ctx.font = `600 ${aspectRatio === '9:16' ? 23 : 19}px "Plus Jakarta Sans", sans-serif`;
+    ctx.shadowBlur = 10;
+    ctx.font = `700 ${aspectRatio === '9:16' ? 26 : 21}px "Plus Jakarta Sans", sans-serif`;
     ctx.fillText(`— ${item.source.bookOrSurah}, ${item.source.numberOrAyah} —`, width / 2, curY);
     ctx.restore();
 
     // 7. Footer Watermark: ONLY @kaelarislamic
-    const footerY = height - (aspectRatio === '9:16' ? 55 : 25);
+    const footerY = height - (aspectRatio === '9:16' ? 60 : 30);
     ctx.save();
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.75)';
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.9)';
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
+    ctx.shadowColor = 'rgba(0, 0, 0, 0.95)';
     ctx.shadowBlur = 10;
-    ctx.font = '700 23px "Plus Jakarta Sans", sans-serif';
+    ctx.font = `700 ${aspectRatio === '9:16' ? 24 : 18}px "Plus Jakarta Sans", sans-serif`;
     ctx.textAlign = 'center';
     ctx.fillText('@kaelarislamic', width / 2, footerY);
     ctx.restore();

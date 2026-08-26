@@ -87,11 +87,22 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     }
   };
 
-  const handleSelectPreset = (preset: typeof ISLAMIC_THEME_PRESETS[0]) => {
+  const handleSelectPreset = async (preset: typeof ISLAMIC_THEME_PRESETS[0]) => {
     setSelectedCategory(preset.category);
-    const matching = VERIFIED_ISLAMIC_POSTS.find(p => p.type === preset.category);
-    if (matching) {
+    setIsRendering(true);
+    try {
+      const matching = VERIFIED_ISLAMIC_POSTS.find(p => p.type === preset.category) || VERIFIED_ISLAMIC_POSTS[0];
       setCurrentItem(matching);
+      const newCardUrl = await IslamicContentService.renderQuoteCardCanvas(
+        matching,
+        aspectRatio,
+        selectedLanguage,
+        selectedThemeId
+      );
+      setRenderedCardUrl(newCardUrl);
+      onShowToast('info', `Catégorie sélectionnée : ${preset.name}`);
+    } finally {
+      setIsRendering(false);
     }
   };
 
@@ -99,9 +110,49 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     setIsGeneratingGemini(true);
     setIsRendering(true);
     try {
+      const topicSuggestions: Record<IslamicContentType, string[]> = {
+        quran_verse: [
+          'La patience et la délivrance après l’épreuve',
+          'L’apaisement du cœur par le rappel d’Allah (Dhikr)',
+          'Le pardon infini et la miséricorde divine',
+          'La confiance absolue en Allah (Tawakkul)',
+          'La gratitude pour les bienfaits d’Allah'
+        ],
+        sahih_hadith: [
+          'La valeur du bon comportement et de la bonté',
+          'L’amour fraternel et l’entraide en Islam',
+          'L’importance de la sincérité (Ikhlas)',
+          'Les mérites de la prière à l’heure'
+        ],
+        authentic_dua: [
+          'Invocation contre l’angoisse et les soucis',
+          'Invocation du matin et de la protection divine',
+          'Invocation pour demander la guidée et la piété',
+          'Demande de pardon sincère (Sayyid al-Istighfar)'
+        ],
+        jumua_special: [
+          'Les bénédictions du vendredi (Jumu’ah)',
+          'Les mérites de la lecture de Sourate Al-Kahf',
+          'Multiplier les prières sur le Prophète ﷺ le vendredi'
+        ],
+        tahajjud_motivation: [
+          'L’intimité spirituelle du dernier tiers de la nuit',
+          'La prière de nuit (Tahajjud) et l’invocation exaucée',
+          'L’apaisement de l’âme avant l’aube (Fajr)'
+        ],
+        islamic_reminder: [
+          'La vraie richesse de l’âme et le contentement',
+          'La parole bienveillante comme aumône'
+        ]
+      };
+
+      const suggestions = topicSuggestions[selectedCategory] || topicSuggestions.quran_verse;
+      const randomSuggestedTopic = suggestions[Math.floor(Math.random() * suggestions.length)];
+      const effectiveTopic = customTopic.trim() || randomSuggestedTopic;
+
       const generated = await IslamicContentService.generateIslamicPost(
         selectedCategory,
-        customTopic || undefined,
+        effectiveTopic,
         selectedLanguage,
         selectedReciterId
       );
