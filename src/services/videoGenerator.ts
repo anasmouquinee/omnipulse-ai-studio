@@ -1,4 +1,5 @@
 import { Muxer, ArrayBufferTarget } from 'mp4-muxer';
+import { StorageService } from './storageService';
 
 export class VideoGenerator {
   /**
