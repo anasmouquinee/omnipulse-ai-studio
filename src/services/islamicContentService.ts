@@ -60,18 +60,31 @@ export const IslamicContentService = {
     const activeTopic = customTopic?.trim() || '';
 
     if (apiKey && apiKey.trim() !== '') {
-      const searchTopic = activeTopic || 'La foi, la patience et le pardon en Islam';
+      const searchTopic = activeTopic || 'Inspiration, foi et rappel spirituel';
+
+      const categoryInstructions: Record<IslamicContentType, string> = {
+        quran_verse: "Tu dois OBLIGATOIREMENT générer un VERSET DU NOBLE CORAN (Parole d'Allah) et STRICTEMENT rien d'autre (AUCUN hadith). Donne obligatoirement surahNumber (1 à 114) et ayahNumber exacts.",
+        sahih_hadith: "Tu dois OBLIGATOIREMENT générer une PAROLE DU PROPHÈTE MOHAMMAD ﷺ issue STRICTEMENT de Sahih Al-Bukhari ou Sahih Muslim (AUCUN verset coranique).",
+        authentic_dua: "Tu dois OBLIGATOIREMENT générer une INVOCATION AUTHENTIQUE (Du'a / Dhikr) issue de Hisn al-Muslim (Citadelle du Musulman) ou de Bukhari/Muslim.",
+        jumua_special: "Tu dois OBLIGATOIREMENT générer un rappel sur les mérites du VENDREDI (Jumu'ah), la lecture de Sourate Al-Kahf ou les Salawat sur le Prophète ﷺ.",
+        tahajjud_motivation: "Tu dois OBLIGATOIREMENT générer un rappel puissant sur la PRIÈRE DE NUIT (Tahajjud, Qiyam al-Layl, dernier tiers de la nuit ou Istighfar à l'aube).",
+        islamic_reminder: "Tu dois générer un rappel de sagesse islamique profonde et inspirante (Patience, Confiance en Allah / Tawakkul, Gratitude)."
+      };
+
       try {
         const prompt = `
 Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic).
 
-Consigne STRICTE :
-- N'utilise QUE des versets authentiques du Noble Coran ou des Hadiths SAHIH (Bukhari, Muslim, Tirmidhi, Abu Dawud) ou des invocations authentiques de Hisn al-Muslim (Citadelle du Musulman).
+RÈGLE ABSOLUE POUR LA CATÉGORIE "${category}":
+${categoryInstructions[category] || categoryInstructions.quran_verse}
+
+Sujet ou mot-clé demandé par l'utilisateur : "${searchTopic}".
+
+Consignes de rédaction :
+- Choisis un passage court, percutant et concis (1 à 2 versets ou 1 hadith court de 20 à 45 mots), idéal pour une carte citation TikTok et Instagram.
 - Ne cite JAMAIS de hadith faible (Da'if) ou inventé (Mawdoo').
-- Sujet demandé par l'utilisateur : "${searchTopic}".
-- Trouve le verset coranique le plus majestueux, le hadith sahih le plus pertinent ou la meilleure invocation pour ce sujet précis (« ${searchTopic} »).
-- Fournis TOUJOURS la référence exacte (Nom du livre + Numéro de hadith ou Nom de sourate + numéro de verset).
 - Si c'est un verset du Coran, donne OBLIGATOIREMENT le numéro exact de la sourate (1 à 114) et le numéro du verset dans "surahNumber" et "ayahNumber".
+- Génère à chaque fois un passage NOUVEAU, UNIQUE et DIFFÉRENT (ID de session : ${Date.now()}-${Math.random()}). Ne répète pas les mêmes textes.
 - Génère le contenu en 3 langues : Arabe (avec voyelles/tashkeel complet), Français et Anglais.
 
 Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
@@ -79,16 +92,16 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
   "topic": "${searchTopic}",
   "arabicText": "Texte arabe exact avec tashkeel...",
   "phonetic": "Transcription phonétique...",
-  "translationFr": "Traduction française fidèle et élégante...",
-  "translationEn": "Faithful and elegant English translation...",
+  "translationFr": "Traduction française concise et élégante...",
+  "translationEn": "Concise and elegant English translation...",
   "source": {
-    "type": "quran",
-    "bookOrSurah": "Sourate ... ou Sahih al-Bukhari",
-    "numberOrAyah": "Verset ... ou Hadith n° ...",
-    "surahNumber": 11,
-    "ayahNumber": 114,
+    "type": "${category === 'quran_verse' ? 'quran' : category === 'authentic_dua' ? 'dua' : 'hadith'}",
+    "bookOrSurah": "Ex: Sourate Al-Ankabut ou Sahih al-Bukhari",
+    "numberOrAyah": "Ex: Verset 7 ou Hadith n° 5027",
+    "surahNumber": 29,
+    "ayahNumber": 7,
     "arabicReference": "المرجع بالعربية",
-    "authenticityGrade": "Coran (Parole d’Allah)",
+    "authenticityGrade": "${category === 'quran_verse' ? 'Coran (Parole d’Allah)' : 'Sahih (Authentique)'}",
     "verifiedBy": "Texte Sacré Authentifié"
   },
   "reflection": {
@@ -117,8 +130,8 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
                 body: JSON.stringify({
                   contents: [{ parts: [{ text: prompt }] }],
                   generationConfig: {
-                    temperature: 0.2,
-                    maxOutputTokens: 2048,
+                    temperature: 0.85,
+                    maxOutputTokens: 4096,
                     responseMimeType: 'application/json'
                   }
                 })
