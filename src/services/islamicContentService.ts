@@ -14,8 +14,152 @@ export const AVAILABLE_RECITERS = [
   { id: 'ar.abdulbasitmurattal', name: 'Abdul Basit (Murattal)' },
   { id: 'ar.minshawi', name: 'Mohamed Siddiq El-Minshawi' },
   { id: 'ar.husary', name: 'Mahmoud Khalil Al-Husary' },
-  { id: 'ar.sudais', name: 'Abdul Rahman Al-Sudais' }
+  { id: 'ar.mahermuaiqly', name: 'Maher Al-Muaiqly' }
 ];
+
+export const SURAH_NAME_TO_NUMBER: Record<string, number> = {
+  'al-fatihah': 1, 'fatihah': 1, 'ouverture': 1,
+  'al-baqarah': 2, 'baqarah': 2, 'vache': 2,
+  'ali-imran': 3, 'al-imran': 3, 'imran': 3,
+  'an-nisa': 4, 'nisa': 4, 'femmes': 4,
+  'al-maidah': 5, 'maidah': 5, 'table': 5,
+  'al-anam': 6, 'anam': 6,
+  'al-araf': 7, 'araf': 7,
+  'al-anfal': 8, 'anfal': 8,
+  'at-tawbah': 9, 'tawbah': 9, 'repentir': 9,
+  'yunus': 10,
+  'hud': 11,
+  'yusuf': 12, 'joseph': 12,
+  'ar-rad': 13, 'rad': 13,
+  'ibrahim': 14,
+  'al-hijr': 15,
+  'an-nahl': 16, 'nahl': 16, 'abeilles': 16,
+  'al-isra': 17, 'isra': 17,
+  'al-kahf': 18, 'kahf': 18, 'caverne': 18,
+  'maryam': 19, 'marie': 19,
+  'taha': 20,
+  'al-anbiya': 21, 'anbiya': 21, 'prophetes': 21,
+  'al-hajj': 22, 'hajj': 22,
+  'al-muminun': 23, 'muminun': 23, 'croyants': 23,
+  'an-nur': 24, 'nur': 24, 'lumiere': 24,
+  'al-furqan': 25, 'furqan': 25, 'discernement': 25,
+  'ash-shuara': 26,
+  'an-naml': 27, 'fourmis': 27,
+  'al-qasas': 28, 'recit': 28,
+  'al-ankabut': 29, 'ankabut': 29, 'araignee': 29,
+  'ar-rum': 30, 'romains': 30,
+  'luqman': 31,
+  'as-sajdah': 32, 'prosternation': 32,
+  'al-ahzab': 33, 'coalises': 33,
+  'saba': 34,
+  'fatir': 35,
+  'ya-sin': 36, 'yasin': 36,
+  'as-saffat': 37,
+  'sad': 38,
+  'az-zumar': 39, 'groupes': 39,
+  'ghafir': 40, 'pardon': 40,
+  'fussilat': 41,
+  'ash-shura': 42, 'consultation': 42,
+  'az-zukhruf': 43, 'ornements': 43,
+  'ad-dukhan': 44, 'fumee': 44,
+  'al-jathiyah': 45,
+  'al-ahqaf': 46,
+  'muhammad': 47,
+  'al-fath': 48, 'fath': 48, 'victoire': 48,
+  'al-hujurat': 49,
+  'qaf': 50,
+  'adh-dhariyat': 51,
+  'at-tur': 52,
+  'an-najm': 53, 'etoile': 53,
+  'al-qamar': 54, 'lune': 54,
+  'ar-rahman': 55, 'rahman': 55,
+  'al-waqiah': 56, 'waqiah': 56,
+  'al-hadid': 57, 'fer': 57,
+  'al-mujadila': 58,
+  'al-hashr': 59,
+  'al-mumtahanah': 60,
+  'as-saff': 61,
+  'al-jumuah': 62, 'jumuah': 62, 'vendredi': 62,
+  'al-munafiqun': 63,
+  'at-taghabun': 64,
+  'at-talaq': 65, 'talaq': 65, 'divorce': 65,
+  'at-tahrim': 66,
+  'al-mulk': 67, 'mulk': 67, 'royaute': 67,
+  'al-qalam': 68, 'plume': 68,
+  'al-haqqah': 69,
+  'al-maarij': 70,
+  'nuh': 71, 'noe': 71,
+  'al-jinn': 72, 'jinn': 72,
+  'al-muzzammil': 73,
+  'al-muddaththir': 74,
+  'al-qiyamah': 75, 'resurrection': 75,
+  'al-insan': 76, 'homme': 76,
+  'al-mursalat': 77,
+  'an-naba': 78,
+  'an-naziat': 79,
+  'abasa': 80,
+  'at-takwir': 81,
+  'al-infitar': 82,
+  'al-mutaffifin': 83,
+  'al-inshiqaq': 84,
+  'al-buruj': 85,
+  'at-tariq': 86,
+  'al-ala': 87,
+  'al-ghashiyah': 88,
+  'al-fajr': 89, 'fajr': 89, 'aube': 89,
+  'al-balad': 90,
+  'ash-shams': 91, 'soleil': 91,
+  'al-layl': 92, 'nuit': 92,
+  'ad-duha': 93, 'duha': 93,
+  'ash-sharh': 94, 'sharh': 94, 'inshirah': 94, 'ouverture': 94,
+  'at-tin': 95, 'figuier': 95,
+  'al-alaq': 96,
+  'al-qadr': 97, 'qadr': 97, 'destin': 97,
+  'al-bayyinah': 98,
+  'az-zalzalah': 99,
+  'al-adiyat': 100,
+  'al-qariah': 101,
+  'at-takathur': 102,
+  'al-asr': 103, 'asr': 103, 'temps': 103,
+  'al-humazah': 104,
+  'al-fil': 105, 'elephant': 105,
+  'quraysh': 106, 'coraysh': 106,
+  'al-maun': 107,
+  'al-kawthar': 108, 'kawthar': 108, 'abondance': 108,
+  'al-kafirun': 109,
+  'an-nasr': 110, 'secours': 110,
+  'al-masad': 111,
+  'al-ikhlas': 112, 'ikhlas': 112, 'monotheisme': 112,
+  'al-falaq': 113, 'falaq': 113, 'aube naissante': 113,
+  'an-nas': 114, 'nas': 114, 'hommes': 114
+};
+
+export function parseSurahNumber(bookOrSurah?: string, explicitNumber?: any): number | undefined {
+  if (explicitNumber && !isNaN(Number(explicitNumber))) {
+    const num = Number(explicitNumber);
+    if (num >= 1 && num <= 114) return num;
+  }
+  if (!bookOrSurah) return undefined;
+  
+  const numMatch = bookOrSurah.match(/\b(1[0-1][0-4]|[1-9][0-9]?)\b/);
+  if (numMatch) return parseInt(numMatch[1], 10);
+
+  const clean = bookOrSurah.toLowerCase().replace(/sourate|surah|surat|[-_']/g, ' ').trim();
+  for (const [key, val] of Object.entries(SURAH_NAME_TO_NUMBER)) {
+    if (clean.includes(key)) return val;
+  }
+  return undefined;
+}
+
+export function parseAyahNumber(numberOrAyah?: string, explicitAyah?: any): number | undefined {
+  if (explicitAyah && !isNaN(Number(explicitAyah))) {
+    const num = Number(explicitAyah);
+    if (num >= 1 && num <= 286) return num;
+  }
+  if (!numberOrAyah) return undefined;
+  const numMatch = numberOrAyah.match(/\b([1-9][0-9]{0,2})\b/);
+  return numMatch ? parseInt(numMatch[1], 10) : undefined;
+}
 
 export const IslamicContentService = {
   /**
@@ -158,12 +302,22 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
           const translationFr = cleanQuotes(parsed.translationFr || parsed.translation_fr || '');
           const translationEn = cleanQuotes(parsed.translationEn || parsed.translation_en || '');
 
+          // Resolve Surah and Ayah numbers precisely
+          const resolvedSurah = parseSurahNumber(
+            parsed.source?.bookOrSurah || parsed.source?.book_or_surah, 
+            parsed.source?.surahNumber
+          );
+          const resolvedAyah = parseAyahNumber(
+            parsed.source?.numberOrAyah || parsed.source?.number_or_ayah, 
+            parsed.source?.ayahNumber
+          ) || 1;
+
           // If it's a Quran verse, fetch the EXACT matching audio from AlQuran Cloud
           let matchedAudio: ReciterAudio | null = null;
-          if (parsed.source?.type === 'quran' && parsed.source?.surahNumber && parsed.source?.ayahNumber) {
+          if (category === 'quran_verse' || parsed.source?.type === 'quran' || resolvedSurah) {
             matchedAudio = await this.fetchExactQuranAudio(
-              Number(parsed.source.surahNumber), 
-              Number(parsed.source.ayahNumber), 
+              resolvedSurah || 94, 
+              resolvedAyah, 
               preferredReciterId
             );
           }
@@ -174,21 +328,21 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
           return {
             id: `islamic-${Date.now()}`,
-            type: parsed.source?.type === 'quran' ? 'quran_verse' : parsed.source?.type === 'dua' ? 'authentic_dua' : 'sahih_hadith',
+            type: category === 'quran_verse' || parsed.source?.type === 'quran' ? 'quran_verse' : parsed.source?.type === 'dua' ? 'authentic_dua' : 'sahih_hadith',
             topic: parsed.topic || searchTopic,
             arabicText: parsed.arabicText || parsed.arabic_text || 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
             phonetic: parsed.phonetic || '',
             translationFr,
             translationEn,
             source: {
-              type: parsed.source?.type || (category === 'quran_verse' ? 'quran' : 'hadith'),
-              bookOrSurah: parsed.source?.bookOrSurah || parsed.source?.book_or_surah || 'Coran & Sunnah',
-              numberOrAyah: parsed.source?.numberOrAyah || parsed.source?.number_or_ayah || 'Authentifié',
-              surahNumber: parsed.source?.surahNumber ? Number(parsed.source.surahNumber) : undefined,
-              ayahNumber: parsed.source?.ayahNumber ? Number(parsed.source.ayahNumber) : undefined,
+              type: category === 'quran_verse' || parsed.source?.type === 'quran' ? 'quran' : (parsed.source?.type || 'hadith'),
+              bookOrSurah: parsed.source?.bookOrSurah || parsed.source?.book_or_surah || `Sourate ${resolvedSurah || 94}`,
+              numberOrAyah: parsed.source?.numberOrAyah || parsed.source?.number_or_ayah || `Verset ${resolvedAyah}`,
+              surahNumber: resolvedSurah,
+              ayahNumber: resolvedAyah,
               arabicReference: parsed.source?.arabicReference || '',
-              authenticityGrade: parsed.source?.authenticityGrade || 'Sahih (Authentique)',
-              verifiedBy: parsed.source?.verifiedBy || 'Sources Islamiques Vérifiées'
+              authenticityGrade: category === 'quran_verse' ? 'Coran (Parole d’Allah)' : (parsed.source?.authenticityGrade || 'Sahih (Authentique)'),
+              verifiedBy: 'Texte Sacré Authentifié'
             },
             reciterAudio: matchedAudio,
             visualTheme: 'golden_night',

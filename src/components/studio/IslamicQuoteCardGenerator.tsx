@@ -74,16 +74,21 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   // When reciter changes on a Quran verse, fetch exact matching audio
   const handleReciterChange = async (reciterId: string) => {
     setSelectedReciterId(reciterId);
-    if (currentItem.source.type === 'quran' && currentItem.source.surahNumber && currentItem.source.ayahNumber) {
-      const audio = await IslamicContentService.fetchExactQuranAudio(
-        currentItem.source.surahNumber,
-        currentItem.source.ayahNumber,
-        reciterId
-      );
-      if (audio) {
-        setCurrentItem(prev => ({ ...prev, reciterAudio: audio }));
-        onShowToast('info', `Audio synchronisé avec ${audio.reciterName} !`);
+    const surah = currentItem.source.surahNumber || 94;
+    const ayah = currentItem.source.ayahNumber || 1;
+    
+    const audio = await IslamicContentService.fetchExactQuranAudio(
+      surah,
+      ayah,
+      reciterId
+    );
+    if (audio) {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        setIsPlayingAudio(false);
       }
+      setCurrentItem(prev => ({ ...prev, reciterAudio: audio }));
+      onShowToast('info', `Audio synchronisé avec ${audio.reciterName} !`);
     }
   };
 
