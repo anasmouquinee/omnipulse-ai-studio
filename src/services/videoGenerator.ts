@@ -276,15 +276,26 @@ export class VideoGenerator {
     const cloud = bridge.cloudStorage;
 
     // 1. Cloudinary Direct Upload
-    if (cloud?.provider === 'cloudinary' && cloud.cloudinaryCloudName?.trim()) {
+    const cloudName = cloud?.cloudinaryCloudName?.trim() || 'zmgzjmpl';
+    const preset = cloud?.cloudinaryUploadPreset?.trim() || 'ml_default';
+
+    if (cloudName) {
       try {
-        const form = new FormData();
-        form.append('file', blob, 'quran-reel.mp4');
-        form.append('upload_preset', cloud.cloudinaryUploadPreset?.trim() || 'ml_default');
-        
-        const res = await fetch(`https://api.cloudinary.com/v1_1/${cloud.cloudinaryCloudName.trim()}/video/upload`, {
+        // Convert blob to Base64 Data URL for 100% universal browser compatibility
+        const base64Data = await new Promise<string>((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => resolve(reader.result as string);
+          reader.onerror = () => reject(new Error('Erreur de lecture du fichier vidéo'));
+          reader.readAsDataURL(blob);
+        });
+
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${cloudName}/video/upload`, {
           method: 'POST',
-          body: form
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            file: base64Data,
+            upload_preset: preset
+          })
         });
         const json = await res.json();
         if (json.secure_url) {
