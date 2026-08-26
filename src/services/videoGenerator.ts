@@ -272,33 +272,59 @@ export class VideoGenerator {
    * Uploads video Blob to high-availability CDN for Buffer ingestion
    */
   public static async uploadVideoToCDN(blob: Blob): Promise<string> {
-    // 1. Primary: Catbox
-    try {
-      const form = new FormData();
-      form.append('reqtype', 'fileupload');
-      form.append('fileToUpload', blob, 'quran-reel.mp4');
-      const res = await fetch('https://catbox.moe/user/api.php', { method: 'POST', body: form });
-      const text = await res.text();
-      if (text && text.startsWith('http')) {
-        return text.trim();
+    const bridge = StorageService.getBridgeConfig();
+    const cloud = bridge.cloudStorage;
+
+    // 1. Cloudinary Direct Upload
+    if (cloud?.provider === 'cloudinary' && cloud.cloudinaryCloudName?.trim()) {
+      try {
+        const form = new FormData();
+        form.append('file', blob, 'quran-reel.mp4');
+        form.append('upload_preset', cloud.cloudinaryUploadPreset?.trim() || 'ml_default');
+        
+        const res = await fetch(`https://api.cloudinary.com/v1_1/${cloud.cloudinaryCloudName.trim()}/video/upload`, {
+          method: 'POST',
+          body: form
+        });
+        const json = await res.json();
+        if (json.secure_url) {
+          return json.secure_url;
+        }
+        if (json.error?.message) {
+          throw new Error(`Cloudinary: ${json.error.message}`);
+        }
+      } catch (err: any) {
+        throw new Error(`Erreur Cloudinary: ${err.message}`);
       }
-    } catch (e) {
-      console.warn('Catbox upload failed, trying tmpfiles:', e);
     }
 
-    // 2. Fallback: Tmpfiles
-    try {
-      const form2 = new FormData();
-      form2.append('file', blob, 'quran-reel.mp4');
-      const res2 = await fetch('https://tmpfiles.org/api/v1/upload', { method: 'POST', body: form2 });
-      const json2 = await res2.json();
-      if (json2?.data?.url) {
-        return json2.data.url.replace('tmpfiles.org/', 'tmpfiles.org/dl/');
+    // 2. Supabase Storage Direct Upload
+    if (cloud?.provider === 'supabase' && cloud.supabaseUrl?.trim()) {
+      try {
+        const bucket = cloud.supabaseBucket?.trim() || 'reels';
+        const fileName = `reel_${Date.now()}.mp4`;
+        const uploadUrl = `${cloud.supabaseUrl.trim().replace(/\/$/, '')}/storage/v1/object/${bucket}/${fileName}`;
+
+        const res = await fetch(uploadUrl, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${cloud.supabaseAnonKey?.trim() || ''}`,
+            'apikey': `${cloud.supabaseAnonKey?.trim() || ''}`,
+            'Content-Type': 'video/mp4'
+          },
+          body: blob
+        });
+
+        if (res.ok) {
+          return `${cloud.supabaseUrl.trim().replace(/\/$/, '')}/storage/v1/object/public/${bucket}/${fileName}`;
+        }
+        const errText = await res.text();
+        throw new Error(`Supabase: ${errText}`);
+      } catch (err: any) {
+        throw new Error(`Erreur Supabase: ${err.message}`);
       }
-    } catch (e) {
-      console.warn('Tmpfiles upload failed:', e);
     }
 
-    throw new Error('Impossible d’héberger la vidéo sur le CDN public pour Buffer.');
+    throw new Error('Veuillez configurer Cloudinary ou Supabase dans les paramètres (⚙️) pour héberger vos vidéos sans blocage.');
   }
 }

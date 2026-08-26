@@ -63,6 +63,15 @@ export interface SocialAccount {
   accountType?: 'direct_webhook' | 'buffer' | 'ayrshare' | 'make';
 }
 
+export interface CloudStorageConfig {
+  provider: 'cloudinary' | 'supabase' | 'none';
+  cloudinaryCloudName?: string;
+  cloudinaryUploadPreset?: string;
+  supabaseUrl?: string;
+  supabaseAnonKey?: string;
+  supabaseBucket?: string;
+}
+
 export interface SocialBridgeConfig {
   bridgeType: 'make_webhook' | 'buffer' | 'n8n_webhook' | 'zapier_webhook' | 'ayrshare' | 'custom_webhook';
   universalWebhookUrl: string;
@@ -70,6 +79,7 @@ export interface SocialBridgeConfig {
   ayrshareApiKey?: string;
   autoDispatch: boolean;
   platformWebhooks?: Partial<Record<SocialPlatform, string>>;
+  cloudStorage?: CloudStorageConfig;
 }
 
 export interface PublishLog {

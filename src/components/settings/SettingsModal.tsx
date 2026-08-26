@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Modal } from '../common/Modal';
 import type { AISettings, VideoProviderType } from '../../types/ai';
 import { StorageService } from '../../services/storageService';
-import { Sparkles, Image as ImageIcon, Film, ShieldAlert, Check } from 'lucide-react';
+import { Sparkles, Image as ImageIcon, Film, ShieldAlert, Check, Cloud } from 'lucide-react';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -27,7 +27,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
   onShowToast
 }) => {
   const currentSettings = StorageService.getSettings();
+  const currentBridge = StorageService.getBridgeConfig();
   const [settings, setSettings] = useState<AISettings>(currentSettings);
+  const [bridgeConfig, setBridgeConfig] = useState(currentBridge);
 
   const handleProviderChange = (provider: VideoProviderType) => {
     const selected = VIDEO_PROVIDERS.find(p => p.id === provider);
@@ -40,8 +42,9 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
 
   const handleSave = () => {
     StorageService.saveSettings(settings);
+    StorageService.saveBridgeConfig(bridgeConfig);
     onSettingsSaved(settings);
-    onShowToast('success', 'Paramètres et clés API enregistrés !');
+    onShowToast('success', 'Paramètres, clés API et stockage vidéo enregistrés !');
     onClose();
   };
 
@@ -179,6 +182,113 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
               placeholder="rw_... ou key_..."
             />
           </div>
+        </div>
+
+        {/* 4. Cloud Storage for Reels & Videos */}
+        <div style={{ borderTop: '1px solid var(--border-medium)', paddingTop: '1rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <div className="form-group">
+            <label className="form-label">
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <Cloud size={15} color="#06b6d4" />
+                Hébergement Cloud des Vidéos Reels (Requis pour Buffer)
+              </span>
+            </label>
+            <select
+              className="form-select"
+              value={bridgeConfig.cloudStorage?.provider || 'cloudinary'}
+              onChange={(e) => setBridgeConfig({
+                ...bridgeConfig,
+                cloudStorage: { ...(bridgeConfig.cloudStorage || { provider: 'cloudinary' }), provider: e.target.value as any }
+              })}
+            >
+              <option value="cloudinary">Cloudinary (Gratuit & Rapide — Recommandé)</option>
+              <option value="supabase">Supabase Storage (Gratuit / S3)</option>
+            </select>
+          </div>
+
+          {(bridgeConfig.cloudStorage?.provider || 'cloudinary') === 'cloudinary' ? (
+            <>
+              <div className="form-group">
+                <label className="form-label">
+                  <span>Cloudinary Cloud Name</span>
+                  <a href="https://cloudinary.com/users/register_free" target="_blank" rel="noreferrer" style={{ fontSize: '0.75rem', color: 'var(--accent-primary)' }}>
+                    Créer un compte gratuit Cloudinary ↗
+                  </a>
+                </label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={bridgeConfig.cloudStorage?.cloudinaryCloudName || ''}
+                  onChange={(e) => setBridgeConfig({
+                    ...bridgeConfig,
+                    cloudStorage: { ...(bridgeConfig.cloudStorage || { provider: 'cloudinary' }), provider: 'cloudinary', cloudinaryCloudName: e.target.value }
+                  })}
+                  placeholder="Ex: dqmfgj6e9 ou votre Cloud Name"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">
+                  <span>Upload Preset (Non signé)</span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--text-tertiary)' }}>Créé dans Settings &gt; Upload sur Cloudinary</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={bridgeConfig.cloudStorage?.cloudinaryUploadPreset || ''}
+                  onChange={(e) => setBridgeConfig({
+                    ...bridgeConfig,
+                    cloudStorage: { ...(bridgeConfig.cloudStorage || { provider: 'cloudinary' }), provider: 'cloudinary', cloudinaryUploadPreset: e.target.value }
+                  })}
+                  placeholder="ml_default ou votre preset unsigned"
+                />
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="form-group">
+                <label className="form-label">Supabase Project URL</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={bridgeConfig.cloudStorage?.supabaseUrl || ''}
+                  onChange={(e) => setBridgeConfig({
+                    ...bridgeConfig,
+                    cloudStorage: { ...(bridgeConfig.cloudStorage || { provider: 'supabase' }), provider: 'supabase', supabaseUrl: e.target.value }
+                  })}
+                  placeholder="https://xyzcompany.supabase.co"
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Supabase Anon Key</label>
+                <input
+                  type="password"
+                  className="form-input"
+                  value={bridgeConfig.cloudStorage?.supabaseAnonKey || ''}
+                  onChange={(e) => setBridgeConfig({
+                    ...bridgeConfig,
+                    cloudStorage: { ...(bridgeConfig.cloudStorage || { provider: 'supabase' }), provider: 'supabase', supabaseAnonKey: e.target.value }
+                  })}
+                  placeholder="eyJhbGciOiJIUzI1NiIsIn..."
+                />
+              </div>
+
+              <div className="form-group">
+                <label className="form-label">Bucket Public Name</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={bridgeConfig.cloudStorage?.supabaseBucket || 'reels'}
+                  onChange={(e) => setBridgeConfig({
+                    ...bridgeConfig,
+                    cloudStorage: { ...(bridgeConfig.cloudStorage || { provider: 'supabase' }), provider: 'supabase', supabaseBucket: e.target.value }
+                  })}
+                  placeholder="reels"
+                />
+              </div>
+            </>
+          )}
         </div>
 
         {/* Language Selection */}

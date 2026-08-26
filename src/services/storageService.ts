@@ -32,6 +32,11 @@ const DEFAULT_BRIDGE_CONFIG: SocialBridgeConfig = {
     facebook: '',
     linkedin: '',
     x: '',
+  },
+  cloudStorage: {
+    provider: 'cloudinary',
+    cloudinaryCloudName: '',
+    cloudinaryUploadPreset: ''
   }
 };
 
