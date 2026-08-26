@@ -51,6 +51,8 @@ export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
       type: 'quran',
       bookOrSurah: 'Sourate Ash-Sharh (L’Ouverture)',
       numberOrAyah: 'Sourate 94, Versets 5-6',
+      surahNumber: 94,
+      ayahNumber: 5,
       arabicReference: 'سورة الشرح ٥-٦',
       authenticityGrade: 'Coran (Parole d’Allah)',
       verifiedBy: 'Texte Sacré Authentifié'
@@ -63,7 +65,7 @@ export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
       ar: 'مهما اشتدت عليك الكروب، تذكر أن مع العسر يسراً، وأن فرج الله قريب.'
     },
     hashtags: {
-      fr: ['#IslamRappel', '#Coran', '#Patience', '#Tawakkul', '#Foi', '#IslamFrance'],
+      fr: ['#IslamRappel', '#Coran', '#Patience', '#Tawakkul', '#Foi', '#KaelarIslamic'],
       en: ['#QuranQuotes', '#IslamicReminders', '#Sabr', '#TrustAllah', '#MuslimTikTok'],
       ar: ['#قرآن_كريم', '#تلاوات_خاشعة', '#أدعية', '#راحة_نفسية', '#إسلاميات']
     }
@@ -71,30 +73,30 @@ export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
   {
     id: 'islamic-2',
     type: 'sahih_hadith',
-    topic: 'L’émerveillement face au croyant et la patience (Sabr)',
-    arabicText: 'عَجَبًا لأَمْرِ الْمُؤْمِنِ إِنَّ أَمْرَهُ كُلَّهُ خَيْرٌ، وَلَيْسَ ذَاكَ لأَحَدٍ إِلاَّ لِلْمُؤْمِنِ: إِنْ أَصَابَتْهُ سَرَّاءُ شَكَرَ فَكَانَ خَيْرًا لَهُ، وَإِنْ أَصَابَتْهُ ضَرَّاءُ صَبَرَ فَكَانَ خَيْرًا لَهُ',
-    phonetic: '\'Ajaban li-amril-mu\'min, inna amrahu kullahu khayr...',
-    translationFr: 'Le Prophète ﷺ a dit : « Que l’affaire du croyant est étonnante ! Tout ce qui lui arrive est un bien, et cela n’appartient qu’au croyant : si un bonheur le touche, il remercie Allah et c’est un bien pour lui ; et si un malheur le frappe, il patiente et c’est un bien pour lui. »',
-    translationEn: 'The Prophet ﷺ said: “How wonderful is the affair of the believer, for his affairs are all good, and this applies to no one but the believer. If something good happens to him, he is thankful and that is good for him; and if something bad happens to him, he is patient and that is good for him.”',
+    topic: 'L’expiation des péchés (Kaffarah) et la prière',
+    arabicText: 'الصَّلَوَاتُ الْخَمْسُ، وَالْجُمُعَةُ إِلَى الْجُمُعَةِ، وَرَمَضَانُ إِلَى رَمَضَانَ، مُكَفِّرَاتٌ مَا بَيْنَهُنَّ إِذَا اجْتَنَبَ الْكَبَائِرَ',
+    phonetic: 'As-salawatu al-khamsu, wal-jumu\'atu ilal-jumu\'ati, wa ramadanu ila ramadan, mukaffiratun ma baynahunna idhaj-tanabal-kaba\'ir',
+    translationFr: 'Le Prophète ﷺ a dit : « Les cinq prières quotidiennes, la prière du vendredi jusqu’à la suivante, et le jeûne de Ramadan jusqu’au suivant effacent les péchés commis entre eux, tant que l’on évite les grands péchés. »',
+    translationEn: 'The Prophet ﷺ said: “The five daily prayers, from one Friday prayer to the next, and from Ramadan to the next Ramadan, are expiations for whatever sins are committed between them, provided major sins are avoided.”',
     source: {
       type: 'hadith',
       bookOrSurah: 'Sahih Muslim',
-      numberOrAyah: 'Hadith n° 2999',
-      arabicReference: 'صحيح مسلم ٢٩٩٩',
+      numberOrAyah: 'Hadith n° 233',
+      arabicReference: 'صحيح مسلم ٢٣٣',
       authenticityGrade: 'Sahih Muslim',
       verifiedBy: 'Imam Muslim (Authentique)'
     },
     reciterAudio: VERIFIED_RECITERS[0],
     visualTheme: 'emerald_mosque',
     reflection: {
-      fr: 'En tant que croyant, tu ne perds jamais : dans la joie tu gagnes la récompense de la gratitude, et dans l’épreuve tu gagnes l’élévation de la patience.',
-      en: 'As a believer, you are always victorious: through blessings you gain the reward of gratitude, and through trials you gain the elevation of patience.',
-      ar: 'أمر المؤمن كله خير، بالصبر عند البلاء والشكر عند النعماء تنال رضا الله.'
+      fr: 'Chaque prière accomplie à l’heure est une source d’effacement des fautes et un nouveau départ pour l’âme.',
+      en: 'Every prayer established on time purifies the soul and wipes away shortcomings.',
+      ar: 'المحافظة على الصلوات في أوقاتها كفارة للذنوب ونور للقلوب.'
     },
     hashtags: {
-      fr: ['#HadithSahih', '#PropheteMuhammad', '#Sabr', '#Gratitude', '#IslamRappels'],
-      en: ['#HadithOfTheDay', '#ProphetMuhammad', '#Patience', '#IslamicWisdom'],
-      ar: ['#حديث_شريف', '#صحيح_مسلم', '#سنة_نبوية', '#الصبر', '#أذكار']
+      fr: ['#HadithSahih', '#Kaffarah', '#Priere', '#Pardon', '#KaelarIslamic'],
+      en: ['#HadithOfTheDay', '#Forgiveness', '#Salah', '#IslamicReminder'],
+      ar: ['#حديث_شريف', '#صحيح_مسلم', '#كفارة_الذنوب', '#الصلاة']
     }
   },
   {
@@ -201,7 +203,7 @@ export const ISLAMIC_THEME_PRESETS: IslamicThemePreset[] = [
     icon: '📜',
     description: 'Paroles du Prophète ﷺ sourcées avec précision (Sahih Al-Bukhari & Muslim).',
     category: 'sahih_hadith',
-    defaultTopic: 'Le bon comportement et la pureté de l’intention'
+    defaultTopic: 'L’expiation des péchés (Kaffarah) et la prière'
   },
   {
     id: 'preset-dua',

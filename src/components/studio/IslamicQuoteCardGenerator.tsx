@@ -90,6 +90,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
 
   const handleGenerateAI = async () => {
     setIsGeneratingGemini(true);
+    setIsRendering(true);
     try {
       const generated = await IslamicContentService.generateIslamicPost(
         selectedCategory,
@@ -97,12 +98,28 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         selectedLanguage,
         selectedReciterId
       );
-      setCurrentItem({ ...generated, visualTheme: selectedTheme });
-      onShowToast('success', `Rappel vérifié et audio synchronisé (${generated.source.authenticityGrade}) !`);
+      const updatedItem: IslamicPostItem = { 
+        ...generated, 
+        id: `islamic-${Date.now()}`, 
+        visualTheme: selectedTheme 
+      };
+      setCurrentItem(updatedItem);
+
+      // Force immediate canvas update
+      const newCardUrl = await IslamicContentService.renderQuoteCardCanvas(
+        updatedItem,
+        aspectRatio,
+        selectedLanguage
+      );
+      setRenderedCardUrl(newCardUrl);
+
+      onShowToast('success', `✨ Généré par Gemini : ${updatedItem.topic} (${updatedItem.source.authenticityGrade})`);
     } catch (e: any) {
+      console.warn('Generation error:', e);
       onShowToast('error', 'Erreur lors de la génération. Utilisation de la base vérifiée.');
     } finally {
       setIsGeneratingGemini(false);
+      setIsRendering(false);
     }
   };
 
