@@ -286,6 +286,9 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
 
       if (instaLog?.status === 'success' || tiktokLog?.status === 'success') {
         onShowToast('success', '✨ Vidéo Reel avec récitation audio publiée en direct sur Instagram & TikTok !');
+      } else if (instaLog?.status === 'failed' || tiktokLog?.status === 'failed') {
+        const msg = instaLog?.responseMessage || tiktokLog?.responseMessage || 'Erreur lors de la publication.';
+        onShowToast('error', msg);
       } else {
         onShowToast('success', '✨ Vidéo Reel transmise à Buffer pour Instagram et TikTok !');
       }
