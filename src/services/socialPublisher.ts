@@ -203,14 +203,23 @@ export const SocialPublisher = {
             };
           }
 
-          const res = await fetch('https://api.buffer.com/graphql', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${bufferToken}`
-            },
-            body: JSON.stringify({ query: mutationQuery, variables })
-          });
+          let res: Response;
+          try {
+            res = await fetch('/api/buffer', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ query: mutationQuery, variables, token: bufferToken })
+            });
+          } catch {
+            res = await fetch('https://api.buffer.com/graphql', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${bufferToken}`
+              },
+              body: JSON.stringify({ query: mutationQuery, variables })
+            });
+          }
 
           const result = await res.json();
           const createdPost = result.data?.createPost?.post;
