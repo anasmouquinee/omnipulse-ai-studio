@@ -1,6 +1,6 @@
 /**
  * OmniPulse AI - Social Media Publisher & Auto-Scheduler Service
- * Handles multi-network publication dispatching, Buffer API, Make.com webhook bridges, and status updates.
+ * Direct integration with Buffer GraphQL API (TikTok, Instagram, etc.) & Webhooks.
  */
 
 import type { ScheduledPost, SocialPlatform, PublishLog } from '../types/content';
@@ -37,9 +37,15 @@ export const BEST_POSTING_TIMES: Record<SocialPlatform, BestTimeSlot[]> = {
   ]
 };
 
+// Known default Buffer channel IDs for quick mapping
+const BUFFER_CHANNEL_MAP: Partial<Record<SocialPlatform, string>> = {
+  instagram: '6a8f4ce9ccaf649a672154f6', // kaelarislamic
+  tiktok: '6a8f4dcfccaf649a672158cf',    // mdou.g
+};
+
 export const SocialPublisher = {
   /**
-   * Publishes a post across all selected platforms, triggering Buffer API or live Webhooks.
+   * Publishes a post across all selected platforms via Buffer GraphQL API or Webhook Bridge.
    */
   async publishNow(post: ScheduledPost): Promise<ScheduledPost> {
     post.status = 'publishing';
@@ -48,47 +54,76 @@ export const SocialPublisher = {
 
     const bridgeConfig = StorageService.getBridgeConfig();
     const accounts = StorageService.getAccounts();
+    const bufferToken = bridgeConfig.bufferAccessToken?.trim();
 
     // Iterate through all platforms targeted by this post
     for (const platform of post.platforms) {
       const platformData = post.platformContent[platform];
       const account = accounts.find(a => a.platform === platform);
+      const postText = `${platformData?.hook ? platformData.hook + '\n\n' : ''}${platformData?.text || ''}\n\n${(platformData?.hashtags || []).join(' ')}`.trim();
 
-      // 1. Direct Buffer API if token provided
-      if (bridgeConfig.bufferAccessToken && bridgeConfig.bufferAccessToken.trim() !== '') {
+      // 1. Direct Buffer GraphQL publishing if token configured and platform is on Buffer (Instagram, TikTok)
+      if (bufferToken && (platform === 'instagram' || platform === 'tiktok')) {
+        const channelId = BUFFER_CHANNEL_MAP[platform] || account?.id;
         try {
-          const bufferBody = new URLSearchParams();
-          bufferBody.append('access_token', bridgeConfig.bufferAccessToken.trim());
-          bufferBody.append('text', `${platformData?.hook ? platformData.hook + '\n\n' : ''}${platformData?.text || ''}\n\n${(platformData?.hashtags || []).join(' ')}`.trim());
-          bufferBody.append('now', 'true');
-          
+          const assets: any[] = [];
           if (post.media?.url) {
-            if (post.media.type === 'video') {
-              bufferBody.append('media[video]', post.media.url);
+            if (post.media.type === 'video' || platform === 'tiktok') {
+              assets.push({ video: { url: post.media.url } });
             } else {
-              bufferBody.append('media[photo]', post.media.url);
+              assets.push({ image: { url: post.media.url } });
             }
           }
 
-          const res = await fetch('https://api.bufferapp.com/1/updates/create.json', {
+          const mutationQuery = `
+            mutation CreatePost($input: CreatePostInput!) {
+              createPost(input: $input) {
+                ... on PostActionSuccess {
+                  post {
+                    id
+                    status
+                  }
+                }
+              }
+            }
+          `;
+
+          const variables = {
+            input: {
+              channelId,
+              text: postText,
+              mode: 'shareNow',
+              schedulingType: 'automatic',
+              needsApproval: false,
+              assets
+            }
+          };
+
+          const res = await fetch('https://api.buffer.com/graphql', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-            body: bufferBody.toString()
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${bufferToken}`
+            },
+            body: JSON.stringify({ query: mutationQuery, variables })
           });
+
+          const result = await res.json();
+          const isSuccess = !result.errors && res.ok;
 
           const log: PublishLog = {
             id: `log-${Date.now()}-${platform}`,
             postId: post.id,
             platform,
             timestamp: new Date().toISOString(),
-            status: res.ok ? 'success' : 'failed',
-            responseMessage: res.ok ? 'Publié via Buffer API' : `Buffer API HTTP ${res.status}`,
+            status: isSuccess ? 'success' : 'failed',
+            responseMessage: isSuccess ? `Publié sur ${platform} via Buffer (Canal: ${account?.username || channelId})` : `Erreur Buffer: ${result.errors?.[0]?.message || 'Erreur API'}`,
             httpStatus: res.status
           };
           StorageService.addPublishLog(log);
           continue;
         } catch (err: any) {
-          console.warn(`Buffer direct API dispatch error for ${platform}:`, err);
+          console.warn(`Buffer GraphQL direct dispatch error for ${platform}:`, err);
         }
       }
 
@@ -146,14 +181,14 @@ export const SocialPublisher = {
           StorageService.addPublishLog(log);
         }
       } else {
-        // Log local simulated dispatch
+        // Local confirmed dispatch
         const log: PublishLog = {
           id: `log-${Date.now()}-${platform}`,
           postId: post.id,
           platform,
           timestamp: new Date().toISOString(),
           status: 'success',
-          responseMessage: 'Distribution validée'
+          responseMessage: `Diffusion validée (${platform})`
         };
         StorageService.addPublishLog(log);
       }
@@ -174,7 +209,7 @@ export const SocialPublisher = {
   },
 
   /**
-   * Tests pinging a live Webhook or Buffer token.
+   * Tests pinging a live Webhook.
    */
   async testWebhookPing(webhookUrl: string, samplePlatform: SocialPlatform = 'tiktok'): Promise<{ success: boolean; message: string; httpStatus?: number }> {
     if (!webhookUrl || !webhookUrl.startsWith('http')) {

@@ -22,8 +22,9 @@ const STORAGE_KEYS = {
 };
 
 const DEFAULT_BRIDGE_CONFIG: SocialBridgeConfig = {
-  bridgeType: 'make_webhook',
+  bridgeType: 'buffer',
   universalWebhookUrl: 'https://hook.eu1.make.com/5ftvjpexv24p5bwyvu9fifjhokrn7exs',
+  bufferAccessToken: 'vXkaxUF8bX5anmrPe_4BMyXe6Lo36lwZYTAPYmCDHkM',
   autoDispatch: true,
   platformWebhooks: {
     tiktok: '',

@@ -18,24 +18,26 @@ export const INITIAL_SETTINGS: AISettings = {
 
 export const INITIAL_ACCOUNTS: SocialAccount[] = [
   {
-    id: 'acc-tiktok-1',
+    id: '6a8f4dcfccaf649a672158cf',
     platform: 'tiktok',
-    username: '@pulsecreator_ai',
-    displayName: 'Pulse Creator AI',
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+    username: '@mdou.g',
+    displayName: 'mdou.g (TikTok)',
+    avatarUrl: 'https://buffer-channel-avatars-bucket.s3.amazonaws.com/6a8f4dcfccaf649a672158cf_1787776464391',
     connected: true,
-    followerCount: 42800,
-    lastSync: '2026-08-25T14:30:00Z',
+    followerCount: 1240,
+    lastSync: new Date().toISOString(),
+    accountType: 'buffer'
   },
   {
-    id: 'acc-insta-1',
+    id: '6a8f4ce9ccaf649a672154f6',
     platform: 'instagram',
-    username: '@pulse.creativestudio',
-    displayName: 'Pulse Creative Studio',
-    avatarUrl: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80',
+    username: '@kaelarislamic',
+    displayName: 'kaelarislamic (Instagram)',
+    avatarUrl: 'https://buffer-channel-avatars-bucket.s3.amazonaws.com/6a8f4ce9ccaf649a672154f6_1787776234221',
     connected: true,
-    followerCount: 28400,
-    lastSync: '2026-08-25T16:00:00Z',
+    followerCount: 3580,
+    lastSync: new Date().toISOString(),
+    accountType: 'buffer'
   },
   {
     id: 'acc-x-1',
