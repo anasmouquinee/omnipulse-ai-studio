@@ -204,50 +204,6 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     onShowToast('success', 'Rappel islamique chargé dans l’éditeur du studio !');
   };
 
-  const [isPublishingReel, setIsPublishingReel] = useState(false);
-
-  const handleDirectPublishVideoReel = async () => {
-    setIsPublishingReel(true);
-    onShowToast('info', '🎬 Préparation du Reel vidéo & publication sur Instagram (@kaelarislamic) et TikTok (@mdou.g)...');
-
-    try {
-      const scheduled = IslamicContentService.convertToScheduledPost(
-        currentItem,
-        selectedLanguage,
-        renderedCardUrl
-      );
-      
-      // Set video format targeting BOTH Instagram Reel and TikTok
-      scheduled.platforms = ['instagram', 'tiktok'];
-      scheduled.media = {
-        id: `med-video-${Date.now()}`,
-        type: 'video',
-        url: 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
-        aspectRatio: '9:16',
-        durationSeconds: 15,
-        createdAt: new Date().toISOString(),
-        engine: 'video-reel'
-      };
-
-      await SocialPublisher.publishNow(scheduled);
-
-      const latestLogs = StorageService.getPublishLogs();
-      const instaLog = latestLogs.find(l => l.platform === 'instagram' && l.postId === scheduled.id);
-      const tiktokLog = latestLogs.find(l => l.platform === 'tiktok' && l.postId === scheduled.id);
-
-      if (instaLog?.status === 'success' || tiktokLog?.status === 'success') {
-        onShowToast('success', '✨ Vidéo Reel publiée en direct sur Instagram (@kaelarislamic) et TikTok (@mdou.g) avec audio !');
-      } else {
-        onShowToast('success', '✨ Vidéo Reel transmise à Buffer pour Instagram et TikTok !');
-      }
-    } catch (e: any) {
-      console.warn('Reel publish error:', e);
-      onShowToast('error', `Erreur: ${e?.message || 'Erreur lors de la diffusion Reel.'}`);
-    } finally {
-      setIsPublishingReel(false);
-    }
-  };
-
   const handleDirectPublish = async () => {
     setIsPublishingDirectly(true);
     try {
@@ -257,7 +213,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         renderedCardUrl
       );
       
-      // Publish to selected Buffer accounts & Make.com Webhook
+      // Publish to Buffer for @kaelarislamic
       await SocialPublisher.publishNow(scheduled);
 
       const latestLogs = StorageService.getPublishLogs();
@@ -758,55 +714,38 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
 
           {/* Action Buttons */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-            {/* 1. Main 1-Click Automated Reel & Audio Publishing to Both Instagram and TikTok */}
+            {/* 1. Main Direct 1-Click Visual Quote Card Publishing to Instagram */}
             <button
               type="button"
               className="btn btn-primary"
-              onClick={handleDirectPublishVideoReel}
-              disabled={isPublishingReel || isPublishingDirectly}
+              onClick={handleDirectPublish}
+              disabled={isPublishingDirectly}
               style={{
                 width: '100%',
                 padding: '0.9rem',
                 fontSize: '0.95rem',
                 fontWeight: 700,
                 gap: '0.55rem',
-                background: 'linear-gradient(135deg, #d97706 0%, #059669 100%)',
-                boxShadow: '0 0 25px rgba(245, 158, 11, 0.45)',
-                border: '1px solid rgba(251, 191, 36, 0.5)'
+                background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)',
+                boxShadow: '0 0 25px rgba(16, 185, 129, 0.45)',
+                border: '1px solid rgba(16, 185, 129, 0.5)'
               }}
             >
-              {isPublishingReel ? (
+              {isPublishingDirectly ? (
                 <>
                   <RefreshCw size={18} className="animate-spin" />
-                  <span>Publication du Reel sur Instagram & TikTok...</span>
+                  <span>Publication de la carte sur @kaelarislamic...</span>
                 </>
               ) : (
                 <>
                   <Send size={18} />
-                  <span>🚀 Publier Vidéo Reel sur Instagram & TikTok (avec Audio)</span>
+                  <span>🚀 Publier la Carte Visuelle sur @kaelarislamic (Instagram)</span>
                 </>
               )}
             </button>
 
-            {/* 2. Photo post to Instagram & Local Video Export */}
+            {/* 2. Download Actions: Video Reel with Audio & HD Image */}
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleDirectPublish}
-                disabled={isPublishingDirectly || isPublishingReel}
-                style={{ 
-                  gap: '0.4rem', 
-                  fontSize: '0.82rem',
-                  background: 'rgba(16, 185, 129, 0.12)',
-                  borderColor: 'rgba(16, 185, 129, 0.4)',
-                  color: '#34d399'
-                }}
-              >
-                {isPublishingDirectly ? <RefreshCw size={14} className="animate-spin" /> : <ImageIcon size={14} />}
-                <span>{isPublishingDirectly ? 'Envoi...' : '🖼️ Affiche Photo (Instagram)'}</span>
-              </button>
-
               <button
                 type="button"
                 className="btn btn-secondary"
@@ -820,13 +759,10 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                   color: '#fbbf24'
                 }}
               >
-                {isExportingVideo ? <RefreshCw size={14} className="animate-spin" /> : <Download size={14} />}
-                <span>{isExportingVideo ? 'Enregistrement...' : '💾 Télécharger Vidéo Reel'}</span>
+                {isExportingVideo ? <RefreshCw size={14} className="animate-spin" /> : <Mic size={14} />}
+                <span>{isExportingVideo ? 'Enregistrement...' : '🎬 Vidéo Reel + Audio (TikTok)'}</span>
               </button>
-            </div>
 
-            {/* 3. Image Download & Text edit */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
               <button
                 type="button"
                 className="btn btn-secondary"
@@ -836,17 +772,18 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 <Download size={14} />
                 <span>Télécharger Image HD</span>
               </button>
-
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleApplyToStudio}
-                style={{ gap: '0.4rem', fontSize: '0.82rem' }}
-              >
-                <Share2 size={14} />
-                <span>Éditer le texte</span>
-              </button>
             </div>
+
+            {/* 3. Text edit */}
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={handleApplyToStudio}
+              style={{ width: '100%', gap: '0.4rem', fontSize: '0.82rem' }}
+            >
+              <Share2 size={14} />
+              <span>Éditer le texte dans le Studio</span>
+            </button>
           </div>
         </div>
 
