@@ -111,12 +111,13 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           <label className="form-label">Modèle de Rédaction & Stratégie</label>
           <select
             className="form-select"
-            value={settings.geminiModel}
+            value={settings.geminiModel || 'gemini-3.6-flash'}
             onChange={(e) => setSettings({ ...settings, geminiModel: e.target.value })}
           >
-            <option value="gemini-1.5-flash">Gemini 1.5 Flash (Ultra-rapide & Recommandé)</option>
-            <option value="gemini-2.0-flash">Gemini 2.0 Flash (Dernière génération)</option>
-            <option value="gemini-1.5-pro">Gemini 1.5 Pro (Raisonnement approfondi & Storytelling)</option>
+            <option value="gemini-3.6-flash">Gemini 3.6 Flash (Dernière génération & Recommandé)</option>
+            <option value="gemini-flash-latest">Gemini Flash Latest</option>
+            <option value="gemini-3.5-flash">Gemini 3.5 Flash</option>
+            <option value="gemini-2.5-pro">Gemini Pro (Raisonnement approfondi)</option>
           </select>
         </div>
 

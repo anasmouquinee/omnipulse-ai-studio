@@ -47,6 +47,10 @@ export const StorageService = {
     }
   },
 
+  getApiKey(): string {
+    return this.getSettings().geminiApiKey || (import.meta as any).env?.VITE_GEMINI_API_KEY || '';
+  },
+
   saveSettings(settings: AISettings): void {
     try {
       localStorage.setItem(STORAGE_KEYS.SETTINGS, JSON.stringify(settings));

@@ -17,10 +17,11 @@ export const IslamicContentService = {
     customTopic?: string,
     language: IslamicLanguage = 'all'
   ): Promise<IslamicPostItem> {
-    const apiKey = StorageService.getApiKey() || DEFAULT_GEMINI_KEY;
+    const apiKey = StorageService.getApiKey();
 
-    // If Gemini API is available and custom topic is provided, generate via Gemini with strict Islamic verification prompt
-    if (apiKey && customTopic && customTopic.trim() !== '') {
+    // If Gemini API is available, generate via Gemini with strict Islamic verification prompt
+    if (apiKey && apiKey.trim() !== '') {
+      const activeTopic = customTopic?.trim() || 'La patience, le repentir et la miséricorde d’Allah';
       try {
         const prompt = `
 Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic & @mdou.g).
