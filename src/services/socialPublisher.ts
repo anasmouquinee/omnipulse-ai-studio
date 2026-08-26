@@ -43,6 +43,34 @@ const BUFFER_CHANNEL_MAP: Partial<Record<SocialPlatform, string>> = {
   tiktok: '6a8f4dcfccaf649a672158cf',    // mdou.g
 };
 
+// Helper to upload base64 canvas card to get direct public URL for Buffer
+async function uploadBase64Image(dataUri: string): Promise<string | null> {
+  try {
+    const base64Data = dataUri.replace(/^data:image\/\w+;base64,/, '');
+    const form = new FormData();
+    form.append('image', base64Data);
+    form.append('type', 'base64');
+
+    const res = await fetch('https://api.imgur.com/3/image', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Client-ID 546c25a59c58ad7'
+      },
+      body: form
+    });
+
+    if (res.ok) {
+      const json = await res.json();
+      if (json.data?.link) {
+        return json.data.link;
+      }
+    }
+  } catch (err) {
+    console.warn('Could not upload base64 image to Imgur:', err);
+  }
+  return null;
+}
+
 export const SocialPublisher = {
   /**
    * Publishes a post across all selected platforms via Buffer GraphQL API or Webhook Bridge.
@@ -94,9 +122,19 @@ export const SocialPublisher = {
           let variables: any;
 
           if (platform === 'instagram') {
-            const imageUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')))
-              ? post.media.url
-              : 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&auto=format&fit=crop&q=85';
+            let imageUrl = 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&auto=format&fit=crop&q=85';
+
+            if (post.media?.url) {
+              if (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) {
+                imageUrl = post.media.url;
+              } else if (post.media.url.startsWith('data:image/')) {
+                // Real canvas card image: upload to Imgur to give Buffer a direct public HTTPS URL
+                const uploaded = await uploadBase64Image(post.media.url);
+                if (uploaded) {
+                  imageUrl = uploaded;
+                }
+              }
+            }
 
             variables = {
               input: {
