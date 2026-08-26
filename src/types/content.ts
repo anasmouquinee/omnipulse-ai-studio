@@ -72,6 +72,12 @@ export interface CloudStorageConfig {
   supabaseBucket?: string;
 }
 
+export interface TelegramConfig {
+  botToken: string;
+  chatId: string;
+  enabled: boolean;
+}
+
 export interface SocialBridgeConfig {
   bridgeType: 'make_webhook' | 'buffer' | 'n8n_webhook' | 'zapier_webhook' | 'ayrshare' | 'custom_webhook';
   universalWebhookUrl: string;
@@ -80,6 +86,7 @@ export interface SocialBridgeConfig {
   autoDispatch: boolean;
   platformWebhooks?: Partial<Record<SocialPlatform, string>>;
   cloudStorage?: CloudStorageConfig;
+  telegram?: TelegramConfig;
 }
 
 export interface PublishLog {

@@ -36,7 +36,12 @@ const DEFAULT_BRIDGE_CONFIG: SocialBridgeConfig = {
   cloudStorage: {
     provider: 'cloudinary',
     cloudinaryCloudName: 'zmgzjmpl',
-    cloudinaryUploadPreset: ''
+    cloudinaryUploadPreset: 'ml_default'
+  },
+  telegram: {
+    botToken: '',
+    chatId: '',
+    enabled: false
   }
 };
 

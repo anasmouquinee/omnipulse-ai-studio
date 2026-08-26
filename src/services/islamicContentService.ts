@@ -10,11 +10,16 @@ import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../data/
 import { StorageService } from './storageService';
 
 export const AVAILABLE_RECITERS = [
-  { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy' },
-  { id: 'ar.abdulbasitmurattal', name: 'Abdul Basit (Murattal)' },
-  { id: 'ar.minshawi', name: 'Mohamed Siddiq El-Minshawi' },
-  { id: 'ar.husary', name: 'Mahmoud Khalil Al-Husary' },
-  { id: 'ar.mahermuaiqly', name: 'Maher Al-Muaiqly' }
+  { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy (مشاري العفاسي)' },
+  { id: 'ar.abdulbasitmurattal', name: 'Abdul Basit Murattal (عبد الباسط عبد الصمد)' },
+  { id: 'ar.minshawi', name: 'Mohamed Siddiq El-Minshawi (المنشاوي)' },
+  { id: 'ar.husary', name: 'Mahmoud Khalil Al-Husary (الحصري)' },
+  { id: 'ar.mahermuaiqly', name: 'Maher Al-Muaiqly (ماهر المعيقلي)' },
+  { id: 'ar.sudais', name: 'Abdul Rahman Al-Sudais (السديس)' },
+  { id: 'ar.shaatree', name: 'Abu Bakr Al-Shatri (أبو بكر الشاطري)' },
+  { id: 'ar.saadalghamdi', name: 'Saad Al-Ghamdi (سعد الغامدي)' },
+  { id: 'ar.hudhaify', name: 'Ali Al-Hudhaify (علي الحذيفي)' },
+  { id: 'ar.aymanswoid', name: 'Dr. Ayman Sowaid (أيمن سويد)' }
 ];
 
 export const SURAH_NAME_TO_NUMBER: Record<string, number> = {

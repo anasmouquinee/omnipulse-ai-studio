@@ -291,6 +291,59 @@ export const SettingsModal: React.FC<SettingsModalProps> = ({
           )}
         </div>
 
+        {/* Telegram Notifications */}
+        <div style={{ borderTop: '1px solid var(--border-medium)', paddingTop: '1rem' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontWeight: 600, fontSize: '0.88rem', color: '#60a5fa' }}>
+              <span>🔔</span>
+              <span>Notifications Telegram Instantanées (100% Gratuit)</span>
+            </div>
+            <label style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.78rem', color: 'var(--text-secondary)', cursor: 'pointer' }}>
+              <input
+                type="checkbox"
+                checked={bridgeConfig.telegram?.enabled || false}
+                onChange={(e) => setBridgeConfig({
+                  ...bridgeConfig,
+                  telegram: { ...(bridgeConfig.telegram || { botToken: '', chatId: '' }), enabled: e.target.checked }
+                })}
+              />
+              <span>Activer les alertes</span>
+            </label>
+          </div>
+
+          {bridgeConfig.telegram?.enabled && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', background: 'rgba(59, 130, 246, 0.05)', padding: '0.75rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(59, 130, 246, 0.15)' }}>
+              <div className="form-group" style={{ margin: 0 }}>
+                <label className="form-label" style={{ fontSize: '0.78rem' }}>Telegram Bot Token (obtenu via @BotFather)</label>
+                <input
+                  type="password"
+                  className="form-input"
+                  value={bridgeConfig.telegram?.botToken || ''}
+                  onChange={(e) => setBridgeConfig({
+                    ...bridgeConfig,
+                    telegram: { ...(bridgeConfig.telegram || { chatId: '', enabled: true }), botToken: e.target.value }
+                  })}
+                  placeholder="123456789:ABCdefGhIJKlmNoPQRsTUVwxyZ..."
+                />
+              </div>
+
+              <div className="form-group" style={{ margin: 0 }}>
+                <label className="form-label" style={{ fontSize: '0.78rem' }}>Telegram Chat ID (votre ID personnel ou de canal)</label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={bridgeConfig.telegram?.chatId || ''}
+                  onChange={(e) => setBridgeConfig({
+                    ...bridgeConfig,
+                    telegram: { ...(bridgeConfig.telegram || { botToken: '', enabled: true }), chatId: e.target.value }
+                  })}
+                  placeholder="Ex: 987654321 ou @mon_canal"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+
         {/* Language Selection */}
         <div className="form-group" style={{ borderTop: '1px solid var(--border-medium)', paddingTop: '1rem' }}>
           <label className="form-label">Langue par défaut des publications</label>
