@@ -505,8 +505,8 @@ async function runCloudAutoPilot() {
     } catch {
       fs.copyFileSync(svgPath, pngPath);
     }
-
-    const ffmpegCmd = `ffmpeg -y -loop 1 -i "${pngPath}" -i "${audioPath}" -c:v libx264 -tune stillimage -c:a aac -b:a 192k -pix_fmt yuv420p -shortest "${videoPath}"`;
+    // Constant 30.00 FPS H.264 High Profile encoding strictly compliant with TikTok & Instagram Reels
+    const ffmpegCmd = `ffmpeg -y -framerate 30 -loop 1 -i "${pngPath}" -i "${audioPath}" -c:v libx264 -preset fast -profile:v high -level 4.1 -r 30 -g 60 -keyint_min 30 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
     execSync(ffmpegCmd, { stdio: 'inherit' });
   } catch (err) {
     console.error('FFmpeg execution issue:', err.message);
