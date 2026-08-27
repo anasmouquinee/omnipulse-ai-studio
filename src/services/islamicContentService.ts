@@ -8,6 +8,7 @@ import type { ScheduledPost, SocialPlatform } from '../types/content';
 import { VERIFIED_ISLAMIC_POSTS, VERIFIED_RECITERS } from '../data/verifiedIslamicData';
 import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../data/islamicBackgrounds';
 import { StorageService } from './storageService';
+import { IslamicViralTagsService } from './islamicViralTagsService';
 
 export const AVAILABLE_RECITERS = [
   { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy (مشاري العفاسي)' },
@@ -392,23 +393,24 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
   ): ScheduledPost {
     const platforms: SocialPlatform[] = ['tiktok', 'instagram', 'x', 'facebook', 'linkedin'];
 
-    let fullCaptionFr = `${item.arabicText}\n\n📖 « ${item.translationFr} »\n\n📌 Source : ${item.source.bookOrSurah}, ${item.source.numberOrAyah} [${item.source.authenticityGrade}]\n\n✨ Réflexion : ${item.reflection.fr}\n\n${item.hashtags.fr.join(' ')}`;
-    let fullCaptionEn = `${item.arabicText}\n\n📖 “${item.translationEn}”\n\n📌 Source: ${item.source.bookOrSurah}, ${item.source.numberOrAyah} [${item.source.authenticityGrade}]\n\n✨ Reflection: ${item.reflection.en}\n\n${item.hashtags.en.join(' ')}`;
-    let fullCaptionAr = `${item.arabicText}\n\n📌 المرجع: ${item.source.arabicReference} [${item.source.authenticityGrade}]\n\n✨ تأمل: ${item.reflection.ar}\n\n${item.hashtags.ar.join(' ')}`;
-
-    let primaryCaption = fullCaptionFr;
-    if (preferredLanguage === 'en') primaryCaption = fullCaptionEn;
-    if (preferredLanguage === 'ar') primaryCaption = fullCaptionAr;
-    if (preferredLanguage === 'all') {
-      primaryCaption = `${item.arabicText}\n\n🇫🇷 « ${item.translationFr} »\n\n🇬🇧 “${item.translationEn}”\n\n📌 ${item.source.bookOrSurah} [${item.source.authenticityGrade}]\n\n${item.hashtags.fr.slice(0, 3).join(' ')} ${item.hashtags.en.slice(0, 3).join(' ')}`;
-    }
-
     const platformContent: any = {};
     platforms.forEach(p => {
+      const viralTags = IslamicViralTagsService.getViralTags(
+        item.type,
+        p,
+        preferredLanguage,
+        item.topic
+      );
+      const formattedText = IslamicViralTagsService.formatViralCaption(
+        item,
+        preferredLanguage,
+        p
+      );
+
       platformContent[p] = {
-        text: primaryCaption,
+        text: formattedText,
         hook: `${item.arabicText.slice(0, 60)}... ✨ ${item.topic}`,
-        hashtags: preferredLanguage === 'en' ? item.hashtags.en : preferredLanguage === 'ar' ? item.hashtags.ar : item.hashtags.fr,
+        hashtags: viralTags,
         videoScript: `[Récitation exacte : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}]\n\n1. Afficher la calligraphie arabe synchronisée avec l'audio.\n2. Faire défiler la traduction : "${item.translationFr}"\n3. Afficher la source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Message de fin : Abonne-toi à @kaelarislamic pour ton rappel quotidien.`,
         audioTrackSuggestion: `${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah} (${item.reciterAudio?.audioUrl})`
       };

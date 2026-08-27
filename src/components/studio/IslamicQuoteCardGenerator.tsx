@@ -5,6 +5,7 @@ import { IslamicLibraryService } from '../../services/islamicLibraryService';
 import { SocialPublisher } from '../../services/socialPublisher';
 import { StorageService } from '../../services/storageService';
 import { VideoGenerator } from '../../services/videoGenerator';
+import { IslamicViralTagsService } from '../../services/islamicViralTagsService';
 import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../../data/islamicBackgrounds';
 import { VERIFIED_ISLAMIC_POSTS, ISLAMIC_THEME_PRESETS, VERIFIED_RECITERS } from '../../data/verifiedIslamicData';
 import { 
@@ -22,7 +23,12 @@ import {
   Share2,
   Send,
   Image as ImageIcon,
-  Palette
+  Palette,
+  Hash,
+  Flame,
+  TrendingUp,
+  Plus,
+  X
 } from 'lucide-react';
 
 interface IslamicQuoteCardGeneratorProps {
@@ -47,11 +53,28 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   const [isGeneratingGemini, setIsGeneratingGemini] = useState(false);
   const [isPublishingDirectly, setIsPublishingDirectly] = useState(false);
 
+  // Viral Hashtags State & FYP Booster
+  const [customHashtags, setCustomHashtags] = useState<string[]>(() => 
+    IslamicViralTagsService.getViralTags(VERIFIED_ISLAMIC_POSTS[0].type, 'all', 'all', VERIFIED_ISLAMIC_POSTS[0].topic)
+  );
+  const [newTagInput, setNewTagInput] = useState('');
+
   // Audio Playback & Interactive Live Reel Mode
   const [previewMode, setPreviewMode] = useState<'video' | 'photo'>('video');
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [audioProgressPercent, setAudioProgressPercent] = useState(0);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  // Update hashtags automatically when currentItem or language changes
+  useEffect(() => {
+    const tags = IslamicViralTagsService.getViralTags(
+      currentItem.type,
+      'all',
+      selectedLanguage,
+      customTopic || currentItem.topic
+    );
+    setCustomHashtags(tags);
+  }, [currentItem, selectedLanguage]);
 
   // Render canvas card when currentItem, aspectRatio, selectedLanguage or theme changes
   useEffect(() => {
@@ -203,9 +226,50 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     }
   };
 
+  const handleRemoveHashtag = (tagToRemove: string) => {
+    setCustomHashtags(prev => prev.filter(t => t !== tagToRemove));
+  };
+
+  const handleAddHashtag = (e: React.KeyboardEvent | React.MouseEvent) => {
+    if ('key' in e && e.key !== 'Enter') return;
+    if (!newTagInput.trim()) return;
+    let clean = newTagInput.trim();
+    if (!clean.startsWith('#')) clean = `#${clean}`;
+    if (!customHashtags.includes(clean)) {
+      setCustomHashtags(prev => [...prev, clean]);
+    }
+    setNewTagInput('');
+  };
+
+  const applyViralPreset = (presetType: 'all' | 'tiktok' | 'instagram' | 'fr' | 'ar') => {
+    let lang: IslamicLanguage = selectedLanguage;
+    let platform: any = 'all';
+    if (presetType === 'tiktok') platform = 'tiktok';
+    if (presetType === 'instagram') platform = 'instagram';
+    if (presetType === 'fr') lang = 'fr';
+    if (presetType === 'ar') lang = 'ar';
+
+    const tags = IslamicViralTagsService.getViralTags(
+      currentItem.type,
+      platform,
+      lang,
+      customTopic || currentItem.topic
+    );
+    setCustomHashtags(tags);
+    onShowToast('info', `✨ Hashtags viraux optimisés pour ${presetType.toUpperCase()} appliqués !`);
+  };
+
   const handleApplyToStudio = () => {
-    onApplyPost(currentItem, renderedCardUrl, selectedLanguage);
-    onShowToast('success', 'Rappel islamique chargé dans l’éditeur du studio !');
+    const updatedWithTags = {
+      ...currentItem,
+      hashtags: {
+        fr: customHashtags,
+        en: customHashtags,
+        ar: customHashtags
+      }
+    };
+    onApplyPost(updatedWithTags, renderedCardUrl, selectedLanguage);
+    onShowToast('success', 'Rappel islamique avec tags viraux chargé dans l’éditeur du studio !');
   };
 
   const handleDirectPublish = async () => {
@@ -216,6 +280,12 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         selectedLanguage,
         renderedCardUrl
       );
+
+      // Override with user viral hashtags
+      Object.keys(scheduled.platformContent).forEach(p => {
+        scheduled.platformContent[p as any].hashtags = customHashtags;
+        scheduled.platformContent[p as any].text = IslamicViralTagsService.formatViralCaption(currentItem, selectedLanguage, p as any);
+      });
       
       // Publish to Buffer for @kaelarislamic
       await SocialPublisher.publishNow(scheduled);
@@ -289,6 +359,12 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         createdAt: new Date().toISOString(),
         engine: 'video-reel'
       };
+
+      // Override with user viral hashtags
+      Object.keys(scheduled.platformContent).forEach(p => {
+        scheduled.platformContent[p as any].hashtags = customHashtags;
+        scheduled.platformContent[p as any].text = IslamicViralTagsService.formatViralCaption(currentItem, selectedLanguage, p as any);
+      });
 
       await SocialPublisher.publishNow(scheduled);
 
@@ -708,6 +784,166 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
             </div>
             <div style={{ fontWeight: 600, color: '#f8fafc' }}>
               📚 {currentItem.source.bookOrSurah} — {currentItem.source.numberOrAyah}
+            </div>
+          </div>
+
+          {/* Viral Hashtags & Algorithmic FYP Booster */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(6, 78, 59, 0.3) 0%, rgba(15, 23, 42, 0.8) 100%)',
+            borderRadius: 'var(--radius-xs)',
+            padding: '0.85rem 1rem',
+            border: '1px solid rgba(16, 185, 129, 0.35)',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.65rem'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.82rem', fontWeight: 700, color: '#34d399' }}>
+                <Flame size={15} color="#f59e0b" />
+                Hashtags Viraux & Algorithme FYP
+              </span>
+              <span style={{ fontSize: '0.72rem', color: '#10b981', background: 'rgba(16, 185, 129, 0.2)', padding: '0.15rem 0.5rem', borderRadius: '999px', fontWeight: 700 }}>
+                Score Découverte: 98%
+              </span>
+            </div>
+
+            {/* Quick Optimizer Presets */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+              <button
+                type="button"
+                onClick={() => applyViralPreset('all')}
+                style={{
+                  fontSize: '0.7rem',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '999px',
+                  background: 'rgba(245, 158, 11, 0.2)',
+                  border: '1px solid rgba(245, 158, 11, 0.4)',
+                  color: '#fbbf24',
+                  cursor: 'pointer',
+                  fontWeight: 600
+                }}
+              >
+                🔥 Mix Viral Optimisé
+              </button>
+              <button
+                type="button"
+                onClick={() => applyViralPreset('tiktok')}
+                style={{
+                  fontSize: '0.7rem',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '999px',
+                  background: 'rgba(6, 182, 212, 0.2)',
+                  border: '1px solid rgba(6, 182, 212, 0.4)',
+                  color: '#67e8f9',
+                  cursor: 'pointer',
+                  fontWeight: 600
+                }}
+              >
+                🎵 Booster TikTok FYP
+              </button>
+              <button
+                type="button"
+                onClick={() => applyViralPreset('instagram')}
+                style={{
+                  fontSize: '0.7rem',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '999px',
+                  background: 'rgba(236, 72, 153, 0.2)',
+                  border: '1px solid rgba(236, 72, 153, 0.4)',
+                  color: '#f472b6',
+                  cursor: 'pointer',
+                  fontWeight: 600
+                }}
+              >
+                📷 Instagram Reels
+              </button>
+              <button
+                type="button"
+                onClick={() => applyViralPreset('fr')}
+                style={{
+                  fontSize: '0.7rem',
+                  padding: '0.25rem 0.5rem',
+                  borderRadius: '999px',
+                  background: 'rgba(59, 130, 246, 0.2)',
+                  border: '1px solid rgba(59, 130, 246, 0.4)',
+                  color: '#93c5fd',
+                  cursor: 'pointer',
+                  fontWeight: 600
+                }}
+              >
+                🇫🇷 Focus France
+              </button>
+            </div>
+
+            {/* Hashtags Chips Display */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem', maxHeight: 95, overflowY: 'auto' }}>
+              {customHashtags.map((tag, idx) => (
+                <span
+                  key={idx}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: '0.25rem',
+                    padding: '0.2rem 0.45rem',
+                    borderRadius: 'var(--radius-xs)',
+                    background: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.12)',
+                    fontSize: '0.74rem',
+                    fontWeight: 600,
+                    color: '#e2e8f0'
+                  }}
+                >
+                  <span>{tag}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveHashtag(tag)}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: '#94a3b8',
+                      cursor: 'pointer',
+                      padding: 0,
+                      display: 'flex',
+                      alignItems: 'center'
+                    }}
+                  >
+                    <X size={11} />
+                  </button>
+                </span>
+              ))}
+            </div>
+
+            {/* Add Custom Tag Input */}
+            <div style={{ display: 'flex', gap: '0.35rem' }}>
+              <input
+                type="text"
+                className="form-input"
+                value={newTagInput}
+                onChange={(e) => setNewTagInput(e.target.value)}
+                onKeyDown={handleAddHashtag}
+                placeholder="Ajouter un tag (ex: #tawakkul)..."
+                style={{ fontSize: '0.75rem', padding: '0.35rem 0.6rem' }}
+              />
+              <button
+                type="button"
+                onClick={handleAddHashtag}
+                style={{
+                  padding: '0.35rem 0.65rem',
+                  borderRadius: 'var(--radius-xs)',
+                  background: 'var(--accent-emerald)',
+                  color: '#fff',
+                  border: 'none',
+                  fontSize: '0.75rem',
+                  fontWeight: 600,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.2rem'
+                }}
+              >
+                <Plus size={13} />
+                Ajouter
+              </button>
             </div>
           </div>
 

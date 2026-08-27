@@ -425,18 +425,50 @@ function generatePosterSvg(item) {
 </svg>`;
 }
 
+// Dynamic Viral Islamic Hashtags Generator (TikTok FYP & Instagram Reels Explore)
+function getViralIslamicTags(type, platform = 'all') {
+  const core = ['#islam', '#quran', '#hadith', '#allah', '#muslim', '#islamicreminder', '#islamicquotes', '#sunnah', '#deen'];
+  const typeMap = {
+    quran_verse: ['#quranrecitation', '#quranverses', '#surah', '#tilawat', '#beautifultilawat', '#holyquran', '#قرآن'],
+    sahih_hadith: ['#hadith', '#hadithoftheday', '#sahihbukhari', '#sahihmuslim', '#propheticwisdom', '#sunnahrasul', '#حديث'],
+    authentic_dua: ['#dua', '#dhikr', '#adhkar', '#hisnulmuslim', '#supplication', '#istighfar', '#subhanallah', '#دعاء'],
+    tahajjud_motivation: ['#tahajjud', '#nightprayer', '#qiyamullail', '#fajr', '#peaceofmind', '#spiritualgrowth', '#قيام_الليل'],
+    islamic_reminder: ['#tawakkul', '#sabr', '#patience', '#islamicmotivation', '#trustallah', '#hopeinallah', '#صبر'],
+    jumua_special: ['#jummahmubarak', '#jumuah', '#fridayprayer', '#suratalkahf', '#salawat', '#blessedfriday', '#جمعة_مباركة']
+  };
+
+  const platformTags = platform === 'tiktok' 
+    ? ['#muslimtiktok', '#islamictiktok', '#fyp', '#foryou', '#foryoupage', '#viralvideo']
+    : ['#islamicreels', '#reelsinstagram', '#explorepage', '#instaislam', '#reels'];
+
+  const french = ['#islamfrance', '#coran', '#rappelislam', '#rappelsislamiques', '#musulman'];
+
+  const categoryTags = typeMap[type] || typeMap.quran_verse;
+  const combined = [
+    ...core.slice(0, 3),
+    ...categoryTags.slice(0, 4),
+    ...platformTags.slice(0, 3),
+    ...french.slice(0, 2),
+    '#kaelarislamic'
+  ];
+
+  return Array.from(new Set(combined)).join(' ');
+}
+
 // Main Execution Routine
 async function runCloudAutoPilot() {
-  console.log('🚀 Starting Cloud 24/7 Auto-Pilot Run...');
+  console.log('🕋 === Kaelar Islamic AI Studio — 24/7 Cloud Auto-Pilot Runner === 🕋');
+  console.log(`⏰ Execution Time: ${new Date().toISOString()}`);
+
   const reg = loadRegistry();
+  const currentIdx = reg.currentIndex || 0;
+  const theme = THEMES[currentIdx % THEMES.length];
 
-  const currentIdx = (reg.currentIndex || 0) % THEMES.length;
-  const theme = THEMES[currentIdx];
-  console.log(`📌 Designated Theme #${currentIdx + 1}/6: "${theme.title}" (${theme.badge})`);
+  console.log(`🎯 Rotating Theme [${currentIdx + 1}/${THEMES.length}]: ${theme.title}`);
 
-  // 1. Pick verified item for this theme
-  const item = VERIFIED_ITEMS.find(i => i.type === theme.category) || VERIFIED_ITEMS[0];
-  console.log(`✨ Selected Item: ${item.bookOrSurah} — ${item.numberOrAyah}`);
+  // 1. Pick an unposted verified item for this theme
+  const item = getNextItemForTheme(theme, reg);
+  console.log(`📖 Selected Item: "${item.bookOrSurah}" (${item.numberOrAyah})`);
 
   const tempDir = path.join(__dirname, '..', '.temp_autopilot');
   if (!fs.existsSync(tempDir)) fs.mkdirSync(tempDir, { recursive: true });
@@ -456,13 +488,9 @@ async function runCloudAutoPilot() {
   // 4. Generate MP4 Video via FFmpeg
   console.log('🎬 Encoding HD 1080x1920 MP4 Video via FFmpeg...');
   try {
-    // In environments with ImageMagick / rsvg-convert or pure ffmpeg directly on svg/png
-    // FFmpeg can render directly from png or loop the image with audio
-    // First convert svg to png or directly stream to ffmpeg
     try {
       execSync(`rsvg-convert -w 1080 -h 1920 "${svgPath}" -o "${pngPath}"`, { stdio: 'ignore' });
     } catch {
-      // Fallback: copy or use ffmpeg with image
       fs.copyFileSync(svgPath, pngPath);
     }
 
@@ -478,14 +506,16 @@ async function runCloudAutoPilot() {
   const publicVideoUrl = await uploadToCloudinary(videoPath);
   console.log(`✅ Cloudinary Public URL: ${publicVideoUrl}`);
 
-  // 6. Post to Instagram (@kaelarislamic) & TikTok (@mdou.g)
-  const caption = `${item.arabicText}\n\n${item.translationFr}\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${item.hashtags}`;
-  
-  console.log('📤 Publishing to Instagram Reel (@kaelarislamic)...');
-  await publishToBuffer(INSTAGRAM_CHANNEL_ID, caption, publicVideoUrl);
+  // 6. Post with Viral Optimized Tags to Instagram (@kaelarislamic) & TikTok (@mdou.g)
+  const igTags = getViralIslamicTags(item.type, 'instagram');
+  const ttTags = getViralIslamicTags(item.type, 'tiktok');
 
-  console.log('📤 Publishing to TikTok (@mdou.g)...');
-  await publishToBuffer(TIKTOK_CHANNEL_ID, caption, publicVideoUrl);
+  const igCaption = `${item.arabicText}\n\n« ${item.translationFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${igTags}`;
+  console.log('📤 Publishing to Instagram Reel (@kaelarislamic) with Viral Tags...');
+  await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, publicVideoUrl);
+
+  console.log('📤 Publishing to TikTok (@mdou.g) with FYP Booster Tags...');
+  await publishToBuffer(TIKTOK_CHANNEL_ID, ttCaption, publicVideoUrl);
 
   // 7. Update Registry & Advance to Next Theme
   reg.currentIndex = (currentIdx + 1) % THEMES.length;
