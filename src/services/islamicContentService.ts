@@ -529,7 +529,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       ctx.fillRect(0, 0, width, height);
     }
 
-    const isReciterMinimal = theme.layoutStyle === 'reciter_minimal' || theme.category === 'reciter_portrait';
+    const isReciterMinimal = bgTheme.layoutStyle === 'reciter_minimal' || bgTheme.category === 'reciter_portrait';
 
     // 2. Cinematic Multi-Layer Soft Vignette (Leaves photo vibrant & visible)
     const overlayGradient = ctx.createLinearGradient(0, 0, 0, height);

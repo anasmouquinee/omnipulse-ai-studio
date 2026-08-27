@@ -82,15 +82,22 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     let isMounted = true;
     const generateCanvas = async () => {
       setIsRendering(true);
-      const cardUrl = await IslamicContentService.renderQuoteCardCanvas(
-        currentItem,
-        aspectRatio,
-        selectedLanguage,
-        selectedThemeId
-      );
-      if (isMounted) {
-        setRenderedCardUrl(cardUrl);
-        setIsRendering(false);
+      try {
+        const cardUrl = await IslamicContentService.renderQuoteCardCanvas(
+          currentItem,
+          aspectRatio,
+          selectedLanguage,
+          selectedThemeId
+        );
+        if (isMounted) {
+          setRenderedCardUrl(cardUrl);
+        }
+      } catch (err) {
+        console.error('Failed to render quote card canvas:', err);
+      } finally {
+        if (isMounted) {
+          setIsRendering(false);
+        }
       }
     };
 
