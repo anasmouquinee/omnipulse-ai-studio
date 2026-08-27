@@ -5,6 +5,7 @@ import {
   Zap, 
   Share2, 
   Image as ImageIcon, 
+  Film,
   Settings, 
   Cpu,
   Moon,
