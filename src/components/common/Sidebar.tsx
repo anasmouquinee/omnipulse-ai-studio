@@ -51,14 +51,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
       {/* Nav Items */}
       <nav className="sidebar-nav">
-        <div className="nav-section-title">Contenu Islamique & IA</div>
+        <div className="nav-section-title">Studio & Automatisation</div>
 
         <button
           className={`nav-item ${currentView === 'studio' ? 'active' : ''}`}
           onClick={() => onNavigate('studio')}
         >
           <Sparkles size={18} color="#10b981" />
-          <span>Studio de Rappels IA</span>
+          <span>🎙️ Studio Reels & TikTok</span>
         </button>
 
         <button
@@ -67,10 +67,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
           style={{ position: 'relative' }}
         >
           <span style={{ fontSize: '1.1rem' }}>🤖</span>
-          <span style={{ fontWeight: 700, color: currentView === 'autopilot' ? '#34d399' : '#a7f3d0' }}>Auto-Pilot 6 Heures</span>
+          <span style={{ fontWeight: 700, color: currentView === 'autopilot' ? '#34d399' : '#a7f3d0' }}>Auto-Pilot 24h/24 (Cloud)</span>
           <span style={{
             marginLeft: 'auto',
-            fontSize: '0.65rem',
+            fontSize: '0.62rem',
             fontWeight: 800,
             padding: '0.15rem 0.4rem',
             borderRadius: '999px',
@@ -78,7 +78,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
             color: '#34d399',
             border: '1px solid rgba(16, 185, 129, 0.4)'
           }}>
-            LIVE
+            ACTIF
           </span>
         </button>
 
@@ -87,44 +87,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
           onClick={() => onNavigate('library')}
         >
           <span style={{ fontSize: '1.1rem' }}>📚</span>
-          <span>Bibliothèque & Doublons</span>
-        </button>
-
-        <button
-          className={`nav-item ${currentView === 'campaigns' ? 'active' : ''}`}
-          onClick={() => onNavigate('campaigns')}
-        >
-          <Zap size={18} color="#f59e0b" />
-          <span>Programme 7 Jours</span>
-        </button>
-
-        <div className="nav-section-title">Diffusion & Planification</div>
-
-        <button
-          className={`nav-item ${currentView === 'calendar' ? 'active' : ''}`}
-          onClick={() => onNavigate('calendar')}
-        >
-          <Calendar size={18} color="#06b6d4" />
-          <span>Calendrier des Rappels</span>
-          {postsCount > 0 && (
-            <span className="nav-badge">{postsCount}</span>
-          )}
-        </button>
-
-        <button
-          className={`nav-item ${currentView === 'accounts' ? 'active' : ''}`}
-          onClick={() => onNavigate('accounts')}
-        >
-          <Share2 size={18} color="#FE2C55" />
-          <span>Canaux (@kaelar & @mdou)</span>
+          <span>Bibliothèque & Anti-Doublons</span>
         </button>
 
         <button
           className={`nav-item ${currentView === 'media' ? 'active' : ''}`}
           onClick={() => onNavigate('media')}
         >
-          <ImageIcon size={18} color="#ec4899" />
-          <span>Médiathèque & Audios</span>
+          <Film size={18} color="#f59e0b" />
+          <span>Banque Vidéos HD & Décors</span>
         </button>
       </nav>
 
