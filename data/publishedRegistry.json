@@ -1,5 +1,12 @@
 {
-  "currentIndex": 0,
-  "lastRunAt": null,
-  "publishedItems": []
+  "currentIndex": 1,
+  "lastRunAt": "2026-08-27T01:14:07.316Z",
+  "publishedItems": [
+    {
+      "timestamp": "2026-08-27T01:14:07.316Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "bookOrSurah": "Sourate Ash-Sharh (L’Ouverture)",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1787793246/ewf6lwus09xbkfz3cpc6.mp4"
+    }
+  ]
 }
