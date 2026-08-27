@@ -40,6 +40,43 @@ export const VERIFIED_RECITERS: ReciterAudio[] = [
 
 export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
   {
+    id: 'islamic-0',
+    type: 'quran_verse',
+    topic: 'La grandeur des bienfaits d’Allah (Sourate Ar-Rahman)',
+    arabicText: 'فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ',
+    phonetic: 'Fa bi-ayyi ala\'i rabbikuma tukadhdhiban',
+    translationFr: '« Lequel donc des bienfaits de votre Seigneur nierez-vous ? »',
+    translationEn: '“So which of the favors of your Lord would you deny?”',
+    source: {
+      type: 'quran',
+      bookOrSurah: 'Sourate Ar-Rahman (Le Tout Miséricordieux)',
+      numberOrAyah: 'Sourate 55, Verset 13',
+      surahNumber: 55,
+      ayahNumber: 13,
+      arabicReference: 'سورة الرحمن ١٣',
+      authenticityGrade: 'Coran (Parole d’Allah)',
+      verifiedBy: 'Texte Sacré Authentifié'
+    },
+    reciterAudio: {
+      reciterId: 'ar.luhaidan',
+      reciterName: 'Sheikh Muhammad Al-Luhaidan',
+      surahOrTitle: 'Sourate Ar-Rahman (Verset 13)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4914.mp3',
+      durationSeconds: 14
+    },
+    visualTheme: 'reciter_luhaidan',
+    reflection: {
+      fr: 'Médite sur les innombrables bienfaits dont Allah t’a comblé sans même que tu ne t’en rendes compte.',
+      en: 'Reflect upon the countless blessings Allah has bestowed upon you every second.',
+      ar: 'تأمل في نعم الله التي لا تُعد ولا تُحصى واستشعر عظمته وفضله عليك.'
+    },
+    hashtags: {
+      fr: ['#Coran', '#SourateArRahman', '#MuhammadAlLuhaidan', '#IslamRappel', '#KaelarIslamic'],
+      en: ['#QuranRecitation', '#SurahRahman', '#MuslimTikTok', '#IslamicReminder', '#FYP'],
+      ar: ['#محمد_اللحيدان', '#سورة_الرحمن', '#قرآن_كريم', '#تلاوة_خاشعة', '#راحة_نفسية']
+    }
+  },
+  {
     id: 'islamic-1',
     type: 'quran_verse',
     topic: 'Le soulagement après l’épreuve (Al-Yusr)',

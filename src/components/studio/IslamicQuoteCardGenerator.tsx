@@ -1228,28 +1228,38 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                       ))}
                     </div>
 
-                    {/* Center Play / Pause Pulsing Action Button */}
+                    {/* Sleek Floating Play / Pause Action Button */}
                     <div style={{
                       position: 'absolute',
-                      top: '50%',
-                      left: '50%',
-                      transform: 'translate(-50%, -50%)',
-                      width: 58,
-                      height: 58,
-                      borderRadius: '50%',
-                      background: isPlayingAudio ? 'rgba(0, 0, 0, 0.35)' : 'linear-gradient(135deg, rgba(16, 185, 129, 0.9) 0%, rgba(217, 119, 6, 0.9) 100%)',
-                      backdropFilter: 'blur(8px)',
+                      bottom: 24,
+                      left: 16,
                       display: 'flex',
                       alignItems: 'center',
-                      justifyContent: 'center',
+                      gap: '0.45rem',
+                      background: 'rgba(0, 0, 0, 0.75)',
+                      backdropFilter: 'blur(10px)',
+                      padding: '0.35rem 0.75rem',
+                      borderRadius: '999px',
+                      border: '1px solid rgba(245, 158, 11, 0.4)',
+                      boxShadow: '0 4px 15px rgba(0,0,0,0.5)',
                       color: '#ffffff',
-                      boxShadow: '0 0 25px rgba(0,0,0,0.6)',
-                      opacity: isPlayingAudio ? 0 : 0.95,
-                      transition: 'all 0.3s ease',
-                      border: '2px solid rgba(255,255,255,0.4)',
+                      fontSize: '0.72rem',
+                      fontWeight: 700,
                       pointerEvents: 'none'
                     }}>
-                      {isPlayingAudio ? <Pause size={24} /> : <Play size={24} style={{ marginLeft: 3 }} />}
+                      <div style={{
+                        width: 22,
+                        height: 22,
+                        borderRadius: '50%',
+                        background: isPlayingAudio ? '#10b981' : '#f59e0b',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: '#000'
+                      }}>
+                        {isPlayingAudio ? <Pause size={12} fill="#000" /> : <Play size={12} fill="#000" style={{ marginLeft: 1 }} />}
+                      </div>
+                      <span>{isPlayingAudio ? 'Écoute en cours...' : 'Cliquer pour écouter la récitation'}</span>
                     </div>
 
                     {/* Top Live Badge */}
