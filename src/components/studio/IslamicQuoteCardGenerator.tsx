@@ -535,49 +535,72 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       </div>
 
       {/* Preset Categories Buttons */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.75rem' }}>
-        {ISLAMIC_THEME_PRESETS.map(preset => (
-          <button
-            key={preset.id}
-            onClick={() => handleSelectPreset(preset)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: '0.6rem',
-              padding: '0.75rem 1rem',
-              borderRadius: 'var(--radius-sm)',
-              background: selectedCategory === preset.category 
-                ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(217, 119, 6, 0.15) 100%)' 
-                : 'var(--bg-card)',
-              border: `1px solid ${selectedCategory === preset.category ? 'var(--accent-emerald)' : 'var(--border-subtle)'}`,
-              color: selectedCategory === preset.category ? '#fff' : 'var(--text-secondary)',
-              cursor: 'pointer',
-              textAlign: 'left',
-              transition: 'all 0.2s ease'
-            }}
-          >
-            <span style={{ fontSize: '1.25rem' }}>{preset.icon}</span>
-            <div>
-              <div style={{ fontSize: '0.82rem', fontWeight: 700, color: selectedCategory === preset.category ? '#f59e0b' : 'inherit' }}>
-                {preset.name}
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.85rem' }}>
+        {ISLAMIC_THEME_PRESETS.map(preset => {
+          const isSelected = selectedCategory === preset.category;
+          return (
+            <button
+              key={preset.id}
+              onClick={() => handleSelectPreset(preset)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                padding: '0.9rem 1.1rem',
+                borderRadius: 'var(--radius-sm)',
+                background: isSelected 
+                  ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.22) 0%, rgba(245, 158, 11, 0.18) 100%)' 
+                  : 'rgba(11, 19, 38, 0.65)',
+                border: isSelected ? '1px solid rgba(245, 158, 11, 0.6)' : '1px solid rgba(255, 255, 255, 0.08)',
+                boxShadow: isSelected ? '0 0 25px rgba(245, 158, 11, 0.25), inset 0 0 15px rgba(16, 185, 129, 0.15)' : '0 4px 12px rgba(0,0,0,0.3)',
+                color: isSelected ? '#ffffff' : '#94a3b8',
+                cursor: 'pointer',
+                textAlign: 'left',
+                transition: 'all 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+                backdropFilter: 'blur(16px)'
+              }}
+            >
+              <span style={{ 
+                fontSize: '1.4rem',
+                filter: isSelected ? 'drop-shadow(0 0 8px #f59e0b)' : 'none'
+              }}>
+                {preset.icon}
+              </span>
+              <div>
+                <div style={{ 
+                  fontSize: '0.84rem', 
+                  fontWeight: 800, 
+                  color: isSelected ? '#fbbf24' : '#f8fafc',
+                  letterSpacing: '-0.01em'
+                }}>
+                  {preset.name}
+                </div>
               </div>
-            </div>
-          </button>
-        ))}
+            </button>
+          );
+        })}
       </div>
 
       {/* Main Grid: Controls Left + Canvas Preview Right */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(360px, 1fr))', gap: '1.5rem', alignItems: 'start' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(380px, 1fr))', gap: '1.75rem', alignItems: 'start' }}>
         
         {/* Left: Customization Controls */}
-        <div className="glass-card" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+        <div className="glass-card" style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '1.35rem',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          background: 'linear-gradient(145deg, rgba(13, 22, 44, 0.85) 0%, rgba(6, 12, 26, 0.95) 100%)',
+          boxShadow: '0 16px 40px rgba(0, 0, 0, 0.5)'
+        }}>
           
           {/* Custom Topic Input */}
           <div className="form-group">
             <label className="form-label">
+              <Sparkles size={14} color="#f59e0b" />
               <span>Sujet spécifique ou mot-clé (Ex: Kaffarah, Sabr, Tawakkul, Tahajjud...)</span>
             </label>
-            <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <div style={{ display: 'flex', gap: '0.6rem' }}>
               <input
                 type="text"
                 className="form-input"
@@ -586,10 +609,10 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 placeholder="Ex: Kaffarah, l’apaisement du cœur, le repentir..."
               />
               <button
-                className="btn btn-primary"
+                className="btn btn-gold"
                 onClick={handleGenerateAI}
                 disabled={isGeneratingGemini}
-                style={{ gap: '0.4rem', whiteSpace: 'nowrap', background: 'linear-gradient(135deg, #059669 0%, #d97706 100%)' }}
+                style={{ gap: '0.45rem', whiteSpace: 'nowrap' }}
               >
                 {isGeneratingGemini ? <RefreshCw size={15} className="animate-spin" /> : <Sparkles size={15} />}
                 <span>Générer IA</span>
@@ -1160,24 +1183,23 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
             </button>
           </div>
 
-          {/* Interactive Player Screen */}
+          {/* Interactive Player Screen in 3D Phone Bezel */}
           <div 
             onClick={toggleAudio}
+            className="phone-mockup-frame"
             style={{
               width: '100%',
               maxWidth: aspectRatio === '9:16' ? 340 : 380,
-              borderRadius: 'var(--radius-md)',
               overflow: 'hidden',
-              boxShadow: '0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(245, 158, 11, 0.25)',
-              border: `2px solid ${isPlayingAudio ? '#10b981' : 'rgba(245, 158, 11, 0.5)'}`,
-              background: '#040711',
               position: 'relative',
-              cursor: 'pointer',
-              transition: 'border-color 0.3s ease'
+              cursor: 'pointer'
             }}
           >
+            {/* Dynamic Island on Phone Mockup */}
+            {aspectRatio === '9:16' && <div className="phone-dynamic-island" />}
+
             {renderedCardUrl ? (
-              <div style={{ position: 'relative', width: '100%', overflow: 'hidden' }}>
+              <div style={{ position: 'relative', width: '100%', borderRadius: '32px', overflow: 'hidden' }}>
                 {/* Visual Card Image with Cinematic Zoom */}
                 <img
                   src={renderedCardUrl}

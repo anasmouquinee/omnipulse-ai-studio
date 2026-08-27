@@ -1,90 +1,95 @@
 /**
- * Kaelar Islamic AI Studio - Global CSS Variables & Islamic Design System Tokens
- * Emerald, Warm Gold, Deep Obsidian, and Arabic Typography Tokens.
+ * Kaelar Islamic AI Studio - Master Luxury Design System
+ * Deep Interstellar Obsidian, Royal Islamic Emerald & Warm 24K Gold Glassmorphism.
  */
 
 :root {
-  /* Core Dark Obsidian Palette */
-  --bg-app: #06090e;
-  --bg-sidebar: #090e17;
-  --bg-surface: #0f172a;
-  --bg-surface-elevated: #131d33;
-  --bg-surface-hover: #1a2744;
-  --bg-input: #0a0f1d;
-  --bg-modal-overlay: rgba(3, 6, 12, 0.88);
+  /* Core Deep Obsidian Backgrounds */
+  --bg-app: #030712;
+  --bg-sidebar: #050b17;
+  --bg-surface: #0a1122;
+  --bg-surface-elevated: #0f1a30;
+  --bg-surface-hover: #152342;
+  --bg-input: #060d1b;
+  --bg-card-glass: rgba(11, 19, 38, 0.72);
+  --bg-modal-overlay: rgba(2, 6, 18, 0.88);
 
-  /* Islamic Emerald & Gold Accents */
-  --accent-primary: #10B981;       /* Islamic Emerald */
-  --accent-primary-hover: #059669;
-  --accent-primary-glow: rgba(16, 185, 129, 0.35);
-  --accent-primary-subtle: rgba(16, 185, 129, 0.12);
+  /* Royal Islamic Emerald Tokens */
+  --accent-emerald: #10B981;
+  --accent-emerald-light: #34D399;
+  --accent-emerald-dark: #047857;
+  --accent-emerald-glow: rgba(16, 185, 129, 0.38);
+  --accent-emerald-subtle: rgba(16, 185, 129, 0.12);
 
-  --accent-gold: #F59E0B;          /* Warm Gold */
-  --accent-gold-dark: #D97706;
-  --accent-gold-glow: rgba(245, 158, 11, 0.35);
+  /* Imperial 24K Gold Tokens */
+  --accent-gold: #F59E0B;
+  --accent-gold-light: #FDE68A;
+  --accent-gold-dark: #B45309;
+  --accent-gold-glow: rgba(245, 158, 11, 0.38);
   --accent-gold-subtle: rgba(245, 158, 11, 0.12);
 
-  --accent-cyan: #06B6D4;          /* Electric Cyan */
-  --accent-cyan-glow: rgba(6, 182, 212, 0.3);
-  --accent-pink: #EC4899;          /* Neon Pink */
-  --accent-emerald: #10B981;       /* Verified / Active */
-  --accent-rose: #F43F5E;          /* Alert */
+  /* Secondary Accents */
+  --accent-cyan: #06B6D4;
+  --accent-cyan-glow: rgba(6, 182, 212, 0.35);
+  --accent-rose: #F43F5E;
+  --accent-rose-glow: rgba(244, 63, 94, 0.35);
 
-  /* Platform Brand Colors */
+  /* Platform Colors */
   --color-tiktok: #FE2C55;
   --color-tiktok-cyan: #25F4EE;
   --color-instagram: #E1306C;
   --color-instagram-grad: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF, #515BD4);
-  --color-facebook: #1877F2;
-  --color-linkedin: #0A66C2;
-  --color-x: #E7E9EA;
 
   /* Typography Colors */
   --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --text-subtle: #475569;
-  --text-gold: #F59E0B;
-  --text-emerald: #10B981;
+  --text-tertiary: #64748B;
+  --text-gold: #FCD34D;
+  --text-emerald: #34D399;
   --text-on-accent: #FFFFFF;
 
-  /* Borders & Dividers */
-  --border-subtle: rgba(255, 255, 255, 0.07);
-  --border-medium: rgba(255, 255, 255, 0.14);
-  --border-bright: rgba(255, 255, 255, 0.25);
-  --border-accent: rgba(16, 185, 129, 0.35);
-  --border-gold: rgba(245, 158, 11, 0.4);
+  /* Premium Borders */
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-medium: rgba(255, 255, 255, 0.16);
+  --border-bright: rgba(255, 255, 255, 0.28);
+  --border-emerald: rgba(16, 185, 129, 0.35);
+  --border-gold: rgba(245, 158, 11, 0.35);
+  --border-glass: 1px solid rgba(255, 255, 255, 0.1);
 
   /* Gradients */
-  --grad-primary: linear-gradient(135deg, #059669 0%, #10B981 50%, #D97706 100%);
-  --grad-gemini: linear-gradient(135deg, #10B981 0%, #06B6D4 50%, #3B82F6 100%);
-  --grad-imagen: linear-gradient(135deg, #D97706 0%, #F59E0B 50%, #10B981 100%);
-  --grad-video: linear-gradient(135deg, #059669 0%, #D97706 50%, #EC4899 100%);
-  --grad-dark-card: linear-gradient(180deg, rgba(19, 29, 51, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
-  --grad-glow-banner: linear-gradient(90deg, rgba(16, 185, 129, 0.15), rgba(245, 158, 11, 0.15));
+  --grad-gold-emerald: linear-gradient(135deg, #F59E0B 0%, #10B981 100%);
+  --grad-emerald-dark: linear-gradient(135deg, #059669 0%, #047857 100%);
+  --grad-gold-luxury: linear-gradient(135deg, #FDE68A 0%, #F59E0B 50%, #D97706 100%);
+  --grad-glass-card: linear-gradient(145deg, rgba(17, 28, 54, 0.75) 0%, rgba(9, 16, 32, 0.85) 100%);
+  --grad-aurora: linear-gradient(120deg, rgba(16, 185, 129, 0.15), rgba(245, 158, 11, 0.12), rgba(6, 182, 212, 0.12));
 
   /* Typography Fonts */
-  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-arabic: 'Traditional Arabic', 'Amiri', 'Scheherazade New', serif;
-  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+  --font-arabic: 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif;
 
-  /* Shadows */
-  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.45);
-  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.6);
-  --shadow-glow: 0 0 24px rgba(16, 185, 129, 0.25);
-  --shadow-gold: 0 0 24px rgba(245, 158, 11, 0.25);
+  /* Shadows & Glows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-glow-emerald: 0 0 28px rgba(16, 185, 129, 0.3);
+  --shadow-glow-gold: 0 0 28px rgba(245, 158, 11, 0.3);
+  --shadow-glow-cyan: 0 0 28px rgba(6, 182, 212, 0.25);
 
   /* Radius */
-  --radius-xs: 6px;
-  --radius-sm: 10px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-xl: 28px;
-  --radius-pill: 9999px;
+  --radius-xs: 8px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+  --radius-full: 9999px;
 
   /* Layout */
-  --sidebar-width: 260px;
-  --header-height: 70px;
+  --sidebar-width: 270px;
+  --header-height: 72px;
+
+  /* Transitions */
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }

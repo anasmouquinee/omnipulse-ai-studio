@@ -1,6 +1,6 @@
 /**
- * OmniPulse AI - Base CSS & Typography
- * Global reset, keyframe animations, and scrollbar styling.
+ * OmniPulse AI / Kaelar Islamic - Base CSS & Master Animations
+ * Global reset, keyframe animations, typography, and luxury glowing scrollbars.
  */
 
 @import './variables.css';
@@ -18,7 +18,7 @@ html, body {
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-size: 15px;
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
@@ -31,34 +31,34 @@ html, body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg-surface);
+  background: rgba(3, 7, 18, 0.8);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border-medium);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: var(--radius-full);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--accent-primary);
+  background: var(--accent-emerald);
 }
 
 /* Typography Helpers */
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-display);
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text-primary);
   letter-spacing: -0.02em;
 }
 
 a {
-  color: var(--accent-primary);
+  color: var(--accent-emerald-light);
   text-decoration: none;
   transition: color var(--transition-fast);
 }
 
 a:hover {
-  color: var(--accent-primary-hover);
+  color: var(--accent-gold);
 }
 
 button {
@@ -77,7 +77,7 @@ input, textarea, select {
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -87,34 +87,44 @@ input, textarea, select {
 
 @keyframes pulseGlow {
   0%, 100% {
-    opacity: 0.6;
-    filter: drop-shadow(0 0 12px var(--accent-primary-glow));
+    opacity: 0.55;
+    filter: drop-shadow(0 0 15px var(--accent-emerald-glow));
   }
   50% {
     opacity: 1;
-    filter: drop-shadow(0 0 24px var(--accent-primary-glow));
+    filter: drop-shadow(0 0 32px var(--accent-emerald-glow));
   }
 }
 
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@keyframes floatSlow {
+@keyframes breathingGlow {
   0%, 100% {
-    transform: translateY(0);
+    transform: scale(0.96);
+    opacity: 0.35;
   }
   50% {
-    transform: translateY(-4px);
+    transform: scale(1.08);
+    opacity: 0.75;
   }
 }
 
-@keyframes spin {
+@keyframes floatingBokeh {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  15% {
+    opacity: 0.85;
+  }
+  85% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-280px) scale(1.2);
+    opacity: 0;
+  }
+}
+
+@keyframes spinDisc {
   from {
     transform: rotate(0deg);
   }
@@ -123,33 +133,58 @@ input, textarea, select {
   }
 }
 
+.spin-disc-active {
+  animation: spinDisc 3.5s linear infinite;
+}
+
+@keyframes shimmerGlow {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 .animate-fade-in {
-  animation: fadeIn var(--transition-normal) ease-out forwards;
+  animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .animate-spin {
-  animation: spin 1s linear infinite;
+  animation: spinDisc 1s linear infinite;
 }
 
-.animate-pulse-glow {
-  animation: pulseGlow 2.5s ease-in-out infinite;
+/* Device Mockup Shell */
+.phone-mockup-frame {
+  position: relative;
+  border-radius: 40px;
+  background: #020617;
+  padding: 10px;
+  box-shadow: 
+    0 0 0 2px rgba(255, 255, 255, 0.12),
+    0 0 0 5px rgba(245, 158, 11, 0.25),
+    0 30px 70px rgba(0, 0, 0, 0.9),
+    0 0 50px rgba(16, 185, 129, 0.2);
+  transition: all 0.3s ease;
 }
 
-/* Utility Badges & Gradients */
-.grad-text-gemini {
-  background: var(--grad-gemini);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.phone-mockup-frame:hover {
+  box-shadow: 
+    0 0 0 2px rgba(255, 255, 255, 0.2),
+    0 0 0 6px rgba(245, 158, 11, 0.45),
+    0 35px 80px rgba(0, 0, 0, 0.95),
+    0 0 70px rgba(16, 185, 129, 0.35);
 }
 
-.grad-text-imagen {
-  background: var(--grad-imagen);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.grad-text-video {
-  background: var(--grad-video);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.phone-dynamic-island {
+  position: absolute;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 22px;
+  background: #000000;
+  border-radius: 20px;
+  z-index: 25;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.8);
 }

@@ -204,24 +204,28 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
         gap: '1.25rem'
       }}>
         {/* Card 1: Countdown */}
-        <div style={{
-          background: 'var(--bg-card)',
-          border: '1px solid var(--border-medium)',
+        <div className="glass-card" style={{
+          border: '1px solid rgba(245, 158, 11, 0.35)',
           borderRadius: 'var(--radius-md)',
           padding: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          background: 'linear-gradient(145deg, rgba(17, 28, 54, 0.8) 0%, rgba(9, 16, 32, 0.9) 100%)',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(245, 158, 11, 0.1)'
         }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-tertiary)', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.6rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: '#94a3b8', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.04em', marginBottom: '0.6rem' }}>
               <Clock size={15} color="#f59e0b" />
               <span>PROCHAINE PUBLICATION AUTOMATIQUE</span>
             </div>
             <div style={{
-              fontSize: '1.85rem',
+              fontSize: '1.9rem',
               fontWeight: 800,
-              color: config.isEnabled ? '#fef08a' : 'var(--text-tertiary)',
+              background: config.isEnabled ? 'linear-gradient(135deg, #ffffff 0%, #fef08a 50%, #f59e0b 100%)' : 'none',
+              WebkitBackgroundClip: config.isEnabled ? 'text' : 'unset',
+              WebkitTextFillColor: config.isEnabled ? 'transparent' : '#64748b',
+              color: config.isEnabled ? '#fef08a' : '#64748b',
               fontVariantNumeric: 'tabular-nums',
               letterSpacing: '-0.02em',
               margin: '0.2rem 0'
@@ -230,23 +234,24 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
             </div>
           </div>
 
-          <div style={{ fontSize: '0.78rem', color: 'var(--text-tertiary)', marginTop: '0.75rem' }}>
+          <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '0.75rem' }}>
             {config.lastRunAt ? `Dernière exécution : ${new Date(config.lastRunAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}` : 'Aucune publication automatique récente'}
           </div>
         </div>
 
         {/* Card 2: Frequency Selector */}
-        <div style={{
-          background: 'var(--bg-card)',
-          border: '1px solid var(--border-medium)',
+        <div className="glass-card" style={{
+          border: '1px solid rgba(16, 185, 129, 0.35)',
           borderRadius: 'var(--radius-md)',
           padding: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
-          justifyContent: 'space-between'
+          justifyContent: 'space-between',
+          background: 'linear-gradient(145deg, rgba(6, 78, 59, 0.25) 0%, rgba(9, 16, 32, 0.9) 100%)',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(16, 185, 129, 0.1)'
         }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-tertiary)', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.75rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: '#94a3b8', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.04em', marginBottom: '0.75rem' }}>
               <RotateCw size={15} color="#10b981" />
               <span>FRÉQUENCE DE PUBLICATION</span>
             </div>
@@ -262,14 +267,16 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
                   key={opt.hours}
                   onClick={() => handleIntervalChange(opt.hours)}
                   style={{
-                    padding: '0.45rem 0.8rem',
-                    borderRadius: 'var(--radius-sm)',
+                    padding: '0.45rem 0.85rem',
+                    borderRadius: 'var(--radius-xs)',
                     border: config.intervalHours === opt.hours ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
-                    background: config.intervalHours === opt.hours ? 'rgba(16, 185, 129, 0.2)' : 'rgba(255,255,255,0.03)',
-                    color: config.intervalHours === opt.hours ? '#34d399' : 'var(--text-secondary)',
-                    fontWeight: config.intervalHours === opt.hours ? 700 : 500,
+                    background: config.intervalHours === opt.hours ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.3) 0%, rgba(5, 150, 105, 0.2) 100%)' : 'rgba(255,255,255,0.03)',
+                    color: config.intervalHours === opt.hours ? '#34d399' : '#94a3b8',
+                    fontWeight: config.intervalHours === opt.hours ? 800 : 600,
                     fontSize: '0.82rem',
-                    cursor: 'pointer'
+                    cursor: 'pointer',
+                    boxShadow: config.intervalHours === opt.hours ? '0 0 12px rgba(16, 185, 129, 0.3)' : 'none',
+                    transition: 'all 0.2s ease'
                   }}
                 >
                   {opt.label}
@@ -278,35 +285,35 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
             </div>
           </div>
 
-          <div style={{ fontSize: '0.78rem', color: '#10b981', marginTop: '0.75rem' }}>
+          <div style={{ fontSize: '0.78rem', color: '#34d399', fontWeight: 600, marginTop: '0.75rem' }}>
             ✓ {config.intervalHours} Heures = {Math.round(24 / config.intervalHours)} publication{Math.round(24 / config.intervalHours) > 1 ? 's' : ''} diversifiée{Math.round(24 / config.intervalHours) > 1 ? 's' : ''} par 24h
           </div>
         </div>
 
         {/* Card 3: Next Topic in Rotation */}
-        <div style={{
-          background: 'var(--bg-card)',
-          border: '1px solid rgba(59, 130, 246, 0.4)',
+        <div className="glass-card" style={{
+          border: '1px solid rgba(6, 182, 212, 0.35)',
           borderRadius: 'var(--radius-md)',
           padding: '1.5rem',
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          position: 'relative'
+          background: 'linear-gradient(145deg, rgba(6, 182, 212, 0.15) 0%, rgba(9, 16, 32, 0.9) 100%)',
+          boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(6, 182, 212, 0.1)'
         }}>
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'var(--text-tertiary)', fontSize: '0.8rem', fontWeight: 600, marginBottom: '0.6rem' }}>
-              <Compass size={15} color="#60a5fa" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.45rem', color: '#94a3b8', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.04em', marginBottom: '0.6rem' }}>
+              <Compass size={15} color="#22d3ee" />
               <span>PROCHAIN THÈME AU PROGRAMME</span>
             </div>
 
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginTop: '0.3rem' }}>
-              <span style={{ fontSize: '1.5rem' }}>{currentTheme.icon}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginTop: '0.3rem' }}>
+              <span style={{ fontSize: '1.75rem', filter: 'drop-shadow(0 0 8px rgba(6, 182, 212, 0.4))' }}>{currentTheme.icon}</span>
               <div>
-                <div style={{ fontSize: '1rem', fontWeight: 800, color: '#93c5fd' }}>
+                <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#67e8f9' }}>
                   {currentTheme.title}
                 </div>
-                <div style={{ fontSize: '0.78rem', color: 'var(--text-secondary)', marginTop: '0.15rem' }}>
+                <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '0.15rem' }}>
                   {currentTheme.subtitle}
                 </div>
               </div>
@@ -318,12 +325,12 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
             alignItems: 'center', 
             justifyContent: 'space-between',
             fontSize: '0.75rem', 
-            color: 'var(--text-tertiary)', 
+            color: '#94a3b8', 
             marginTop: '0.75rem',
             paddingTop: '0.5rem',
-            borderTop: '1px solid rgba(255,255,255,0.06)'
+            borderTop: '1px solid rgba(255,255,255,0.08)'
           }}>
-            <span>Suivant après : <strong>{upcomingTheme.icon} {upcomingTheme.badge}</strong></span>
+            <span>Suivant après : <strong style={{ color: '#f8fafc' }}>{upcomingTheme.icon} {upcomingTheme.badge}</strong></span>
             <span style={{ color: '#34d399', fontWeight: 700 }}>Rotation continue 🔁</span>
           </div>
         </div>
@@ -412,52 +419,45 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
       </div>
 
       {/* Manual Immediate Trigger Action */}
-      <div style={{
-        background: 'linear-gradient(135deg, rgba(217, 119, 6, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%)',
-        border: '1px solid rgba(217, 119, 6, 0.3)',
+      <div className="glass-card" style={{
+        background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(16, 185, 129, 0.15) 100%)',
+        border: '1px solid rgba(245, 158, 11, 0.45)',
         borderRadius: 'var(--radius-md)',
-        padding: '1.25rem 1.75rem',
+        padding: '1.5rem 2rem',
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
         flexWrap: 'wrap',
-        gap: '1rem'
+        gap: '1.25rem',
+        boxShadow: '0 10px 30px rgba(0, 0, 0, 0.4), 0 0 30px rgba(245, 158, 11, 0.15)'
       }}>
         <div>
-          <h4 style={{ margin: '0 0 0.2rem 0', fontSize: '1rem', color: '#fef08a', fontWeight: 700 }}>
-            Déclencher un Cycle Immédiat sur "{currentTheme.title}"
+          <h4 style={{ margin: '0 0 0.25rem 0', fontSize: '1.1rem', color: '#fef08a', fontWeight: 800, letterSpacing: '-0.01em' }}>
+            ⚡ Déclencher un Cycle Immédiat sur "{currentTheme.title}"
           </h4>
-          <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
+          <p style={{ margin: 0, fontSize: '0.84rem', color: '#94a3b8' }}>
             Génère instantanément un Reel inédit sur le thème actuel et le publie sur Instagram et TikTok sans attendre le prochain créneau de 6h.
           </p>
         </div>
 
         <button
+          className="btn btn-gold"
           onClick={handleTriggerNow}
           disabled={isRunningManual}
           style={{
-            padding: '0.8rem 1.5rem',
-            background: isRunningManual ? 'rgba(255,255,255,0.1)' : 'linear-gradient(135deg, #f59e0b 0%, #10b981 100%)',
-            border: 'none',
-            borderRadius: 'var(--radius-md)',
-            color: '#020617',
-            fontWeight: 800,
-            fontSize: '0.92rem',
-            cursor: isRunningManual ? 'wait' : 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.5rem',
-            boxShadow: '0 10px 20px -5px rgba(245, 158, 11, 0.4)'
+            padding: '0.85rem 1.75rem',
+            fontSize: '0.95rem',
+            fontWeight: 800
           }}
         >
           {isRunningManual ? (
             <>
-              <RotateCw size={16} className="spin" />
+              <RotateCw size={18} className="animate-spin" />
               <span>{currentStep || 'Exécution du cycle...'}</span>
             </>
           ) : (
             <>
-              <Zap size={16} />
+              <Zap size={18} />
               <span>Lancer Auto-Pilot Maintenant ({currentTheme.badge})</span>
             </>
           )}
