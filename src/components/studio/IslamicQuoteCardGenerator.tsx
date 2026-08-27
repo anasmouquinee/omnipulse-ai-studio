@@ -45,7 +45,8 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   const [selectedLanguage, setSelectedLanguage] = useState<IslamicLanguage>('all');
   const [aspectRatio, setAspectRatio] = useState<'9:16' | '1:1'>('9:16');
   const [selectedThemeId, setSelectedThemeId] = useState<string>(ISLAMIC_BACKGROUND_THEMES[0].id);
-  const [selectedReciterId, setSelectedReciterId] = useState<string>('ar.alafasy');
+  const [themeTab, setThemeTab] = useState<'reciters' | 'places'>('reciters');
+  const [selectedReciterId, setSelectedReciterId] = useState<string>('ar.luhaidan');
 
   const [currentItem, setCurrentItem] = useState<IslamicPostItem>(VERIFIED_ISLAMIC_POSTS[0]);
   const [renderedCardUrl, setRenderedCardUrl] = useState<string>('');
@@ -99,11 +100,23 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     };
   }, [currentItem, aspectRatio, selectedLanguage, selectedThemeId]);
 
-  // When reciter changes on a Quran verse, fetch exact matching audio
+  // When reciter changes on a Quran verse, fetch exact matching audio and sync visual
   const handleReciterChange = async (reciterId: string) => {
     setSelectedReciterId(reciterId);
     const surah = currentItem.source.surahNumber || 94;
     const ayah = currentItem.source.ayahNumber || 1;
+
+    // Auto-match background theme to reciter portrait
+    const reciterToThemeMap: Record<string, string> = {
+      'ar.luhaidan': 'reciter_luhaidan',
+      'ar.alafasy': 'reciter_alafasy',
+      'ar.dossari': 'reciter_dossari',
+      'ar.abdulbasitmurattal': 'reciter_abdulbasit'
+    };
+    if (reciterToThemeMap[reciterId]) {
+      setSelectedThemeId(reciterToThemeMap[reciterId]);
+      setThemeTab('reciters');
+    }
     
     const audio = await IslamicContentService.fetchExactQuranAudio(
       surah,
@@ -116,7 +129,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         setIsPlayingAudio(false);
       }
       setCurrentItem(prev => ({ ...prev, reciterAudio: audio }));
-      onShowToast('info', `Audio synchronisé avec ${audio.reciterName} !`);
+      onShowToast('info', `✨ Audio et portrait synchronisés avec ${audio.reciterName} !`);
     }
   };
 
@@ -579,27 +592,66 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
 
           {/* Photographic Background Themes Selector */}
           <div className="form-group">
-            <label className="form-label">
-              <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
-                <Palette size={15} color="#f59e0b" />
-                Arrière-plan Photographique & Ambiance
-              </span>
-            </label>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.4rem', flexWrap: 'wrap', gap: '0.4rem' }}>
+              <label className="form-label" style={{ margin: 0 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                  <Palette size={15} color="#f59e0b" />
+                  Arrière-plan & Style Visuel
+                </span>
+              </label>
+
+              {/* Tabs */}
+              <div style={{ display: 'flex', gap: '0.25rem', background: 'var(--bg-input)', padding: '0.15rem', borderRadius: 'var(--radius-xs)' }}>
+                <button
+                  type="button"
+                  onClick={() => setThemeTab('reciters')}
+                  style={{
+                    padding: '0.25rem 0.55rem',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    borderRadius: 'var(--radius-xs)',
+                    background: themeTab === 'reciters' ? 'linear-gradient(135deg, #10b981 0%, #0284c7 100%)' : 'transparent',
+                    color: themeTab === 'reciters' ? '#fff' : 'var(--text-muted)',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}
+                >
+                  🎙️ Récitateurs TikTok (@c7l.11)
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setThemeTab('places')}
+                  style={{
+                    padding: '0.25rem 0.55rem',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    borderRadius: 'var(--radius-xs)',
+                    background: themeTab === 'places' ? 'rgba(255, 255, 255, 0.12)' : 'transparent',
+                    color: themeTab === 'places' ? '#fff' : 'var(--text-muted)',
+                    border: 'none',
+                    cursor: 'pointer'
+                  }}
+                >
+                  🏛️ Décors & Mosquées
+                </button>
+              </div>
+            </div>
+
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))', gap: '0.6rem' }}>
-              {ISLAMIC_BACKGROUND_THEMES.map(theme => (
+              {ISLAMIC_BACKGROUND_THEMES.filter(t => themeTab === 'reciters' ? t.category === 'reciter_portrait' : t.category !== 'reciter_portrait').map(theme => (
                 <button
                   key={theme.id}
                   type="button"
                   onClick={() => setSelectedThemeId(theme.id)}
                   style={{
                     position: 'relative',
-                    height: 64,
+                    height: 68,
                     borderRadius: 'var(--radius-xs)',
                     overflow: 'hidden',
-                    border: `2px solid ${selectedThemeId === theme.id ? '#f59e0b' : 'rgba(255, 255, 255, 0.1)'}`,
+                    border: `2px solid ${selectedThemeId === theme.id ? '#10b981' : 'rgba(255, 255, 255, 0.1)'}`,
                     cursor: 'pointer',
                     padding: 0,
-                    boxShadow: selectedThemeId === theme.id ? '0 0 12px rgba(245, 158, 11, 0.4)' : 'none',
+                    boxShadow: selectedThemeId === theme.id ? '0 0 15px rgba(16, 185, 129, 0.45)' : 'none',
                     transition: 'all 0.2s ease'
                   }}
                 >
@@ -611,7 +663,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                   <div style={{
                     position: 'absolute',
                     inset: 0,
-                    background: 'linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%)',
+                    background: 'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, rgba(0,0,0,0.9) 100%)',
                     display: 'flex',
                     alignItems: 'flex-end',
                     padding: '0.35rem 0.5rem',

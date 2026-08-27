@@ -11,7 +11,9 @@ import { StorageService } from './storageService';
 import { IslamicViralTagsService } from './islamicViralTagsService';
 
 export const AVAILABLE_RECITERS = [
+  { id: 'ar.luhaidan', name: 'Muhammad Al-Luhaidan (محمد اللحيدان)' },
   { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy (مشاري العفاسي)' },
+  { id: 'ar.dossari', name: 'Yasser Al-Dossari (ياسر الدوسري)' },
   { id: 'ar.abdulbasitmurattal', name: 'Abdul Basit Murattal (عبد الباسط عبد الصمد)' },
   { id: 'ar.minshawi', name: 'Mohamed Siddiq El-Minshawi (المنشاوي)' },
   { id: 'ar.husary', name: 'Mahmoud Khalil Al-Husary (الحصري)' },
@@ -527,13 +529,24 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       ctx.fillRect(0, 0, width, height);
     }
 
+    const isReciterMinimal = theme.layoutStyle === 'reciter_minimal' || theme.category === 'reciter_portrait';
+
     // 2. Cinematic Multi-Layer Soft Vignette (Leaves photo vibrant & visible)
     const overlayGradient = ctx.createLinearGradient(0, 0, 0, height);
-    overlayGradient.addColorStop(0, 'rgba(3, 7, 18, 0.55)');
-    overlayGradient.addColorStop(0.2, 'rgba(3, 7, 18, 0.35)');
-    overlayGradient.addColorStop(0.5, 'rgba(4, 9, 20, 0.45)');
-    overlayGradient.addColorStop(0.8, 'rgba(3, 7, 18, 0.70)');
-    overlayGradient.addColorStop(1, 'rgba(2, 4, 10, 0.92)');
+    if (isReciterMinimal) {
+      // Clean TikTok layout: clear upper half for reciter face, dark bottom half for text
+      overlayGradient.addColorStop(0, 'rgba(2, 6, 18, 0.25)');
+      overlayGradient.addColorStop(0.35, 'rgba(2, 6, 18, 0.40)');
+      overlayGradient.addColorStop(0.60, 'rgba(2, 6, 18, 0.85)');
+      overlayGradient.addColorStop(0.85, 'rgba(2, 6, 18, 0.95)');
+      overlayGradient.addColorStop(1, 'rgba(0, 0, 0, 0.98)');
+    } else {
+      overlayGradient.addColorStop(0, 'rgba(3, 7, 18, 0.55)');
+      overlayGradient.addColorStop(0.2, 'rgba(3, 7, 18, 0.35)');
+      overlayGradient.addColorStop(0.5, 'rgba(4, 9, 20, 0.45)');
+      overlayGradient.addColorStop(0.8, 'rgba(3, 7, 18, 0.70)');
+      overlayGradient.addColorStop(1, 'rgba(2, 4, 10, 0.92)');
+    }
     ctx.fillStyle = overlayGradient;
     ctx.fillRect(0, 0, width, height);
 
@@ -553,7 +566,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     // 4. Measure & Precalculate Typography Layout
     const cardMarginX = aspectRatio === '9:16' ? 55 : 45;
     const cardWidth = width - (cardMarginX * 2);
-    const maxTextWidth = cardWidth - 100;
+    const maxTextWidth = isReciterMinimal ? width - 130 : cardWidth - 100;
 
     // Helper to wrap text cleanly
     const wrapText = (text: string, font: string, maxW: number): string[] => {
@@ -576,8 +589,8 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       return lines;
     };
 
-    const arabicFont = `bold ${aspectRatio === '9:16' ? 62 : 46}px "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif`;
-    const arabicLineHeight = aspectRatio === '9:16' ? 106 : 78;
+    const arabicFont = `bold ${aspectRatio === '9:16' ? (isReciterMinimal ? 66 : 62) : 46}px "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif`;
+    const arabicLineHeight = aspectRatio === '9:16' ? (isReciterMinimal ? 112 : 106) : 78;
     const arabicLines = wrapText(item.arabicText, arabicFont, maxTextWidth);
 
     const frFont = `600 ${aspectRatio === '9:16' ? 36 : 28}px "Plus Jakarta Sans", -apple-system, sans-serif`;
@@ -599,7 +612,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     // Calculate content heights
     const bismillahHeight = 55;
     const arabicBlockHeight = arabicLines.length * arabicLineHeight;
-    const dividerHeight = 65;
+    const dividerHeight = isReciterMinimal ? 40 : 65;
     const frBlockHeight = frLines.length * frLineHeight;
     const enBlockHeight = enLines.length * enLineHeight;
     const arRefBlockHeight = arRefLines.length * frLineHeight;
@@ -617,34 +630,54 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
     const cardPaddingY = aspectRatio === '9:16' ? 60 : 40;
     const cardHeight = Math.min(height - (aspectRatio === '9:16' ? 220 : 90), innerContentHeight + (cardPaddingY * 2));
-    const cardTop = (height - cardHeight) / 2 - (aspectRatio === '9:16' ? 20 : 5);
+    
+    // Position text in optimal TikTok reading safe zone
+    const cardTop = isReciterMinimal
+      ? (aspectRatio === '9:16' ? height * 0.46 - (innerContentHeight * 0.4) : (height - innerContentHeight) / 2)
+      : (height - cardHeight) / 2 - (aspectRatio === '9:16' ? 20 : 5);
     const cardRadius = 30;
 
-    // 5. Frosted Glass Container with Premium Gold Glow
-    ctx.save();
-    ctx.beginPath();
-    ctx.roundRect(cardMarginX, cardTop, cardWidth, cardHeight, cardRadius);
-    ctx.fillStyle = 'rgba(8, 14, 25, 0.76)';
-    ctx.fill();
-    
-    // Outer glowing gold border
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.55)';
-    ctx.lineWidth = 2;
-    ctx.shadowColor = 'rgba(245, 158, 11, 0.35)';
-    ctx.shadowBlur = 20;
-    ctx.stroke();
+    // 5. Container: ONLY for Ornate Card Style (Skip for Reciter Minimal style)
+    if (!isReciterMinimal) {
+      ctx.save();
+      ctx.beginPath();
+      ctx.roundRect(cardMarginX, cardTop, cardWidth, cardHeight, cardRadius);
+      ctx.fillStyle = 'rgba(8, 14, 25, 0.76)';
+      ctx.fill();
+      
+      // Outer glowing gold border
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.55)';
+      ctx.lineWidth = 2;
+      ctx.shadowColor = 'rgba(245, 158, 11, 0.35)';
+      ctx.shadowBlur = 20;
+      ctx.stroke();
 
-    // Inner subtle frame
-    ctx.beginPath();
-    ctx.roundRect(cardMarginX + 14, cardTop + 14, cardWidth - 28, cardHeight - 28, cardRadius - 10);
-    ctx.strokeStyle = 'rgba(245, 158, 11, 0.20)';
-    ctx.lineWidth = 1;
-    ctx.shadowBlur = 0;
-    ctx.stroke();
-    ctx.restore();
+      // Inner subtle frame
+      ctx.beginPath();
+      ctx.roundRect(cardMarginX + 14, cardTop + 14, cardWidth - 28, cardHeight - 28, cardRadius - 10);
+      ctx.strokeStyle = 'rgba(245, 158, 11, 0.20)';
+      ctx.lineWidth = 1;
+      ctx.shadowBlur = 0;
+      ctx.stroke();
+      ctx.restore();
+    } else {
+      // Reciter Badge at Top Left
+      ctx.save();
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.65)';
+      ctx.roundRect(50, 70, 480, 52, 26);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      
+      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillText(`🎙️ ${item.reciterAudio?.reciterName || 'Sheikh Muhammad Al-Luhaidan'}`, 75, 103);
+      ctx.restore();
+    }
 
     // 6. Draw Content Starting from centered Y
-    let curY = cardTop + cardPaddingY + 35;
+    let curY = cardTop + (isReciterMinimal ? 40 : cardPaddingY + 35);
 
     // A. Bismillah with Warm Golden Glow
     ctx.save();
