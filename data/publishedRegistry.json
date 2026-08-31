@@ -1,12 +1,19 @@
 {
-  "currentIndex": 1,
-  "lastRunAt": "2026-08-27T01:14:07.316Z",
+  "currentIndex": 2,
+  "lastRunAt": "2026-08-31T05:19:13.105Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
       "theme": "Noble Coran — Versets & Récitation Audio",
       "bookOrSurah": "Sourate Ash-Sharh (L’Ouverture)",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1787793246/ewf6lwus09xbkfz3cpc6.mp4"
+    },
+    {
+      "timestamp": "2026-08-31T05:19:13.105Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "bookOrSurah": "Sahih Muslim",
+      "contentHash": "الصلوات الخمس، والجمعة إلى الج",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788153551/skkfdkrrcniuy0id1bfa.mp4"
     }
   ]
 }
