@@ -1,6 +1,6 @@
 {
-  "currentIndex": 4,
-  "lastRunAt": "2026-08-31T12:06:24.483Z",
+  "currentIndex": 5,
+  "lastRunAt": "2026-08-31T18:05:19.233Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -28,6 +28,13 @@
       "bookOrSurah": "Sourate Al-Isra (Le Voyage Nocturne)",
       "contentHash": "ومن الليل فتهجد به نافلة لك عس",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788177983/k2koyc4wm7s5vp9ogo9l.mp4"
+    },
+    {
+      "timestamp": "2026-08-31T18:05:19.233Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "bookOrSurah": "Sourate At-Talaq (Le Divorce)",
+      "contentHash": "ومن يتوكل على الله فهو حسبه ۚ ",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788199517/tfttvsrbxxurtzo6hb7f.mp4"
     }
   ]
 }
