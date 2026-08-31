@@ -1,6 +1,6 @@
 {
-  "currentIndex": 3,
-  "lastRunAt": "2026-08-31T06:08:42.288Z",
+  "currentIndex": 4,
+  "lastRunAt": "2026-08-31T12:06:24.483Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -21,6 +21,13 @@
       "bookOrSurah": "Hisn al-Muslim (Citadelle du Musulman)",
       "contentHash": "حسبي الله لا إله إلا هو ۖ عليه",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788156521/wdgybx1c0v87phuhobdb.mp4"
+    },
+    {
+      "timestamp": "2026-08-31T12:06:24.483Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "bookOrSurah": "Sourate Al-Isra (Le Voyage Nocturne)",
+      "contentHash": "ومن الليل فتهجد به نافلة لك عس",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788177983/k2koyc4wm7s5vp9ogo9l.mp4"
     }
   ]
 }
