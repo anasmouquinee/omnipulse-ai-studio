@@ -141,6 +141,87 @@ const VERIFIED_ITEMS = [
     numberOrAyah: 'Hadith n° 6470',
     audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3',
     hashtags: '#JumuahMubarak #SourateAlKahf #VendrediBeni #Sunnah #fyp'
+  },
+  // --- Additional items per theme to increase rotation variety ---
+  {
+    type: 'quran_verse',
+    arabicText: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
+    translationFr: `« N'est-ce point par le rappel d'Allah que les cœurs se tranquillisent ? »`,
+    translationEn: '"Verily, in the remembrance of Allah do hearts find rest."',
+    bookOrSurah: 'Sourate Ar-Ra\'d (Le Tonnerre)',
+    numberOrAyah: 'Sourate 13, Verset 28',
+    surahNumber: 13,
+    ayahNumber: 28,
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1631.mp3',
+    hashtags: '#Coran #Dhikr #RappelAllah #TranquiliteDesCoeurs #KaelarIslamic #fyp'
+  },
+  {
+    type: 'quran_verse',
+    arabicText: 'وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ',
+    translationFr: `« Ton Seigneur t'accordera certes Ses faveurs, et alors tu seras satisfait. »`,
+    translationEn: '"And your Lord is going to give you, and you will be satisfied."',
+    bookOrSurah: 'Sourate Ad-Duha (Le Jour Montant)',
+    numberOrAyah: 'Sourate 93, Verset 5',
+    surahNumber: 93,
+    ayahNumber: 5,
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6088.mp3',
+    hashtags: '#Coran #Espoir #ConfianceEnAllah #SourateAdDuha #KaelarIslamic #fyp'
+  },
+  {
+    type: 'sahih_hadith',
+    arabicText: 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى',
+    translationFr: `Le Prophète ﷺ a dit : « Les actions ne valent que par les intentions, et chacun n'obtient que ce qu'il a eu l'intention de faire. »`,
+    translationEn: 'The Prophet ﷺ said: "Actions are judged by intentions, and everyone will get what they intended."',
+    bookOrSurah: 'Sahih Al-Bukhari',
+    numberOrAyah: 'Hadith n° 1',
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6079.mp3',
+    hashtags: '#HadithSahih #Intention #Niyyah #Bukhari #KaelarIslamic #fyp'
+  },
+  {
+    type: 'authentic_dua',
+    arabicText: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',
+    translationFr: `« Seigneur ! Accorde-nous belle part ici-bas, et belle part aussi dans l'au-delà ; et protège-nous du châtiment du Feu. »`,
+    translationEn: '"Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire."',
+    bookOrSurah: 'Sourate Al-Baqarah',
+    numberOrAyah: 'Sourate 2, Verset 201',
+    surahNumber: 2,
+    ayahNumber: 201,
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/208.mp3',
+    hashtags: '#Dua #Invocation #Protection #SourateAlBaqarah #KaelarIslamic #fyp'
+  },
+  {
+    type: 'tahajjud_motivation',
+    arabicText: 'تَتَجَافَىٰ جُنُوبُهُمْ عَنِ الْمَضَاجِعِ يَدْعُونَ رَبَّهُمْ خَوْفًا وَطَمَعًا',
+    translationFr: `« Ils s'arrachent de leurs lits pour invoquer leur Seigneur par crainte et espoir. »`,
+    translationEn: '"They arise from [their] beds; they supplicate their Lord in fear and aspiration."',
+    bookOrSurah: 'Sourate As-Sajdah (La Prosternation)',
+    numberOrAyah: 'Sourate 32, Verset 16',
+    surahNumber: 32,
+    ayahNumber: 16,
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/3574.mp3',
+    hashtags: '#Tahajjud #QiyamAlLayl #PriereDeNuit #SourateAsSajdah #KaelarIslamic #fyp'
+  },
+  {
+    type: 'islamic_reminder',
+    arabicText: 'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ',
+    translationFr: '« En vérité, Allah est avec les endurants. »',
+    translationEn: '"Indeed, Allah is with the patient."',
+    bookOrSurah: 'Sourate Al-Baqarah',
+    numberOrAyah: 'Sourate 2, Verset 153',
+    surahNumber: 2,
+    ayahNumber: 153,
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/160.mp3',
+    hashtags: '#Sabr #Patience #AllahAvecNous #RappelIslam #KaelarIslamic #fyp'
+  },
+  {
+    type: 'jumua_special',
+    arabicText: 'إِنَّ مِنْ أَفْضَلِ أَيَّامِكُمْ يَوْمَ الْجُمُعَةِ، فَأَكْثِرُوا عَلَيَّ مِنَ الصَّلَاةِ فِيهِ',
+    translationFr: 'Le Prophète ﷺ a dit : « Parmi les meilleurs de vos jours, il y a le vendredi. Multipliez donc les prières sur moi ce jour-là. »',
+    translationEn: 'The Prophet ﷺ said: "Among the best of your days is Friday. So send abundant blessings upon me on that day."',
+    bookOrSurah: 'Sunan Abu Dawud',
+    numberOrAyah: 'Hadith n° 1047',
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2142.mp3',
+    hashtags: '#JumuahMubarak #Salawat #VendrediBeni #Sunnah #KaelarIslamic #fyp'
   }
 ];
 
@@ -467,6 +548,55 @@ function getViralIslamicTags(type, platform = 'all') {
   return Array.from(new Set(combined)).join(' ');
 }
 
+// Helper: Strip Arabic diacritics for content comparison
+function stripDiacritics(text) {
+  return (text || '').replace(/[\u064B-\u065F\u0670]/g, '').trim();
+}
+
+// Helper: Generate a short content hash from Arabic text (first 30 chars, no diacritics)
+function contentHash(text) {
+  return stripDiacritics(text).substring(0, 30);
+}
+
+/**
+ * Pick the next unposted item for a given theme.
+ * Cross-references the registry to skip already-published items.
+ * If all items for the theme have been used, resets and cycles.
+ */
+function getNextItemForTheme(theme, reg) {
+  // Filter catalog to items matching this theme's category
+  const candidates = VERIFIED_ITEMS.filter(v => v.type === theme.category);
+
+  if (candidates.length === 0) {
+    // Fallback: pick any item if no category match
+    console.warn(`⚠️ No items found for category "${theme.category}", using fallback.`);
+    return VERIFIED_ITEMS[0];
+  }
+
+  // Build set of content hashes already published
+  const publishedHashes = new Set(
+    (reg.publishedItems || []).map(p => p.contentHash || '')
+  );
+  const publishedRefs = new Set(
+    (reg.publishedItems || []).map(p => p.bookOrSurah || '')
+  );
+
+  // Find first candidate NOT yet published (by hash or reference)
+  const unpublished = candidates.filter(c => {
+    const hash = contentHash(c.arabicText);
+    return !publishedHashes.has(hash) && !publishedRefs.has(c.bookOrSurah);
+  });
+
+  if (unpublished.length > 0) {
+    console.log(`📋 ${unpublished.length}/${candidates.length} unpublished items for "${theme.category}".`);
+    return unpublished[0];
+  }
+
+  // All items exhausted for this theme — reset and cycle
+  console.log(`🔄 All ${candidates.length} items for "${theme.category}" already published. Cycling from start.`);
+  return candidates[0];
+}
+
 // Main Execution Routine
 async function runCloudAutoPilot() {
   console.log('🕋 === Kaelar Islamic AI Studio — 24/7 Cloud Auto-Pilot Runner === 🕋');
@@ -548,6 +678,7 @@ async function runCloudAutoPilot() {
     timestamp: reg.lastRunAt,
     theme: theme.title,
     bookOrSurah: item.bookOrSurah,
+    contentHash: contentHash(item.arabicText),
     videoUrl: publicVideoUrl
   });
   saveRegistry(reg);

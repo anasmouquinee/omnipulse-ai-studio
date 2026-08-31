@@ -59,7 +59,7 @@ export const StorageService = {
     if (userKey && userKey.trim() !== '') return userKey.trim();
     try {
       if (typeof atob !== 'undefined') {
-        return atob('QVEuQWI4Uk42TEc2WUxxSWdoU1hnb282RVR5ZEYyeU1ZX1FyQlV4SXhhNHJGWFB4YzZ2Umc=');
+        return atob('QVEuQWI4Uk42Szh0TmZOekVTemtPVFEwTkdIU1VpVUx0TVo5Q1lqZFFtM3Y3WGRnb216QWc=');
       }
     } catch (e) {
       console.warn('Could not decode default key:', e);
