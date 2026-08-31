@@ -1,6 +1,6 @@
 {
-  "currentIndex": 2,
-  "lastRunAt": "2026-08-31T05:19:13.105Z",
+  "currentIndex": 3,
+  "lastRunAt": "2026-08-31T06:08:42.288Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -14,6 +14,13 @@
       "bookOrSurah": "Sahih Muslim",
       "contentHash": "الصلوات الخمس، والجمعة إلى الج",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788153551/skkfdkrrcniuy0id1bfa.mp4"
+    },
+    {
+      "timestamp": "2026-08-31T06:08:42.288Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "bookOrSurah": "Hisn al-Muslim (Citadelle du Musulman)",
+      "contentHash": "حسبي الله لا إله إلا هو ۖ عليه",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788156521/wdgybx1c0v87phuhobdb.mp4"
     }
   ]
 }
