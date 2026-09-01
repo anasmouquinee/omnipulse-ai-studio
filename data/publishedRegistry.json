@@ -1,6 +1,6 @@
 {
-  "currentIndex": 5,
-  "lastRunAt": "2026-08-31T18:05:19.233Z",
+  "currentIndex": 0,
+  "lastRunAt": "2026-09-01T00:11:48.087Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -35,6 +35,13 @@
       "bookOrSurah": "Sourate At-Talaq (Le Divorce)",
       "contentHash": "ومن يتوكل على الله فهو حسبه ۚ ",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788199517/tfttvsrbxxurtzo6hb7f.mp4"
+    },
+    {
+      "timestamp": "2026-09-01T00:11:48.087Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "bookOrSurah": "Sahih Al-Jami (Al-Bayhaqi)",
+      "contentHash": "من قرأ سورة الكهف في يوم الجمع",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788221506/iyqs9nq5qfaj2bz6bign.mp4"
     }
   ]
 }
