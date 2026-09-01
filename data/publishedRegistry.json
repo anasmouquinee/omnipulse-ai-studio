@@ -1,6 +1,6 @@
 {
-  "currentIndex": 1,
-  "lastRunAt": "2026-09-01T12:06:09.397Z",
+  "currentIndex": 2,
+  "lastRunAt": "2026-09-01T18:05:32.280Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -49,6 +49,13 @@
       "bookOrSurah": "Sourate Ar-Rahman (Le Tout Miséricordieux)",
       "contentHash": "فبأي آلاء ربكما تكذبان",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788264368/ujvl8rqqqjfyine5wna6.mp4"
+    },
+    {
+      "timestamp": "2026-09-01T18:05:32.280Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "bookOrSurah": "Sahih Al-Bukhari",
+      "contentHash": "إنما الأعمال بالنيات وإنما لكل",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788285930/rgldb1lisig4dthahmvt.mp4"
     }
   ]
 }
