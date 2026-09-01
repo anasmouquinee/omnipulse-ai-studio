@@ -1,6 +1,6 @@
 {
-  "currentIndex": 0,
-  "lastRunAt": "2026-09-01T00:11:48.087Z",
+  "currentIndex": 1,
+  "lastRunAt": "2026-09-01T12:06:09.397Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -42,6 +42,13 @@
       "bookOrSurah": "Sahih Al-Jami (Al-Bayhaqi)",
       "contentHash": "من قرأ سورة الكهف في يوم الجمع",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788221506/iyqs9nq5qfaj2bz6bign.mp4"
+    },
+    {
+      "timestamp": "2026-09-01T12:06:09.397Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "bookOrSurah": "Sourate Ar-Rahman (Le Tout Miséricordieux)",
+      "contentHash": "فبأي آلاء ربكما تكذبان",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788264368/ujvl8rqqqjfyine5wna6.mp4"
     }
   ]
 }
