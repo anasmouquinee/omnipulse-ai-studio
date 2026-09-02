@@ -1,6 +1,6 @@
 {
-  "currentIndex": 3,
-  "lastRunAt": "2026-09-02T00:11:09.120Z",
+  "currentIndex": 4,
+  "lastRunAt": "2026-09-02T06:07:33.628Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -63,6 +63,13 @@
       "bookOrSurah": "Sourate Al-Baqarah",
       "contentHash": "ربنا آتنا في الدنيا حسنة وفي ا",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788307867/fr0fvmtnacwccfjkijik.mp4"
+    },
+    {
+      "timestamp": "2026-09-02T06:07:33.628Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "bookOrSurah": "Sourate As-Sajdah (La Prosternation)",
+      "contentHash": "تتجافى جنوبهم عن المضاجع يدعون",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788329252/n3otfcdgwlzjxyoej44z.mp4"
     }
   ]
 }
