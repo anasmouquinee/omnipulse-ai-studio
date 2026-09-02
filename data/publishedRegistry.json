@@ -1,6 +1,6 @@
 {
-  "currentIndex": 4,
-  "lastRunAt": "2026-09-02T06:07:33.628Z",
+  "currentIndex": 5,
+  "lastRunAt": "2026-09-02T12:06:16.933Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -70,6 +70,13 @@
       "bookOrSurah": "Sourate As-Sajdah (La Prosternation)",
       "contentHash": "تتجافى جنوبهم عن المضاجع يدعون",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788329252/n3otfcdgwlzjxyoej44z.mp4"
+    },
+    {
+      "timestamp": "2026-09-02T12:06:16.933Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "bookOrSurah": "Sourate At-Talaq (Le Divorce)",
+      "contentHash": "ومن يتوكل على الله فهو حسبه ۚ ",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788350775/xmzsvahtjwkddm5uzwcc.mp4"
     }
   ]
 }
