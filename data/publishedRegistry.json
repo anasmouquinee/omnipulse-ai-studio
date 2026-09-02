@@ -1,6 +1,6 @@
 {
-  "currentIndex": 2,
-  "lastRunAt": "2026-09-01T18:05:32.280Z",
+  "currentIndex": 3,
+  "lastRunAt": "2026-09-02T00:11:09.120Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -56,6 +56,13 @@
       "bookOrSurah": "Sahih Al-Bukhari",
       "contentHash": "إنما الأعمال بالنيات وإنما لكل",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788285930/rgldb1lisig4dthahmvt.mp4"
+    },
+    {
+      "timestamp": "2026-09-02T00:11:09.120Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "bookOrSurah": "Sourate Al-Baqarah",
+      "contentHash": "ربنا آتنا في الدنيا حسنة وفي ا",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788307867/fr0fvmtnacwccfjkijik.mp4"
     }
   ]
 }
