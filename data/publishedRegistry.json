@@ -1,6 +1,6 @@
 {
-  "currentIndex": 0,
-  "lastRunAt": "2026-09-03T00:10:40.431Z",
+  "currentIndex": 1,
+  "lastRunAt": "2026-09-03T06:07:44.796Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -84,6 +84,13 @@
       "bookOrSurah": "Sunan Abu Dawud",
       "contentHash": "إن من أفضل أيامكم يوم الجمعة، ",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788394239/pbbnxwsbkm5k1lslyu3v.mp4"
+    },
+    {
+      "timestamp": "2026-09-03T06:07:44.796Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "bookOrSurah": "Sourate Ar-Ra'd (Le Tonnerre)",
+      "contentHash": "ألا بذكر الله تطمئن القلوب",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788415663/hcnm0nbt9zjekh5pqfnq.mp4"
     }
   ]
 }
