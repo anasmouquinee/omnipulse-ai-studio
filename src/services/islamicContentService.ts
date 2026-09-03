@@ -294,7 +294,8 @@ ${categoryInstructions[category] || categoryInstructions.quran_verse}
 Sujet ou mot-clé demandé par l'utilisateur : "${searchTopic}".
 
 Consignes de rédaction :
-- Choisis un passage court, percutant et concis (1 à 2 versets ou 1 hadith court de 20 à 45 mots), idéal pour une carte citation TikTok et Instagram.
+- Pour les versets du Coran, cite TOUJOURS le verset COMPLET dans son intégralité (du premier mot au dernier mot). Ne coupe JAMAIS un verset en morceaux.
+- Choisis un passage court à moyen, percutant et complet (1 verset entier ou 1 hadith court de 20 à 45 mots), idéal pour une carte citation TikTok et Instagram.
 - Ne cite JAMAIS de hadith faible (Da'if) ou inventé (Mawdoo').
 - Si c'est un verset du Coran, donne OBLIGATOIREMENT le numéro exact de la sourate (1 à 114) et le numéro du verset dans "surahNumber" et "ayahNumber".
 - Génère à chaque fois un passage NOUVEAU, UNIQUE et DIFFÉRENT (ID de session : ${Date.now()}-${Math.random()}). Ne répète pas les mêmes textes.
@@ -381,7 +382,32 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
             parsed.source?.ayahNumber
           ) || 1;
 
-          // If it's a Quran verse, fetch the EXACT matching audio from AlQuran Cloud
+          // Always fetch canonical FULL VERSE from AlQuran Cloud to guarantee zero truncation
+          let finalArabic = parsed.arabicText || parsed.arabic_text || '';
+          let finalFr = translationFr;
+          let finalEn = translationEn;
+          let surahName = parsed.source?.bookOrSurah || parsed.source?.book_or_surah || `Sourate ${resolvedSurah || 94}`;
+
+          if (resolvedSurah && resolvedAyah) {
+            try {
+              const fullVerseRes = await fetch(`https://api.alquran.cloud/v1/ayah/${resolvedSurah}:${resolvedAyah}/editions/quran-uthmani,fr.hamidullah,en.sahih`);
+              if (fullVerseRes.ok) {
+                const fullVerseJson = await fullVerseRes.json();
+                if (fullVerseJson.data && fullVerseJson.data.length >= 3) {
+                  finalArabic = fullVerseJson.data[0].text;
+                  finalFr = cleanQuotes(fullVerseJson.data[1].text);
+                  finalEn = cleanQuotes(fullVerseJson.data[2].text);
+                  if (fullVerseJson.data[0].surah?.name && fullVerseJson.data[0].surah?.englishName) {
+                    surahName = `Sourate ${fullVerseJson.data[0].surah.englishName} (${fullVerseJson.data[0].surah.name})`;
+                  }
+                }
+              }
+            } catch (e) {
+              console.warn('Could not fetch canonical full verse text, using AI text:', e);
+            }
+          }
+
+          // Fetch the EXACT matching audio from AlQuran Cloud
           let matchedAudio: ReciterAudio | null = null;
           if (category === 'quran_verse' || parsed.source?.type === 'quran' || resolvedSurah) {
             matchedAudio = await this.fetchExactQuranAudio(
@@ -399,13 +425,13 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
             id: `islamic-${Date.now()}`,
             type: category === 'quran_verse' || parsed.source?.type === 'quran' ? 'quran_verse' : parsed.source?.type === 'dua' ? 'authentic_dua' : 'sahih_hadith',
             topic: parsed.topic || searchTopic,
-            arabicText: parsed.arabicText || parsed.arabic_text || 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+            arabicText: finalArabic || 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
             phonetic: parsed.phonetic || '',
-            translationFr,
-            translationEn,
+            translationFr: finalFr,
+            translationEn: finalEn,
             source: {
               type: category === 'quran_verse' || parsed.source?.type === 'quran' ? 'quran' : (parsed.source?.type || 'hadith'),
-              bookOrSurah: parsed.source?.bookOrSurah || parsed.source?.book_or_surah || `Sourate ${resolvedSurah || 94}`,
+              bookOrSurah: surahName,
               numberOrAyah: parsed.source?.numberOrAyah || parsed.source?.number_or_ayah || `Verset ${resolvedAyah}`,
               surahNumber: resolvedSurah,
               ayahNumber: resolvedAyah,
@@ -650,18 +676,40 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       return lines;
     };
 
-    const arabicFont = `bold ${aspectRatio === '9:16' ? (isReciterMinimal ? 66 : 62) : 46}px "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif`;
-    const arabicLineHeight = aspectRatio === '9:16' ? (isReciterMinimal ? 112 : 106) : 78;
+    // Adaptive font scaling based on text length to prevent overflow of full verses
+    const arabicWordCount = item.arabicText.split(/\s+/).length;
+    let baseArabicFontSize = aspectRatio === '9:16' ? (isReciterMinimal ? 64 : 58) : 44;
+    if (arabicWordCount > 28) {
+      baseArabicFontSize = Math.round(baseArabicFontSize * 0.70); // ~40-44px
+    } else if (arabicWordCount > 16) {
+      baseArabicFontSize = Math.round(baseArabicFontSize * 0.84); // ~48-53px
+    }
+    const arabicLineHeight = Math.round(baseArabicFontSize * 1.72);
+    const arabicFont = `bold ${baseArabicFontSize}px "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif`;
     const arabicLines = wrapText(item.arabicText, arabicFont, maxTextWidth);
 
-    const frFont = `600 ${aspectRatio === '9:16' ? 36 : 28}px "Plus Jakarta Sans", -apple-system, sans-serif`;
-    const frLineHeight = aspectRatio === '9:16' ? 56 : 42;
+    const frWordCount = cleanFr.split(/\s+/).length;
+    let baseFrFontSize = aspectRatio === '9:16' ? 34 : 26;
+    if (frWordCount > 35) {
+      baseFrFontSize = Math.round(baseFrFontSize * 0.76); // ~26px
+    } else if (frWordCount > 20) {
+      baseFrFontSize = Math.round(baseFrFontSize * 0.88); // ~30px
+    }
+    const frLineHeight = Math.round(baseFrFontSize * 1.52);
+    const frFont = `600 ${baseFrFontSize}px "Plus Jakarta Sans", -apple-system, sans-serif`;
     const frLines = (displayLanguage === 'fr' || displayLanguage === 'all') && cleanFr
       ? wrapText(`« ${cleanFr} »`, frFont, maxTextWidth)
       : [];
 
-    const enFont = `400 ${aspectRatio === '9:16' ? 30 : 24}px "Plus Jakarta Sans", -apple-system, sans-serif`;
-    const enLineHeight = aspectRatio === '9:16' ? 46 : 36;
+    const enWordCount = cleanEn.split(/\s+/).length;
+    let baseEnFontSize = aspectRatio === '9:16' ? 28 : 22;
+    if (enWordCount > 35) {
+      baseEnFontSize = Math.round(baseEnFontSize * 0.76); // ~21px
+    } else if (enWordCount > 20) {
+      baseEnFontSize = Math.round(baseEnFontSize * 0.88); // ~24px
+    }
+    const enLineHeight = Math.round(baseEnFontSize * 1.52);
+    const enFont = `400 ${baseEnFontSize}px "Plus Jakarta Sans", -apple-system, sans-serif`;
     const enLines = (displayLanguage === 'en' || displayLanguage === 'all') && cleanEn
       ? wrapText(`“${cleanEn}”`, enFont, maxTextWidth)
       : [];
