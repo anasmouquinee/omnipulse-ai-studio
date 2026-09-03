@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -98,6 +98,28 @@
       "bookOrSurah": "Sahih Muslim",
       "contentHash": "الصلوات الخمس، والجمعة إلى الج",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788437173/vvcdimvk21b9yjavewxq.mp4"
+    },
+    {
+      "id": "autopilot-1788458762089",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "bookOrSurah": "Sourate Al-Jumu'a (سُورَةُ الجُمُعَةِ)",
+      "numberOrAyah": "Verset 9",
+      "surahNumber": 62,
+      "ayahNumber": 9,
+      "arabicText": "يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِذَا نُودِىَ لِلصَّلَوٰةِ مِن يَوْمِ ٱلْجُمُعَةِ فَٱسْعَوْا۟ إِلَىٰ ذِكْرِ ٱللَّهِ وَذَرُوا۟ ٱلْبَيْعَ ۚ ذَٰلِكُمْ خَيْرٌۭ لَّكُمْ إِن كُنتُمْ تَعْلَمُونَ",
+      "translationFr": "« O vous qui avez cru! Quand on appelle à la Salât du jour du Vendredi, accourez à l'invocation d'Allah et laissez tout négoce. Cela est bien meilleur pour vous, si vous saviez! »",
+      "translationEn": "\"O you who have believed, when [the adhan] is called for the prayer on the day of Jumu'ah [Friday], then proceed to the remembrance of Allah and leave trade. That is better for you, if you only knew.\"",
+      "contentHash": "يأيها ٱلذين ءامنوا۟ إذا نودى ل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5186.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788458737/iqwfses6wswxvak24k9b.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788458737/iqwfses6wswxvak24k9b.png",
+      "platforms": [
+        "instagram",
+        "tiktok"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ]
 }
