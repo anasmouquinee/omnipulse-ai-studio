@@ -34,6 +34,10 @@ export const BEST_POSTING_TIMES: Record<SocialPlatform, BestTimeSlot[]> = {
   facebook: [
     { platform: 'facebook', timeString: '13:00', dayOfWeek: 'Mercredi, Jeudi, Vendredi', expectedEngagementBoost: '+25%', reason: 'Pause d’après-midi' },
     { platform: 'facebook', timeString: '19:30', dayOfWeek: 'Dimanche', expectedEngagementBoost: '+35%', reason: 'Moment famille & détente' }
+  ],
+  youtube: [
+    { platform: 'youtube', timeString: '18:00', dayOfWeek: 'Tous les jours', expectedEngagementBoost: '+55%', reason: 'Pic de visionnage YouTube Shorts' },
+    { platform: 'youtube', timeString: '12:00', dayOfWeek: 'Vendredi, Samedi, Dimanche', expectedEngagementBoost: '+40%', reason: 'Pause week-end & Jumuah' }
   ]
 };
 
@@ -106,9 +110,9 @@ export const SocialPublisher = {
       const account = accounts.find(a => a.platform === platform);
       const postText = `${platformData?.hook ? platformData.hook + '\n\n' : ''}${platformData?.text || ''}\n\n${(platformData?.hashtags || []).join(' ')}`.trim();
 
-      // 1. Direct Buffer GraphQL publishing if token configured and platform is on Buffer (Instagram, TikTok)
-      if (bufferToken && (platform === 'instagram' || platform === 'tiktok')) {
-        const channelId = BUFFER_CHANNEL_MAP[platform] || account?.id;
+      // 1. Direct Buffer GraphQL publishing if token configured and platform is on Buffer (Instagram, TikTok, YouTube)
+      if (bufferToken && (platform === 'instagram' || platform === 'tiktok' || platform === 'youtube')) {
+        const channelId = (platform === 'youtube' ? bridgeConfig.bufferYoutubeChannelId : BUFFER_CHANNEL_MAP[platform]) || account?.id;
         try {
           const mutationQuery = `
             mutation CreatePost($input: CreatePostInput!) {

@@ -150,8 +150,8 @@ export class VideoGenerator {
 
       ctx.clearRect(0, 0, width, height);
 
-      // 1. Subtle smooth cinematic zoom
-      const scale = 1 + 0.02 * Math.sin((i / totalFrames) * Math.PI);
+      // 1. Cinematic Ken Burns Slow Zoom (Smooth 1.0 -> 1.055 zoom-in)
+      const scale = 1.0 + 0.055 * (i / totalFrames);
       const w = width * scale;
       const h = height * scale;
       const x = (width - w) / 2;
@@ -159,7 +159,7 @@ export class VideoGenerator {
       ctx.drawImage(img, x, y, w, h);
 
       // 2. Dynamic breathing spiritual glow behind Arabic text
-      const glowOpacity = 0.12 + 0.06 * Math.sin((i / 20) * Math.PI);
+      const glowOpacity = 0.14 + 0.06 * Math.sin((i / 20) * Math.PI);
       const glowGrad = ctx.createRadialGradient(width / 2, height * 0.32, 20, width / 2, height * 0.32, width * 0.55);
       glowGrad.addColorStop(0, `rgba(245, 158, 11, ${glowOpacity})`);
       glowGrad.addColorStop(0.6, `rgba(16, 185, 129, ${glowOpacity * 0.5})`);
@@ -181,9 +181,44 @@ export class VideoGenerator {
         ctx.fill();
       }
 
-      // 4. Sleek bottom audio progress bar
+      // 4. Dynamic Golden Audio Waveform Visualizer (TikTok/Reels Frequency Spectrum)
+      const numWaveformBars = 36;
+      const waveBarW = 6;
+      const waveGap = 7;
+      const totalWaveW = (numWaveformBars * waveBarW) + ((numWaveformBars - 1) * waveGap);
+      const waveStartX = (width - totalWaveW) / 2;
+      const waveBaseY = height - 130;
+      const currentSample = Math.floor((i / fps) * sampleRate);
+
+      ctx.save();
+      for (let b = 0; b < numWaveformBars; b++) {
+        const offsetSample = currentSample + Math.round((b - numWaveformBars / 2) * 140);
+        let amp = 0.15;
+        if (channel0 && offsetSample >= 0 && offsetSample < channel0.length) {
+          amp = Math.min(1, Math.abs(channel0[offsetSample]) * 3.2 + 0.12);
+        }
+        const vocalHarmonic = Math.sin(i * 0.2 + b * 0.28) * 0.14;
+        const barHeight = Math.max(6, Math.min(68, (amp + vocalHarmonic) * 58));
+        const bx = waveStartX + b * (waveBarW + waveGap);
+        const by = waveBaseY - barHeight / 2;
+
+        const waveGrad = ctx.createLinearGradient(0, by, 0, by + barHeight);
+        waveGrad.addColorStop(0, '#fef08a');
+        waveGrad.addColorStop(0.5, '#f59e0b');
+        waveGrad.addColorStop(1, '#10b981');
+
+        ctx.fillStyle = waveGrad;
+        ctx.shadowColor = 'rgba(245, 158, 11, 0.4)';
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.roundRect(bx, by, waveBarW, barHeight, 3);
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // 5. Sleek bottom audio progress bar
       const progress = Math.min(1, i / totalFrames);
-      const barY = height - 90;
+      const barY = height - 85;
       const barW = width - 160;
       
       // Track background
@@ -244,6 +279,7 @@ export class VideoGenerator {
     const audioCtx = new AudioCtx();
     const audioBuffer = await audioCtx.decodeAudioData(audioArrayBuffer);
     const audioDuration = audioBuffer.duration;
+    const channel0 = audioBuffer.getChannelData(0);
 
     const dest = audioCtx.createMediaStreamDestination();
     const source = audioCtx.createBufferSource();
@@ -257,10 +293,49 @@ export class VideoGenerator {
     const ctx = canvas.getContext('2d');
     if (!ctx) throw new Error('Canvas non supporté');
 
+    const startTime = Date.now();
     let animId: number;
     const renderFrame = () => {
+      const elapsed = (Date.now() - startTime) / 1000;
+      const progress = Math.min(1, elapsed / audioDuration);
+
       ctx.clearRect(0, 0, 1080, 1920);
-      ctx.drawImage(img, 0, 0, 1080, 1920);
+
+      // Ken Burns Slow Zoom
+      const scale = 1.0 + 0.055 * progress;
+      const w = 1080 * scale;
+      const h = 1920 * scale;
+      ctx.drawImage(img, (1080 - w) / 2, (1920 - h) / 2, w, h);
+
+      // Audio Waveform Visualizer
+      const numBars = 32;
+      const waveBarW = 6;
+      const waveGap = 7;
+      const totalW = (numBars * waveBarW) + ((numBars - 1) * waveGap);
+      const startX = (1080 - totalW) / 2;
+      const baseY = 1920 - 130;
+      const currentSample = Math.floor(elapsed * audioBuffer.sampleRate);
+
+      for (let b = 0; b < numBars; b++) {
+        const offset = currentSample + (b - numBars / 2) * 140;
+        let amp = 0.15;
+        if (offset >= 0 && offset < channel0.length) {
+          amp = Math.min(1, Math.abs(channel0[offset]) * 3 + 0.12);
+        }
+        const barH = Math.max(6, Math.min(65, amp * 55));
+        const bx = startX + b * (waveBarW + waveGap);
+        const by = baseY - barH / 2;
+
+        const grad = ctx.createLinearGradient(0, by, 0, by + barH);
+        grad.addColorStop(0, '#fef08a');
+        grad.addColorStop(0.5, '#f59e0b');
+        grad.addColorStop(1, '#10b981');
+        ctx.fillStyle = grad;
+        ctx.beginPath();
+        ctx.roundRect(bx, by, waveBarW, barH, 3);
+        ctx.fill();
+      }
+
       animId = requestAnimationFrame(renderFrame);
     };
     renderFrame();

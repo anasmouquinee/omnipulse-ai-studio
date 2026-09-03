@@ -25,6 +25,7 @@ const DEFAULT_BRIDGE_CONFIG: SocialBridgeConfig = {
   bridgeType: 'buffer',
   universalWebhookUrl: 'https://hook.eu1.make.com/5ftvjpexv24p5bwyvu9fifjhokrn7exs',
   bufferAccessToken: 'vXkaxUF8bX5anmrPe_4BMyXe6Lo36lwZYTAPYmCDHkM',
+  bufferYoutubeChannelId: '',
   autoDispatch: true,
   platformWebhooks: {
     tiktok: '',
@@ -32,6 +33,7 @@ const DEFAULT_BRIDGE_CONFIG: SocialBridgeConfig = {
     facebook: '',
     linkedin: '',
     x: '',
+    youtube: '',
   },
   cloudStorage: {
     provider: 'cloudinary',

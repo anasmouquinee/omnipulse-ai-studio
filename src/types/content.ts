@@ -2,7 +2,7 @@
  * OmniPulse AI - Social Media Content & Scheduling Types
  */
 
-export type SocialPlatform = 'tiktok' | 'instagram' | 'facebook' | 'linkedin' | 'x';
+export type SocialPlatform = 'tiktok' | 'instagram' | 'facebook' | 'linkedin' | 'x' | 'youtube';
 
 export type PostStatus = 'draft' | 'scheduled' | 'publishing' | 'published' | 'failed';
 
@@ -76,6 +76,7 @@ export interface SocialBridgeConfig {
   bridgeType: 'make_webhook' | 'buffer' | 'n8n_webhook' | 'zapier_webhook' | 'ayrshare' | 'custom_webhook';
   universalWebhookUrl: string;
   bufferAccessToken?: string;
+  bufferYoutubeChannelId?: string;
   ayrshareApiKey?: string;
   autoDispatch: boolean;
   platformWebhooks?: Partial<Record<SocialPlatform, string>>;

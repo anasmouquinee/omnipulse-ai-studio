@@ -14,6 +14,7 @@ const { execSync } = require('child_process');
 const BUFFER_ACCESS_TOKEN = process.env.BUFFER_ACCESS_TOKEN || 'vXkaxUF8bX5anmrPe_4BMyXe6Lo36lwZYTAPYmCDHkM';
 const INSTAGRAM_CHANNEL_ID = process.env.BUFFER_INSTAGRAM_CHANNEL_ID || '6a8f4ce9ccaf649a672154f6'; // @kaelarislamic
 const TIKTOK_CHANNEL_ID = process.env.BUFFER_TIKTOK_CHANNEL_ID || '6a8f4dcfccaf649a672158cf'; // @mdou.g
+const YOUTUBE_CHANNEL_ID = process.env.BUFFER_YOUTUBE_CHANNEL_ID || ''; // Optional YouTube Shorts channel
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'zmgzjmpl';
 const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET || 'ml_default';
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || 'https://discord.com/api/webhooks/1542317690255839402/lJKv3K4988iwAhvc7Jpay8zvBhJ4aXB3dL6GMPGR8o4D9FauC3cuGoIcrOTfJBzAZkPU';
@@ -353,7 +354,9 @@ function sendDiscordNotification(item, theme, publicVideoUrl) {
           },
           {
             name: '📱 Réseaux Publiés',
-            value: '📷 Instagram (`@kaelarislamic`)\n🎵 TikTok (`@mdou.g`)',
+            value: YOUTUBE_CHANNEL_ID 
+              ? '📷 Instagram (`@kaelarislamic`)\n🎵 TikTok (`@mdou.g`)\n🔴 YouTube Shorts' 
+              : '📷 Instagram (`@kaelarislamic`)\n🎵 TikTok (`@mdou.g`)',
             inline: false
           },
           {
@@ -439,7 +442,7 @@ function generatePosterSvg(item) {
 
   <!-- Arabic Text -->
   <foreignObject x="100" y="380" width="880" height="480">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="color: #ffffff; font-family: serif; font-size: 44px; font-weight: bold; text-align: center; line-height: 1.8; direction: rtl;">
+    <div xmlns="http://www.w3.org/1999/xhtml" style="color: #ffffff; font-family: 'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif; font-size: 44px; font-weight: bold; text-align: center; line-height: 1.8; direction: rtl;">
       ${escapeXml(item.arabicText)}
     </div>
   </foreignObject>
@@ -487,6 +490,8 @@ function getViralIslamicTags(type, platform = 'all') {
 
   const platformTags = platform === 'tiktok' 
     ? ['#muslimtiktok', '#islamictiktok', '#fyp', '#foryou', '#foryoupage', '#viralvideo']
+    : platform === 'youtube'
+    ? ['#Shorts', '#YouTubeShorts', '#IslamicShorts', '#ViralShorts', '#Trending']
     : ['#islamicreels', '#reelsinstagram', '#explorepage', '#instaislam', '#reels'];
 
   const french = ['#islamfrance', '#coran', '#rappelislam', '#rappelsislamiques', '#musulman'];
@@ -577,6 +582,41 @@ function getNextItemForTheme(theme, reg) {
   return candidates[0];
 }
 
+// Time-Aware Sunnah Scheduler: selects authentic theme based on prayer time & day
+function getSunnahThemeForCurrentTime(now = new Date()) {
+  const day = now.getUTCDay(); // 0 = Sun, 4 = Thu, 5 = Fri
+  const hour = now.getUTCHours(); // 00, 06, 12, 18 UTC
+
+  // 1. Spécial Jumu'ah: Thursday night (>=16:00 UTC) through all of Friday
+  if ((day === 4 && hour >= 16) || day === 5) {
+    console.log("🕌 Sunnah Time: Spécial Jumu'ah (Sourate Al-Kahf & Salawat)");
+    return THEMES.find(t => t.id === 'theme-jumuah') || THEMES[5];
+  }
+
+  // 2. Tahajjud & Prière de Nuit: 23:00 - 04:00 UTC (Qiyam al-Layl & Istighfar)
+  if (hour >= 23 || hour <= 4) {
+    console.log("🌙 Sunnah Time: Tahajjud & Qiyam al-Layl (Prière de Nuit & Pardon)");
+    return THEMES.find(t => t.id === 'theme-tahajjud') || THEMES[3];
+  }
+
+  // 3. Morning Invocations & Protection: 05:00 - 09:00 UTC (Fajr & Adhkar as-Sabah)
+  if (hour >= 5 && hour <= 9) {
+    console.log("🌅 Sunnah Time: Adhkar as-Sabah & Invocations du Matin");
+    return THEMES.find(t => t.id === 'theme-dua') || THEMES[2];
+  }
+
+  // 4. Evening Invocations & Gratitude: 16:00 - 20:00 UTC (Maghrib & Adhkar al-Masaa)
+  if (hour >= 16 && hour <= 20) {
+    console.log("🌆 Sunnah Time: Adhkar al-Masaa & Sagesse du Soir (Tawakkul)");
+    return THEMES.find(t => t.id === 'theme-reminder') || THEMES[4];
+  }
+
+  // 5. General / Midday Slots (10:00 - 15:00 UTC): Alternates between Quran and Hadith
+  return (hour % 2 === 0)
+    ? (THEMES.find(t => t.id === 'theme-quran') || THEMES[0])
+    : (THEMES.find(t => t.id === 'theme-hadith') || THEMES[1]);
+}
+
 // Main Execution Routine
 async function runCloudAutoPilot() {
   console.log('🕋 === Kaelar Islamic AI Studio — 24/7 Cloud Auto-Pilot Runner === 🕋');
@@ -584,9 +624,10 @@ async function runCloudAutoPilot() {
 
   const reg = loadRegistry();
   const currentIdx = reg.currentIndex || 0;
-  const theme = THEMES[currentIdx % THEMES.length];
 
-  console.log(`🎯 Rotating Theme [${currentIdx + 1}/${THEMES.length}]: ${theme.title}`);
+  // Intelligently select theme aligned with Sunnah and prayer time
+  const theme = getSunnahThemeForCurrentTime();
+  console.log(`🎯 Sunnah Selected Theme: ${theme.title}`);
 
   // 1. Pick an unposted verified item for this theme
   const item = getNextItemForTheme(theme, reg);
@@ -615,9 +656,16 @@ async function runCloudAutoPilot() {
     } catch {
       fs.copyFileSync(svgPath, pngPath);
     }
-    // Constant 30.00 FPS H.264 High Profile encoding strictly compliant with TikTok & Instagram Reels
-    const ffmpegCmd = `ffmpeg -y -framerate 30 -loop 1 -i "${pngPath}" -i "${audioPath}" -c:v libx264 -preset fast -profile:v high -level 4.1 -r 30 -g 60 -keyint_min 30 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
-    execSync(ffmpegCmd, { stdio: 'inherit' });
+    try {
+      // High-retention cinematic video: smooth slow zoom + real-time audio waveform overlay
+      const cinematicCmd = `ffmpeg -y -loop 1 -framerate 30 -i "${pngPath}" -i "${audioPath}" -filter_complex "[0:v]scale=1144:2034,zoompan=z='min(zoom+0.0005,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30[vbg];[1:a]showwaves=s=880x90:mode=line:colors=0xfbbf24@0.85[waves];[vbg][waves]overlay=(W-w)/2:H-220:shortest=1[vout]" -map "[vout]" -map 1:a -c:v libx264 -preset fast -profile:v high -level 4.1 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
+      execSync(cinematicCmd, { stdio: 'inherit' });
+      console.log('✨ Video encoded with Ken Burns zoom & audio waveform visualizer!');
+    } catch {
+      console.log('⚠️ Falling back to standard FFmpeg profile...');
+      const fallbackCmd = `ffmpeg -y -framerate 30 -loop 1 -i "${pngPath}" -i "${audioPath}" -c:v libx264 -preset fast -profile:v high -level 4.1 -r 30 -g 60 -keyint_min 30 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
+      execSync(fallbackCmd, { stdio: 'inherit' });
+    }
   } catch (err) {
     console.error('FFmpeg execution issue:', err.message);
     throw err;
@@ -628,12 +676,14 @@ async function runCloudAutoPilot() {
   const publicVideoUrl = await uploadToCloudinary(videoPath);
   console.log(`✅ Cloudinary Public URL: ${publicVideoUrl}`);
 
-  // 6. Post with Viral Optimized Tags to Instagram (@kaelarislamic) & TikTok (@mdou.g)
+  // 6. Post with Viral Optimized Tags to Instagram, TikTok & YouTube Shorts
   const igTags = getViralIslamicTags(item.type, 'instagram');
   const ttTags = getViralIslamicTags(item.type, 'tiktok');
+  const ytTags = getViralIslamicTags(item.type, 'youtube');
 
   const igCaption = `${item.arabicText}\n\n« ${item.translationFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${igTags}`;
   const ttCaption = `${item.arabicText}\n\n« ${item.translationFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${ttTags}`;
+  const ytCaption = `${item.bookOrSurah} — ${item.numberOrAyah} 🕋\n\n${item.arabicText}\n\n« ${item.translationFr} »\n\n${ytTags}`;
 
   try {
     console.log('📤 Publishing to Instagram Reel (@kaelarislamic) with Viral Tags...');
@@ -657,6 +707,23 @@ async function runCloudAutoPilot() {
     }
   } catch (err) {
     console.warn('⚠️ TikTok publication notice:', err.message);
+  }
+
+  // 6c. Optional: Publish to YouTube Shorts
+  if (YOUTUBE_CHANNEL_ID && YOUTUBE_CHANNEL_ID.trim() !== '') {
+    try {
+      console.log('📤 Publishing to YouTube Shorts (#Shorts) via Buffer...');
+      const ytRes = await publishToBuffer(YOUTUBE_CHANNEL_ID.trim(), ytCaption, publicVideoUrl);
+      if (ytRes?.status || ytRes?.id) {
+        console.log('✅ YouTube Shorts publication queued successfully in Buffer!');
+      } else {
+        console.warn(`⚠️ YouTube Buffer issue: ${ytRes?.error || 'Non-fatal'}`);
+      }
+    } catch (err) {
+      console.warn('⚠️ YouTube Shorts publication notice:', err.message);
+    }
+  } else {
+    console.log('ℹ️ YouTube Shorts skipped (BUFFER_YOUTUBE_CHANNEL_ID not configured yet).');
   }
 
   // 7. Update Registry & Advance to Next Theme
@@ -704,6 +771,7 @@ if (require.main === module) {
 module.exports = { 
   runCloudAutoPilot, 
   getNextItemForTheme, 
+  getSunnahThemeForCurrentTime,
   VERIFIED_ITEMS, 
   loadRegistry 
 };

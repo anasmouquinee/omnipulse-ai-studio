@@ -685,7 +685,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       baseArabicFontSize = Math.round(baseArabicFontSize * 0.84); // ~48-53px
     }
     const arabicLineHeight = Math.round(baseArabicFontSize * 1.72);
-    const arabicFont = `bold ${baseArabicFontSize}px "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif`;
+    const arabicFont = `bold ${baseArabicFontSize}px "Amiri Quran", "Noto Naskh Arabic", "Amiri", "Scheherazade New", serif`;
     const arabicLines = wrapText(item.arabicText, arabicFont, maxTextWidth);
 
     const frWordCount = cleanFr.split(/\s+/).length;
