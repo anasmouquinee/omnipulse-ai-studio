@@ -46,7 +46,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   const [aspectRatio, setAspectRatio] = useState<'9:16' | '1:1'>('9:16');
   const [selectedThemeId, setSelectedThemeId] = useState<string>(ISLAMIC_BACKGROUND_THEMES[0].id);
   const [themeTab, setThemeTab] = useState<'reciters' | 'places'>('reciters');
-  const [selectedReciterId, setSelectedReciterId] = useState<string>('ar.luhaidan');
+  const [selectedReciterId, setSelectedReciterId] = useState<string>('ar.alafasy');
 
   const [currentItem, setCurrentItem] = useState<IslamicPostItem>(VERIFIED_ISLAMIC_POSTS[0]);
   const [renderedCardUrl, setRenderedCardUrl] = useState<string>('');
@@ -64,7 +64,26 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   const [previewMode, setPreviewMode] = useState<'video' | 'photo'>('video');
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [audioProgressPercent, setAudioProgressPercent] = useState(0);
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  const cardRef = useRef<HTMLDivElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
+
+  // Load initial canvas preview
+  useEffect(() => {
+    let isMounted = true;
+    IslamicContentService.renderQuoteCardCanvas(
+      currentItem,
+      aspectRatio,
+      selectedLanguage,
+      selectedThemeId
+    ).then(url => {
+      if (isMounted) setRenderedCardUrl(url);
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentItem, aspectRatio, selectedLanguage, selectedThemeId]);
 
   // Update hashtags automatically when currentItem or language changes
   useEffect(() => {
@@ -77,36 +96,6 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     setCustomHashtags(tags);
   }, [currentItem, selectedLanguage]);
 
-  // Render canvas card when currentItem, aspectRatio, selectedLanguage or theme changes
-  useEffect(() => {
-    let isMounted = true;
-    const generateCanvas = async () => {
-      setIsRendering(true);
-      try {
-        const cardUrl = await IslamicContentService.renderQuoteCardCanvas(
-          currentItem,
-          aspectRatio,
-          selectedLanguage,
-          selectedThemeId
-        );
-        if (isMounted) {
-          setRenderedCardUrl(cardUrl);
-        }
-      } catch (err) {
-        console.error('Failed to render quote card canvas:', err);
-      } finally {
-        if (isMounted) {
-          setIsRendering(false);
-        }
-      }
-    };
-
-    generateCanvas();
-    return () => {
-      isMounted = false;
-    };
-  }, [currentItem, aspectRatio, selectedLanguage, selectedThemeId]);
-
   // When reciter changes on a Quran verse, fetch exact matching audio and sync visual
   const handleReciterChange = async (reciterId: string) => {
     setSelectedReciterId(reciterId);
@@ -115,10 +104,11 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
 
     // Auto-match background theme to reciter portrait
     const reciterToThemeMap: Record<string, string> = {
-      'ar.luhaidan': 'reciter_luhaidan',
       'ar.alafasy': 'reciter_alafasy',
       'ar.dossari': 'reciter_dossari',
-      'ar.abdulbasitmurattal': 'reciter_abdulbasit'
+      'ar.abdulbasitmurattal': 'reciter_abdulbasit',
+      'ar.luhaidan': 'reciter_luhaidan',
+      'ar.islamsobhi': 'reciter_islamsobhi'
     };
     if (reciterToThemeMap[reciterId]) {
       setSelectedThemeId(reciterToThemeMap[reciterId]);
@@ -130,14 +120,12 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       ayah,
       reciterId
     );
-    if (audio) {
-      if (audioRef.current) {
-        audioRef.current.pause();
-        setIsPlayingAudio(false);
-      }
-      setCurrentItem(prev => ({ ...prev, reciterAudio: audio }));
-      onShowToast('info', `✨ Audio et portrait synchronisés avec ${audio.reciterName} !`);
+    if (audioRef.current) {
+      audioRef.current.pause();
+      setIsPlayingAudio(false);
     }
+    setCurrentItem(prev => ({ ...prev, reciterAudio: audio }));
+    onShowToast('info', `✨ Audio synchronisé : ${audio.surahOrTitle}`);
   };
 
   const handleSelectPreset = async (preset: typeof ISLAMIC_THEME_PRESETS[0]) => {

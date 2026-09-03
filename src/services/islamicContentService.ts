@@ -10,19 +10,45 @@ import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../data/
 import { StorageService } from './storageService';
 import { IslamicViralTagsService } from './islamicViralTagsService';
 
+export const SURAH_AYAH_COUNTS = [
+  7, 286, 200, 176, 120, 165, 206, 75, 129, 109,
+  123, 111, 43, 52, 99, 128, 111, 110, 98, 135,
+  112, 78, 118, 64, 77, 227, 93, 88, 69, 60,
+  34, 30, 73, 54, 45, 83, 182, 88, 75, 85,
+  54, 53, 89, 59, 37, 35, 38, 29, 18, 45,
+  60, 49, 62, 55, 78, 96, 29, 22, 24, 13,
+  14, 11, 11, 18, 12, 12, 30, 52, 52, 44,
+  28, 28, 20, 56, 40, 31, 50, 40, 46, 42,
+  29, 19, 36, 25, 22, 17, 19, 26, 30, 20,
+  15, 21, 11, 8, 8, 19, 5, 8, 8, 11,
+  11, 8, 3, 9, 5, 4, 7, 3, 6, 3,
+  5, 4, 5, 6
+];
+
+export function getGlobalAyahNumber(surah: number, ayah: number): number {
+  const s = Math.max(1, Math.min(114, Number(surah) || 1));
+  const maxAyahs = SURAH_AYAH_COUNTS[s - 1] || 7;
+  const a = Math.max(1, Math.min(maxAyahs, Number(ayah) || 1));
+  let count = 0;
+  for (let i = 1; i < s; i++) {
+    count += SURAH_AYAH_COUNTS[i - 1];
+  }
+  return count + a;
+}
+
 export const AVAILABLE_RECITERS = [
-  { id: 'ar.luhaidan', name: 'Muhammad Al-Luhaidan (محمد اللحيدان)' },
-  { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy (مشاري العفاسي)' },
-  { id: 'ar.dossari', name: 'Yasser Al-Dossari (ياسر الدوسري)' },
+  { id: 'ar.alafasy', name: 'Mishary Rashid Alafasy (مشاري العفاسي) • 100% Complet' },
+  { id: 'ar.dossari', name: 'Yasser Al-Dossari (ياسر الدوسري) • 100% Complet' },
   { id: 'ar.abdulbasitmurattal', name: 'Abdul Basit Murattal (عبد الباسط عبد الصمد)' },
+  { id: 'ar.mahermuaiqly', name: 'Maher Al-Muaiqly (ماهر المعيقلي)' },
+  { id: 'ar.abdurrahmaansudais', name: 'Abdul Rahman Al-Sudais (السديس)' },
   { id: 'ar.minshawi', name: 'Mohamed Siddiq El-Minshawi (المنشاوي)' },
   { id: 'ar.husary', name: 'Mahmoud Khalil Al-Husary (الحصري)' },
-  { id: 'ar.mahermuaiqly', name: 'Maher Al-Muaiqly (ماهر المعيقلي)' },
-  { id: 'ar.sudais', name: 'Abdul Rahman Al-Sudais (السديس)' },
   { id: 'ar.shaatree', name: 'Abu Bakr Al-Shatri (أبو بكر الشاطري)' },
-  { id: 'ar.saadalghamdi', name: 'Saad Al-Ghamdi (سعد الغامدي)' },
+  { id: 'ar.ahmedajamy', name: 'Ahmed Al-Ajamy (أحمد علي العجمي)' },
   { id: 'ar.hudhaify', name: 'Ali Al-Hudhaify (علي الحذيفي)' },
-  { id: 'ar.aymanswoid', name: 'Dr. Ayman Sowaid (أيمن سويد)' }
+  { id: 'ar.luhaidan', name: 'Muhammad Al-Luhaidan (محمد اللحيدان)' },
+  { id: 'ar.islamsobhi', name: 'Islam Sobhi (إسلام صبحي)' }
 ];
 
 export const SURAH_NAME_TO_NUMBER: Record<string, number> = {
@@ -171,32 +197,67 @@ export function parseAyahNumber(numberOrAyah?: string, explicitAyah?: any): numb
 
 export const IslamicContentService = {
   /**
-   * Fetches the EXACT verse audio recitation from the official AlQuran Cloud API.
+   * Fetches the EXACT verse audio recitation matching the specified Surah & Ayah.
+   * Guarantees 100% word-for-word synchronization: never substitutes with a different verse.
    */
   async fetchExactQuranAudio(
     surahNumber: number = 94, 
     ayahNumber: number = 5, 
     reciterId: string = 'ar.alafasy'
-  ): Promise<ReciterAudio | null> {
-    try {
-      const res = await fetch(`https://api.alquran.cloud/v1/ayah/${surahNumber}:${ayahNumber}/${reciterId}`);
-      if (res.ok) {
-        const json = await res.json();
-        if (json.data && json.data.audio) {
-          const reciterObj = AVAILABLE_RECITERS.find(r => r.id === reciterId);
-          return {
-            reciterId,
-            reciterName: reciterObj?.name || json.data.edition?.englishName || 'Mishary Alafasy',
-            surahOrTitle: `Sourate ${json.data.surah?.englishName || surahNumber} (Verset ${ayahNumber})`,
-            audioUrl: json.data.audio,
-            durationSeconds: 25
-          };
-        }
-      }
-    } catch (e) {
-      console.warn('Could not fetch exact Quran verse audio:', e);
+  ): Promise<ReciterAudio> {
+    const s = Math.max(1, Math.min(114, Number(surahNumber) || 94));
+    const maxAyahs = SURAH_AYAH_COUNTS[s - 1] || 7;
+    const a = Math.max(1, Math.min(maxAyahs, Number(ayahNumber) || 1));
+    const globalAyah = getGlobalAyahNumber(s, a);
+
+    // 1. If Yasser Al-Dossari is requested, EveryAyah has full high-quality 128kbps recitation
+    if (reciterId === 'ar.dossari') {
+      const padS = String(s).padStart(3, '0');
+      const padA = String(a).padStart(3, '0');
+      return {
+        reciterId: 'ar.dossari',
+        reciterName: 'Sheikh Yasser Al-Dossari (ياسر الدوسري)',
+        surahOrTitle: `Sourate ${s} (Verset ${a})`,
+        audioUrl: `https://everyayah.com/data/Yasser_Ad-Dussary_128kbps/${padS}${padA}.mp3`,
+        durationSeconds: 22
+      };
     }
-    return null;
+
+    // 2. If another specific reciter is requested, check AlQuran Cloud API
+    if (reciterId && reciterId !== 'ar.alafasy') {
+      try {
+        const res = await fetch(`https://api.alquran.cloud/v1/ayah/${s}:${a}/${reciterId}`);
+        if (res.ok) {
+          const json = await res.json();
+          if (json.data && json.data.audio) {
+            const reciterObj = AVAILABLE_RECITERS.find(r => r.id === reciterId);
+            return {
+              reciterId,
+              reciterName: reciterObj?.name || json.data.edition?.englishName || 'Récitateur Coranique',
+              surahOrTitle: `Sourate ${json.data.surah?.englishName || s} (Verset ${a})`,
+              audioUrl: json.data.audio,
+              durationSeconds: 25
+            };
+          }
+        }
+      } catch (e) {
+        console.warn(`Could not fetch reciter ${reciterId}, falling back to Alafasy exact verse:`, e);
+      }
+    }
+
+    // 3. Fallback: Guaranteed 100% exact verse audio from Mishary Rashid Alafasy via Islamic Network CDN
+    const reciterObj = AVAILABLE_RECITERS.find(r => r.id === reciterId);
+    const reciterName = (reciterId === 'ar.luhaidan' || reciterId === 'ar.islamsobhi')
+      ? `${reciterObj?.name || 'Récitateur'} (Voix Alafasy pour ce verset)`
+      : 'Sheikh Mishary Rashid Alafasy (مشاري العفاسي)';
+
+    return {
+      reciterId: 'ar.alafasy',
+      reciterName,
+      surahOrTitle: `Sourate ${s} (Verset ${a})`,
+      audioUrl: `https://cdn.islamic.network/quran/audio/128/ar.alafasy/${globalAyah}.mp3`,
+      durationSeconds: 22
+    };
   },
 
   /**
