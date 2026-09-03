@@ -308,9 +308,14 @@ function publishToBuffer(channelId, text, videoUrl) {
           const json = JSON.parse(body);
           if (json.data?.createPost?.post) {
             resolve(json.data.createPost.post);
+          } else if (json.errors && json.errors.length > 0) {
+            const errCode = json.errors[0]?.extensions?.code || 'ERROR';
+            const errMsg = json.errors[0]?.message || 'Unknown Buffer error';
+            console.warn(`⚠️ Buffer API [${errCode}]: ${errMsg}`);
+            resolve({ success: false, error: errMsg, code: errCode });
           } else {
             console.warn(`Buffer Response for ${channelId}:`, body);
-            resolve(json);
+            resolve({ success: false, error: 'Unexpected response format', raw: json });
           }
         } catch (e) {
           reject(e);
@@ -632,16 +637,24 @@ async function runCloudAutoPilot() {
 
   try {
     console.log('📤 Publishing to Instagram Reel (@kaelarislamic) with Viral Tags...');
-    await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, publicVideoUrl);
-    console.log('✅ Instagram publication queued successfully!');
+    const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, publicVideoUrl);
+    if (igRes?.status || igRes?.id) {
+      console.log('✅ Instagram publication queued successfully in Buffer!');
+    } else {
+      console.warn(`⚠️ Instagram Buffer issue: ${igRes?.error || 'Non-fatal'}`);
+    }
   } catch (err) {
     console.warn('⚠️ Instagram publication notice:', err.message);
   }
 
   try {
     console.log('📤 Publishing to TikTok (@mdou.g) with FYP Booster Tags...');
-    await publishToBuffer(TIKTOK_CHANNEL_ID, ttCaption, publicVideoUrl);
-    console.log('✅ TikTok publication queued successfully!');
+    const ttRes = await publishToBuffer(TIKTOK_CHANNEL_ID, ttCaption, publicVideoUrl);
+    if (ttRes?.status || ttRes?.id) {
+      console.log('✅ TikTok publication queued successfully in Buffer!');
+    } else {
+      console.warn(`⚠️ TikTok Buffer issue: ${ttRes?.error || 'Non-fatal'}`);
+    }
   } catch (err) {
     console.warn('⚠️ TikTok publication notice:', err.message);
   }
