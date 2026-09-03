@@ -218,7 +218,7 @@ export const SocialPublisher = {
               input: {
                 channelId,
                 text: postText,
-                mode: 'addToQueue',
+                mode: 'shareNow',
                 schedulingType: 'automatic',
                 needsApproval: false,
                 metadata: {

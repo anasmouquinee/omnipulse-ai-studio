@@ -295,7 +295,7 @@ function publishToBuffer(channelId, text, videoUrl, platform = 'general', title 
     const input = {
       channelId,
       text,
-      mode: 'addToQueue',
+      mode: 'shareNow',
       schedulingType: 'automatic',
       needsApproval: false,
       assets: [{ video: { url: videoUrl } }]
