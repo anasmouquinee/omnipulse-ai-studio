@@ -60,170 +60,120 @@ const THEMES = [
   }
 ];
 
-// Curated verified catalog to guarantee 100% authenticity and exact audio matching
-const VERIFIED_ITEMS = [
+// Verified catalog path (60+ verified items with official AlQuran Cloud audio matching)
+const CATALOG_PATH = path.join(__dirname, '..', 'data', 'verifiedCatalog.json');
+
+// Core fallback items with 100% verified exact audio URLs
+const FALLBACK_ITEMS = [
   {
     type: 'quran_verse',
-    arabicText: 'فَبِأَيِّ آلَاءِ رَبِّكُمَا تُكَذِّبَانِ',
+    arabicText: 'فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ',
     translationFr: '« Lequel donc des bienfaits de votre Seigneur nierez-vous ? »',
     translationEn: '“So which of the favors of your Lord would you deny?”',
-    bookOrSurah: 'Sourate Ar-Rahman (Le Tout Miséricordieux)',
-    numberOrAyah: 'Sourate 55, Verset 13',
+    bookOrSurah: 'Sourate Ar-Rahmaan (سُورَةُ الرَّحۡمَٰن)',
+    numberOrAyah: 'Verset 13',
     surahNumber: 55,
     ayahNumber: 13,
     audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4914.mp3',
-    hashtags: '#Coran #SourateArRahman #MuhammadAlLuhaidan #KaelarIslamic #fyp'
+    reciterName: 'Mishary Rashid Alafasy',
+    hashtags: '#Coran #SourateArRahman #KaelarIslamic #Islam #Rappel #fyp'
   },
   {
     type: 'quran_verse',
-    arabicText: 'فَإِنَّ مَعَ الْعُسْرِ يُسْرًا',
+    arabicText: 'فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا',
     translationFr: '« À côté de la difficulté est, certes, une facilité ! »',
     translationEn: '“For indeed, with hardship [will be] ease.”',
-    bookOrSurah: 'Sourate Ash-Sharh (L’Ouverture)',
-    numberOrAyah: 'Sourate 94, Verset 5',
+    bookOrSurah: 'Sourate Ash-Sharh (سُورَةُ الشَّرۡحِ)',
+    numberOrAyah: 'Verset 5',
     surahNumber: 94,
     ayahNumber: 5,
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6093.mp3',
-    hashtags: '#Islam #Coran #Patience #Tawakkul #KaelarIslamic #fyp'
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6095.mp3',
+    reciterName: 'Mishary Rashid Alafasy',
+    hashtags: '#Coran #AshSharh #Patience #Tawakkul #KaelarIslamic #fyp'
   },
   {
     type: 'sahih_hadith',
-    arabicText: 'الصَّلَوَاتُ الْخَمْسُ، وَالْجُمُعَةُ إِلَى الْجُمُعَةِ، وَرَمَضَانُ إِلَى رَمَضَانَ، مُكَفِّرَاتٌ مَا بَيْنَهُنَّ إِذَا اجْتَنَبَ الْكَبَائِرَ',
-    translationFr: 'Le Prophète ﷺ a dit : « Les cinq prières quotidiennes, d’un vendredi à l’autre, et d’un Ramadan à l’autre effacent les péchés commis entre eux, tant qu’on évite les grands péchés. »',
-    translationEn: 'The Prophet ﷺ said: “The five prayers, from one Friday to the next, and Ramadan to Ramadan, expiate what is between them if major sins are avoided.”',
-    bookOrSurah: 'Sahih Muslim',
-    numberOrAyah: 'Hadith n° 233',
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6082.mp3',
-    hashtags: '#HadithSahih #Bukhari #Muslim #IslamRappels #KaelarIslamic #fyp'
+    arabicText: 'لَّقَدْ كَانَ لَكُمْ فِى رَسُولِ ٱللَّهِ أُسْوَةٌ حَسَنَةٌۭ لِّمَن كَانَ يَرۡجُوا۟ ٱللَّهَ وَٱلۡيَوۡمَ ٱلۡـَٔاخِرَ وَذَكَرَ ٱللَّهَ كَثِيرًۭا',
+    translationFr: '« En effet, vous avez dans le Messager d’Allah un excellent modèle, pour quiconque espère en Allah et au Jour dernier et évoque Allah fréquemment. »',
+    translationEn: '“There has certainly been for you in the Messenger of Allah an excellent pattern for anyone whose hope is in Allah and the Last Day.”',
+    bookOrSurah: 'Sourate Al-Ahzaab (سُورَةُ الأَحۡزَابِ)',
+    numberOrAyah: 'Verset 21',
+    surahNumber: 33,
+    ayahNumber: 21,
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/3554.mp3',
+    reciterName: 'Mishary Rashid Alafasy',
+    hashtags: '#Sunnah #PropheteMuhammad #AlAhzab #Hadith #KaelarIslamic #fyp'
   },
   {
     type: 'authentic_dua',
-    arabicText: 'حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ ۖ عَلَيْهِ تَوَكَّلْتُ ۖ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',
-    translationFr: '« Allah me suffit. Il n’y a de divinité que Lui. En Lui je place ma confiance, et Il est le Seigneur du Trône Immense. »',
-    translationEn: '“Sufficient for me is Allah; there is no deity except Him. On Him I have relied, and He is the Lord of the Great Throne.”',
-    bookOrSurah: 'Hisn al-Muslim (Citadelle du Musulman)',
-    numberOrAyah: 'Sourate At-Tawbah (9:129)',
-    surahNumber: 9,
-    ayahNumber: 129,
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1364.mp3',
-    hashtags: '#Dua #Dhikr #Protection #Tawakkul #HisnAlMuslim #fyp'
+    arabicText: 'رَبَّنَآ ءَاتِنَا فِى ٱلدُّنۡيَا حَسَنَةًۭ وَفِى ٱلۡـَٔاخِرَةِ حَسَنَةًۭ وَقِنَا عَذَابَ ٱلنَّارِ',
+    translationFr: '« Seigneur ! Accorde-nous belle part ici-bas, et belle part aussi dans l’au-delà ; et protège-nous du châtiment du Feu ! »',
+    translationEn: '“Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.”',
+    bookOrSurah: 'Sourate Al-Baqara (سُورَةُ البَقَرَةِ)',
+    numberOrAyah: 'Verset 201',
+    surahNumber: 2,
+    ayahNumber: 201,
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/208.mp3',
+    reciterName: 'Mishary Rashid Alafasy',
+    hashtags: '#Dua #Invocation #AlBaqara #Protection #KaelarIslamic #fyp'
   },
   {
     type: 'tahajjud_motivation',
-    arabicText: 'وَمِنَ اللَّيْلِ فَتَهَجَّدْ بِهِ نَافِلَةً لَّكَ عَسَىٰ أَن يَبْعَثَكَ رَبُّكَ مَقَامًا مَّحْمُودًا',
-    translationFr: '« Et de la nuit, consacre une partie à la prière (Tahajjud) comme surérogatoire pour toi : de cette façon, ton Seigneur te ressuscitera en une position de gloire. »',
+    arabicText: 'وَمِنَ ٱلَّيۡلِ فَتَهَجَّدۡ بِهِۦ نَافِلَةًۭ لَّكَ عَسَىٰٓ أَن يَبۡعَثَكَ رَبُّكَ مَقَامًۭا مَّحۡمُودًۭا',
+    translationFr: '« Et de la nuit, consacre une partie [avant l’aube] pour des prières surérogatoires : afin que ton Seigneur te ressuscite en une position de gloire. »',
     translationEn: '“And from [part of] the night, pray with it as additional [worship] for you; it is expected that your Lord will resurrect you to a praised station.”',
-    bookOrSurah: 'Sourate Al-Isra (Le Voyage Nocturne)',
-    numberOrAyah: 'Sourate 17, Verset 79',
+    bookOrSurah: 'Sourate Al-Israa (سُورَةُ الإِسۡرَاءِ)',
+    numberOrAyah: 'Verset 79',
     surahNumber: 17,
     ayahNumber: 79,
     audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2108.mp3',
+    reciterName: 'Mishary Rashid Alafasy',
     hashtags: '#Tahajjud #QiyamAlLayl #PriereDeNuit #Coran #KaelarIslamic #fyp'
   },
   {
     type: 'islamic_reminder',
-    arabicText: 'وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ۚ إِنَّ اللَّهَ بَالِغُ أَمْرِهِ',
-    translationFr: '« Et quiconque place sa confiance en Allah, Il lui suffit. Allah accomplit toujours Ses desseins. »',
-    translationEn: '“And whoever relies upon Allah - then He is sufficient for him. Indeed, Allah will accomplish His purpose.”',
-    bookOrSurah: 'Sourate At-Talaq (Le Divorce)',
-    numberOrAyah: 'Sourate 65, Verset 3',
-    surahNumber: 65,
-    ayahNumber: 3,
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/5230.mp3',
-    hashtags: '#Tawakkul #Patience #ConfianceEnAllah #RappelIslam #fyp'
-  },
-  {
-    type: 'jumua_special',
-    arabicText: 'مَنْ قَرَأَ سُورَةَ الْكَهْفِ فِي يَوْمِ الْجُمُعَةِ أَضَاءَ لَهُ مِنَ النُّورِ مَا بَيْنَ الْجُمُعَتَيْنِ',
-    translationFr: 'Le Prophète ﷺ a dit : « Quiconque lit la sourate Al-Kahf le jour du vendredi, une lumière éclairera pour lui l’intervalle entre les deux vendredis. »',
-    translationEn: 'The Prophet ﷺ said: “Whoever reads Surat al-Kahf on Friday, Allah will bestow upon him light between the two Fridays.”',
-    bookOrSurah: 'Sahih Al-Jami (Al-Bayhaqi)',
-    numberOrAyah: 'Hadith n° 6470',
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3',
-    hashtags: '#JumuahMubarak #SourateAlKahf #VendrediBeni #Sunnah #fyp'
-  },
-  // --- Additional items per theme to increase rotation variety ---
-  {
-    type: 'quran_verse',
-    arabicText: 'أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ',
-    translationFr: `« N'est-ce point par le rappel d'Allah que les cœurs se tranquillisent ? »`,
-    translationEn: '"Verily, in the remembrance of Allah do hearts find rest."',
-    bookOrSurah: 'Sourate Ar-Ra\'d (Le Tonnerre)',
-    numberOrAyah: 'Sourate 13, Verset 28',
+    arabicText: 'ٱلَّذِينَ ءَامَنُوا۟ وَتَطۡمَئِنُّ قُلُوبُهُم بِذِكۡرِ ٱللَّهِ ۗ أَلَا بِذِكۡرِ ٱللَّهِ تَطۡمَئِنُّ ٱلۡقُلُوبُ',
+    translationFr: '« N’est-ce point par l’évocation d’Allah que les cœurs se tranquillisent ? »',
+    translationEn: '“Unquestionably, by the remembrance of Allah hearts are assured.”',
+    bookOrSurah: 'Sourate Ar-Ra\'d (سُورَةُ الرَّعۡدِ)',
+    numberOrAyah: 'Verset 28',
     surahNumber: 13,
     ayahNumber: 28,
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1631.mp3',
-    hashtags: '#Coran #Dhikr #RappelAllah #TranquiliteDesCoeurs #KaelarIslamic #fyp'
-  },
-  {
-    type: 'quran_verse',
-    arabicText: 'وَلَسَوْفَ يُعْطِيكَ رَبُّكَ فَتَرْضَىٰ',
-    translationFr: `« Ton Seigneur t'accordera certes Ses faveurs, et alors tu seras satisfait. »`,
-    translationEn: '"And your Lord is going to give you, and you will be satisfied."',
-    bookOrSurah: 'Sourate Ad-Duha (Le Jour Montant)',
-    numberOrAyah: 'Sourate 93, Verset 5',
-    surahNumber: 93,
-    ayahNumber: 5,
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6088.mp3',
-    hashtags: '#Coran #Espoir #ConfianceEnAllah #SourateAdDuha #KaelarIslamic #fyp'
-  },
-  {
-    type: 'sahih_hadith',
-    arabicText: 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى',
-    translationFr: `Le Prophète ﷺ a dit : « Les actions ne valent que par les intentions, et chacun n'obtient que ce qu'il a eu l'intention de faire. »`,
-    translationEn: 'The Prophet ﷺ said: "Actions are judged by intentions, and everyone will get what they intended."',
-    bookOrSurah: 'Sahih Al-Bukhari',
-    numberOrAyah: 'Hadith n° 1',
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6079.mp3',
-    hashtags: '#HadithSahih #Intention #Niyyah #Bukhari #KaelarIslamic #fyp'
-  },
-  {
-    type: 'authentic_dua',
-    arabicText: 'رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ',
-    translationFr: `« Seigneur ! Accorde-nous belle part ici-bas, et belle part aussi dans l'au-delà ; et protège-nous du châtiment du Feu. »`,
-    translationEn: '"Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire."',
-    bookOrSurah: 'Sourate Al-Baqarah',
-    numberOrAyah: 'Sourate 2, Verset 201',
-    surahNumber: 2,
-    ayahNumber: 201,
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/208.mp3',
-    hashtags: '#Dua #Invocation #Protection #SourateAlBaqarah #KaelarIslamic #fyp'
-  },
-  {
-    type: 'tahajjud_motivation',
-    arabicText: 'تَتَجَافَىٰ جُنُوبُهُمْ عَنِ الْمَضَاجِعِ يَدْعُونَ رَبَّهُمْ خَوْفًا وَطَمَعًا',
-    translationFr: `« Ils s'arrachent de leurs lits pour invoquer leur Seigneur par crainte et espoir. »`,
-    translationEn: '"They arise from [their] beds; they supplicate their Lord in fear and aspiration."',
-    bookOrSurah: 'Sourate As-Sajdah (La Prosternation)',
-    numberOrAyah: 'Sourate 32, Verset 16',
-    surahNumber: 32,
-    ayahNumber: 16,
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/3574.mp3',
-    hashtags: '#Tahajjud #QiyamAlLayl #PriereDeNuit #SourateAsSajdah #KaelarIslamic #fyp'
-  },
-  {
-    type: 'islamic_reminder',
-    arabicText: 'إِنَّ اللَّهَ مَعَ الصَّابِرِينَ',
-    translationFr: '« En vérité, Allah est avec les endurants. »',
-    translationEn: '"Indeed, Allah is with the patient."',
-    bookOrSurah: 'Sourate Al-Baqarah',
-    numberOrAyah: 'Sourate 2, Verset 153',
-    surahNumber: 2,
-    ayahNumber: 153,
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/160.mp3',
-    hashtags: '#Sabr #Patience #AllahAvecNous #RappelIslam #KaelarIslamic #fyp'
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1735.mp3',
+    reciterName: 'Mishary Rashid Alafasy',
+    hashtags: '#Dhikr #PaixInterieure #Tawakkul #Coran #KaelarIslamic #fyp'
   },
   {
     type: 'jumua_special',
-    arabicText: 'إِنَّ مِنْ أَفْضَلِ أَيَّامِكُمْ يَوْمَ الْجُمُعَةِ، فَأَكْثِرُوا عَلَيَّ مِنَ الصَّلَاةِ فِيهِ',
-    translationFr: 'Le Prophète ﷺ a dit : « Parmi les meilleurs de vos jours, il y a le vendredi. Multipliez donc les prières sur moi ce jour-là. »',
-    translationEn: 'The Prophet ﷺ said: "Among the best of your days is Friday. So send abundant blessings upon me on that day."',
-    bookOrSurah: 'Sunan Abu Dawud',
-    numberOrAyah: 'Hadith n° 1047',
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2142.mp3',
-    hashtags: '#JumuahMubarak #Salawat #VendrediBeni #Sunnah #KaelarIslamic #fyp'
+    arabicText: 'يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوٓا۟ إِذَا نُودِىَ لِلصَّلَوٰةِ مِن يَوْمِ ٱلْجُمُعَةِ فَٱسْعَوْا۟ إِلَىٰ ذِكْرِ ٱللَّهِ وَذَرُوا۟ ٱلْبَيْعَ ۚ ذَٰلِكُمْ خَيْرٌۭ لَّكُمْ إِن كُنتُمْ تَعْلَمُونَ',
+    translationFr: '« Ô vous qui avez cru ! Quand on appelle à la prière du jour du vendredi, accourez à l’invocation d’Allah et laissez tout négoce. Cela est bien meilleur pour vous, si vous saviez ! »',
+    translationEn: '“O you who have believed, when [the adhan] is called for the prayer on the day of Jumu\'ah, then proceed to the remembrance of Allah and leave trade. That is better for you, if you only knew.”',
+    bookOrSurah: 'Sourate Al-Jumu\'a (سُورَةُ الجُمُعَةِ)',
+    numberOrAyah: 'Verset 9',
+    surahNumber: 62,
+    ayahNumber: 9,
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/5186.mp3',
+    reciterName: 'Mishary Rashid Alafasy',
+    hashtags: '#JumuahMubarak #VendrediBeni #SourateAlJumua #KaelarIslamic #fyp'
   }
 ];
+
+function loadCatalog() {
+  try {
+    if (fs.existsSync(CATALOG_PATH)) {
+      const items = JSON.parse(fs.readFileSync(CATALOG_PATH, 'utf8'));
+      if (Array.isArray(items) && items.length > 0) {
+        console.log(`📦 Loaded ${items.length} verified authentic items from catalog.`);
+        return items;
+      }
+    }
+  } catch (e) {
+    console.warn('Could not read external catalog, using fallback:', e.message);
+  }
+  return FALLBACK_ITEMS;
+}
+
+const VERIFIED_ITEMS = loadCatalog();
 
 // Helper: Download a remote file
 function downloadFile(url, destPath) {
@@ -568,32 +518,57 @@ function getNextItemForTheme(theme, reg) {
   const candidates = VERIFIED_ITEMS.filter(v => v.type === theme.category);
 
   if (candidates.length === 0) {
-    // Fallback: pick any item if no category match
     console.warn(`⚠️ No items found for category "${theme.category}", using fallback.`);
     return VERIFIED_ITEMS[0];
   }
 
-  // Build set of content hashes already published
-  const publishedHashes = new Set(
-    (reg.publishedItems || []).map(p => p.contentHash || '')
-  );
-  const publishedRefs = new Set(
-    (reg.publishedItems || []).map(p => p.bookOrSurah || '')
-  );
-
-  // Find first candidate NOT yet published (by hash or reference)
-  const unpublished = candidates.filter(c => {
-    const hash = contentHash(c.arabicText);
-    return !publishedHashes.has(hash) && !publishedRefs.has(c.bookOrSurah);
-  });
-
-  if (unpublished.length > 0) {
-    console.log(`📋 ${unpublished.length}/${candidates.length} unpublished items for "${theme.category}".`);
-    return unpublished[0];
+  // Build map of last published timestamp for each candidate
+  const lastPublishedTime = new Map();
+  for (const p of (reg.publishedItems || [])) {
+    const pHash = p.contentHash || (p.arabicText ? contentHash(p.arabicText) : '');
+    const pVerseId = (p.surahNumber && p.ayahNumber) ? `${p.surahNumber}:${p.ayahNumber}` : '';
+    const pTime = p.timestamp ? new Date(p.timestamp).getTime() : 0;
+    if (pHash) {
+      lastPublishedTime.set(pHash, Math.max(lastPublishedTime.get(pHash) || 0, pTime));
+    }
+    if (pVerseId) {
+      lastPublishedTime.set(pVerseId, Math.max(lastPublishedTime.get(pVerseId) || 0, pTime));
+    }
   }
 
-  // All items exhausted for this theme — reset and cycle
-  console.log(`🔄 All ${candidates.length} items for "${theme.category}" already published. Cycling from start.`);
+  const now = Date.now();
+  const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+
+  // Candidates not published in the last 30 days
+  const eligible = candidates.filter(c => {
+    const hash = contentHash(c.arabicText);
+    const verseId = `${c.surahNumber}:${c.ayahNumber}`;
+    const lastPub = Math.max(lastPublishedTime.get(hash) || 0, lastPublishedTime.get(verseId) || 0);
+    return (now - lastPub) > THIRTY_DAYS_MS;
+  });
+
+  if (eligible.length > 0) {
+    // Pick the one published longest ago (or never published)
+    eligible.sort((a, b) => {
+      const aHash = contentHash(a.arabicText);
+      const bHash = contentHash(b.arabicText);
+      const aLast = Math.max(lastPublishedTime.get(aHash) || 0, lastPublishedTime.get(`${a.surahNumber}:${a.ayahNumber}`) || 0);
+      const bLast = Math.max(lastPublishedTime.get(bHash) || 0, lastPublishedTime.get(`${b.surahNumber}:${b.ayahNumber}`) || 0);
+      return aLast - bLast;
+    });
+    console.log(`📋 ${eligible.length}/${candidates.length} eligible (30d cooldown) for "${theme.category}".`);
+    return eligible[0];
+  }
+
+  // If all were published within 30 days, pick the absolute oldest published one (LRU)
+  candidates.sort((a, b) => {
+    const aHash = contentHash(a.arabicText);
+    const bHash = contentHash(b.arabicText);
+    const aLast = Math.max(lastPublishedTime.get(aHash) || 0, lastPublishedTime.get(`${a.surahNumber}:${a.ayahNumber}`) || 0);
+    const bLast = Math.max(lastPublishedTime.get(bHash) || 0, lastPublishedTime.get(`${b.surahNumber}:${b.ayahNumber}`) || 0);
+    return aLast - bLast;
+  });
+  console.log(`🔄 Picking least-recently published item for "${theme.category}".`);
   return candidates[0];
 }
 
@@ -673,13 +648,24 @@ async function runCloudAutoPilot() {
 
   // 7. Update Registry & Advance to Next Theme
   reg.currentIndex = (currentIdx + 1) % THEMES.length;
-  reg.lastRunAt = new Date().toISOString();
   reg.publishedItems.push({
+    id: `autopilot-${Date.now()}`,
     timestamp: reg.lastRunAt,
     theme: theme.title,
+    type: item.type,
     bookOrSurah: item.bookOrSurah,
+    numberOrAyah: item.numberOrAyah,
+    surahNumber: item.surahNumber,
+    ayahNumber: item.ayahNumber,
+    arabicText: item.arabicText,
+    translationFr: item.translationFr,
+    translationEn: item.translationEn,
     contentHash: contentHash(item.arabicText),
-    videoUrl: publicVideoUrl
+    audioUrl: item.audioUrl,
+    videoUrl: publicVideoUrl,
+    cardImageUrl: publicVideoUrl ? publicVideoUrl.replace(/\.mp4$/, '.png') : '',
+    platforms: ['instagram', 'tiktok'],
+    reciterName: item.reciterName || 'Mishary Rashid Alafasy'
   });
   saveRegistry(reg);
 
@@ -702,4 +688,9 @@ if (require.main === module) {
   });
 }
 
-module.exports = { runCloudAutoPilot };
+module.exports = { 
+  runCloudAutoPilot, 
+  getNextItemForTheme, 
+  VERIFIED_ITEMS, 
+  loadRegistry 
+};

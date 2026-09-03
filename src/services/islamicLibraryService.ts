@@ -31,7 +31,7 @@ const INITIAL_LIBRARY: IslamicLibraryItem[] = [
 
 export const IslamicLibraryService = {
   /**
-   * Get all registered library items
+   * Get all registered library items from local cache
    */
   getItems(): IslamicLibraryItem[] {
     try {
@@ -40,6 +40,80 @@ export const IslamicLibraryService = {
     } catch {
       return INITIAL_LIBRARY;
     }
+  },
+
+  /**
+   * Fetch and synchronize library with cloud registry (GitHub Actions / Cloud Auto-Pilot)
+   */
+  async fetchSyncedItems(): Promise<IslamicLibraryItem[]> {
+    const localItems = this.getItems();
+    let remoteItems: IslamicLibraryItem[] = [];
+
+    // 1. Try /api/library first
+    try {
+      const res = await fetch('/api/library');
+      if (res.ok) {
+        const data = await res.json();
+        if (data.items && Array.isArray(data.items)) {
+          remoteItems = data.items;
+        }
+      }
+    } catch {
+      // Ignore and try fallback
+    }
+
+    // 2. Direct GitHub Raw fallback if /api/library was not reachable (e.g. static dev)
+    if (remoteItems.length === 0) {
+      try {
+        const ghRes = await fetch(
+          'https://raw.githubusercontent.com/anasmouquinee/omnipulse-ai-studio/main/data/publishedRegistry.json'
+        );
+        if (ghRes.ok) {
+          const raw = await ghRes.json();
+          if (raw.publishedItems && Array.isArray(raw.publishedItems)) {
+            remoteItems = raw.publishedItems.map((item: any, idx: number) => ({
+              id: item.id || `gh-${idx}`,
+              type: item.type || 'quran',
+              themeTitle: item.theme || item.themeTitle || 'Rappel Islamique',
+              arabicText: item.arabicText || '',
+              translationFr: item.translationFr || '',
+              translationEn: item.translationEn || '',
+              referenceText: item.bookOrSurah 
+                ? `${item.bookOrSurah}${item.numberOrAyah ? ' — ' + item.numberOrAyah : ''}` 
+                : 'Rappel Islamique',
+              canonicalKey: item.canonicalKey || item.contentHash || `key-${idx}`,
+              reciterName: item.reciterName || 'Mishary Rashid Alafasy',
+              audioUrl: item.audioUrl || '',
+              cardImageUrl: item.cardImageUrl || '',
+              videoUrl: item.videoUrl || '',
+              publishedAt: item.timestamp || item.publishedAt || new Date().toISOString(),
+              platforms: item.platforms || ['instagram', 'tiktok'],
+              format: item.videoUrl ? 'reel' : 'photo'
+            }));
+          }
+        }
+      } catch (e) {
+        console.warn('GitHub raw fallback fetch failed:', e);
+      }
+    }
+
+    if (remoteItems.length === 0) {
+      return localItems;
+    }
+
+    // 3. Merge without duplicates (favor remote if has videoUrl, or keep local)
+    const existingVideoUrls = new Set(localItems.map(i => i.videoUrl).filter(Boolean));
+    const existingKeys = new Set(localItems.map(i => i.canonicalKey).filter(Boolean));
+
+    const newRemote = remoteItems.filter(r => {
+      if (r.videoUrl && existingVideoUrls.has(r.videoUrl)) return false;
+      if (r.canonicalKey && existingKeys.has(r.canonicalKey)) return false;
+      return true;
+    });
+
+    const merged = [...newRemote, ...localItems];
+    this.saveItems(merged);
+    return merged;
   },
 
   /**

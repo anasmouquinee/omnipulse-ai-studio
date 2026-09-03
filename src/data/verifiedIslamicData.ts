@@ -13,28 +13,28 @@ export const VERIFIED_RECITERS: ReciterAudio[] = [
     durationSeconds: 38
   },
   {
-    reciterName: 'Islam Sobhi',
-    surahOrTitle: 'Sourate Ash-Sharh (L’Ouverture)',
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6093.mp3',
-    durationSeconds: 32
+    reciterName: 'Mishary Rashid Alafasy',
+    surahOrTitle: 'Sourate Ash-Sharh (V. 5)',
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6095.mp3',
+    durationSeconds: 22
   },
   {
-    reciterName: 'Yasser Al-Dossari',
-    surahOrTitle: 'Sourate Ad-Duha (Le Jour Montant)',
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6082.mp3',
-    durationSeconds: 45
+    reciterName: 'Mishary Rashid Alafasy',
+    surahOrTitle: 'Sourate Ad-Duha (V. 5)',
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/6084.mp3',
+    durationSeconds: 20
   },
   {
-    reciterName: 'Maher Al-Muaiqly',
-    surahOrTitle: 'Sourate Al-Kahf (V. 1-10)',
+    reciterName: 'Mishary Rashid Alafasy',
+    surahOrTitle: 'Sourate Al-Kahf (V. 1)',
     audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3',
-    durationSeconds: 55
+    durationSeconds: 25
   },
   {
-    reciterName: 'Abdul Rahman Al-Sudais',
-    surahOrTitle: 'Sourate Ar-Rahman',
-    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4898.mp3',
-    durationSeconds: 48
+    reciterName: 'Mishary Rashid Alafasy',
+    surahOrTitle: 'Sourate Ar-Rahman (V. 13)',
+    audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4914.mp3',
+    durationSeconds: 14
   }
 ];
 
@@ -123,7 +123,13 @@ export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
       authenticityGrade: 'Sahih Muslim',
       verifiedBy: 'Imam Muslim (Authentique)'
     },
-    reciterAudio: VERIFIED_RECITERS[0],
+    reciterAudio: {
+      reciterId: 'ar.alafasy',
+      reciterName: 'Mishary Rashid Alafasy',
+      surahOrTitle: 'Sourate Al-Ankaboot (Verset 45)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/3385.mp3',
+      durationSeconds: 28
+    },
     visualTheme: 'emerald_mosque',
     reflection: {
       fr: 'Chaque prière accomplie à l’heure est une source d’effacement des fautes et un nouveau départ pour l’âme.',
@@ -140,19 +146,25 @@ export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
     id: 'islamic-3',
     type: 'authentic_dua',
     topic: 'Invocation contre la tristesse, l’angoisse et les dettes',
-    arabicText: 'اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْهَمِّ وَالْحَزَنِ، وَالْعَجْزِ وَالْكَسَلِ، وَالْبُخْلِ وَالْجُبْنِ، وَضَلَعِ الدَّيْنِ، وَغَلَبَةِ الرِّجَالِ',
-    phonetic: 'Allahumma inni a\'udhu bika minal-hammi wal-hazan, wal-\'ajzi wal-kasal, wal-bukhli wal-jubn, wa dala\'id-dayni wa ghalabatir-rijal',
-    translationFr: '« Ô Allah ! Je cherche protection auprès de Toi contre l’angoisse et la tristesse, contre l’incapacité et la paresse, contre la lâcheté et l’avarice, contre le poids de la dette et la domination des hommes. »',
-    translationEn: '“O Allah, I seek refuge in You from anxiety and sorrow, weakness and laziness, miserliness and cowardice, the burden of debts and being overpowered by men.”',
+    arabicText: 'حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ ۖ عَلَيْهِ تَوَكَّلْتُ ۖ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',
+    phonetic: 'Hasbiyallahu la ilaha illa Huwa, \'alayhi tawakkaltu wa Huwa Rabbul-\'Arshil-\'Adhim',
+    translationFr: '« Allah me suffit. Il n’y a de divinité que Lui. En Lui je place ma confiance, et Il est le Seigneur du Trône Immense. »',
+    translationEn: '“Sufficient for me is Allah; there is no deity except Him. On Him I have relied, and He is the Lord of the Great Throne.”',
     source: {
       type: 'dua',
-      bookOrSurah: 'Sahih al-Bukhari & Hisn al-Muslim',
-      numberOrAyah: 'Hadith n° 2893 / Citadelle du Musulman n° 120',
-      arabicReference: 'صحيح البخاري ٢٨٩٣ - حصن المسلم',
-      authenticityGrade: 'Sahih Bukhari',
-      verifiedBy: 'Imam Al-Bukhari (Authentique)'
+      bookOrSurah: 'Sourate At-Tawbah & Hisn al-Muslim',
+      numberOrAyah: 'Sourate 9, Verset 129',
+      arabicReference: 'سورة التوبة ١٢٩ - حصن المسلم',
+      authenticityGrade: 'Coran (Parole d’Allah)',
+      verifiedBy: 'Texte Sacré Authentifié'
     },
-    reciterAudio: VERIFIED_RECITERS[2],
+    reciterAudio: {
+      reciterId: 'ar.alafasy',
+      reciterName: 'Mishary Rashid Alafasy',
+      surahOrTitle: 'Sourate At-Tawbah (Verset 129)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1364.mp3',
+      durationSeconds: 18
+    },
     visualTheme: 'desert_dunes',
     reflection: {
       fr: 'Récite cette puissante invocation matin et soir pour alléger ton cœur et trouver la paix intérieure auprès d’Allah.',
@@ -169,17 +181,17 @@ export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
     id: 'islamic-4',
     type: 'jumua_special',
     topic: 'Spécial Vendredi (Jumu’ah) : La lumière de Sourate Al-Kahf',
-    arabicText: 'مَنْ قَرَأَ سُورَةَ الْكَهْفِ فِي يَوْمِ الْجُمُعَةِ أَضَاءَ لَهُ مِنَ النُّورِ مَا بَيْنَ الْجُمُعَتَيْنِ',
-    phonetic: 'Man qara\'a suratal-kahfi fi yawmil-jumu\'ati ada\'a lahu minan-noori ma baynal-jumu\'atayn',
-    translationFr: 'Le Prophète ﷺ a dit : « Celui qui lit la Sourate Al-Kahf (La Caverne) le jour du vendredi, une lumière éclairera pour lui l’intervalle entre les deux vendredis. »',
-    translationEn: 'The Prophet ﷺ said: “Whoever reads Surah Al-Kahf on the day of Jumu’ah, will have a light that will shine from him from one Friday to the next.”',
+    arabicText: 'الْحَمْدُ لِلَّهِ الَّذِي أَنْزَلَ عَلَىٰ عَبْدِهِ الْكِتَابَ وَلَمْ يَجْعَلْ لَهُ عِوَجًا',
+    phonetic: 'Al-hamdu lillahilladhi anzala \'ala \'abdihil-kitaba wa lam yaj\'al lahu \'iwaja',
+    translationFr: '« Louange à Allah qui a fait descendre sur Son serviteur le Livre, et n\'y a point introduit de tortuosité ! »',
+    translationEn: '“[All] praise is due to Allah, who has sent down upon His Servant the Book and has not made therein any deviance.”',
     source: {
-      type: 'hadith',
-      bookOrSurah: 'Al-Mustadrak / Sahih Al-Jami’',
-      numberOrAyah: 'Hadith n° 6470 (Authentifié par Al-Albani)',
-      arabicReference: 'صحيح الجامع ٦٤٧٠',
-      authenticityGrade: 'Muttafaq Alayh (Bukhari & Muslim)',
-      verifiedBy: 'Sheikh Al-Albani (Sahih)'
+      type: 'quran',
+      bookOrSurah: 'Sourate Al-Kahf (La Caverne)',
+      numberOrAyah: 'Sourate 18, Verset 1',
+      arabicReference: 'سورة الكهف ١',
+      authenticityGrade: 'Coran (Parole d’Allah)',
+      verifiedBy: 'Texte Sacré Authentifié'
     },
     reciterAudio: VERIFIED_RECITERS[3],
     visualTheme: 'celestial_sky',
@@ -198,19 +210,25 @@ export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
     id: 'islamic-5',
     type: 'tahajjud_motivation',
     topic: 'La Prière de la Nuit (Tahajjud) et la descente divine',
-    arabicText: 'يَنْزِلُ رَبُّنَا تَبَارَكَ وَتَعَالَى كُلَّ لَيْلَةٍ إِلَى السَّمَاءِ الدُّنْيَا حِينَ يَبْقَى ثُلُثُ اللَّيْلِ الآخِرُ فَيَقُولُ: مَنْ يَدْعُونِي فَأَسْتَجِيبَ لَهُ، مَنْ يَسْأَلُنِي فَأُعْطِيَهُ، مَنْ يَسْتَغْفِرُنِي فَأَغْفِرَ لَهُ',
-    phonetic: 'Yanzilu Rabbuna tabaraka wa ta\'ala kulla laylatin...',
-    translationFr: 'Le Prophète ﷺ a dit : « Notre Seigneur descend chaque nuit au ciel le plus bas lorsqu’il reste le dernier tiers de la nuit et dit : Qui M’invoque afin que Je lui réponde ? Qui Me demande afin que Je lui donne ? Qui Me demande pardon afin que Je lui pardonne ? »',
-    translationEn: 'The Prophet ﷺ said: “Our Lord, Blessed and Exalted is He, descends every night to the nearest heaven in the last third of the night and says: Who is calling upon Me so that I may answer him? Who is asking of Me so that I may give him? Who is seeking My forgiveness so that I may forgive him?”',
+    arabicText: 'وَمِنَ اللَّيْلِ فَتَهَجَّدْ بِهِ نَافِلَةً لَّكَ عَسَىٰ أَن يَبْعَثَكَ رَبُّكَ مَقَامًا مَّحْمُودًا',
+    phonetic: 'Wa minal-layli fatahajjad bihi nafilatan laka \'asa an yab\'athaka Rabbuka maqaman mahmuda',
+    translationFr: '« Et de la nuit, consacre une partie [avant l’aube] pour des prières surérogatoires : afin que ton Seigneur te ressuscite en une position de gloire. »',
+    translationEn: '“And from [part of] the night, pray with it as additional [worship] for you; it is expected that your Lord will resurrect you to a praised station.”',
     source: {
-      type: 'hadith',
-      bookOrSurah: 'Sahih al-Bukhari & Sahih Muslim',
-      numberOrAyah: 'Bukhari n° 1145 / Muslim n° 758',
-      arabicReference: 'صحيح البخاري ١١٤٥ - صحيح مسلم ٧٥٨',
-      authenticityGrade: 'Muttafaq Alayh (Bukhari & Muslim)',
-      verifiedBy: 'Al-Bukhari & Muslim (Unanimement Authentique)'
+      type: 'quran',
+      bookOrSurah: 'Sourate Al-Isra (Le Voyage Nocturne)',
+      numberOrAyah: 'Sourate 17, Verset 79',
+      arabicReference: 'سورة الإسراء ٧٩',
+      authenticityGrade: 'Coran (Parole d’Allah)',
+      verifiedBy: 'Texte Sacré Authentifié'
     },
-    reciterAudio: VERIFIED_RECITERS[4],
+    reciterAudio: {
+      reciterId: 'ar.alafasy',
+      reciterName: 'Mishary Rashid Alafasy',
+      surahOrTitle: 'Sourate Al-Isra (Verset 79)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/2108.mp3',
+      durationSeconds: 20
+    },
     visualTheme: 'golden_night',
     reflection: {
       fr: 'Lorsque le monde dort, réveille-toi quelques minutes avant le Fajr. C’est l’instant sacré où les cœurs trouvent leur apaisement et où les prières sont exaucées.',

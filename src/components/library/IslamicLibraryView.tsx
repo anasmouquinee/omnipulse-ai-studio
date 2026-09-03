@@ -16,7 +16,8 @@ import {
   CheckCircle2,
   BookOpen,
   Sparkles,
-  Layers
+  Layers,
+  RefreshCw
 } from 'lucide-react';
 
 interface IslamicLibraryViewProps {
@@ -25,10 +26,44 @@ interface IslamicLibraryViewProps {
 
 export const IslamicLibraryView: React.FC<IslamicLibraryViewProps> = ({ onShowToast }) => {
   const [items, setItems] = useState<IslamicLibraryItem[]>(() => IslamicLibraryService.getItems());
+  const [isSyncing, setIsSyncing] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedType, setSelectedType] = useState<string>('all');
   const [playingAudioId, setPlayingAudioId] = useState<string | null>(null);
   const [audioElement, setAudioElement] = useState<HTMLAudioElement | null>(null);
+
+  // Automatically synchronize with Cloud / GitHub Actions registry on mount
+  React.useEffect(() => {
+    let isMounted = true;
+    const sync = async () => {
+      setIsSyncing(true);
+      try {
+        const synced = await IslamicLibraryService.fetchSyncedItems();
+        if (isMounted) {
+          setItems(synced);
+        }
+      } catch (e) {
+        console.warn('Sync notice:', e);
+      } finally {
+        if (isMounted) setIsSyncing(false);
+      }
+    };
+    sync();
+    return () => { isMounted = false; };
+  }, []);
+
+  const handleManualSync = async () => {
+    setIsSyncing(true);
+    try {
+      const synced = await IslamicLibraryService.fetchSyncedItems();
+      setItems(synced);
+      onShowToast('success', `✨ Synchronisation réussie (${synced.length} publications au total).`);
+    } catch (e) {
+      onShowToast('error', 'Échec de la synchronisation avec le registre cloud.');
+    } finally {
+      setIsSyncing(false);
+    }
+  };
 
   // Filter items
   const filteredItems = items.filter(item => {
@@ -200,25 +235,51 @@ export const IslamicLibraryView: React.FC<IslamicLibraryViewProps> = ({ onShowTo
           ))}
         </div>
 
-        {/* Search Input */}
-        <div style={{ position: 'relative', minWidth: '260px' }}>
-          <Search size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }} />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Rechercher par sourate, hadith, mot-clé..."
+        {/* Search Input & Sync Button */}
+        <div style={{ display: 'flex', gap: '0.75rem', alignItems: 'center' }}>
+          <div style={{ position: 'relative', minWidth: '260px' }}>
+            <Search size={15} style={{ position: 'absolute', left: '0.9rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-tertiary)' }} />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder="Rechercher par sourate, hadith, mot-clé..."
+              style={{
+                width: '100%',
+                padding: '0.45rem 0.85rem 0.45rem 2.4rem',
+                background: 'rgba(0,0,0,0.3)',
+                border: '1px solid var(--border-medium)',
+                borderRadius: 'var(--radius-sm)',
+                color: '#fff',
+                fontSize: '0.82rem',
+                outline: 'none'
+              }}
+            />
+          </div>
+
+          <button
+            onClick={handleManualSync}
+            disabled={isSyncing}
             style={{
-              width: '100%',
-              padding: '0.45rem 0.85rem 0.45rem 2.4rem',
-              background: 'rgba(0,0,0,0.3)',
-              border: '1px solid var(--border-medium)',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.5rem',
+              padding: '0.45rem 1rem',
               borderRadius: 'var(--radius-sm)',
-              color: '#fff',
+              border: '1px solid rgba(16, 185, 129, 0.3)',
+              background: 'rgba(16, 185, 129, 0.12)',
+              color: '#10b981',
               fontSize: '0.82rem',
-              outline: 'none'
+              fontWeight: 600,
+              cursor: isSyncing ? 'not-allowed' : 'pointer',
+              transition: 'all 0.2s',
+              whiteSpace: 'nowrap'
             }}
-          />
+            title="Synchroniser avec le registre cloud GitHub Actions"
+          >
+            <RefreshCw size={14} style={{ animation: isSyncing ? 'spin 1s linear infinite' : 'none' }} />
+            <span>{isSyncing ? 'Sync en cours...' : 'Sync Cloud'}</span>
+          </button>
         </div>
       </div>
 
@@ -313,36 +374,40 @@ export const IslamicLibraryView: React.FC<IslamicLibraryViewProps> = ({ onShowTo
                 </h4>
 
                 {/* Arabic Text preview */}
-                <div style={{
-                  fontFamily: 'Amiri, Traditional Arabic, serif',
-                  fontSize: '1.05rem',
-                  color: '#fff',
-                  direction: 'rtl',
-                  lineHeight: 1.6,
-                  padding: '0.65rem 0.85rem',
-                  background: 'rgba(0,0,0,0.35)',
-                  borderRadius: 'var(--radius-sm)',
-                  marginBottom: '0.65rem',
-                  maxHeight: '80px',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis'
-                }}>
-                  {item.arabicText}
-                </div>
+                {item.arabicText ? (
+                  <div style={{
+                    fontFamily: 'Amiri, Traditional Arabic, serif',
+                    fontSize: '1.05rem',
+                    color: '#fff',
+                    direction: 'rtl',
+                    lineHeight: 1.6,
+                    padding: '0.65rem 0.85rem',
+                    background: 'rgba(0,0,0,0.35)',
+                    borderRadius: 'var(--radius-sm)',
+                    marginBottom: '0.65rem',
+                    maxHeight: '80px',
+                    overflow: 'hidden',
+                    textOverflow: 'ellipsis'
+                  }}>
+                    {item.arabicText}
+                  </div>
+                ) : null}
 
                 {/* French Translation */}
-                <p style={{
-                  fontSize: '0.8rem',
-                  color: 'var(--text-secondary)',
-                  margin: '0 0 0.65rem 0',
-                  lineHeight: 1.4,
-                  display: '-webkit-box',
-                  WebkitLineClamp: 3,
-                  WebkitBoxOrient: 'vertical',
-                  overflow: 'hidden'
-                }}>
-                  {item.translationFr}
-                </p>
+                {item.translationFr ? (
+                  <p style={{
+                    fontSize: '0.8rem',
+                    color: 'var(--text-secondary)',
+                    margin: '0 0 0.65rem 0',
+                    lineHeight: 1.4,
+                    display: '-webkit-box',
+                    WebkitLineClamp: 3,
+                    WebkitBoxOrient: 'vertical',
+                    overflow: 'hidden'
+                  }}>
+                    {item.translationFr}
+                  </p>
+                ) : null}
 
                 {/* Reference */}
                 <div style={{
