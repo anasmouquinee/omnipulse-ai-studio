@@ -208,6 +208,36 @@ export const SocialPublisher = {
                 }
               };
             }
+          } else if (platform === 'youtube') {
+            // YouTube Shorts (Requires video, title, privacy, categoryId)
+            const videoUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) && post.media.type === 'video')
+              ? post.media.url
+              : 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
+
+            variables = {
+              input: {
+                channelId,
+                text: postText,
+                mode: 'addToQueue',
+                schedulingType: 'automatic',
+                needsApproval: false,
+                metadata: {
+                  youtube: {
+                    title: (post.title || 'Rappel Islamique #Shorts').slice(0, 95),
+                    privacy: 'public',
+                    madeForKids: false,
+                    categoryId: '22'
+                  }
+                },
+                assets: [
+                  {
+                    video: {
+                      url: videoUrl
+                    }
+                  }
+                ]
+              }
+            };
           } else {
             // TikTok (Requires video)
             const videoUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) && post.media.type === 'video')

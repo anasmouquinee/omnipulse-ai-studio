@@ -265,28 +265,68 @@ function uploadToCloudinary(filePath) {
 }
 
 // Helper: Publish to Buffer
-function publishToBuffer(channelId, text, videoUrl) {
+function publishToBuffer(channelId, text, videoUrl, platform = 'general', title = '') {
   return new Promise((resolve, reject) => {
     const mutation = `
       mutation CreatePost($input: CreatePostInput!) {
         createPost(input: $input) {
-          post {
-            id
-            status
+          ... on PostActionSuccess {
+            post {
+              id
+              status
+            }
+          }
+          ... on InvalidInputError {
+            message
+          }
+          ... on UnauthorizedError {
+            message
+          }
+          ... on UnexpectedError {
+            message
+          }
+          ... on LimitReachedError {
+            message
           }
         }
       }
     `;
 
-    const variables = {
-      input: {
-        channelId,
-        text,
-        schedulingType: 'now',
-        assets: [{ video: { url: videoUrl } }]
-      }
+    const input = {
+      channelId,
+      text,
+      mode: 'addToQueue',
+      schedulingType: 'automatic',
+      needsApproval: false,
+      assets: [{ video: { url: videoUrl } }]
     };
 
+    if (platform === 'youtube') {
+      input.metadata = {
+        youtube: {
+          title: (title || text.split('\n')[0] || 'Rappel Islamique #Shorts').slice(0, 95),
+          privacy: 'public',
+          madeForKids: false,
+          categoryId: '22'
+        }
+      };
+    } else if (platform === 'tiktok') {
+      input.metadata = {
+        tiktok: {
+          title: (title || text.split('\n')[0] || 'Rappel Islamique').slice(0, 100),
+          isAiGenerated: false
+        }
+      };
+    } else if (platform === 'instagram') {
+      input.metadata = {
+        instagram: {
+          type: 'reel',
+          shouldShareToFeed: true
+        }
+      };
+    }
+
+    const variables = { input };
     const postData = JSON.stringify({ query: mutation, variables });
 
     const options = {
@@ -687,11 +727,11 @@ async function runCloudAutoPilot() {
 
   try {
     console.log('📤 Publishing to Instagram Reel (@kaelarislamic) with Viral Tags...');
-    const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, publicVideoUrl);
+    const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, publicVideoUrl, 'instagram', `${item.bookOrSurah} — ${item.numberOrAyah}`);
     if (igRes?.status || igRes?.id) {
       console.log('✅ Instagram publication queued successfully in Buffer!');
     } else {
-      console.warn(`⚠️ Instagram Buffer issue: ${igRes?.error || 'Non-fatal'}`);
+      console.warn(`⚠️ Instagram Buffer issue: ${igRes?.error || igRes?.message || 'Non-fatal'}`);
     }
   } catch (err) {
     console.warn('⚠️ Instagram publication notice:', err.message);
@@ -699,11 +739,11 @@ async function runCloudAutoPilot() {
 
   try {
     console.log('📤 Publishing to TikTok (@mdou.g) with FYP Booster Tags...');
-    const ttRes = await publishToBuffer(TIKTOK_CHANNEL_ID, ttCaption, publicVideoUrl);
+    const ttRes = await publishToBuffer(TIKTOK_CHANNEL_ID, ttCaption, publicVideoUrl, 'tiktok', `${item.bookOrSurah} — ${item.numberOrAyah}`);
     if (ttRes?.status || ttRes?.id) {
       console.log('✅ TikTok publication queued successfully in Buffer!');
     } else {
-      console.warn(`⚠️ TikTok Buffer issue: ${ttRes?.error || 'Non-fatal'}`);
+      console.warn(`⚠️ TikTok Buffer issue: ${ttRes?.error || ttRes?.message || 'Non-fatal'}`);
     }
   } catch (err) {
     console.warn('⚠️ TikTok publication notice:', err.message);
@@ -713,11 +753,12 @@ async function runCloudAutoPilot() {
   if (YOUTUBE_CHANNEL_ID && YOUTUBE_CHANNEL_ID.trim() !== '') {
     try {
       console.log('📤 Publishing to YouTube Shorts (#Shorts) via Buffer...');
-      const ytRes = await publishToBuffer(YOUTUBE_CHANNEL_ID.trim(), ytCaption, publicVideoUrl);
+      const ytTitle = `${item.bookOrSurah} — ${item.numberOrAyah} #Shorts`;
+      const ytRes = await publishToBuffer(YOUTUBE_CHANNEL_ID.trim(), ytCaption, publicVideoUrl, 'youtube', ytTitle);
       if (ytRes?.status || ytRes?.id) {
         console.log('✅ YouTube Shorts publication queued successfully in Buffer!');
       } else {
-        console.warn(`⚠️ YouTube Buffer issue: ${ytRes?.error || 'Non-fatal'}`);
+        console.warn(`⚠️ YouTube Buffer issue: ${ytRes?.error || ytRes?.message || 'Non-fatal'}`);
       }
     } catch (err) {
       console.warn('⚠️ YouTube Shorts publication notice:', err.message);
