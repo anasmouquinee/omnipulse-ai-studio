@@ -439,7 +439,26 @@ function sendDiscordNotification(item, theme, publicVideoUrl) {
   });
 }
 
-// Helper: Generate crisp SVG poster
+// Helper: Word-wrapping for SVG text/tspans (librsvg doesn't support HTML foreignObject)
+function wrapWords(text, maxChars) {
+  const words = (text || '').trim().split(/\s+/);
+  const lines = [];
+  let current = '';
+  for (const word of words) {
+    if (!current) {
+      current = word;
+    } else if ((current + ' ' + word).length <= maxChars) {
+      current += ' ' + word;
+    } else {
+      lines.push(current);
+      current = word;
+    }
+  }
+  if (current) lines.push(current);
+  return lines;
+}
+
+// Helper: Generate crisp SVG poster (100% SVG 1.1 native text compatible with rsvg-convert & FFmpeg)
 function generatePosterSvg(item) {
   const escapeXml = (str) => String(str || '')
     .replace(/&/g, '&amp;')
@@ -448,69 +467,192 @@ function generatePosterSvg(item) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 
+  const cleanFr = (item.translationFr || '').replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
+  const cleanEn = (item.translationEn || '').replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
+
+  // Adaptive font sizing & line wrapping for Arabic (RTL)
+  const arLen = (item.arabicText || '').length;
+  let arFontSize = 44;
+  let arLineHeight = 76;
+  let arMaxChars = 34;
+
+  if (arLen <= 70) {
+    arFontSize = 52;
+    arLineHeight = 88;
+    arMaxChars = 28;
+  } else if (arLen <= 140) {
+    arFontSize = 44;
+    arLineHeight = 76;
+    arMaxChars = 34;
+  } else if (arLen <= 220) {
+    arFontSize = 38;
+    arLineHeight = 66;
+    arMaxChars = 40;
+  } else {
+    arFontSize = 32;
+    arLineHeight = 56;
+    arMaxChars = 46;
+  }
+
+  const arLines = wrapWords(item.arabicText, arMaxChars);
+  const arBlockHeight = arLines.length * arLineHeight;
+
+  // Adaptive font sizing & line wrapping for French
+  const frWords = cleanFr.split(/\s+/).length;
+  let frFontSize = 28;
+  let frLineHeight = 44;
+  let frMaxChars = 42;
+
+  if (frWords <= 18) {
+    frFontSize = 32;
+    frLineHeight = 50;
+    arMaxChars = 38;
+  } else if (frWords <= 35) {
+    frFontSize = 28;
+    frLineHeight = 44;
+    frMaxChars = 42;
+  } else {
+    frFontSize = 24;
+    frLineHeight = 38;
+    frMaxChars = 48;
+  }
+
+  const frLines = cleanFr ? wrapWords(`« ${cleanFr} »`, frMaxChars) : [];
+  const frBlockHeight = frLines.length * frLineHeight;
+
+  // English lines (concise, if present and total text fits comfortably)
+  let enLines = [];
+  let enBlockHeight = 0;
+  const enFontSize = 22;
+  const enLineHeight = 34;
+
+  if (cleanEn && (arLines.length + frLines.length) <= 10) {
+    enLines = wrapWords(`“${cleanEn}”`, 48);
+    enBlockHeight = enLines.length * enLineHeight;
+  }
+
+  const dividerGap = 50;
+  const totalContentHeight = arBlockHeight + dividerGap + frBlockHeight + (enBlockHeight > 0 ? enBlockHeight + 25 : 0);
+
+  // Available vertical zone: center around y = 920
+  const centerY = 920;
+  let startArY = Math.round(centerY - (totalContentHeight / 2) + (arLineHeight * 0.8));
+  if (startArY < 390) startArY = 390;
+
+  const cardPaddingY = 50;
+  const cardTopY = Math.round(startArY - (arLineHeight * 0.8) - cardPaddingY);
+  const cardHeight = Math.round(totalContentHeight + (cardPaddingY * 2) + 20);
+
+  const dividerY = Math.round(startArY + arBlockHeight - (arLineHeight * 0.3) + 20);
+  const startFrY = Math.round(dividerY + 45);
+  const startEnY = Math.round(startFrY + frBlockHeight + 20);
+
+  // Build SVG tspans with explicit absolute y coordinates
+  const arTspans = arLines.map((line, idx) => {
+    const yPos = startArY + (idx * arLineHeight);
+    return `<tspan x="540" y="${yPos}">${escapeXml(line)}</tspan>`;
+  }).join('\n      ');
+
+  const frTspans = frLines.map((line, idx) => {
+    const yPos = startFrY + (idx * frLineHeight);
+    return `<tspan x="540" y="${yPos}">${escapeXml(line)}</tspan>`;
+  }).join('\n      ');
+
+  const enTspans = enLines.map((line, idx) => {
+    const yPos = startEnY + (idx * enLineHeight);
+    return `<tspan x="540" y="${yPos}">${escapeXml(line)}</tspan>`;
+  }).join('\n      ');
+
   return `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#040b14" />
-      <stop offset="50%" stop-color="#091424" />
-      <stop offset="100%" stop-color="#020617" />
+      <stop offset="0%" stop-color="#030814" />
+      <stop offset="40%" stop-color="#071326" />
+      <stop offset="80%" stop-color="#051c1c" />
+      <stop offset="100%" stop-color="#020612" />
     </linearGradient>
-    <radialGradient id="goldGlow" cx="50%" cy="30%" r="60%">
-      <stop offset="0%" stop-color="rgba(217, 119, 6, 0.25)" />
+    <radialGradient id="goldGlow" cx="50%" cy="32%" r="65%">
+      <stop offset="0%" stop-color="rgba(217, 119, 6, 0.28)" />
+      <stop offset="60%" stop-color="rgba(16, 185, 129, 0.08)" />
       <stop offset="100%" stop-color="transparent" />
     </radialGradient>
+    <linearGradient id="goldLine" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="transparent" />
+      <stop offset="25%" stop-color="#f59e0b" stop-opacity="0.6" />
+      <stop offset="50%" stop-color="#fef08a" stop-opacity="0.95" />
+      <stop offset="75%" stop-color="#f59e0b" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="transparent" />
+    </linearGradient>
+    <filter id="textGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.85)" />
+    </filter>
   </defs>
 
   <!-- Background -->
   <rect width="1080" height="1920" fill="url(#bgGrad)" />
-  <circle cx="540" cy="600" r="700" fill="url(#goldGlow)" />
+  <circle cx="540" cy="620" r="750" fill="url(#goldGlow)" />
 
-  <!-- Borders -->
-  <rect x="50" y="50" width="980" height="1820" rx="30" fill="none" stroke="#d97706" stroke-width="3" stroke-opacity="0.4" />
-  <rect x="65" y="65" width="950" height="1790" rx="20" fill="none" stroke="#d97706" stroke-width="1" stroke-opacity="0.15" />
+  <!-- Outer Royal Borders -->
+  <rect x="50" y="50" width="980" height="1820" rx="36" fill="none" stroke="#d97706" stroke-width="3" stroke-opacity="0.5" />
+  <rect x="66" y="66" width="948" height="1788" rx="24" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.2" />
+
+  <!-- Corner Islamic Ornaments -->
+  <g stroke="#f59e0b" stroke-width="1.5" fill="none" stroke-opacity="0.4">
+    <path d="M 80 120 L 120 120 L 120 80" />
+    <path d="M 1000 120 L 960 120 L 960 80" />
+    <path d="M 80 1800 L 120 1800 L 120 1840" />
+    <path d="M 1000 1800 L 960 1800 L 960 1840" />
+  </g>
 
   <!-- Top Bismillah -->
-  <text x="540" y="220" font-family="serif" font-size="42" font-weight="bold" fill="#fef08a" text-anchor="middle">
+  <text x="540" y="210" font-family="'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', 'Traditional Arabic', serif" font-size="44" font-weight="bold" fill="#fef08a" text-anchor="middle" filter="url(#textGlow)">
     بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
   </text>
 
-  <!-- Islamic Emblem -->
-  <text x="540" y="320" font-family="sans-serif" font-size="34" fill="#10b981" text-anchor="middle">
-    🕌
+  <!-- Vector Islamic Rub-el-Hizb Emblem (Golden 8-Point Star) -->
+  <g transform="translate(540, 275) scale(0.9)" stroke="#f59e0b" stroke-width="1.5" fill="rgba(245, 158, 11, 0.15)">
+    <rect x="-16" y="-16" width="32" height="32" rx="3" />
+    <rect x="-16" y="-16" width="32" height="32" rx="3" transform="rotate(45)" />
+    <circle cx="0" cy="0" r="6" fill="#fef08a" />
+  </g>
+
+  <!-- Translucent Glassmorphism Content Card -->
+  <rect x="80" y="${cardTopY}" width="920" height="${cardHeight}" rx="28" fill="rgba(6, 12, 24, 0.76)" stroke="rgba(245, 158, 11, 0.35)" stroke-width="1.5" />
+
+  <!-- Arabic Quranic Text (Pure SVG Native Text & Tspans) -->
+  <text x="540" font-family="'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', 'Scheherazade New', 'Traditional Arabic', serif" font-size="${arFontSize}" font-weight="bold" fill="#ffffff" text-anchor="middle" filter="url(#textGlow)">
+      ${arTspans}
   </text>
 
-  <!-- Arabic Text -->
-  <foreignObject x="100" y="380" width="880" height="480">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="color: #ffffff; font-family: 'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif; font-size: 44px; font-weight: bold; text-align: center; line-height: 1.8; direction: rtl;">
-      ${escapeXml(item.arabicText)}
-    </div>
-  </foreignObject>
+  <!-- Ornate Golden Divider -->
+  <line x1="280" y1="${dividerY}" x2="800" y2="${dividerY}" stroke="url(#goldLine)" stroke-width="2.5" />
+  <g transform="translate(540, ${dividerY})">
+    <polygon points="0,-8 8,0 0,8 -8,0" fill="#fef08a" stroke="#d97706" stroke-width="1" />
+  </g>
 
-  <!-- Divider -->
-  <line x1="340" y1="920" x2="740" y2="920" stroke="#f59e0b" stroke-width="2" stroke-opacity="0.6" />
+  <!-- French Translation (Pure SVG Native Text & Tspans) -->
+  ${frLines.length > 0 ? `
+  <text x="540" font-family="'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="${frFontSize}" font-weight="600" fill="#f1f5f9" text-anchor="middle" filter="url(#textGlow)">
+      ${frTspans}
+  </text>` : ''}
 
-  <!-- French Translation -->
-  <foreignObject x="100" y="980" width="880" height="320">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="color: #e2e8f0; font-family: sans-serif; font-size: 32px; font-weight: 600; text-align: center; line-height: 1.6;">
-      ${escapeXml(item.translationFr)}
-    </div>
-  </foreignObject>
+  <!-- English Translation (Optional) -->
+  ${enLines.length > 0 ? `
+  <text x="540" font-family="'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="${enFontSize}" font-style="italic" fill="#94a3b8" text-anchor="middle">
+      ${enTspans}
+  </text>` : ''}
 
-  <!-- English Translation -->
-  <foreignObject x="100" y="1340" width="880" height="220">
-    <div xmlns="http://www.w3.org/1999/xhtml" style="color: #94a3b8; font-family: sans-serif; font-size: 26px; font-style: italic; text-align: center; line-height: 1.5;">
-      ${escapeXml(item.translationEn)}
-    </div>
-  </foreignObject>
+  <!-- Source Reference Pill Badge -->
+  <g transform="translate(540, 1610)">
+    <rect x="-340" y="-28" width="680" height="54" rx="27" fill="rgba(15, 23, 42, 0.85)" stroke="#f59e0b" stroke-width="1.5" stroke-opacity="0.6" />
+    <text x="0" y="8" font-family="'Plus Jakarta Sans', -apple-system, 'Segoe UI', sans-serif" font-size="26" font-weight="bold" fill="#fbbf24" text-anchor="middle">
+      ✦ ${escapeXml(item.bookOrSurah)} — ${escapeXml(item.numberOrAyah)} ✦
+    </text>
+  </g>
 
-  <!-- Reference -->
-  <text x="540" y="1650" font-family="sans-serif" font-size="30" font-weight="bold" fill="#f59e0b" text-anchor="middle">
-    📍 ${escapeXml(item.bookOrSurah)} — ${escapeXml(item.numberOrAyah)}
-  </text>
-
-  <!-- Footer Watermark -->
-  <text x="540" y="1770" font-family="sans-serif" font-size="24" font-weight="600" fill="rgba(255, 255, 255, 0.4)" text-anchor="middle">
+  <!-- Footer Watermark (Positioned at y=1685 so it NEVER overlaps with FFmpeg waveform at y=1710-1800) -->
+  <text x="540" y="1685" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="22" font-weight="600" fill="rgba(255, 255, 255, 0.45)" text-anchor="middle">
     @kaelarislamic • @mdou.g
   </text>
 </svg>`;
@@ -721,9 +863,10 @@ async function runCloudAutoPilot() {
   const ttTags = getViralIslamicTags(item.type, 'tiktok');
   const ytTags = getViralIslamicTags(item.type, 'youtube');
 
-  const igCaption = `${item.arabicText}\n\n« ${item.translationFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${igTags}`;
-  const ttCaption = `${item.arabicText}\n\n« ${item.translationFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${ttTags}`;
-  const ytCaption = `${item.bookOrSurah} — ${item.numberOrAyah} 🕋\n\n${item.arabicText}\n\n« ${item.translationFr} »\n\n${ytTags}`;
+  const cleanCaptionFr = (item.translationFr || '').replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
+  const igCaption = `${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${igTags}`;
+  const ttCaption = `${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${ttTags}`;
+  const ytCaption = `${item.bookOrSurah} — ${item.numberOrAyah} 🕋\n\n${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n${ytTags}`;
 
   try {
     console.log('📤 Publishing to Instagram Reel (@kaelarislamic) with Viral Tags...');
@@ -785,7 +928,7 @@ async function runCloudAutoPilot() {
     audioUrl: item.audioUrl,
     videoUrl: publicVideoUrl,
     cardImageUrl: publicVideoUrl ? publicVideoUrl.replace(/\.mp4$/, '.png') : '',
-    platforms: ['instagram', 'tiktok'],
+    platforms: YOUTUBE_CHANNEL_ID ? ['instagram', 'tiktok', 'youtube'] : ['instagram', 'tiktok'],
     reciterName: item.reciterName || 'Mishary Rashid Alafasy'
   });
   saveRegistry(reg);
@@ -813,6 +956,7 @@ module.exports = {
   runCloudAutoPilot, 
   getNextItemForTheme, 
   getSunnahThemeForCurrentTime,
+  generatePosterSvg,
   VERIFIED_ITEMS, 
   loadRegistry 
 };
