@@ -36,6 +36,7 @@ export const MultiPlatformPreview: React.FC<MultiPlatformPreviewProps> = ({
   const platforms: { key: SocialPlatform; label: string; iconLabel: string }[] = [
     { key: 'tiktok', label: 'TikTok', iconLabel: '🎵' },
     { key: 'instagram', label: 'Instagram', iconLabel: '📸' },
+    { key: 'youtube', label: 'YouTube Shorts', iconLabel: '🔴' },
     { key: 'x', label: 'X (Twitter)', iconLabel: '🐦' },
     { key: 'linkedin', label: 'LinkedIn', iconLabel: '💼' },
     { key: 'facebook', label: 'Facebook', iconLabel: '👥' },

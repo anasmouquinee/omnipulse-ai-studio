@@ -28,6 +28,7 @@ const TONES: { key: AITone; label: string; emoji: string }[] = [
 const PLATFORMS: { key: SocialPlatform; label: string; icon: string }[] = [
   { key: 'tiktok', label: 'TikTok', icon: '🎵' },
   { key: 'instagram', label: 'Instagram', icon: '📸' },
+  { key: 'youtube', label: 'YouTube Shorts', icon: '🔴' },
   { key: 'x', label: 'X (Twitter)', icon: '🐦' },
   { key: 'linkedin', label: 'LinkedIn', icon: '💼' },
   { key: 'facebook', label: 'Facebook', icon: '👥' },

@@ -28,6 +28,7 @@ interface AccountsViewProps {
 const PLATFORM_DETAILS: Record<SocialPlatform, { name: string; color: string; icon: string; desc: string }> = {
   tiktok: { name: 'TikTok', color: 'var(--color-tiktok)', icon: '🎵', desc: 'Publication automatique de vidéos verticales 9:16, scripts et sons tendance.' },
   instagram: { name: 'Instagram', color: 'var(--color-instagram)', icon: '📸', desc: 'Publication de posts dans le feed, carrousels, Reels et Stories.' },
+  youtube: { name: 'YouTube Shorts', color: '#ef4444', icon: '🔴', desc: 'Diffusion de vidéos courtes 9:16 #Shorts avec titres et tags viraux.' },
   x: { name: 'X (Twitter)', color: 'var(--color-x)', icon: '🐦', desc: 'Publication directe de tweets et threads découpés automatiquement.' },
   linkedin: { name: 'LinkedIn', color: 'var(--color-linkedin)', icon: '💼', desc: 'Diffusion B2B, formats aérés et carrousels PDF.' },
   facebook: { name: 'Facebook', color: 'var(--color-facebook)', icon: '👥', desc: 'Pages professionnelles, groupes communautaires et liens.' },

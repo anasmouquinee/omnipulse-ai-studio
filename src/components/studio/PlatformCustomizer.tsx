@@ -12,6 +12,7 @@ interface PlatformCustomizerProps {
 const CHAR_LIMITS: Record<SocialPlatform, number> = {
   tiktok: 2200,
   instagram: 2200,
+  youtube: 5000,
   x: 280,
   linkedin: 3000,
   facebook: 63206,
@@ -20,6 +21,7 @@ const CHAR_LIMITS: Record<SocialPlatform, number> = {
 const PLATFORMS: { key: SocialPlatform; label: string; icon: string }[] = [
   { key: 'tiktok', label: 'TikTok', icon: '🎵' },
   { key: 'instagram', label: 'Instagram', icon: '📸' },
+  { key: 'youtube', label: 'YouTube Shorts', icon: '🔴' },
   { key: 'x', label: 'X (Twitter)', icon: '🐦' },
   { key: 'linkedin', label: 'LinkedIn', icon: '💼' },
   { key: 'facebook', label: 'Facebook', icon: '👥' },

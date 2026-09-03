@@ -173,7 +173,6 @@ export const IslamicViralTagsService = {
     const categoryTags = ISLAMIC_VIRAL_TAG_TAXONOMY[category] || ISLAMIC_VIRAL_TAG_TAXONOMY.quran_verse;
     categoryTags.slice(0, 4).forEach(t => selectedTags.add(t));
 
-    // 3. Add Platform Specific FYP Hooks
     if (platform === 'tiktok' || platform === 'all') {
       selectedTags.add('#muslimtiktok');
       selectedTags.add('#fyp');
@@ -182,6 +181,11 @@ export const IslamicViralTagsService = {
     if (platform === 'instagram' || platform === 'all') {
       selectedTags.add('#islamicreels');
       selectedTags.add('#explorepage');
+    }
+    if (platform === 'youtube' || platform === 'all') {
+      selectedTags.add('#Shorts');
+      selectedTags.add('#YouTubeShorts');
+      selectedTags.add('#Trending');
     }
 
     // 4. Add Language-Specific Regional Boosters

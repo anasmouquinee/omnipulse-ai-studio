@@ -27,6 +27,7 @@ export const PostCard: React.FC<PostCardProps> = ({
     switch (platform) {
       case 'tiktok': return '🎵';
       case 'instagram': return '📸';
+      case 'youtube': return '🔴';
       case 'x': return '🐦';
       case 'linkedin': return '💼';
       case 'facebook': return '👥';

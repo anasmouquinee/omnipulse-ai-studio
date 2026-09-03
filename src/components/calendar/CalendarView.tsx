@@ -121,6 +121,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
             <option value="all">Tous les Réseaux</option>
             <option value="tiktok">TikTok 🎵</option>
             <option value="instagram">Instagram 📸</option>
+            <option value="youtube">YouTube Shorts 🔴</option>
             <option value="x">X (Twitter) 🐦</option>
             <option value="linkedin">LinkedIn 💼</option>
             <option value="facebook">Facebook 👥</option>

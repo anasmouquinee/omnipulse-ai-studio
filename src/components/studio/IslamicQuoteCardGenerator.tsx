@@ -346,18 +346,18 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         (p) => setVideoProgress(p)
       );
 
-      onShowToast('info', '📡 2/2 Envoi du Reel vers Instagram (@kaelarislamic) & TikTok (@mdou.g)...');
+      onShowToast('info', '📡 2/2 Envoi du Reel vers Instagram (@kaelarislamic), TikTok (@mdou.g) & YouTube Shorts (@kaelar.islamics)...');
 
       // 2. Upload video blob to public high-availability CDN
       const publicVideoUrl = await VideoGenerator.uploadVideoToCDN(videoBlob);
 
-      // 3. Dispatch to Buffer for Instagram Reel & TikTok
+      // 3. Dispatch to Buffer for Instagram Reel, TikTok & YouTube Shorts
       const scheduled = IslamicContentService.convertToScheduledPost(
         currentItem,
         selectedLanguage,
         renderedCardUrl
       );
-      scheduled.platforms = ['instagram', 'tiktok'];
+      scheduled.platforms = ['instagram', 'tiktok', 'youtube'];
       scheduled.media = {
         id: `med-video-${Date.now()}`,
         type: 'video',
@@ -382,7 +382,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         renderedCardUrl,
         publicVideoUrl,
         'reel',
-        ['instagram', 'tiktok']
+        ['instagram', 'tiktok', 'youtube']
       );
 
       // Trigger Discord Webhook Notification
@@ -390,20 +390,21 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         title: `Nouveau Reel Islamique Publié : ${currentItem.source.bookOrSurah}`,
         description: `${currentItem.arabicText}\n\n*${currentItem.translationFr}*\n\n📍 ${currentItem.source.bookOrSurah} — ${currentItem.source.numberOrAyah}`,
         videoUrl: publicVideoUrl,
-        platforms: ['instagram', 'tiktok']
+        platforms: ['instagram', 'tiktok', 'youtube']
       });
 
       const latestLogs = StorageService.getPublishLogs();
       const instaLog = latestLogs.find(l => l.platform === 'instagram' && l.postId === scheduled.id);
       const tiktokLog = latestLogs.find(l => l.platform === 'tiktok' && l.postId === scheduled.id);
+      const ytLog = latestLogs.find(l => l.platform === 'youtube' && l.postId === scheduled.id);
 
-      if (instaLog?.status === 'success' || tiktokLog?.status === 'success') {
-        onShowToast('success', '✨ Vidéo Reel avec récitation audio publiée en direct sur Instagram & TikTok !');
-      } else if (instaLog?.status === 'failed' || tiktokLog?.status === 'failed') {
-        const msg = instaLog?.responseMessage || tiktokLog?.responseMessage || 'Erreur lors de la publication.';
+      if (instaLog?.status === 'success' || tiktokLog?.status === 'success' || ytLog?.status === 'success') {
+        onShowToast('success', '✨ Vidéo Reel publiée en direct sur Instagram, TikTok & YouTube Shorts !');
+      } else if (instaLog?.status === 'failed' && tiktokLog?.status === 'failed' && ytLog?.status === 'failed') {
+        const msg = instaLog?.responseMessage || tiktokLog?.responseMessage || ytLog?.responseMessage || 'Erreur lors de la publication.';
         onShowToast('error', msg);
       } else {
-        onShowToast('success', '✨ Vidéo Reel transmise à Buffer pour Instagram et TikTok !');
+        onShowToast('success', '✨ Vidéo Reel transmise à Buffer pour Instagram, TikTok & YouTube Shorts !');
       }
     } catch (err: any) {
       console.warn('Reel publish error:', err);
@@ -1044,7 +1045,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
               ) : (
                 <>
                   <Send size={18} />
-                  <span>🎬🚀 Publier Vidéo Reel sur Instagram & TikTok (avec Audio)</span>
+                  <span>🎬🚀 Publier Vidéo sur Instagram, TikTok & YouTube Shorts (avec Audio)</span>
                 </>
               )}
             </button>

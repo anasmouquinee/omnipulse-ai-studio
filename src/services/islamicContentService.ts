@@ -480,7 +480,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     preferredLanguage: IslamicLanguage = 'all',
     customImageUrl?: string
   ): ScheduledPost {
-    const platforms: SocialPlatform[] = ['tiktok', 'instagram', 'x', 'facebook', 'linkedin'];
+    const platforms: SocialPlatform[] = ['tiktok', 'instagram', 'youtube', 'x', 'facebook', 'linkedin'];
 
     const platformContent: any = {};
     platforms.forEach(p => {
