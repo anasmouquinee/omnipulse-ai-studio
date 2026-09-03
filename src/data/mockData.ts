@@ -40,6 +40,17 @@ export const INITIAL_ACCOUNTS: SocialAccount[] = [
     accountType: 'buffer'
   },
   {
+    id: '6a999279065799be467f1f35',
+    platform: 'youtube',
+    username: '@kaelar.islamics',
+    displayName: 'kaelar.islamics (YouTube Shorts)',
+    avatarUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?w=150&auto=format&fit=crop&q=80',
+    connected: true,
+    followerCount: 0,
+    lastSync: new Date().toISOString(),
+    accountType: 'buffer'
+  },
+  {
     id: 'acc-x-1',
     platform: 'x',
     username: '@omnipulse_app',

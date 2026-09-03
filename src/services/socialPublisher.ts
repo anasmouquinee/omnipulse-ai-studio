@@ -45,6 +45,7 @@ export const BEST_POSTING_TIMES: Record<SocialPlatform, BestTimeSlot[]> = {
 const BUFFER_CHANNEL_MAP: Partial<Record<SocialPlatform, string>> = {
   instagram: '6a8f4ce9ccaf649a672154f6', // kaelarislamic
   tiktok: '6a8f4dcfccaf649a672158cf',    // mdou.g
+  youtube: '6a999279065799be467f1f35',   // kaelar.islamics (YouTube Shorts)
 };
 
 // Helper to upload base64 canvas card to get direct public URL for Buffer
