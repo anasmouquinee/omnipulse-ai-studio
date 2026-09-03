@@ -1,6 +1,6 @@
 {
-  "currentIndex": 1,
-  "lastRunAt": "2026-09-03T06:07:44.796Z",
+  "currentIndex": 2,
+  "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
       "timestamp": "2026-08-27T01:14:07.316Z",
@@ -91,6 +91,13 @@
       "bookOrSurah": "Sourate Ar-Ra'd (Le Tonnerre)",
       "contentHash": "ألا بذكر الله تطمئن القلوب",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788415663/hcnm0nbt9zjekh5pqfnq.mp4"
+    },
+    {
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "bookOrSurah": "Sahih Muslim",
+      "contentHash": "الصلوات الخمس، والجمعة إلى الج",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788437173/vvcdimvk21b9yjavewxq.mp4"
     }
   ]
 }
