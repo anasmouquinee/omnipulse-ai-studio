@@ -264,8 +264,31 @@ function uploadToCloudinary(filePath) {
   });
 }
 
-// Helper: Publish to Buffer
+// Helper: Sleep utility
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Track Buffer API rate-limit state across calls in the current run
+const bufferRateLimitState = {
+  isLimited: false,
+  message: '',
+  retryAfterSeconds: 0
+};
+
+// Helper: Publish to Buffer with Rate-Limiting & Quota Guard
 function publishToBuffer(channelId, text, videoUrl, platform = 'general', title = '') {
+  // If we already detected Buffer 429 / quota limit in this run, do not make further HTTP requests
+  if (bufferRateLimitState.isLimited) {
+    const hoursLeft = Math.ceil(bufferRateLimitState.retryAfterSeconds / 3600);
+    console.warn(`⏸️ Buffer API in rate-limit cooldown (~${hoursLeft}h remaining). Skipping dispatch for ${platform} to protect account.`);
+    return Promise.resolve({
+      success: false,
+      isRateLimited: true,
+      code: 'RATE_LIMIT_EXCEEDED',
+      retryAfter: bufferRateLimitState.retryAfterSeconds,
+      error: bufferRateLimitState.message || 'Buffer 24h quota limit reached (250 req/day)'
+    });
+  }
+
   return new Promise((resolve, reject) => {
     const mutation = `
       mutation CreatePost($input: CreatePostInput!) {
@@ -346,15 +369,38 @@ function publishToBuffer(channelId, text, videoUrl, platform = 'general', title 
       res.on('data', chunk => body += chunk);
       res.on('end', () => {
         try {
+          const isRateLimitHttp = res.statusCode === 429;
+          const retryAfterHeader = res.headers['retry-after'];
+          const retryAfterSec = retryAfterHeader ? parseInt(retryAfterHeader, 10) : 43200; // default 12h fallback
+
           const json = JSON.parse(body);
+
           if (json.data?.createPost?.post) {
             resolve(json.data.createPost.post);
           } else if (json.errors && json.errors.length > 0) {
-            const errCode = json.errors[0]?.extensions?.code || 'ERROR';
+            const errCode = json.errors[0]?.extensions?.code || (isRateLimitHttp ? 'RATE_LIMIT_EXCEEDED' : 'ERROR');
             const errMsg = json.errors[0]?.message || 'Unknown Buffer error';
+
+            if (isRateLimitHttp || errCode === 'RATE_LIMIT_EXCEEDED' || errMsg.toLowerCase().includes('too many requests')) {
+              bufferRateLimitState.isLimited = true;
+              bufferRateLimitState.message = errMsg;
+              bufferRateLimitState.retryAfterSeconds = retryAfterSec;
+              console.warn(`🛑 Buffer Quota Exceeded [${errCode}]: ${errMsg} (Retry-after: ~${Math.ceil(retryAfterSec / 3600)}h).`);
+              resolve({ success: false, error: errMsg, code: 'RATE_LIMIT_EXCEEDED', isRateLimited: true, retryAfter: retryAfterSec });
+              return;
+            }
+
             console.warn(`⚠️ Buffer API [${errCode}]: ${errMsg}`);
             resolve({ success: false, error: errMsg, code: errCode });
           } else {
+            if (isRateLimitHttp) {
+              bufferRateLimitState.isLimited = true;
+              bufferRateLimitState.message = 'Too many requests (HTTP 429)';
+              bufferRateLimitState.retryAfterSeconds = retryAfterSec;
+              console.warn(`🛑 Buffer API HTTP 429: Too Many Requests (Retry-after: ~${Math.ceil(retryAfterSec / 3600)}h).`);
+              resolve({ success: false, error: 'Too many requests', code: 'RATE_LIMIT_EXCEEDED', isRateLimited: true, retryAfter: retryAfterSec });
+              return;
+            }
             console.warn(`Buffer Response for ${channelId}:`, body);
             resolve({ success: false, error: 'Unexpected response format', raw: json });
           }
@@ -403,7 +449,12 @@ function sendDiscordNotification(item, theme, publicVideoUrl) {
             name: '🎬 Lien Direct Vidéo Reel HD',
             value: `[Cliquer ici pour regarder le Reel MP4](${publicVideoUrl})`,
             inline: false
-          }
+          },
+          ...(bufferRateLimitState.isLimited ? [{
+            name: '⚠️ Statut Quota Buffer API',
+            value: `Quota Buffer 24h atteint (250 req/jour). Le Reel vidéo a été généré & hébergé sur Cloudinary avec succès. Publication Buffer en pause jusqu'à la réinitialisation (~${Math.ceil(bufferRateLimitState.retryAfterSeconds / 3600)}h).`,
+            inline: false
+          }] : [])
         ],
         timestamp: new Date().toISOString(),
         footer: {
@@ -840,12 +891,12 @@ async function runCloudAutoPilot() {
     }
     try {
       // High-retention cinematic video: smooth slow zoom + real-time audio waveform overlay
-      const cinematicCmd = `ffmpeg -y -loop 1 -framerate 30 -i "${pngPath}" -i "${audioPath}" -filter_complex "[0:v]scale=1144:2034,zoompan=z='min(zoom+0.0005,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30[vbg];[1:a]showwaves=s=880x90:mode=line:colors=0xfbbf24@0.85[waves];[vbg][waves]overlay=(W-w)/2:H-220:shortest=1[vout]" -map "[vout]" -map 1:a -c:v libx264 -preset fast -profile:v high -level 4.1 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
+      const cinematicCmd = `ffmpeg -y -loop 1 -framerate 30 -i "${pngPath}" -i "${audioPath}" -filter_complex "[0:v]scale=1144:2034,zoompan=z='min(zoom+0.0005,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30[vbg];[1:a]showwaves=s=880x90:mode=line:colors=0xfbbf24@0.85[waves];[vbg][waves]overlay=(W-w)/2:H-220:shortest=1[vout]" -map "[vout]" -map 1:a -c:v libx264 -preset veryfast -profile:v high -level 4.1 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
       execSync(cinematicCmd, { stdio: 'inherit' });
       console.log('✨ Video encoded with Ken Burns zoom & audio waveform visualizer!');
     } catch {
       console.log('⚠️ Falling back to standard FFmpeg profile...');
-      const fallbackCmd = `ffmpeg -y -framerate 30 -loop 1 -i "${pngPath}" -i "${audioPath}" -c:v libx264 -preset fast -profile:v high -level 4.1 -r 30 -g 60 -keyint_min 30 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
+      const fallbackCmd = `ffmpeg -y -framerate 30 -loop 1 -i "${pngPath}" -i "${audioPath}" -c:v libx264 -preset veryfast -profile:v high -level 4.1 -r 30 -g 60 -keyint_min 30 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
       execSync(fallbackCmd, { stdio: 'inherit' });
     }
   } catch (err) {
@@ -868,11 +919,14 @@ async function runCloudAutoPilot() {
   const ttCaption = `${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${ttTags}`;
   const ytCaption = `${item.bookOrSurah} — ${item.numberOrAyah} 🕋\n\n${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n${ytTags}`;
 
+  // 6a. Publish to Instagram Reel
   try {
     console.log('📤 Publishing to Instagram Reel (@kaelarislamic) with Viral Tags...');
     const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, publicVideoUrl, 'instagram', `${item.bookOrSurah} — ${item.numberOrAyah}`);
     if (igRes?.status || igRes?.id) {
       console.log('✅ Instagram publication queued successfully in Buffer!');
+    } else if (igRes?.isRateLimited) {
+      console.warn(`🛑 Instagram Buffer rate-limited: ${igRes?.error || 'Rate limit reached'}`);
     } else {
       console.warn(`⚠️ Instagram Buffer issue: ${igRes?.error || igRes?.message || 'Non-fatal'}`);
     }
@@ -880,13 +934,26 @@ async function runCloudAutoPilot() {
     console.warn('⚠️ Instagram publication notice:', err.message);
   }
 
+  // Inter-platform throttle delay (5s) to avoid Buffer burst limits
+  if (!bufferRateLimitState.isLimited) {
+    console.log('⏳ Throttling: waiting 5 seconds before next platform dispatch...');
+    await sleep(5000);
+  }
+
+  // 6b. Publish to TikTok
   try {
-    console.log('📤 Publishing to TikTok (@mdou.g) with FYP Booster Tags...');
-    const ttRes = await publishToBuffer(TIKTOK_CHANNEL_ID, ttCaption, publicVideoUrl, 'tiktok', `${item.bookOrSurah} — ${item.numberOrAyah}`);
-    if (ttRes?.status || ttRes?.id) {
-      console.log('✅ TikTok publication queued successfully in Buffer!');
+    if (bufferRateLimitState.isLimited) {
+      console.log('⏸️ Skipping TikTok Buffer dispatch (Buffer API 24h rate limit active).');
     } else {
-      console.warn(`⚠️ TikTok Buffer issue: ${ttRes?.error || ttRes?.message || 'Non-fatal'}`);
+      console.log('📤 Publishing to TikTok (@mdou.g) with FYP Booster Tags...');
+      const ttRes = await publishToBuffer(TIKTOK_CHANNEL_ID, ttCaption, publicVideoUrl, 'tiktok', `${item.bookOrSurah} — ${item.numberOrAyah}`);
+      if (ttRes?.status || ttRes?.id) {
+        console.log('✅ TikTok publication queued successfully in Buffer!');
+      } else if (ttRes?.isRateLimited) {
+        console.warn(`🛑 TikTok Buffer rate-limited: ${ttRes?.error || 'Rate limit reached'}`);
+      } else {
+        console.warn(`⚠️ TikTok Buffer issue: ${ttRes?.error || ttRes?.message || 'Non-fatal'}`);
+      }
     }
   } catch (err) {
     console.warn('⚠️ TikTok publication notice:', err.message);
@@ -894,14 +961,24 @@ async function runCloudAutoPilot() {
 
   // 6c. Optional: Publish to YouTube Shorts
   if (YOUTUBE_CHANNEL_ID && YOUTUBE_CHANNEL_ID.trim() !== '') {
+    if (!bufferRateLimitState.isLimited) {
+      console.log('⏳ Throttling: waiting 5 seconds before YouTube Shorts dispatch...');
+      await sleep(5000);
+    }
     try {
-      console.log('📤 Publishing to YouTube Shorts (#Shorts) via Buffer...');
-      const ytTitle = `${item.bookOrSurah} — ${item.numberOrAyah} #Shorts`;
-      const ytRes = await publishToBuffer(YOUTUBE_CHANNEL_ID.trim(), ytCaption, publicVideoUrl, 'youtube', ytTitle);
-      if (ytRes?.status || ytRes?.id) {
-        console.log('✅ YouTube Shorts publication queued successfully in Buffer!');
+      if (bufferRateLimitState.isLimited) {
+        console.log('⏸️ Skipping YouTube Shorts Buffer dispatch (Buffer API 24h rate limit active).');
       } else {
-        console.warn(`⚠️ YouTube Buffer issue: ${ytRes?.error || ytRes?.message || 'Non-fatal'}`);
+        console.log('📤 Publishing to YouTube Shorts (#Shorts) via Buffer...');
+        const ytTitle = `${item.bookOrSurah} — ${item.numberOrAyah} #Shorts`;
+        const ytRes = await publishToBuffer(YOUTUBE_CHANNEL_ID.trim(), ytCaption, publicVideoUrl, 'youtube', ytTitle);
+        if (ytRes?.status || ytRes?.id) {
+          console.log('✅ YouTube Shorts publication queued successfully in Buffer!');
+        } else if (ytRes?.isRateLimited) {
+          console.warn(`🛑 YouTube Buffer rate-limited: ${ytRes?.error || 'Rate limit reached'}`);
+        } else {
+          console.warn(`⚠️ YouTube Buffer issue: ${ytRes?.error || ytRes?.message || 'Non-fatal'}`);
+        }
       }
     } catch (err) {
       console.warn('⚠️ YouTube Shorts publication notice:', err.message);

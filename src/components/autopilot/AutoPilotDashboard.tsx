@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AutoPilotService, AUTOPILOT_THEMES } from '../../services/autoPilotService';
+import { getBufferRateLimitStatus } from '../../services/socialPublisher';
 import type { AutoPilotConfig, AutoPilotLog, AutoPilotTheme } from '../../services/autoPilotService';
 import { 
   Sparkles, 
@@ -34,9 +35,13 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
     return unsub;
   }, []);
 
-  // Live countdown timer
+  const [bufferRateLimit, setBufferRateLimit] = useState(() => getBufferRateLimitStatus());
+
+  // Live countdown timer & Buffer rate-limit monitor
   useEffect(() => {
     const updateCountdown = () => {
+      setBufferRateLimit(getBufferRateLimitStatus());
+
       if (!config.isEnabled || !config.nextRunAt) {
         setTimeRemainingStr('En pause');
         return;
@@ -196,6 +201,46 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
           </div>
         </div>
       </div>
+
+      {/* Buffer Rate Limit Guard Banner */}
+      {bufferRateLimit.isLimited && (
+        <div style={{
+          background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(180, 83, 9, 0.1) 100%)',
+          border: '1px solid rgba(245, 158, 11, 0.4)',
+          borderRadius: 'var(--radius-lg)',
+          padding: '1.25rem 1.5rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          flexWrap: 'wrap',
+          gap: '1rem',
+          boxShadow: '0 8px 25px -5px rgba(245, 158, 11, 0.15)'
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+            <span style={{ fontSize: '1.85rem' }}>⏳</span>
+            <div>
+              <div style={{ fontWeight: 800, color: '#fef08a', fontSize: '1.05rem', marginBottom: '0.25rem' }}>
+                Quota Quotidien Buffer API en Pause de Sécurité (250 req/jour)
+              </div>
+              <div style={{ color: '#cbd5e1', fontSize: '0.875rem', lineHeight: 1.45, maxWidth: '680px' }}>
+                La limite quotidienne de l'API Buffer est atteinte. L'Auto-Pilot a activé la pause de sécurité pour protéger vos comptes Instagram et TikTok contre tout blocage. La publication reprendra automatiquement dès réinitialisation.
+              </div>
+            </div>
+          </div>
+          <div style={{
+            background: 'rgba(0, 0, 0, 0.45)',
+            border: '1px solid rgba(245, 158, 11, 0.35)',
+            borderRadius: '10px',
+            padding: '0.6rem 1.2rem',
+            textAlign: 'center'
+          }}>
+            <div style={{ fontSize: '0.7rem', color: '#fcd34d', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}>Réinitialisation dans</div>
+            <div style={{ fontSize: '1.15rem', fontWeight: 800, color: '#ffffff' }}>
+              ~{Math.ceil(bufferRateLimit.remainingMs / (1000 * 60 * 60))} heures
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* KPI Cards Grid */}
       <div style={{

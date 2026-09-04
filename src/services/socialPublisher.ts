@@ -92,6 +92,46 @@ async function uploadBase64Image(dataUri: string): Promise<string | null> {
   return null;
 }
 
+const BUFFER_RATE_LIMIT_KEY = 'omnipulse_buffer_rate_limited_until';
+
+export interface BufferRateLimitInfo {
+  isLimited: boolean;
+  remainingMs: number;
+  resetAt: Date | null;
+  message: string;
+}
+
+export function getBufferRateLimitStatus(): BufferRateLimitInfo {
+  try {
+    const raw = typeof window !== 'undefined' ? localStorage.getItem(BUFFER_RATE_LIMIT_KEY) : null;
+    if (!raw) return { isLimited: false, remainingMs: 0, resetAt: null, message: '' };
+    const resetTime = parseInt(raw, 10);
+    const now = Date.now();
+    if (now < resetTime) {
+      const remainingMs = resetTime - now;
+      const hours = Math.ceil(remainingMs / (1000 * 60 * 60));
+      return {
+        isLimited: true,
+        remainingMs,
+        resetAt: new Date(resetTime),
+        message: `Quota Buffer 24h atteint (250 requêtes/jour). Prochaine réinitialisation dans ~${hours}h.`
+      };
+    } else {
+      localStorage.removeItem(BUFFER_RATE_LIMIT_KEY);
+    }
+  } catch {}
+  return { isLimited: false, remainingMs: 0, resetAt: null, message: '' };
+}
+
+export function setBufferRateLimited(retryAfterSeconds: number = 43200, message?: string) {
+  try {
+    if (typeof window !== 'undefined') {
+      const resetTime = Date.now() + (retryAfterSeconds * 1000);
+      localStorage.setItem(BUFFER_RATE_LIMIT_KEY, resetTime.toString());
+    }
+  } catch {}
+}
+
 export const SocialPublisher = {
   /**
    * Publishes a post across all selected platforms via Buffer GraphQL API or Webhook Bridge.
@@ -105,6 +145,8 @@ export const SocialPublisher = {
     const accounts = StorageService.getAccounts();
     const bufferToken = bridgeConfig.bufferAccessToken?.trim();
 
+    let bufferRateLimitedInBatch = false;
+
     // Iterate through all platforms targeted by this post
     for (const platform of post.platforms) {
       const platformData = post.platformContent[platform];
@@ -113,6 +155,21 @@ export const SocialPublisher = {
 
       // 1. Direct Buffer GraphQL publishing if token configured and platform is on Buffer (Instagram, TikTok, YouTube)
       if (bufferToken && (platform === 'instagram' || platform === 'tiktok' || platform === 'youtube')) {
+        const rateLimitStatus = getBufferRateLimitStatus();
+        if (rateLimitStatus.isLimited || bufferRateLimitedInBatch) {
+          const log: PublishLog = {
+            id: `log-${Date.now()}-${platform}`,
+            postId: post.id,
+            platform,
+            timestamp: new Date().toISOString(),
+            status: 'failed',
+            responseMessage: `⏸️ Buffer ${platform}: En pause (quota API 24h atteint : 250 req/jour). Cooldown de protection actif.`,
+            httpStatus: 429
+          };
+          StorageService.addPublishLog(log);
+          continue;
+        }
+
         const channelId = (platform === 'youtube' ? bridgeConfig.bufferYoutubeChannelId : BUFFER_CHANNEL_MAP[platform]) || account?.id;
         try {
           const mutationQuery = `
@@ -289,6 +346,31 @@ export const SocialPublisher = {
           const result = await res.json();
           const createdPost = result.data?.createPost?.post;
           const errorMsg = result.data?.createPost?.message || result.errors?.[0]?.message;
+
+          const isRateLimit = res.status === 429 || 
+                              result.errors?.[0]?.extensions?.code === 'RATE_LIMIT_EXCEEDED' ||
+                              (errorMsg && errorMsg.toLowerCase().includes('too many requests'));
+
+          if (isRateLimit) {
+            bufferRateLimitedInBatch = true;
+            const retryHeader = res.headers.get('retry-after');
+            const retrySec = retryHeader ? parseInt(retryHeader, 10) : 43200;
+            setBufferRateLimited(retrySec, errorMsg);
+            const hoursLeft = Math.ceil(retrySec / 3600);
+
+            const log: PublishLog = {
+              id: `log-${Date.now()}-${platform}`,
+              postId: post.id,
+              platform,
+              timestamp: new Date().toISOString(),
+              status: 'failed',
+              responseMessage: `🛑 Quota Buffer 24h atteint (250 requêtes/jour). Pause automatique activée (~${hoursLeft}h d'attente requises).`,
+              httpStatus: 429
+            };
+            StorageService.addPublishLog(log);
+            continue;
+          }
+
           const isSuccess = !!createdPost?.id && res.ok;
 
           const log: PublishLog = {
@@ -303,6 +385,9 @@ export const SocialPublisher = {
             httpStatus: res.status
           };
           StorageService.addPublishLog(log);
+
+          // Stagger calls by 2.5 seconds to prevent burst rate limits
+          await new Promise(r => setTimeout(r, 2500));
           continue;
         } catch (err: any) {
           console.warn(`Buffer GraphQL direct dispatch error for ${platform}:`, err);

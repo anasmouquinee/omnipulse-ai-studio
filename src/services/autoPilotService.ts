@@ -7,7 +7,7 @@
 import { IslamicContentService } from './islamicContentService';
 import { IslamicLibraryService } from './islamicLibraryService';
 import { VideoGenerator } from './videoGenerator';
-import { SocialPublisher } from './socialPublisher';
+import { SocialPublisher, getBufferRateLimitStatus } from './socialPublisher';
 import type { IslamicContentType } from '../types/islamic';
 
 const AUTOPILOT_STORAGE_KEY = 'omnipulse_autopilot_config';
@@ -190,6 +190,24 @@ class AutoPilotServiceClass {
       };
     }
 
+    // 0. Safety Guard: Check if Buffer is in 24h rate-limit cooldown
+    const rateLimit = getBufferRateLimitStatus();
+    if (rateLimit.isLimited) {
+      const hoursLeft = Math.ceil(rateLimit.remainingMs / (1000 * 60 * 60));
+      return {
+        success: false,
+        message: `⚠️ Quota Buffer API 24h atteint (250 req/jour). Prochaine réinitialisation dans ~${hoursLeft}h. Le cycle est mis en pause de sécurité pour éviter tout blocage.`,
+        log: {
+          id: `log-${Date.now()}`,
+          timestamp: new Date().toISOString(),
+          themeTitle: currentTheme.title,
+          type: currentTheme.category,
+          status: 'failed',
+          message: rateLimit.message
+        }
+      };
+    }
+
     this.isProcessing = true;
     const currentTheme = this.getNextRecommendedTheme();
     const startTime = new Date().toISOString();
@@ -293,6 +311,16 @@ class AutoPilotServiceClass {
       log.message = `Échec Auto-Pilot: ${err.message || 'Erreur inconnue'}`;
 
       const config = this.getConfig();
+
+      // Safety Backoff: NEVER leave nextRunAt in the past, preventing runaway 15s retry loops!
+      const currentRateLimit = getBufferRateLimitStatus();
+      let cooldownMs = 60 * 60 * 1000; // minimum 1 hour backoff on general failure
+      if (currentRateLimit.isLimited) {
+        cooldownMs = Math.max(currentRateLimit.remainingMs, 2 * 3600 * 1000);
+        log.message += ` (Pause de sécurité Buffer: ${currentRateLimit.message})`;
+      }
+
+      config.nextRunAt = new Date(Date.now() + cooldownMs).toISOString();
       config.logs = [log, ...(config.logs || [])].slice(0, 50);
       this.saveConfig(config);
 
@@ -389,6 +417,10 @@ class AutoPilotServiceClass {
       const config = this.getConfig();
       if (!config.isEnabled || !config.nextRunAt) return;
 
+      // Skip tick if Buffer API is in rate-limit cooldown
+      const rateLimit = getBufferRateLimitStatus();
+      if (rateLimit.isLimited) return;
+
       const now = Date.now();
       const nextRun = new Date(config.nextRunAt).getTime();
 
@@ -396,7 +428,7 @@ class AutoPilotServiceClass {
         console.log('⏰ AutoPilot trigger time reached. Executing cycle...');
         await this.executeCycle();
       }
-    }, 15000); // check every 15s
+    }, 60000); // check once every 60s
   }
 }
 

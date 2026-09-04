@@ -34,6 +34,15 @@ export default async function handler(req, res) {
     });
 
     const data = await bufferRes.json();
+    
+    // Forward rate-limiting and retry headers if present
+    const retryAfter = bufferRes.headers.get('retry-after');
+    if (retryAfter) res.setHeader('Retry-After', retryAfter);
+    const rateLimitPolicy = bufferRes.headers.get('ratelimit-policy');
+    if (rateLimitPolicy) res.setHeader('ratelimit-policy', rateLimitPolicy);
+    const rateLimit = bufferRes.headers.get('ratelimit');
+    if (rateLimit) res.setHeader('ratelimit', rateLimit);
+
     return res.status(bufferRes.status).json(data);
   } catch (err) {
     console.error('Buffer proxy error:', err);
