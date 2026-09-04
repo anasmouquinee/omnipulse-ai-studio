@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -118,6 +118,29 @@
       "platforms": [
         "instagram",
         "tiktok"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788545093860",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "bookOrSurah": "Sourate Al-Jumu'a (سُورَةُ الجُمُعَةِ)",
+      "numberOrAyah": "Verset 10",
+      "surahNumber": 62,
+      "ayahNumber": 10,
+      "arabicText": "فَإِذَا قُضِيَتِ ٱلصَّلَوٰةُ فَٱنتَشِرُوا۟ فِى ٱلْأَرْضِ وَٱبْتَغُوا۟ مِن فَضْلِ ٱللَّهِ وَٱذْكُرُوا۟ ٱللَّهَ كَثِيرًۭا لَّعَلَّكُمْ تُفْلِحُونَ",
+      "translationFr": "« Puis quand la Salât est achevée, dispersez-vous sur terre et recherchez [quelque effet] de la grâce d'Allah, et invoquez beaucoup Allah afin que vous réussissiez. »",
+      "translationEn": "\"And when the prayer has been concluded, disperse within the land and seek from the bounty of Allah, and remember Allah often that you may succeed.\"",
+      "contentHash": "فإذا قضيت ٱلصلوة فٱنتشروا۟ فى ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5187.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788545092/aqubds6qb9kmobd4x200.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788545092/aqubds6qb9kmobd4x200.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
     }
