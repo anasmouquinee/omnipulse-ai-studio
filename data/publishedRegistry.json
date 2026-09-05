@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -206,6 +206,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4914.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788609914/yrzitki4wgpube52i1td.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788609914/yrzitki4wgpube52i1td.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788631539974",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "bookOrSurah": "Sourate Ar-Ra'd (سُورَةُ الرَّعۡدِ)",
+      "numberOrAyah": "Verset 28",
+      "surahNumber": 13,
+      "ayahNumber": 28,
+      "arabicText": "ٱلَّذِينَ ءَامَنُوا۟ وَتَطْمَئِنُّ قُلُوبُهُم بِذِكْرِ ٱللَّهِ ۗ أَلَا بِذِكْرِ ٱللَّهِ تَطْمَئِنُّ ٱلْقُلُوبُ",
+      "translationFr": "« ceux qui ont cru, et dont les cœurs se tranquillisent à l'évocation d'Allah». Certes, c'est par l'évocation d'Allah que les cœurs se tranquillisent. »",
+      "translationEn": "\"Those who have believed and whose hearts are assured by the remembrance of Allah. Unquestionably, by the remembrance of Allah hearts are assured.\"",
+      "contentHash": "ٱلذين ءامنوا۟ وتطمئن قلوبهم بذ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1735.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788631505/ioen8k1eh8latwkqtrsq.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788631505/ioen8k1eh8latwkqtrsq.png",
       "platforms": [
         "instagram",
         "tiktok",
