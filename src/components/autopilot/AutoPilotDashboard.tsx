@@ -279,8 +279,30 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
             </div>
           </div>
 
-          <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '0.75rem' }}>
-            {config.lastRunAt ? `Dernière exécution : ${new Date(config.lastRunAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}` : 'Aucune publication automatique récente'}
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginTop: '0.75rem', gap: '0.5rem', flexWrap: 'wrap' }}>
+            <div style={{ fontSize: '0.78rem', color: '#94a3b8' }}>
+              {config.lastRunAt ? `Dernière exécution : ${new Date(config.lastRunAt).toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' })}` : 'Aucune publication automatique récente'}
+            </div>
+            <button
+              onClick={() => {
+                AutoPilotService.resetTimer(config.intervalHours || 6);
+                setConfig(AutoPilotService.getConfig());
+                onShowToast('success', `⏱️ Compte à rebours réinitialisé pour les prochaines ${config.intervalHours || 6} heures.`);
+              }}
+              style={{
+                background: 'rgba(255, 255, 255, 0.06)',
+                border: '1px solid rgba(255, 255, 255, 0.12)',
+                color: '#cbd5e1',
+                fontSize: '0.72rem',
+                fontWeight: 600,
+                padding: '0.25rem 0.6rem',
+                borderRadius: 'var(--radius-xs)',
+                cursor: 'pointer'
+              }}
+              title="Réinitialiser le délai pour éviter tout déclenchement prématuré"
+            >
+              🔄 Réinitialiser (6h)
+            </button>
           </div>
         </div>
 

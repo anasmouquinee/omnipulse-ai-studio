@@ -11,6 +11,7 @@ import { SocialPublisher, getBufferRateLimitStatus } from './socialPublisher';
 import type { IslamicContentType } from '../types/islamic';
 
 const AUTOPILOT_STORAGE_KEY = 'omnipulse_autopilot_config';
+const AUTOPILOT_LOCK_KEY = 'omnipulse_autopilot_exec_lock';
 
 export interface AutoPilotTheme {
   id: string;
@@ -109,10 +110,40 @@ class AutoPilotServiceClass {
   private isProcessing: boolean = false;
 
   constructor() {
-    // Start background tick monitor
+    // Start background tick monitor safely in browser
     if (typeof window !== 'undefined') {
       this.initTimer();
     }
+  }
+
+  /**
+   * Acquire a cross-tab execution lock in localStorage
+   * Prevents multiple open tabs from triggering duplicate publications simultaneously.
+   */
+  private acquireLock(): boolean {
+    try {
+      const lock = localStorage.getItem(AUTOPILOT_LOCK_KEY);
+      if (lock) {
+        const timestamp = parseInt(lock, 10);
+        // Active lease valid for 8 minutes max (in case of an unexpected crash)
+        if (Date.now() - timestamp < 8 * 60 * 1000) {
+          return false;
+        }
+      }
+      localStorage.setItem(AUTOPILOT_LOCK_KEY, Date.now().toString());
+      return true;
+    } catch {
+      return true;
+    }
+  }
+
+  /**
+   * Release the cross-tab execution lock
+   */
+  private releaseLock(): void {
+    try {
+      localStorage.removeItem(AUTOPILOT_LOCK_KEY);
+    } catch {}
   }
 
   public getConfig(): AutoPilotConfig {
@@ -120,9 +151,23 @@ class AutoPilotServiceClass {
       const data = localStorage.getItem(AUTOPILOT_STORAGE_KEY);
       if (!data) return DEFAULT_CONFIG;
       const parsed = JSON.parse(data);
+
+      // Strict validation of intervalHours: must be a finite number >= 1
+      const intervalHours = (typeof parsed.intervalHours === 'number' && parsed.intervalHours >= 1 && !isNaN(parsed.intervalHours))
+        ? parsed.intervalHours
+        : 6;
+
+      // Strict validation of nextRunAt: must be a valid ISO date
+      let nextRunAt = parsed.nextRunAt;
+      if (!nextRunAt || isNaN(new Date(nextRunAt).getTime())) {
+        nextRunAt = new Date(Date.now() + intervalHours * 3600 * 1000).toISOString();
+      }
+
       return { 
         ...DEFAULT_CONFIG, 
         ...parsed,
+        intervalHours,
+        nextRunAt,
         currentThemeIndex: typeof parsed.currentThemeIndex === 'number' ? parsed.currentThemeIndex : 0
       };
     } catch {
@@ -170,29 +215,64 @@ class AutoPilotServiceClass {
   }
 
   /**
+   * Reset countdown timer to full interval (default: 6 hours from now)
+   */
+  public resetTimer(hours: number = 6): void {
+    const config = this.getConfig();
+    config.intervalHours = Math.max(hours, 1);
+    config.lastRunAt = new Date().toISOString();
+    config.nextRunAt = new Date(Date.now() + config.intervalHours * 3600 * 1000).toISOString();
+    this.saveConfig(config);
+    this.releaseLock();
+    console.log(`⏱️ AutoPilot timer reset: next publication in ${config.intervalHours} hours.`);
+  }
+
+  /**
    * Run one complete autonomous publication cycle
+   * Protected with anti-berserk cooldowns, cross-tab locks, and immediate pre-scheduling.
    */
   public async executeCycle(
-    onProgress?: (step: string) => void
+    onProgress?: (step: string) => void,
+    isAutomatic: boolean = false
   ): Promise<{ success: boolean; message: string; log: AutoPilotLog }> {
+    const currentTheme = this.getNextRecommendedTheme();
+
+    // 1. In-memory concurrency guard
     if (this.isProcessing) {
       return {
         success: false,
-        message: 'Un cycle de publication est déjà en cours.',
+        message: 'Un cycle de publication est déjà en cours dans cette session.',
         log: {
           id: `log-${Date.now()}`,
           timestamp: new Date().toISOString(),
-          themeTitle: 'Auto-Pilot',
-          type: 'quran_verse',
+          themeTitle: currentTheme.title,
+          type: currentTheme.category,
           status: 'failed',
           message: 'Cycle déjà en cours.'
         }
       };
     }
 
-    // 0. Safety Guard: Check if Buffer is in 24h rate-limit cooldown
+    // 2. Cross-tab concurrency guard
+    if (!this.acquireLock()) {
+      return {
+        success: false,
+        message: 'Un cycle est déjà en cours d’exécution dans un autre onglet.',
+        log: {
+          id: `log-${Date.now()}`,
+          timestamp: new Date().toISOString(),
+          themeTitle: currentTheme.title,
+          type: currentTheme.category,
+          status: 'failed',
+          message: 'Verrou inter-onglets actif.'
+        }
+      };
+    }
+
+    // 3. Safety Guard: Check if Buffer is in 24h rate-limit cooldown
     const rateLimit = getBufferRateLimitStatus();
     if (rateLimit.isLimited) {
+      this.releaseLock();
       const hoursLeft = Math.ceil(rateLimit.remainingMs / (1000 * 60 * 60));
       return {
         success: false,
@@ -208,9 +288,39 @@ class AutoPilotServiceClass {
       };
     }
 
+    // 4. Strict Minimum Cooldown Guard between automatic publications (At least 45 minutes)
+    const config = this.getConfig();
+    const now = Date.now();
+    const lastRunTime = config.lastRunAt ? new Date(config.lastRunAt).getTime() : 0;
+    const minGapMs = Math.max(config.intervalHours * 3600 * 1000, 45 * 60 * 1000);
+
+    if (isAutomatic && lastRunTime > 0 && (now - lastRunTime) < minGapMs) {
+      const waitMin = Math.ceil((minGapMs - (now - lastRunTime)) / 60000);
+      console.warn(`🛡️ Anti-runaway guard: le dernier cycle a eu lieu il y a ${Math.round((now - lastRunTime) / 60000)}m. Repos obligatoire de encore ${waitMin}m.`);
+      config.nextRunAt = new Date(lastRunTime + minGapMs).toISOString();
+      this.saveConfig(config);
+      this.releaseLock();
+      return {
+        success: false,
+        message: `Pause de sécurité active. Prochain créneau dans ${waitMin} min.`,
+        log: {
+          id: `log-${Date.now()}`,
+          timestamp: new Date().toISOString(),
+          themeTitle: currentTheme.title,
+          type: currentTheme.category,
+          status: 'failed',
+          message: `Délai de temporisation non écoulé (${waitMin}m restantes).`
+        }
+      };
+    }
+
     this.isProcessing = true;
-    const currentTheme = this.getNextRecommendedTheme();
     const startTime = new Date().toISOString();
+
+    // 5. CRITICAL: Immediately pre-allocate nextRunAt 6 hours in the future in localStorage
+    // This prevents ANY other tick, reloaded tab, or subscriber from triggering during generation!
+    config.nextRunAt = new Date(now + config.intervalHours * 3600 * 1000).toISOString();
+    this.saveConfig(config);
 
     const log: AutoPilotLog = {
       id: `log-${Date.now()}`,
@@ -296,19 +406,18 @@ class AutoPilotServiceClass {
       });
 
       // 6. Update config & advance theme index to next in line
-      const config = this.getConfig();
-      config.currentThemeIndex = ((config.currentThemeIndex || 0) + 1) % AUTOPILOT_THEMES.length;
-      const nextRun = new Date(Date.now() + config.intervalHours * 3600 * 1000).toISOString();
+      const finalConfig = this.getConfig();
+      finalConfig.currentThemeIndex = ((finalConfig.currentThemeIndex || 0) + 1) % AUTOPILOT_THEMES.length;
+      finalConfig.lastRunAt = startTime;
+      finalConfig.nextRunAt = new Date(Date.now() + finalConfig.intervalHours * 3600 * 1000).toISOString();
       
       log.status = 'success';
-      log.message = `Reel publié avec succès sur Instagram, TikTok & YouTube Shorts : "${selectedItem.source.bookOrSurah}"`;
+      log.message = `Reel publié avec succès sur Instagram & TikTok : "${selectedItem.source.bookOrSurah}"`;
       log.videoUrl = publicVideoUrl;
       log.cardUrl = cardUrl;
 
-      config.lastRunAt = startTime;
-      config.nextRunAt = nextRun;
-      config.logs = [log, ...(config.logs || [])].slice(0, 50);
-      this.saveConfig(config);
+      finalConfig.logs = [log, ...(finalConfig.logs || [])].slice(0, 50);
+      this.saveConfig(finalConfig);
 
       return { success: true, message: log.message, log };
     } catch (err: any) {
@@ -316,31 +425,30 @@ class AutoPilotServiceClass {
       log.status = 'failed';
       log.message = `Échec Auto-Pilot: ${err.message || 'Erreur inconnue'}`;
 
-      const config = this.getConfig();
+      const errorConfig = this.getConfig();
+      errorConfig.currentThemeIndex = ((errorConfig.currentThemeIndex || 0) + 1) % AUTOPILOT_THEMES.length;
 
-      // Advance theme index even on error to guarantee rotation never loops on the same theme!
-      config.currentThemeIndex = ((config.currentThemeIndex || 0) + 1) % AUTOPILOT_THEMES.length;
-
-      // Safety Backoff: NEVER leave nextRunAt in the past, preventing runaway 15s retry loops!
+      // Safety Backoff: NEVER leave nextRunAt in the past
       const currentRateLimit = getBufferRateLimitStatus();
-      let cooldownMs = 60 * 60 * 1000; // minimum 1 hour backoff on general failure
+      let cooldownMs = 60 * 60 * 1000; // minimum 1 hour backoff on failure
       if (currentRateLimit.isLimited) {
         cooldownMs = Math.max(currentRateLimit.remainingMs, 2 * 3600 * 1000);
         log.message += ` (Pause de sécurité Buffer: ${currentRateLimit.message})`;
       }
 
-      config.nextRunAt = new Date(Date.now() + cooldownMs).toISOString();
-      config.logs = [log, ...(config.logs || [])].slice(0, 50);
-      this.saveConfig(config);
+      errorConfig.nextRunAt = new Date(Date.now() + cooldownMs).toISOString();
+      errorConfig.logs = [log, ...(errorConfig.logs || [])].slice(0, 50);
+      this.saveConfig(errorConfig);
 
       return { success: false, message: log.message, log };
     } finally {
       this.isProcessing = false;
+      this.releaseLock();
     }
   }
 
   /**
-   * Helper to render luxury card image (delegates to the official photographic/calligraphy canvas engine)
+   * Helper to render luxury card image
    */
   private async renderCardImage(item: any, referenceText: string): Promise<string> {
     return IslamicContentService.renderQuoteCardCanvas(
@@ -364,10 +472,22 @@ class AutoPilotServiceClass {
 
       const now = Date.now();
       const nextRun = new Date(config.nextRunAt).getTime();
+      const lastRunTime = config.lastRunAt ? new Date(config.lastRunAt).getTime() : 0;
+      const minGapMs = Math.max(config.intervalHours * 3600 * 1000, 45 * 60 * 1000);
 
+      // If last run was too recent, enforce cooldown and shift nextRunAt forward
+      if (lastRunTime > 0 && (now - lastRunTime) < minGapMs) {
+        if (nextRun <= now) {
+          config.nextRunAt = new Date(lastRunTime + minGapMs).toISOString();
+          this.saveConfig(config);
+        }
+        return;
+      }
+
+      // If scheduled time has arrived and no cycle is processing
       if (now >= nextRun && !this.isProcessing) {
-        console.log('⏰ AutoPilot trigger time reached. Executing cycle...');
-        await this.executeCycle();
+        console.log('⏰ AutoPilot trigger time reached. Executing cycle with cooldown locks...');
+        await this.executeCycle(undefined, true);
       }
     }, 60000); // check once every 60s
   }
