@@ -3,7 +3,7 @@ const key = Buffer.from(b64, 'base64').toString();
 const topic = 'kaffarah';
 const category = 'quran_verse';
 
-const prompt = `Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic).
+const prompt = `Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kae.islamic & @kaelar.islamic).
 
 Consigne STRICTE :
 - N'utilise QUE des versets authentiques du Noble Coran ou des Hadiths SAHIH (Bukhari, Muslim) ou des invocations authentiques de Hisn al-Muslim.

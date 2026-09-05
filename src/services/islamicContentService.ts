@@ -371,7 +371,7 @@ export const IslamicContentService = {
 
       try {
         const prompt = `
-Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic).
+Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kae.islamic & @kaelar.islamic).
 
 RÈGLE ABSOLUE POUR LA CATÉGORIE "${category}":
 ${categoryInstructions[category] || categoryInstructions.quran_verse}
@@ -379,7 +379,7 @@ ${categoryInstructions[category] || categoryInstructions.quran_verse}
 Sujet spécifique pour ce rappel : "${searchTopic}".
 
 🚫 RÈGLE STRICTE ANTI-DOUBLONS (INTERDICTION ABSOLUE DE RÉPÉTER) :
-Les textes et hadiths suivants ont DÉJÀ été publiés récemment sur nos réseaux (@kaelarislamic & @mdou.g). Tu as l'INTERDICTION STRICTE de les choisir ou de les citer :
+Les textes et hadiths suivants ont DÉJÀ été publiés récemment sur nos réseaux (@kae.islamic & @kaelar.islamic). Tu as l'INTERDICTION STRICTE de les choisir ou de les citer :
 ${prohibitedItems.map(p => `- ${p}`).join('\n')}
 
 Tu dois OBLIGATOIREMENT choisir un texte ou hadith TOTALEMENT DIFFÉRENT et INÉDIT.
@@ -415,8 +415,8 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     "ar": "تأمل إيماني قصير ومؤثر..."
   },
   "hashtags": {
-    "fr": ["#IslamRappel", "#Coran", "#KaelarIslamic"],
-    "en": ["#QuranQuotes", "#IslamicReminders", "#KaelarIslamic"],
+    "fr": ["#IslamRappel", "#Coran", "#KaeIslamic", "#KaelarIslamic"],
+    "en": ["#QuranQuotes", "#IslamicReminders", "#KaeIslamic", "#KaelarIslamic"],
     "ar": ["#قرآن_كريم", "#حديث_شريف", "#أدعية"]
   }
 }
@@ -597,7 +597,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
           ? `${item.source.bookOrSurah} — ${item.source.numberOrAyah} 🕋 #Shorts`
           : `${item.source.bookOrSurah} — ${item.source.numberOrAyah}`,
         hashtags: viralTags,
-        videoScript: `[Récitation exacte : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}]\n\n1. Calligraphie arabe HD synchronisée avec l'audio.\n2. Traduction française : "${item.translationFr}"\n3. Source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Appel à l'action : Abonne-toi à @kaelarislamic pour ton rappel quotidien.`,
+        videoScript: `[Récitation exacte : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}]\n\n1. Calligraphie arabe HD synchronisée avec l'audio.\n2. Traduction française : "${item.translationFr}"\n3. Source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Appel à l'action : Abonne-toi à @kae.islamic & @kaelar.islamic pour ton rappel quotidien.`,
         audioTrackSuggestion: `${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah} (${item.reciterAudio?.audioUrl})`
       };
     });
@@ -996,7 +996,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.fillText(`— ${item.source.bookOrSurah}, ${item.source.numberOrAyah} —`, width / 2, curY);
     ctx.restore();
 
-    // 7. Footer Watermark: ONLY @kaelarislamic
+    // 7. Footer Watermark: @kae.islamic • @kaelar.islamic
     const footerY = height - (aspectRatio === '9:16' ? 60 : 30);
     ctx.save();
     ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
@@ -1004,7 +1004,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.shadowBlur = 10;
     ctx.font = `700 ${aspectRatio === '9:16' ? 24 : 18}px "Plus Jakarta Sans", sans-serif`;
     ctx.textAlign = 'center';
-    ctx.fillText('@kaelarislamic', width / 2, footerY);
+    ctx.fillText('@kae.islamic • @kaelar.islamic', width / 2, footerY);
     ctx.restore();
 
     return canvas.toDataURL('image/png');

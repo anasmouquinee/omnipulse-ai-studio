@@ -256,7 +256,7 @@ class AutoPilotServiceClass {
       const videoBlob = await VideoGenerator.generateQuoteVideoMp4(cardUrl, audioUrl);
       publicVideoUrl = await VideoGenerator.uploadVideoToCDN(videoBlob);
 
-      if (onProgress) onProgress('4/4 Envoi vers Instagram (@kaelarislamic), TikTok (@mdou.g) & YouTube Shorts...');
+      if (onProgress) onProgress('4/4 Envoi vers Instagram (@kae.islamic), TikTok (@kaelar.islamic) & YouTube Shorts...');
 
       // 4. Dispatch to Buffer (All 3 platforms)
       const scheduled = IslamicContentService.convertToScheduledPost(

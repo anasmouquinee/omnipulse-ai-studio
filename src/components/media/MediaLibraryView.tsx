@@ -83,7 +83,7 @@ export const MediaLibraryView: React.FC<MediaLibraryViewProps> = ({
               </span>
             </div>
             <p style={{ fontSize: '0.86rem', color: '#94a3b8', marginTop: '0.25rem' }}>
-              Clips et visuels haute définition sans aucun logo tiers, prêts pour l'incrustation automatique de votre signature <strong>@kaelarislamic</strong>.
+              Clips et visuels haute définition sans aucun logo tiers, prêts pour l'incrustation automatique de vos signatures officielles <strong>@kae.islamic</strong> & <strong>@kaelar.islamic</strong>.
             </p>
           </div>
         </div>
@@ -207,7 +207,7 @@ export const MediaLibraryView: React.FC<MediaLibraryViewProps> = ({
                 color: 'rgba(255, 255, 255, 0.75)',
                 textShadow: '0 2px 4px rgba(0,0,0,0.8)'
               }}>
-                Signature : @kaelarislamic • @mdou.g
+                Signature : @kae.islamic • @kaelar.islamic
               </div>
             </div>
 

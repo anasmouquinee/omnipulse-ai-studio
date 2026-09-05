@@ -16,7 +16,7 @@ interface HeaderProps {
 const VIEW_TITLES: Record<NavView, { title: string; subtitle: string; icon: React.ReactNode }> = {
   studio: {
     title: 'Studio de Création & Reels Islamiques',
-    subtitle: 'Récitations HD, calligraphie ornée et audio synchronisé pour TikTok (@mdou.g) & Instagram (@kaelarislamic)',
+    subtitle: 'Récitations HD, calligraphie ornée et audio synchronisé pour Instagram (@kae.islamic), TikTok (@kaelar.islamic) & YouTube Shorts',
     icon: <Sparkles size={22} color="#10b981" />
   },
   autopilot: {
@@ -41,7 +41,7 @@ const VIEW_TITLES: Record<NavView, { title: string; subtitle: string; icon: Reac
   },
   accounts: {
     title: 'Canaux Connectés',
-    subtitle: 'Diffusion directe vers @kaelarislamic et @mdou.g via Buffer API',
+    subtitle: 'Diffusion directe vers @kae.islamic, @kaelar.islamic et YouTube Shorts via Buffer API',
     icon: <span style={{ fontSize: '1.3rem' }}>📡</span>
   },
   media: {
@@ -117,7 +117,7 @@ export const Header: React.FC<HeaderProps> = ({
             boxShadow: '0 0 8px #10b981'
           }} />
           <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#34d399' }}>
-            @kaelarislamic & @mdou.g (Actifs)
+            @kae.islamic & @kaelar.islamic (Actifs)
           </span>
         </div>
 

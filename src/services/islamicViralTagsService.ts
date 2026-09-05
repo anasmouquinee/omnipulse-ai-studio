@@ -33,8 +33,8 @@ export const ISLAMIC_VIRAL_TAG_TAXONOMY: Record<string, string[]> = {
     '#viralvideo',
     '#trending',
     '#islamicreminder',
-    '#kaelarislamic',
-    '#mdou'
+    '#kaelar_islamic',
+    '#kaelarislamic'
   ],
 
   instagram_boosters: [
@@ -48,6 +48,7 @@ export const ISLAMIC_VIRAL_TAG_TAXONOMY: Record<string, string[]> = {
     '#viralreels',
     '#quranrecitation',
     '#dailyreminder',
+    '#kaeislamic',
     '#kaelarislamic'
   ],
 
@@ -168,8 +169,9 @@ export const ISLAMIC_VIRAL_TAG_TAXONOMY: Record<string, string[]> = {
 
   // Account Signature Brand
   branding: [
-    '#kaelarislamic',
-    '#mdou'
+    '#kaeislamic',
+    '#kaelar_islamic',
+    '#kaelarislamic'
   ]
 };
 
@@ -213,8 +215,8 @@ export const IslamicViralTagsService = {
       if (language === 'fr' || language === 'all') {
         selectedTags.add('#rappelislam');
       }
+      selectedTags.add('#kaelar_islamic');
       selectedTags.add('#kaelarislamic');
-      selectedTags.add('#mdou');
       return Array.from(selectedTags).slice(0, limit);
     }
 
@@ -231,6 +233,7 @@ export const IslamicViralTagsService = {
         selectedTags.add('#rappelsislamiques');
         selectedTags.add('#coran');
       }
+      selectedTags.add('#kaeislamic');
       selectedTags.add('#kaelarislamic');
       return Array.from(selectedTags).slice(0, limit);
     }

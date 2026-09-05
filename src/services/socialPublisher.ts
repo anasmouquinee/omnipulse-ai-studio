@@ -43,8 +43,8 @@ export const BEST_POSTING_TIMES: Record<SocialPlatform, BestTimeSlot[]> = {
 
 // Known default Buffer channel IDs for quick mapping
 const BUFFER_CHANNEL_MAP: Partial<Record<SocialPlatform, string>> = {
-  instagram: '6a8f4ce9ccaf649a672154f6', // kaelarislamic
-  tiktok: '6a8f4dcfccaf649a672158cf',    // mdou.g
+  instagram: '6a8f4ce9ccaf649a672154f6', // kae.islamic
+  tiktok: '6a8f4dcfccaf649a672158cf',    // kaelar.islamic
   youtube: '6a999279065799be467f1f35',   // kaelar.islamics (YouTube Shorts)
 };
 
@@ -555,7 +555,7 @@ export const SocialPublisher = {
         fields: [
           {
             name: '📱 Réseaux Publiés',
-            value: payload.platforms.map(p => p === 'instagram' ? '📷 Instagram (`@kaelarislamic`)' : p === 'tiktok' ? '🎵 TikTok (`@mdou.g`)' : p).join('\n'),
+            value: payload.platforms.map(p => p === 'instagram' ? '📷 Instagram (`@kae.islamic`)' : p === 'tiktok' ? '🎵 TikTok (`@kaelar.islamic`)' : p === 'youtube' ? '🔴 YouTube Shorts (`@kaelar.islamic`)' : p).join('\n'),
             inline: true
           },
           {

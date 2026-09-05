@@ -20,8 +20,8 @@ export const INITIAL_ACCOUNTS: SocialAccount[] = [
   {
     id: '6a8f4dcfccaf649a672158cf',
     platform: 'tiktok',
-    username: '@mdou.g',
-    displayName: 'mdou.g (TikTok)',
+    username: '@kaelar.islamic',
+    displayName: 'kaelarislamic (TikTok)',
     avatarUrl: 'https://buffer-channel-avatars-bucket.s3.amazonaws.com/6a8f4dcfccaf649a672158cf_1787776464391',
     connected: true,
     followerCount: 1240,
@@ -31,8 +31,8 @@ export const INITIAL_ACCOUNTS: SocialAccount[] = [
   {
     id: '6a8f4ce9ccaf649a672154f6',
     platform: 'instagram',
-    username: '@kaelarislamic',
-    displayName: 'kaelarislamic (Instagram)',
+    username: '@kae.islamic',
+    displayName: 'kae.islamic (Instagram)',
     avatarUrl: 'https://buffer-channel-avatars-bucket.s3.amazonaws.com/6a8f4ce9ccaf649a672154f6_1787776234221',
     connected: true,
     followerCount: 3580,

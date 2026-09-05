@@ -291,7 +291,7 @@ export const CampaignGenerator: React.FC<CampaignGeneratorProps> = ({
                     📅 {new Date(p.scheduledTime).toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'short' })} à 18:45
                   </div>
                   <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', marginTop: 2 }}>
-                    Cibles : TikTok (@mdou.g) & Instagram (@kaelarislamic)
+                    Cibles : TikTok (@kaelar.islamic), Instagram (@kae.islamic) & YouTube Shorts
                   </div>
                 </div>
               </div>

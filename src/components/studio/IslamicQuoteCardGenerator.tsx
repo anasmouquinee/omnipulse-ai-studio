@@ -295,7 +295,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         scheduled.platformContent[p as any].text = IslamicViralTagsService.formatViralCaption(currentItem, selectedLanguage, p as any);
       });
       
-      // Publish to Buffer for @kaelarislamic
+      // Publish to Buffer for @kae.islamic
       await SocialPublisher.publishNow(scheduled);
 
       // Record to Library
@@ -310,11 +310,11 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       const latestLogs = StorageService.getPublishLogs();
       const instaLog = latestLogs.find(l => l.platform === 'instagram' && l.postId === scheduled.id);
       if (instaLog && instaLog.status === 'success') {
-        onShowToast('success', '✨ Affiche islamique publiée en direct sur Instagram (@kaelarislamic) !');
+        onShowToast('success', '✨ Affiche islamique publiée en direct sur Instagram (@kae.islamic) !');
       } else if (instaLog && instaLog.status === 'failed') {
         onShowToast('error', instaLog.responseMessage || 'Erreur lors de la publication sur Buffer.');
       } else {
-        onShowToast('success', '✨ Post transmis avec succès à Buffer (@kaelarislamic) !');
+        onShowToast('success', '✨ Post transmis avec succès à Buffer (@kae.islamic) !');
       }
     } catch (e: any) {
       console.warn('Publish error:', e);
@@ -346,7 +346,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         (p) => setVideoProgress(p)
       );
 
-      onShowToast('info', '📡 2/2 Envoi du Reel vers Instagram (@kaelarislamic), TikTok (@mdou.g) & YouTube Shorts (@kaelar.islamics)...');
+      onShowToast('info', '📡 2/2 Envoi du Reel vers Instagram (@kae.islamic), TikTok (@kaelar.islamic) & YouTube Shorts (@kaelar.islamic)...');
 
       // 2. Upload video blob to public high-availability CDN
       const publicVideoUrl = await VideoGenerator.uploadVideoToCDN(videoBlob);

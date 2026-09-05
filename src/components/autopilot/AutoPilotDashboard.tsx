@@ -173,7 +173,7 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
               </span>
             </div>
             <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', maxWidth: '700px', margin: 0, lineHeight: 1.5 }}>
-              Génère et publie automatiquement des Reels vidéo inédits sur <strong>Instagram (`@kaelarislamic`)</strong> et <strong>TikTok (`@mdou.g`)</strong> à intervalles réguliers en alternant harmonieusement entre le Coran, les Hadiths Sahih, les Invocations, Tahajjud et la Sagesse.
+              Génère et publie automatiquement des Reels vidéo inédits sur <strong>Instagram (`@kae.islamic`)</strong>, <strong>TikTok (`@kaelar.islamic`)</strong> et <strong>YouTube Shorts</strong> à intervalles réguliers en alternant harmonieusement entre le Coran, les Hadiths Sahih, les Invocations, Tahajjud et la Sagesse.
             </p>
           </div>
 

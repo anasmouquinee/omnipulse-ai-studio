@@ -1,7 +1,7 @@
 const b64 = 'QVEuQWI4Uk42TEc2WUxxSWdoU1hnb282RVR5ZEYyeU1ZX1FyQlV4SXhhNHJGWFB4YzZ2Umc=';
 const key = Buffer.from(b64, 'base64').toString();
 
-const prompt = `Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kaelarislamic).
+const prompt = `Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialisé dans la rédaction de contenu spirituel authentique et vérifié pour les réseaux sociaux (@kae.islamic & @kaelar.islamic).
 
 Consigne STRICTE :
 - N'utilise QUE des versets authentiques du Noble Coran ou des Hadiths SAHIH (Bukhari, Muslim, Tirmidhi, Abu Dawud) ou des invocations authentiques de Hisn al-Muslim (Citadelle du Musulman).

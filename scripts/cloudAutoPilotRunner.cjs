@@ -12,8 +12,8 @@ const { execSync } = require('child_process');
 
 // Configuration & Credentials
 const BUFFER_ACCESS_TOKEN = process.env.BUFFER_ACCESS_TOKEN || 'vXkaxUF8bX5anmrPe_4BMyXe6Lo36lwZYTAPYmCDHkM';
-const INSTAGRAM_CHANNEL_ID = process.env.BUFFER_INSTAGRAM_CHANNEL_ID || '6a8f4ce9ccaf649a672154f6'; // @kaelarislamic
-const TIKTOK_CHANNEL_ID = process.env.BUFFER_TIKTOK_CHANNEL_ID || '6a8f4dcfccaf649a672158cf'; // @mdou.g
+const INSTAGRAM_CHANNEL_ID = process.env.BUFFER_INSTAGRAM_CHANNEL_ID || '6a8f4ce9ccaf649a672154f6'; // @kae.islamic
+const TIKTOK_CHANNEL_ID = process.env.BUFFER_TIKTOK_CHANNEL_ID || '6a8f4dcfccaf649a672158cf'; // @kaelar.islamic
 const YOUTUBE_CHANNEL_ID = process.env.BUFFER_YOUTUBE_CHANNEL_ID || '6a999279065799be467f1f35'; // @kaelar.islamics (YouTube Shorts)
 const CLOUDINARY_CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || 'zmgzjmpl';
 const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET || 'ml_default';
@@ -441,8 +441,8 @@ function sendDiscordNotification(item, theme, publicVideoUrl) {
           {
             name: '📱 Réseaux Publiés',
             value: YOUTUBE_CHANNEL_ID 
-              ? '📷 Instagram (`@kaelarislamic`)\n🎵 TikTok (`@mdou.g`)\n🔴 YouTube Shorts' 
-              : '📷 Instagram (`@kaelarislamic`)\n🎵 TikTok (`@mdou.g`)',
+              ? '📷 Instagram (`@kae.islamic`)\n🎵 TikTok (`@kaelar.islamic`)\n🔴 YouTube Shorts' 
+              : '📷 Instagram (`@kae.islamic`)\n🎵 TikTok (`@kaelar.islamic`)',
             inline: false
           },
           {
@@ -704,7 +704,7 @@ function generatePosterSvg(item) {
 
   <!-- Footer Watermark (Positioned at y=1685 so it NEVER overlaps with FFmpeg waveform at y=1710-1800) -->
   <text x="540" y="1685" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="22" font-weight="600" fill="rgba(255, 255, 255, 0.45)" text-anchor="middle">
-    @kaelarislamic • @mdou.g
+    @kae.islamic • @kaelar.islamic
   </text>
 </svg>`;
 }
@@ -741,8 +741,8 @@ function getViralIslamicTags(type, platform = 'all', limit = 14) {
     selected.add('#islam');
     selected.add('#allah');
     selected.add('#rappelislam');
+    selected.add('#kaelar_islamic');
     selected.add('#kaelarislamic');
-    selected.add('#mdou');
     return Array.from(selected).slice(0, limit).join(' ');
   }
 
@@ -754,6 +754,7 @@ function getViralIslamicTags(type, platform = 'all', limit = 14) {
     selected.add('#muslim');
     selected.add('#rappelsislamiques');
     selected.add('#coran');
+    selected.add('#kaeislamic');
     selected.add('#kaelarislamic');
     return Array.from(selected).slice(0, limit).join(' ');
   }
@@ -950,7 +951,7 @@ async function runCloudAutoPilot() {
 
   // 6a. Publish to Instagram Reel
   try {
-    console.log('📤 Publishing to Instagram Reel (@kaelarislamic) with Viral Tags...');
+    console.log('📤 Publishing to Instagram Reel (@kae.islamic) with Viral Tags...');
     const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, publicVideoUrl, 'instagram', `${item.bookOrSurah} — ${item.numberOrAyah}`);
     if (igRes?.status || igRes?.id) {
       console.log('✅ Instagram publication queued successfully in Buffer!');
@@ -974,7 +975,7 @@ async function runCloudAutoPilot() {
     if (bufferRateLimitState.isLimited) {
       console.log('⏸️ Skipping TikTok Buffer dispatch (Buffer API 24h rate limit active).');
     } else {
-      console.log('📤 Publishing to TikTok (@mdou.g) with FYP Booster Tags...');
+      console.log('📤 Publishing to TikTok (@kaelar.islamic) with FYP Booster Tags...');
       const ttRes = await publishToBuffer(TIKTOK_CHANNEL_ID, ttCaption, publicVideoUrl, 'tiktok', `${item.bookOrSurah} — ${item.numberOrAyah}`);
       if (ttRes?.status || ttRes?.id) {
         console.log('✅ TikTok publication queued successfully in Buffer!');
