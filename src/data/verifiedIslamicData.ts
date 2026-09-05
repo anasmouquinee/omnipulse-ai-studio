@@ -240,6 +240,185 @@ export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
       en: ['#TahajjudPrayer', '#NightPrayer', '#DuaAccepted', '#SpiritualAwakening'],
       ar: ['#قيام_الليل', '#الوتر', '#استغفار', '#سهام_الليل', '#دعاء_مستجاب']
     }
+  },
+  {
+    id: 'islamic-6',
+    type: 'sahih_hadith',
+    topic: 'La pureté de l’intention (Al-Ikhlas) et la valeur des actes',
+    arabicText: 'إِنَّمَا الأَعْمَالُ بِالنِّيَّاتِ، وَإِنَّمَا لِكُلِّ امْرِئٍ مَا نَوَى',
+    phonetic: 'Innamal-a\'malu bin-niyyat, wa innama likullim-ri\'in ma nawa',
+    translationFr: 'Le Prophète ﷺ a dit : « Les actions ne valent que par leurs intentions, et chacun ne sera rétribué que selon ce qu’il a eu l’intention de faire. »',
+    translationEn: 'The Prophet ﷺ said: “Actions are judged only by intentions, and every person will have only that which he intended.”',
+    source: {
+      type: 'hadith',
+      bookOrSurah: 'Sahih Al-Bukhari',
+      numberOrAyah: 'Hadith n° 1',
+      arabicReference: 'صحيح البخاري ١',
+      authenticityGrade: 'Sahih Bukhari',
+      verifiedBy: 'Imam Al-Bukhari (Authentique)'
+    },
+    reciterAudio: {
+      reciterId: 'ar.alafasy',
+      reciterName: 'Mishary Rashid Alafasy',
+      surahOrTitle: 'Sourate Al-Ahzab (Verset 21)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/3554.mp3',
+      durationSeconds: 24
+    },
+    visualTheme: 'golden_night',
+    reflection: {
+      fr: 'Purifie ton intention avant chaque parole et chaque action. Seule l’œuvre accomplie sincèrement pour Allah élève l’âme.',
+      en: 'Purify your intention before every word and deed. Only what is done sincerely for Allah elevates the heart.',
+      ar: 'إخلاص النية لله هو ميزان الأعمال وقبولها.'
+    },
+    hashtags: {
+      fr: ['#HadithSahih', '#Ikhlas', '#Sincerite', '#RappelIslam', '#KaelarIslamic'],
+      en: ['#Bukhari', '#Intentions', '#IslamicQuotes', '#Sunnah'],
+      ar: ['#حديث_شريف', '#صحيح_البخاري', '#النية', '#إخلاص']
+    }
+  },
+  {
+    id: 'islamic-7',
+    type: 'sahih_hadith',
+    topic: 'La maîtrise de la parole et le bon comportement',
+    arabicText: 'مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ',
+    phonetic: 'Man kana yu\'minu billahi wal-yawmil-akhiri fal-yaqul khayran aw li-yasmut',
+    translationFr: 'Le Prophète ﷺ a dit : « Que celui qui croit en Allah et au Jour dernier dise du bien ou qu’il se taise. »',
+    translationEn: 'The Prophet ﷺ said: “Whoever believes in Allah and the Last Day should speak good or remain silent.”',
+    source: {
+      type: 'hadith',
+      bookOrSurah: 'Sahih Al-Bukhari & Muslim',
+      numberOrAyah: 'Bukhari 6018 / Muslim 47',
+      arabicReference: 'صحيح البخاري ٦٠١٨ - صحيح مسلم ٤٧',
+      authenticityGrade: 'Muttafaq Alayh (Bukhari & Muslim)',
+      verifiedBy: 'Bukhari & Muslim (Unanimement Authentique)'
+    },
+    reciterAudio: {
+      reciterId: 'ar.alafasy',
+      reciterName: 'Mishary Rashid Alafasy',
+      surahOrTitle: 'Sourate Qaf (Verset 18)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4648.mp3',
+      durationSeconds: 20
+    },
+    visualTheme: 'emerald_mosque',
+    reflection: {
+      fr: 'Tes paroles forgent ta destinée spirituelle. Choisis toujours des mots qui réconfortent, enseignent ou apaisent, sinon préserve ton silence.',
+      en: 'Your tongue shapes your spiritual reality. Always speak that which brings healing and peace, or choose dignity in silence.',
+      ar: 'حفظ اللسان من أعظم شعب الإيمان وسلامة الصدور.'
+    },
+    hashtags: {
+      fr: ['#Hadith', '#Sagesse', '#BonComportement', '#Islam', '#KaelarIslamic'],
+      en: ['#ProphetMuhammad', '#GoodSpeech', '#Kindness', '#IslamReminders'],
+      ar: ['#حديث', '#حفظ_اللسان', '#أخلاق_المسلم', '#حكمة']
+    }
+  },
+  {
+    id: 'islamic-8',
+    type: 'sahih_hadith',
+    topic: 'La fraternité et la bienveillance sincère',
+    arabicText: 'لا يُؤْمِنُ أَحَدُكُمْ حَتَّى يُحِبَّ لأَخِيهِ مَا يُحِبُّ لِنَفْسِهِ',
+    phonetic: 'La yu\'minu ahadukum hatta yuhibba li-akhihi ma yuhibbu li-nafsih',
+    translationFr: 'Le Prophète ﷺ a dit : « Nul d’entre vous ne sera véritablement croyant tant qu’il n’aimera pas pour son frère ce qu’il aime pour lui-même. »',
+    translationEn: 'The Prophet ﷺ said: “None of you truly believes until he loves for his brother what he loves for himself.”',
+    source: {
+      type: 'hadith',
+      bookOrSurah: 'Sahih Al-Bukhari & Muslim',
+      numberOrAyah: 'Bukhari 13 / Muslim 45',
+      arabicReference: 'صحيح البخاري ١٣ - صحيح مسلم ٤٥',
+      authenticityGrade: 'Muttafaq Alayh (Bukhari & Muslim)',
+      verifiedBy: 'Bukhari & Muslim (Unanimement Authentique)'
+    },
+    reciterAudio: {
+      reciterId: 'ar.alafasy',
+      reciterName: 'Mishary Rashid Alafasy',
+      surahOrTitle: 'Sourate Al-Hujurat (Verset 10)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4622.mp3',
+      durationSeconds: 22
+    },
+    visualTheme: 'golden_night',
+    reflection: {
+      fr: 'La foi n’atteint son accomplissement que lorsque le cœur se libère de l’égoïsme pour souhaiter le bien, le succès et la paix à autrui.',
+      en: 'Faith reaches completeness only when the heart frees itself from envy to desire good, success, and peace for others.',
+      ar: 'سلامة القلب ومحبة الخير للغير عنوان الإيمان الصادق.'
+    },
+    hashtags: {
+      fr: ['#Fraternite', '#AmourEnAllah', '#HadithDuJour', '#KaelarIslamic'],
+      en: ['#Brotherhood', '#LoveInIslam', '#MuslimCommunity', '#Hadith'],
+      ar: ['#الأخوة_في_الله', '#حديث_شريف', '#محبة', '#أخلاق']
+    }
+  },
+  {
+    id: 'islamic-9',
+    type: 'quran_verse',
+    topic: 'La proximité d’Allah et la réponse aux invocations',
+    arabicText: 'وَإِذَا سَأَلَكَ عِبَادِي عَنِّي فَإِنِّي قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ الدَّاعِ إِذَا دَعَانِ',
+    phonetic: 'Wa idha sa\'alaka \'ibadi \'anni fa-inni qarib, ujibu da\'watad-da\'i idha da\'an',
+    translationFr: '« Et quand Mes serviteurs t’interrogent sur Moi.. alors Je suis tout proche : Je réponds à l’appel de celui qui Me prie quand il Me prie. »',
+    translationEn: '“And when My servants ask you concerning Me - indeed I am near. I respond to the invocation of the supplicant when he calls upon Me.”',
+    source: {
+      type: 'quran',
+      bookOrSurah: 'Sourate Al-Baqarah (La Vache)',
+      numberOrAyah: 'Sourate 2, Verset 186',
+      surahNumber: 2,
+      ayahNumber: 186,
+      arabicReference: 'سورة البقرة ١٨٦',
+      authenticityGrade: 'Coran (Parole d’Allah)',
+      verifiedBy: 'Texte Sacré Authentifié'
+    },
+    reciterAudio: {
+      reciterId: 'ar.alafasy',
+      reciterName: 'Sheikh Mishary Rashid Alafasy',
+      surahOrTitle: 'Sourate Al-Baqarah (Verset 186)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/193.mp3',
+      durationSeconds: 26
+    },
+    visualTheme: 'celestial_sky',
+    reflection: {
+      fr: 'Allah n’a placé aucun intermédiaire entre toi et Lui. Lève tes mains et confie-Lui tes secrets, Il t’écoute à chaque instant.',
+      en: 'Allah placed no barrier between you and Him. Raise your hands and pour out your heart, He hears you at every moment.',
+      ar: 'الله أقرب إليك من حبل الوريد، يسمع نجواك ويجيب دعاءك.'
+    },
+    hashtags: {
+      fr: ['#Coran', '#AlBaqarah', '#InvocationExaucee', '#Tawakkul', '#KaelarIslamic'],
+      en: ['#QuranVerses', '#DuaAnswered', '#NearnessToAllah', '#Peace'],
+      ar: ['#قرآن_كريم', '#سورة_البقرة', '#إجابة_الدعاء', '#قريب_مجيب']
+    }
+  },
+  {
+    id: 'islamic-10',
+    type: 'islamic_reminder',
+    topic: 'La confiance absolue en Allah (Tawakkul)',
+    arabicText: 'وَمَن يَتَوَكَّلْ عَلَى اللَّهِ فَهُوَ حَسْبُهُ ۚ إِنَّ اللَّهَ بَالِغُ أَمْرِهِ',
+    phonetic: 'Wa man yatawakkal \'alallahi fahuwa hasbuh, innallaha balighu amrih',
+    translationFr: '« Et quiconque place sa confiance en Allah, Il lui suffit. Allah atteint toujours ce qu’Il S’est assigné. »',
+    translationEn: '“And whoever relies upon Allah - then He is sufficient for him. Indeed, Allah will accomplish His purpose.”',
+    source: {
+      type: 'quran',
+      bookOrSurah: 'Sourate At-Talaq (Le Divorce)',
+      numberOrAyah: 'Sourate 65, Verset 3',
+      surahNumber: 65,
+      ayahNumber: 3,
+      arabicReference: 'سورة الطلاق ٣',
+      authenticityGrade: 'Coran (Parole d’Allah)',
+      verifiedBy: 'Texte Sacré Authentifié'
+    },
+    reciterAudio: {
+      reciterId: 'ar.alafasy',
+      reciterName: 'Mishary Rashid Alafasy',
+      surahOrTitle: 'Sourate At-Talaq (Verset 3)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/5222.mp3',
+      durationSeconds: 22
+    },
+    visualTheme: 'desert_dunes',
+    reflection: {
+      fr: 'Laisse tes angoisses à Allah. Quand tu t’en remets entièrement à Lui avec sincérité, Sa paix inonde ton cœur et Ses solutions surpassent tes calculs.',
+      en: 'Surrender your worries to Allah. When you place your trust in Him, His peace fills your soul and His plans surpass your imagination.',
+      ar: 'التوكل على الله هو الأمان من كل خوف، والكفاية من كل هم.'
+    },
+    hashtags: {
+      fr: ['#Tawakkul', '#ConfianceEnAllah', '#PaixInterieure', '#RappelDuJour', '#KaelarIslamic'],
+      en: ['#TrustAllah', '#PeaceOfMind', '#IslamicQuotes', '#DailyReminder'],
+      ar: ['#توكل_على_الله', '#حسبي_الله', '#راحة_نفسية', '#يقين']
+    }
   }
 ];
 

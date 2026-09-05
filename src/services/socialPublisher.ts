@@ -151,7 +151,7 @@ export const SocialPublisher = {
     for (const platform of post.platforms) {
       const platformData = post.platformContent[platform];
       const account = accounts.find(a => a.platform === platform);
-      const postText = `${platformData?.hook ? platformData.hook + '\n\n' : ''}${platformData?.text || ''}\n\n${(platformData?.hashtags || []).join(' ')}`.trim();
+      const postText = (platformData?.text || `${platformData?.hook ? platformData.hook + '\n\n' : ''}${(platformData?.hashtags || []).join(' ')}`).trim();
 
       // 1. Direct Buffer GraphQL publishing if token configured and platform is on Buffer (Instagram, TikTok, YouTube)
       if (bufferToken && (platform === 'instagram' || platform === 'tiktok' || platform === 'youtube')) {

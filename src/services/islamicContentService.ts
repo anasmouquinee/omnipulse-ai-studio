@@ -9,6 +9,82 @@ import { VERIFIED_ISLAMIC_POSTS, VERIFIED_RECITERS } from '../data/verifiedIslam
 import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../data/islamicBackgrounds';
 import { StorageService } from './storageService';
 import { IslamicViralTagsService } from './islamicViralTagsService';
+import { IslamicLibraryService } from './islamicLibraryService';
+
+export const DIVERSE_ISLAMIC_TOPICS: Record<IslamicContentType, string[]> = {
+  quran_verse: [
+    "La miséricorde infinie d'Allah et le pardon",
+    "La création des cieux, de la terre et la contemplation",
+    "L'apaisement et la sérénité des cœurs par le rappel",
+    "La promesse divine du soulagement après l'épreuve (Al-Yusr)",
+    "La bienveillance et le respect envers les parents",
+    "La certitude (Yaqeen) et la vérité immuable",
+    "La beauté de la patience (Sabr Jameel)",
+    "La justice et l'équité entre les êtres humains",
+    "L'invocation exaucée et la proximité d'Allah",
+    "La description des délices du Paradis (Jannah)"
+  ],
+  sahih_hadith: [
+    "L'importance suprême du bon comportement (Husn al-Khuluq) et de la douceur",
+    "La valeur immense du sourire et de la fraternité en Islam",
+    "La recherche du savoir comme obligation sacrée",
+    "La bienveillance envers les voisins, les parents et les plus faibles",
+    "La retenue de la langue et le danger de la médisance (Gheebah)",
+    "La sincérité des intentions et l'action désintéressée (Al-Ikhlas)",
+    "L'honnêteté et la loyauté dans le commerce et la parole",
+    "Aimer pour son frère ce que l'on aime pour soi-même",
+    "Le mérite immense du repentir sincère et de l'Istighfar",
+    "La récompense divine de la patience dans la maladie et l'adversité"
+  ],
+  authentic_dua: [
+    "Invocation matinale pour la bénédiction, la subsistance et la protection",
+    "Du'a authentique contre l'anxiété, la tristesse et les dettes",
+    "Invocation pour la guidée, la piété et la paix de l'âme",
+    "Du'a bénie pour le pardon et la miséricorde envers les parents",
+    "Invocation prophétique en sortant de chez soi (Bismillahi tawakkaltu)",
+    "Dhikr du soir pour la sérénité du sommeil et la protection contre le mal",
+    "Invocation pour la fermeté du cœur sur la foi (Ya Muqallib al-qulub)",
+    "Du'a pour demander le bien ici-bas et dans l'au-delà (Rabbana atina)",
+    "Invocation pour la guérison des malades et le soulagement des souffrances",
+    "Istighfar majeur (Sayyid al-Istighfar) et ses bienfaits immenses"
+  ],
+  tahajjud_motivation: [
+    "Le secret des prières exaucées dans le dernier tiers de la nuit",
+    "La descente divine et l'appel d'Allah aux repentants avant l'aube",
+    "L'intimité spirituelle et la saveur du Sujud dans le silence nocturne",
+    "La lumière sur le visage de ceux qui prient la nuit",
+    "Le réveil avant le Fajr pour la paix de l'esprit et la barakah",
+    "La prière de nuit comme refuge face aux épreuves de la journée",
+    "L'Istighfar au moment de Sahar (juste avant l'aube)",
+    "La grandeur de la prière surérogatoire accomplie dans la discrétion",
+    "Comment la prière de nuit transforme la vie d'un croyant",
+    "La sérénité d'une larme versée par crainte et amour d'Allah la nuit"
+  ],
+  islamic_reminder: [
+    "La confiance inébranlable en Allah (Tawakkul) quand les portes se ferment",
+    "Le Sabr : accepter le décret divin avec un cœur apaisé",
+    "La gratitude quotidienne (Shukr) pour les bienfaits invisibles",
+    "La purification du cœur contre la jalousie et la rancœur",
+    "Se détacher du regard des gens et chercher uniquement l'agrément divin",
+    "Le temps qui passe : valoriser chaque souffle pour l'éternité",
+    "L'espérance sans limite en la miséricorde divine",
+    "Comment transformer chaque action du quotidien en adoration",
+    "La beauté de la modestie et de l'humilité face à la création",
+    "La véritable richesse de l'âme et le contentement (Qana'ah)"
+  ],
+  jumua_special: [
+    "La lumière spirituelle des versets de Sourate Al-Kahf le vendredi",
+    "Multiplier les prières et salutations sur le Prophète ﷺ le jour du vendredi",
+    "L'heure bénie du vendredi où toute invocation est exaucée",
+    "Les mérites de la purification (Ghusl) et du parfum pour la prière du vendredi",
+    "Écouter attentivement le sermon (Khutbah) et la récompense des pas vers la mosquée",
+    "Le vendredi comme fête hebdomadaire de la communauté musulmane",
+    "La sourate Al-Jumu'ah et l'appel à abandonner tout commerce pour Allah",
+    "La paix intérieure d'un vendredi passé dans le rappel d'Allah",
+    "Invoquer pour ses frères et sœurs opprimés le jour du vendredi",
+    "Les bénédictions de la Salawat sur le Messager d'Allah ﷺ"
+  ]
+};
 
 export const SURAH_AYAH_COUNTS = [
   7, 286, 200, 176, 120, 165, 206, 75, 129, 109,
@@ -272,9 +348,18 @@ export const IslamicContentService = {
     const apiKey = StorageService.getApiKey();
     const activeTopic = customTopic?.trim() || '';
 
-    if (apiKey && apiKey.trim() !== '') {
-      const searchTopic = activeTopic || 'Inspiration, foi et rappel spirituel';
+    // Pick a fresh rotating subtopic if no custom topic specified
+    const topicPool = DIVERSE_ISLAMIC_TOPICS[category] || DIVERSE_ISLAMIC_TOPICS.quran_verse;
+    const searchTopic = activeTopic || topicPool[Math.floor(Math.random() * topicPool.length)];
 
+    // Build strict anti-duplication prohibition list from past published posts
+    const recentLibraryItems = IslamicLibraryService.getItems().slice(0, 25);
+    const prohibitedItems = [
+      'Sahih Muslim Hadith n° 2999 (« Étonnant est le cas du croyant... » / عَجَبًا لأَمْرِ الْمُؤْمِنِ)',
+      ...recentLibraryItems.map(i => `${i.referenceText} (${(i.arabicText || '').slice(0, 30)}...)`)
+    ];
+
+    if (apiKey && apiKey.trim() !== '') {
       const categoryInstructions: Record<IslamicContentType, string> = {
         quran_verse: "Tu dois OBLIGATOIREMENT générer un VERSET DU NOBLE CORAN (Parole d'Allah) et STRICTEMENT rien d'autre (AUCUN hadith). Donne obligatoirement surahNumber (1 à 114) et ayahNumber exacts.",
         sahih_hadith: "Tu dois OBLIGATOIREMENT générer une PAROLE DU PROPHÈTE MOHAMMAD ﷺ issue STRICTEMENT de Sahih Al-Bukhari ou Sahih Muslim (AUCUN verset coranique).",
@@ -291,14 +376,20 @@ Tu es un grand savant et chercheur en sciences islamiques diplômé, spécialis�
 RÈGLE ABSOLUE POUR LA CATÉGORIE "${category}":
 ${categoryInstructions[category] || categoryInstructions.quran_verse}
 
-Sujet ou mot-clé demandé par l'utilisateur : "${searchTopic}".
+Sujet spécifique pour ce rappel : "${searchTopic}".
+
+🚫 RÈGLE STRICTE ANTI-DOUBLONS (INTERDICTION ABSOLUE DE RÉPÉTER) :
+Les textes et hadiths suivants ont DÉJÀ été publiés récemment sur nos réseaux (@kaelarislamic & @mdou.g). Tu as l'INTERDICTION STRICTE de les choisir ou de les citer :
+${prohibitedItems.map(p => `- ${p}`).join('\n')}
+
+Tu dois OBLIGATOIREMENT choisir un texte ou hadith TOTALEMENT DIFFÉRENT et INÉDIT.
 
 Consignes de rédaction :
 - Pour les versets du Coran, cite TOUJOURS le verset COMPLET dans son intégralité (du premier mot au dernier mot). Ne coupe JAMAIS un verset en morceaux.
-- Choisis un passage court à moyen, percutant et complet (1 verset entier ou 1 hadith court de 20 à 45 mots), idéal pour une carte citation TikTok et Instagram.
+- Choisis un passage court à moyen, percutant et complet (1 verset entier ou 1 hadith court de 20 à 45 mots), idéal pour une carte citation TikTok, Instagram et YouTube Shorts.
 - Ne cite JAMAIS de hadith faible (Da'if) ou inventé (Mawdoo').
 - Si c'est un verset du Coran, donne OBLIGATOIREMENT le numéro exact de la sourate (1 à 114) et le numéro du verset dans "surahNumber" et "ayahNumber".
-- Génère à chaque fois un passage NOUVEAU, UNIQUE et DIFFÉRENT (ID de session : ${Date.now()}-${Math.random()}). Ne répète pas les mêmes textes.
+- Génère à chaque fois un passage NOUVEAU, UNIQUE et DIFFÉRENT (ID de session : ${Date.now()}-${Math.random()}).
 - Génère le contenu en 3 langues : Arabe (avec voyelles/tashkeel complet), Français et Anglais.
 
 Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
@@ -344,7 +435,7 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
                 body: JSON.stringify({
                   contents: [{ parts: [{ text: prompt }] }],
                   generationConfig: {
-                    temperature: 0.85,
+                    temperature: 0.9,
                     maxOutputTokens: 4096,
                     responseMimeType: 'application/json'
                   }
@@ -407,80 +498,84 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
             }
           }
 
-          // Fetch the EXACT matching audio from AlQuran Cloud
-          let matchedAudio: ReciterAudio | null = null;
-          if (category === 'quran_verse' || parsed.source?.type === 'quran' || resolvedSurah) {
-            matchedAudio = await this.fetchExactQuranAudio(
-              resolvedSurah || 94, 
-              resolvedAyah, 
-              preferredReciterId
-            );
-          }
+          // Strict Anti-Duplicate Gate: verify against library history
+          const dupCheck = IslamicLibraryService.checkDuplicate({
+            arabicText: finalArabic,
+            referenceText: `${surahName} — ${parsed.source?.numberOrAyah}`
+          });
+          const isHadith2999 = finalArabic.includes('عجبا لأمر') || finalArabic.includes('عجبًا لأمر') || (parsed.source?.numberOrAyah && String(parsed.source.numberOrAyah).includes('2999'));
 
-          if (!matchedAudio) {
-            matchedAudio = VERIFIED_RECITERS[Math.floor(Math.random() * VERIFIED_RECITERS.length)];
-          }
+          if (!dupCheck.isDuplicate && !isHadith2999) {
+            // Fetch the EXACT matching audio from AlQuran Cloud
+            let matchedAudio: ReciterAudio | null = null;
+            if (category === 'quran_verse' || parsed.source?.type === 'quran' || resolvedSurah) {
+              matchedAudio = await this.fetchExactQuranAudio(
+                resolvedSurah || 94, 
+                resolvedAyah, 
+                preferredReciterId
+              );
+            }
 
-          return {
-            id: `islamic-${Date.now()}`,
-            type: category === 'quran_verse' || parsed.source?.type === 'quran' ? 'quran_verse' : parsed.source?.type === 'dua' ? 'authentic_dua' : 'sahih_hadith',
-            topic: parsed.topic || searchTopic,
-            arabicText: finalArabic || 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
-            phonetic: parsed.phonetic || '',
-            translationFr: finalFr,
-            translationEn: finalEn,
-            source: {
-              type: category === 'quran_verse' || parsed.source?.type === 'quran' ? 'quran' : (parsed.source?.type || 'hadith'),
-              bookOrSurah: surahName,
-              numberOrAyah: parsed.source?.numberOrAyah || parsed.source?.number_or_ayah || `Verset ${resolvedAyah}`,
-              surahNumber: resolvedSurah,
-              ayahNumber: resolvedAyah,
-              arabicReference: parsed.source?.arabicReference || '',
-              authenticityGrade: category === 'quran_verse' ? 'Coran (Parole d’Allah)' : (parsed.source?.authenticityGrade || 'Sahih (Authentique)'),
-              verifiedBy: 'Texte Sacré Authentifié'
-            },
-            reciterAudio: matchedAudio,
-            visualTheme: 'golden_night',
-            reflection: parsed.reflection || { fr: '', en: '', ar: '' },
-            hashtags: parsed.hashtags || { fr: [], en: [], ar: [] }
-          };
+            if (!matchedAudio) {
+              matchedAudio = VERIFIED_RECITERS[Math.floor(Math.random() * VERIFIED_RECITERS.length)];
+            }
+
+            return {
+              id: `islamic-${Date.now()}`,
+              type: category === 'quran_verse' || parsed.source?.type === 'quran' ? 'quran_verse' : parsed.source?.type === 'dua' ? 'authentic_dua' : 'sahih_hadith',
+              topic: parsed.topic || searchTopic,
+              arabicText: finalArabic || 'بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ',
+              phonetic: parsed.phonetic || '',
+              translationFr: finalFr,
+              translationEn: finalEn,
+              source: {
+                type: category === 'quran_verse' || parsed.source?.type === 'quran' ? 'quran' : (parsed.source?.type || 'hadith'),
+                bookOrSurah: surahName,
+                numberOrAyah: parsed.source?.numberOrAyah || parsed.source?.number_or_ayah || `Verset ${resolvedAyah}`,
+                surahNumber: resolvedSurah,
+                ayahNumber: resolvedAyah,
+                arabicReference: parsed.source?.arabicReference || '',
+                authenticityGrade: category === 'quran_verse' ? 'Coran (Parole d’Allah)' : (parsed.source?.authenticityGrade || 'Sahih (Authentique)'),
+                verifiedBy: 'Texte Sacré Authentifié'
+              },
+              reciterAudio: matchedAudio,
+              visualTheme: 'golden_night',
+              reflection: parsed.reflection || { fr: '', en: '', ar: '' },
+              hashtags: parsed.hashtags || { fr: [], en: [], ar: [] }
+            };
+          } else {
+            console.warn('⚠️ Gemini generated a duplicate or repeated Hadith 2999, falling back to unposted candidate from catalog.');
+          }
         }
       } catch (e) {
         console.warn('Gemini Islamic generation error:', e);
       }
     }
 
-    // Fallback: Smart keyword match from internal verified database
-    if (activeTopic) {
-      const lower = activeTopic.toLowerCase();
-      const keywordMatch = VERIFIED_ISLAMIC_POSTS.find(p => 
-        p.topic.toLowerCase().includes(lower) || 
-        p.translationFr.toLowerCase().includes(lower) ||
-        (lower.includes('kaffar') && p.id === 'islamic-2') ||
-        (lower.includes('pardon') && p.id === 'islamic-2') ||
-        (lower.includes('angoisse') && p.id === 'islamic-3') ||
-        (lower.includes('vendredi') && p.id === 'islamic-4') ||
-        (lower.includes('nuit') && p.id === 'islamic-5')
-      );
-      if (keywordMatch) return keywordMatch;
+    // Fallback: Pick an unposted candidate from the verified authentic database (zero duplicate guarantee)
+    const matchingCategory = VERIFIED_ISLAMIC_POSTS.filter(p => p.type === category);
+    const unpostedCandidates = matchingCategory.filter(p => !IslamicLibraryService.checkDuplicate(p).isDuplicate);
+
+    if (unpostedCandidates.length > 0) {
+      return unpostedCandidates[Math.floor(Math.random() * unpostedCandidates.length)];
     }
 
-    const matching = VERIFIED_ISLAMIC_POSTS.filter(p => p.type === category);
-    if (matching.length > 0) {
-      return matching[Math.floor(Math.random() * matching.length)];
+    if (matchingCategory.length > 0) {
+      return matchingCategory[Math.floor(Math.random() * matchingCategory.length)];
     }
+
     return VERIFIED_ISLAMIC_POSTS[0];
   },
 
   /**
-   * Converts an IslamicPostItem into a unified ScheduledPost ready for TikTok, Instagram & Buffer.
+   * Converts an IslamicPostItem into a unified ScheduledPost ready for TikTok, Instagram, YouTube Shorts & Buffer.
    */
   convertToScheduledPost(
     item: IslamicPostItem,
     preferredLanguage: IslamicLanguage = 'all',
     customImageUrl?: string
   ): ScheduledPost {
-    const platforms: SocialPlatform[] = ['tiktok', 'instagram', 'youtube', 'x', 'facebook', 'linkedin'];
+    const platforms: SocialPlatform[] = ['instagram', 'tiktok', 'youtube'];
 
     const platformContent: any = {};
     platforms.forEach(p => {
@@ -498,18 +593,20 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
       platformContent[p] = {
         text: formattedText,
-        hook: `${item.arabicText.slice(0, 60)}... ✨ ${item.topic}`,
+        hook: p === 'youtube'
+          ? `${item.source.bookOrSurah} — ${item.source.numberOrAyah} 🕋 #Shorts`
+          : `${item.source.bookOrSurah} — ${item.source.numberOrAyah}`,
         hashtags: viralTags,
-        videoScript: `[Récitation exacte : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}]\n\n1. Afficher la calligraphie arabe synchronisée avec l'audio.\n2. Faire défiler la traduction : "${item.translationFr}"\n3. Afficher la source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Message de fin : Abonne-toi à @kaelarislamic pour ton rappel quotidien.`,
+        videoScript: `[Récitation exacte : ${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah}]\n\n1. Calligraphie arabe HD synchronisée avec l'audio.\n2. Traduction française : "${item.translationFr}"\n3. Source certifiée : [${item.source.bookOrSurah} - ${item.source.authenticityGrade}]\n4. Appel à l'action : Abonne-toi à @kaelarislamic pour ton rappel quotidien.`,
         audioTrackSuggestion: `${item.reciterAudio?.reciterName || 'Mishary Alafasy'} - ${item.source.bookOrSurah} (${item.reciterAudio?.audioUrl})`
       };
     });
 
     return {
       id: `post-islamic-${Date.now()}`,
-      title: `✨ Rappel : ${item.topic}`,
+      title: `${item.source.bookOrSurah} — ${item.source.numberOrAyah} 🕋 #Shorts`,
       originalIdea: item.topic,
-      platforms: ['instagram'],
+      platforms: ['instagram', 'tiktok', 'youtube'],
       platformContent,
       media: customImageUrl ? {
         id: `med-islamic-${Date.now()}`,

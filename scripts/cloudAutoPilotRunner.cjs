@@ -709,36 +709,65 @@ function generatePosterSvg(item) {
 </svg>`;
 }
 
-// Dynamic Viral Islamic Hashtags Generator (TikTok FYP & Instagram Reels Explore)
-function getViralIslamicTags(type, platform = 'all') {
-  const core = ['#islam', '#quran', '#hadith', '#allah', '#muslim', '#islamicreminder', '#islamicquotes', '#sunnah', '#deen'];
+// Dynamic Viral Islamic Hashtags Generator (TikTok FYP, Instagram Reels Explore, YouTube Shorts)
+function getViralIslamicTags(type, platform = 'all', limit = 14) {
   const typeMap = {
-    quran_verse: ['#quranrecitation', '#quranverses', '#surah', '#tilawat', '#beautifultilawat', '#holyquran', '#قرآن'],
-    sahih_hadith: ['#hadith', '#hadithoftheday', '#sahihbukhari', '#sahihmuslim', '#propheticwisdom', '#sunnahrasul', '#حديث'],
-    authentic_dua: ['#dua', '#dhikr', '#adhkar', '#hisnulmuslim', '#supplication', '#istighfar', '#subhanallah', '#دعاء'],
-    tahajjud_motivation: ['#tahajjud', '#nightprayer', '#qiyamullail', '#fajr', '#peaceofmind', '#spiritualgrowth', '#قيام_الليل'],
-    islamic_reminder: ['#tawakkul', '#sabr', '#patience', '#islamicmotivation', '#trustallah', '#hopeinallah', '#صبر'],
-    jumua_special: ['#jummahmubarak', '#jumuah', '#fridayprayer', '#suratalkahf', '#salawat', '#blessedfriday', '#جمعة_مباركة']
+    quran_verse: ['#quranrecitation', '#quranverses', '#surah', '#tilawat', '#beautifultilawat', '#holyquran', '#قرآن', '#تلاوة'],
+    sahih_hadith: ['#hadith', '#hadithoftheday', '#sahihbukhari', '#sahihmuslim', '#propheticwisdom', '#sunnahrasul', '#حديث', '#سنة'],
+    authentic_dua: ['#dua', '#dhikr', '#adhkar', '#hisnulmuslim', '#supplication', '#istighfar', '#subhanallah', '#دعاء', '#أذكار'],
+    tahajjud_motivation: ['#tahajjud', '#nightprayer', '#qiyamullail', '#fajr', '#peaceofmind', '#spiritualgrowth', '#قيام_الليل', '#تهجد'],
+    islamic_reminder: ['#tawakkul', '#sabr', '#patience', '#islamicmotivation', '#trustallah', '#hopeinallah', '#صبر', '#توكل_على_الله'],
+    jumua_special: ['#jummahmubarak', '#jumuah', '#fridayprayer', '#suratalkahf', '#salawat', '#blessedfriday', '#جمعة_مباركة', '#سورة_الكهف']
   };
 
-  const platformTags = platform === 'tiktok' 
-    ? ['#muslimtiktok', '#islamictiktok', '#fyp', '#foryou', '#foryoupage', '#viralvideo']
-    : platform === 'youtube'
-    ? ['#Shorts', '#YouTubeShorts', '#IslamicShorts', '#ViralShorts', '#Trending']
-    : ['#islamicreels', '#reelsinstagram', '#explorepage', '#instaislam', '#reels'];
-
-  const french = ['#islamfrance', '#coran', '#rappelislam', '#rappelsislamiques', '#musulman'];
-
   const categoryTags = typeMap[type] || typeMap.quran_verse;
-  const combined = [
-    ...core.slice(0, 3),
-    ...categoryTags.slice(0, 4),
-    ...platformTags.slice(0, 3),
-    ...french.slice(0, 2),
-    '#kaelarislamic'
-  ];
+  const selected = new Set();
 
-  return Array.from(new Set(combined)).join(' ');
+  if (platform === 'youtube') {
+    // YouTube Shorts SEO Suite: #Shorts anchor + trending shorts keywords + category tags
+    selected.add('#Shorts');
+    ['#YouTubeShorts', '#IslamicShorts', '#ViralShorts', '#Trending', '#ShortsFeed', '#HolyQuran', '#HadithOfTheDay', '#IslamicStatus'].forEach(t => selected.add(t));
+    categoryTags.slice(0, 4).forEach(t => selected.add(t));
+    selected.add('#Islam');
+    selected.add('#Quran');
+    selected.add('#kaelarislamic');
+    return Array.from(selected).slice(0, limit).join(' ');
+  }
+
+  if (platform === 'tiktok') {
+    // TikTok FYP Suite: viral hooks + high-velocity community tags + French discovery
+    ['#muslimtiktok', '#islamictiktok', '#islamicvideo', '#fyp', '#foryou', '#foryoupage', '#viralvideo', '#trending'].forEach(t => selected.add(t));
+    categoryTags.slice(0, 4).forEach(t => selected.add(t));
+    selected.add('#islam');
+    selected.add('#allah');
+    selected.add('#rappelislam');
+    selected.add('#kaelarislamic');
+    selected.add('#mdou');
+    return Array.from(selected).slice(0, limit).join(' ');
+  }
+
+  if (platform === 'instagram') {
+    // Instagram Reels Explore Suite: explore tags + reels virality + visual aesthetic community
+    ['#islamicreels', '#reelsinstagram', '#reelsviral', '#explorepage', '#instaislam', '#reels', '#explore', '#viralreels'].forEach(t => selected.add(t));
+    categoryTags.slice(0, 4).forEach(t => selected.add(t));
+    selected.add('#islam');
+    selected.add('#muslim');
+    selected.add('#rappelsislamiques');
+    selected.add('#coran');
+    selected.add('#kaelarislamic');
+    return Array.from(selected).slice(0, limit).join(' ');
+  }
+
+  // Fallback / all
+  const core = ['#islam', '#quran', '#hadith', '#allah', '#muslim', '#islamicreminder'];
+  core.slice(0, 3).forEach(t => selected.add(t));
+  categoryTags.slice(0, 4).forEach(t => selected.add(t));
+  selected.add('#muslimtiktok');
+  selected.add('#fyp');
+  selected.add('#islamicreels');
+  selected.add('#Shorts');
+  selected.add('#kaelarislamic');
+  return Array.from(selected).slice(0, limit).join(' ');
 }
 
 // Helper: Strip Arabic diacritics for content comparison

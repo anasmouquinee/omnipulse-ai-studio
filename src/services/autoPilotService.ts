@@ -239,8 +239,13 @@ class AutoPilotServiceClass {
       const referenceText = `${selectedItem.source.bookOrSurah} — ${selectedItem.source.numberOrAyah}`;
       if (onProgress) onProgress(`2/4 Rendu graphique HD 9:16 pour "${selectedItem.source.bookOrSurah}"...`);
 
-      // 2. Render Card Canvas
-      const cardUrl = await this.renderCardImage(selectedItem, referenceText);
+      // 2. Render Luxury 4K Quote Card Canvas (Photographic background + Calligraphy)
+      const cardUrl = await IslamicContentService.renderQuoteCardCanvas(
+        selectedItem,
+        '9:16',
+        'all',
+        selectedItem.visualTheme || 'golden_night'
+      );
 
       // 3. Audio & Video Reel Generation
       let publicVideoUrl = '';
@@ -251,15 +256,16 @@ class AutoPilotServiceClass {
       const videoBlob = await VideoGenerator.generateQuoteVideoMp4(cardUrl, audioUrl);
       publicVideoUrl = await VideoGenerator.uploadVideoToCDN(videoBlob);
 
-      if (onProgress) onProgress('4/4 Envoi vers Instagram (@kaelarislamic) & TikTok (@mdou.g)...');
+      if (onProgress) onProgress('4/4 Envoi vers Instagram (@kaelarislamic), TikTok (@mdou.g) & YouTube Shorts...');
 
-      // 4. Dispatch to Buffer
+      // 4. Dispatch to Buffer (All 3 platforms)
       const scheduled = IslamicContentService.convertToScheduledPost(
         selectedItem,
         'all',
         cardUrl
       );
-      scheduled.platforms = ['instagram', 'tiktok'];
+      scheduled.platforms = ['instagram', 'tiktok', 'youtube'];
+      scheduled.title = `${selectedItem.source.bookOrSurah} — ${selectedItem.source.numberOrAyah} 🕋 #Shorts`;
       scheduled.media = {
         id: `med-auto-${Date.now()}`,
         type: 'video',
@@ -272,13 +278,13 @@ class AutoPilotServiceClass {
 
       await SocialPublisher.publishNow(scheduled);
 
-      // 5. Record to Library
+      // 5. Record to Library (Zero Duplicate Guarantee)
       IslamicLibraryService.recordPublication(
         selectedItem,
         cardUrl,
         publicVideoUrl,
         'reel',
-        ['instagram', 'tiktok']
+        ['instagram', 'tiktok', 'youtube']
       );
 
       // 5b. Send Discord Notification
@@ -286,7 +292,7 @@ class AutoPilotServiceClass {
         title: `Auto-Pilot 6h : ${currentTheme.title}`,
         description: `${selectedItem.arabicText}\n\n*${selectedItem.translationFr}*\n\n📍 ${selectedItem.source.bookOrSurah} — ${selectedItem.source.numberOrAyah}`,
         videoUrl: publicVideoUrl,
-        platforms: ['instagram', 'tiktok']
+        platforms: ['instagram', 'tiktok', 'youtube']
       });
 
       // 6. Update config & advance theme index to next in line
@@ -295,7 +301,7 @@ class AutoPilotServiceClass {
       const nextRun = new Date(Date.now() + config.intervalHours * 3600 * 1000).toISOString();
       
       log.status = 'success';
-      log.message = `Reel publié avec succès sur Instagram & TikTok : "${selectedItem.source.bookOrSurah}"`;
+      log.message = `Reel publié avec succès sur Instagram, TikTok & YouTube Shorts : "${selectedItem.source.bookOrSurah}"`;
       log.videoUrl = publicVideoUrl;
       log.cardUrl = cardUrl;
 
@@ -311,6 +317,9 @@ class AutoPilotServiceClass {
       log.message = `Échec Auto-Pilot: ${err.message || 'Erreur inconnue'}`;
 
       const config = this.getConfig();
+
+      // Advance theme index even on error to guarantee rotation never loops on the same theme!
+      config.currentThemeIndex = ((config.currentThemeIndex || 0) + 1) % AUTOPILOT_THEMES.length;
 
       // Safety Backoff: NEVER leave nextRunAt in the past, preventing runaway 15s retry loops!
       const currentRateLimit = getBufferRateLimitStatus();
@@ -331,83 +340,15 @@ class AutoPilotServiceClass {
   }
 
   /**
-   * Helper to render card image on offscreen canvas
+   * Helper to render luxury card image (delegates to the official photographic/calligraphy canvas engine)
    */
   private async renderCardImage(item: any, referenceText: string): Promise<string> {
-    const canvas = document.createElement('canvas');
-    canvas.width = 1080;
-    canvas.height = 1920;
-    const ctx = canvas.getContext('2d');
-    if (!ctx) throw new Error('Canvas non disponible');
-
-    // Background gradient
-    const grad = ctx.createLinearGradient(0, 0, 0, 1920);
-    grad.addColorStop(0, '#090d16');
-    grad.addColorStop(0.5, '#0f172a');
-    grad.addColorStop(1, '#020617');
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, 1080, 1920);
-
-    // Decorative Islamic border
-    ctx.strokeStyle = 'rgba(217, 119, 6, 0.4)';
-    ctx.lineWidth = 4;
-    ctx.strokeRect(60, 60, 960, 1800);
-
-    ctx.strokeStyle = 'rgba(217, 119, 6, 0.15)';
-    ctx.lineWidth = 1;
-    ctx.strokeRect(75, 75, 930, 1770);
-
-    // Bismillah
-    ctx.fillStyle = '#fef08a';
-    ctx.font = 'bold 38px Amiri, "Traditional Arabic", serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ', 540, 240);
-
-    // Arabic Text
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 44px Amiri, "Traditional Arabic", serif';
-    this.wrapText(ctx, item.arabicText || '', 540, 420, 840, 75);
-
-    // French Translation
-    ctx.fillStyle = '#cbd5e1';
-    ctx.font = '500 32px "Plus Jakarta Sans", sans-serif';
-    this.wrapText(ctx, item.translationFr || '', 540, 980, 840, 52);
-
-    // English Translation
-    ctx.fillStyle = '#94a3b8';
-    ctx.font = 'italic 28px "Plus Jakarta Sans", sans-serif';
-    this.wrapText(ctx, item.translationEn || '', 540, 1380, 840, 46);
-
-    // Reference
-    ctx.fillStyle = '#f59e0b';
-    ctx.font = 'bold 30px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText(`📍 ${referenceText}`, 540, 1680);
-
-    // Footer Watermark
-    ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-    ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
-    ctx.fillText('@kaelarislamic • @mdou.g', 540, 1780);
-
-    return canvas.toDataURL('image/png', 0.95);
-  }
-
-  private wrapText(ctx: CanvasRenderingContext2D, text: string, x: number, y: number, maxWidth: number, lineHeight: number) {
-    const words = text.split(' ');
-    let line = '';
-    let currentY = y;
-
-    for (let n = 0; n < words.length; n++) {
-      const testLine = line + words[n] + ' ';
-      const metrics = ctx.measureText(testLine);
-      if (metrics.width > maxWidth && n > 0) {
-        ctx.fillText(line.trim(), x, currentY);
-        line = words[n] + ' ';
-        currentY += lineHeight;
-      } else {
-        line = testLine;
-      }
-    }
-    ctx.fillText(line.trim(), x, currentY);
+    return IslamicContentService.renderQuoteCardCanvas(
+      item,
+      '9:16',
+      'all',
+      item.visualTheme || 'golden_night'
+    );
   }
 
   private initTimer(): void {

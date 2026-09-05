@@ -31,7 +31,10 @@ export const ISLAMIC_VIRAL_TAG_TAXONOMY: Record<string, string[]> = {
     '#foryou',
     '#foryoupage',
     '#viralvideo',
-    '#trending'
+    '#trending',
+    '#islamicreminder',
+    '#kaelarislamic',
+    '#mdou'
   ],
 
   instagram_boosters: [
@@ -40,7 +43,26 @@ export const ISLAMIC_VIRAL_TAG_TAXONOMY: Record<string, string[]> = {
     '#reelsviral',
     '#explorepage',
     '#instaislam',
-    '#reels'
+    '#reels',
+    '#explore',
+    '#viralreels',
+    '#quranrecitation',
+    '#dailyreminder',
+    '#kaelarislamic'
+  ],
+
+  youtube_boosters: [
+    '#Shorts',
+    '#YouTubeShorts',
+    '#IslamicShorts',
+    '#ViralShorts',
+    '#Trending',
+    '#ShortsFeed',
+    '#HolyQuran',
+    '#HadithOfTheDay',
+    '#IslamicStatus',
+    '#DailyReminder',
+    '#kaelarislamic'
   ],
 
   // Category Specific Niche Rankers
@@ -153,8 +175,8 @@ export const ISLAMIC_VIRAL_TAG_TAXONOMY: Record<string, string[]> = {
 
 export const IslamicViralTagsService = {
   /**
-   * Generates a curated, algorithmically optimal list of viral Islamic hashtags.
-   * Balances high-traffic anchors, category keywords, platform FYP hooks and niche tags.
+   * Generates a curated, algorithmically optimal list of viral Islamic hashtags
+   * strictly customized for each platform's discovery feed (TikTok FYP, Instagram Explore, YouTube Shorts).
    */
   getViralTags(
     category: IslamicContentType = 'quran_verse',
@@ -165,38 +187,67 @@ export const IslamicViralTagsService = {
   ): string[] {
     const selectedTags = new Set<string>();
 
-    // 1. Add 3 Global Core Anchors
+    if (platform === 'youtube') {
+      // YouTube Shorts SEO Formula: #Shorts first, followed by high-intent shorts tags & category
+      selectedTags.add('#Shorts');
+      ISLAMIC_VIRAL_TAG_TAXONOMY.youtube_boosters.slice(1, 6).forEach(t => selectedTags.add(t));
+      
+      const categoryTags = ISLAMIC_VIRAL_TAG_TAXONOMY[category] || ISLAMIC_VIRAL_TAG_TAXONOMY.quran_verse;
+      categoryTags.slice(0, 4).forEach(t => selectedTags.add(t));
+      
+      selectedTags.add('#Islam');
+      selectedTags.add('#Quran');
+      selectedTags.add('#kaelarislamic');
+      return Array.from(selectedTags).slice(0, limit);
+    }
+
+    if (platform === 'tiktok') {
+      // TikTok FYP Formula: High-velocity viral hooks, short keywords, community tags
+      ISLAMIC_VIRAL_TAG_TAXONOMY.tiktok_boosters.slice(0, 7).forEach(t => selectedTags.add(t));
+      
+      const categoryTags = ISLAMIC_VIRAL_TAG_TAXONOMY[category] || ISLAMIC_VIRAL_TAG_TAXONOMY.quran_verse;
+      categoryTags.slice(0, 4).forEach(t => selectedTags.add(t));
+      
+      selectedTags.add('#islam');
+      selectedTags.add('#allah');
+      if (language === 'fr' || language === 'all') {
+        selectedTags.add('#rappelislam');
+      }
+      selectedTags.add('#kaelarislamic');
+      selectedTags.add('#mdou');
+      return Array.from(selectedTags).slice(0, limit);
+    }
+
+    if (platform === 'instagram') {
+      // Instagram Explore Formula: Explore tags, Reels virality, aesthetic community tags
+      ISLAMIC_VIRAL_TAG_TAXONOMY.instagram_boosters.slice(0, 6).forEach(t => selectedTags.add(t));
+      
+      const categoryTags = ISLAMIC_VIRAL_TAG_TAXONOMY[category] || ISLAMIC_VIRAL_TAG_TAXONOMY.quran_verse;
+      categoryTags.slice(0, 4).forEach(t => selectedTags.add(t));
+      
+      selectedTags.add('#islam');
+      selectedTags.add('#muslim');
+      if (language === 'fr' || language === 'all') {
+        selectedTags.add('#rappelsislamiques');
+        selectedTags.add('#coran');
+      }
+      selectedTags.add('#kaelarislamic');
+      return Array.from(selectedTags).slice(0, limit);
+    }
+
+    // Default / All Platforms
     const coreList = ISLAMIC_VIRAL_TAG_TAXONOMY.core_global;
     coreList.slice(0, 3).forEach(t => selectedTags.add(t));
 
-    // 2. Add 4 Category-Specific High Impact Tags
     const categoryTags = ISLAMIC_VIRAL_TAG_TAXONOMY[category] || ISLAMIC_VIRAL_TAG_TAXONOMY.quran_verse;
     categoryTags.slice(0, 4).forEach(t => selectedTags.add(t));
 
-    if (platform === 'tiktok' || platform === 'all') {
-      selectedTags.add('#muslimtiktok');
-      selectedTags.add('#fyp');
-      selectedTags.add('#foryou');
-    }
-    if (platform === 'instagram' || platform === 'all') {
-      selectedTags.add('#islamicreels');
-      selectedTags.add('#explorepage');
-    }
-    if (platform === 'youtube' || platform === 'all') {
-      selectedTags.add('#Shorts');
-      selectedTags.add('#YouTubeShorts');
-      selectedTags.add('#Trending');
-    }
+    selectedTags.add('#muslimtiktok');
+    selectedTags.add('#fyp');
+    selectedTags.add('#islamicreels');
+    selectedTags.add('#Shorts');
+    selectedTags.add('#kaelarislamic');
 
-    // 4. Add Language-Specific Regional Boosters
-    if (language === 'fr' || language === 'all') {
-      ISLAMIC_VIRAL_TAG_TAXONOMY.french_boosters.slice(0, 2).forEach(t => selectedTags.add(t));
-    }
-    if (language === 'ar' || language === 'all') {
-      ISLAMIC_VIRAL_TAG_TAXONOMY.arabic_boosters.slice(0, 2).forEach(t => selectedTags.add(t));
-    }
-
-    // 5. Add Custom Topic Tag if provided (e.g. #sabr, #kaffarah, #tawakkul)
     if (customTopic && customTopic.trim()) {
       const cleanTopic = customTopic.trim().replace(/[^a-zA-Z0-9\u0600-\u06FF]/g, '');
       if (cleanTopic.length > 2) {
@@ -204,15 +255,11 @@ export const IslamicViralTagsService = {
       }
     }
 
-    // 6. Signature Brand Tag
-    selectedTags.add('#kaelarislamic');
-
-    // Convert Set to Array and enforce limit
     return Array.from(selectedTags).slice(0, limit);
   },
 
   /**
-   * Formats a complete, high-engagement viral caption with verified reference and clean tag layout.
+   * Formats a complete, platform-native viral caption with verified reference and algorithmic tag layout.
    */
   formatViralCaption(
     item: IslamicPostItem,
@@ -222,22 +269,37 @@ export const IslamicViralTagsService = {
     const tags = this.getViralTags(item.type, platform, language, item.topic);
     const tagString = tags.join(' ');
 
-    const ref = `${item.source.bookOrSurah} — ${item.source.numberOrAyah} [${item.source.authenticityGrade}]`;
+    const cleanFr = (item.translationFr || '').replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
+    const cleanEn = (item.translationEn || '').replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
+    const ref = `${item.source.bookOrSurah} — ${item.source.numberOrAyah}`;
     const reciter = item.reciterAudio?.reciterName ? `🎙️ Récitation : ${item.reciterAudio.reciterName}` : '';
 
+    // 1. TikTok Dedicated Caption (Punchy, fast-reading, immediate hook before "more")
+    if (platform === 'tiktok') {
+      return `${item.arabicText}\n\n« ${cleanFr} »\n\n📍 ${ref}${reciter ? '\n' + reciter : ''}\n\n${tagString}`;
+    }
+
+    // 2. YouTube Shorts Dedicated Caption (SEO title, full text, description tags)
+    if (platform === 'youtube') {
+      const titleLine = `${item.source.bookOrSurah} — ${item.source.numberOrAyah} 🕋 #Shorts`;
+      return `${titleLine}\n\n${item.arabicText}\n\n« ${cleanFr} »\n\n"${cleanEn}"\n\n${reciter ? reciter + '\n' : ''}✨ Source certifiée : ${ref}\n\n${tagString}`;
+    }
+
+    // 3. Instagram Reels Dedicated Caption (Aesthetic spacing, reflection note, explore hashtags block)
+    if (platform === 'instagram') {
+      const reflection = item.reflection?.fr ? `✨ Réflexion : ${item.reflection.fr}\n\n` : '';
+      return `${item.arabicText}\n\n« ${cleanFr} »\n\n“ ${cleanEn} ”\n\n📍 ${ref}${reciter ? '\n' + reciter : ''}\n\n${reflection}.\n.\n${tagString}`;
+    }
+
+    // 4. Default Trilingual
     if (language === 'fr') {
-      return `${item.arabicText}\n\n« ${item.translationFr} »\n\n📌 ${ref}${reciter ? '\n' + reciter : ''}\n\n✨ Réflexion : ${item.reflection.fr}\n\n${tagString}`;
+      return `${item.arabicText}\n\n« ${cleanFr} »\n\n📌 ${ref}${reciter ? '\n' + reciter : ''}\n\n${tagString}`;
     }
 
     if (language === 'en') {
-      return `${item.arabicText}\n\n“${item.translationEn}”\n\n📌 ${ref}${reciter ? '\n' + reciter : ''}\n\n✨ Reflection: ${item.reflection.en}\n\n${tagString}`;
+      return `${item.arabicText}\n\n“${cleanEn}”\n\n📌 ${ref}${reciter ? '\n' + reciter : ''}\n\n${tagString}`;
     }
 
-    if (language === 'ar') {
-      return `${item.arabicText}\n\n📌 المرجع: ${item.source.arabicReference} [${item.source.authenticityGrade}]${reciter ? '\n' + reciter : ''}\n\n✨ تأمل: ${item.reflection.ar}\n\n${tagString}`;
-    }
-
-    // Trilingual Default
-    return `${item.arabicText}\n\n🇫🇷 « ${item.translationFr} »\n\n🇬🇧 “${item.translationEn}”\n\n📌 ${ref}${reciter ? '\n' + reciter : ''}\n\n${tagString}`;
+    return `${item.arabicText}\n\n🇫🇷 « ${cleanFr} »\n\n🇬🇧 “${cleanEn}”\n\n📌 ${ref}${reciter ? '\n' + reciter : ''}\n\n${tagString}`;
   }
 };
