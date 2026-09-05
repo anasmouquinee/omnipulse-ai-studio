@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -137,6 +137,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5187.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788545092/aqubds6qb9kmobd4x200.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788545092/aqubds6qb9kmobd4x200.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788567030891",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "bookOrSurah": "Sourate Al-Israa (سُورَةُ الإِسۡرَاءِ)",
+      "numberOrAyah": "Verset 79",
+      "surahNumber": 17,
+      "ayahNumber": 79,
+      "arabicText": "وَمِنَ ٱلَّيْلِ فَتَهَجَّدْ بِهِۦ نَافِلَةًۭ لَّكَ عَسَىٰٓ أَن يَبْعَثَكَ رَبُّكَ مَقَامًۭا مَّحْمُودًۭا",
+      "translationFr": "« Et de la nuit consacre une partie [avant l'aube] pour des Salât surérogatoires: afin que ton Seigneur te ressuscite en une position de gloire. »",
+      "translationEn": "\"And from [part of] the night, pray with it as additional [worship] for you; it is expected that your Lord will resurrect you to a praised station.\"",
+      "contentHash": "ومن ٱليل فتهجد بهۦ نافلةۭ لك ع",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2108.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788566994/wpebivd3dycyfq0uqirr.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788566994/wpebivd3dycyfq0uqirr.png",
       "platforms": [
         "instagram",
         "tiktok",
