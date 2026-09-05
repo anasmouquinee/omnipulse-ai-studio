@@ -16,7 +16,7 @@ interface HeaderProps {
 const VIEW_TITLES: Record<NavView, { title: string; subtitle: string; icon: React.ReactNode }> = {
   studio: {
     title: 'Studio de Création & Reels Islamiques',
-    subtitle: 'Récitations HD, calligraphie ornée et audio synchronisé pour Instagram (@kae.islamic), TikTok (@kaelar.islamic) & YouTube Shorts',
+    subtitle: 'Récitations HD, calligraphie ornée et audio synchronisé pour Instagram (@kae.islamic) & TikTok (@kaelar.islamic)',
     icon: <Sparkles size={22} color="#10b981" />
   },
   autopilot: {
@@ -41,7 +41,7 @@ const VIEW_TITLES: Record<NavView, { title: string; subtitle: string; icon: Reac
   },
   accounts: {
     title: 'Canaux Connectés',
-    subtitle: 'Diffusion directe vers @kae.islamic, @kaelar.islamic et YouTube Shorts via Buffer API',
+    subtitle: 'Diffusion directe vers @kae.islamic et @kaelar.islamic via Buffer API',
     icon: <span style={{ fontSize: '1.3rem' }}>📡</span>
   },
   media: {
