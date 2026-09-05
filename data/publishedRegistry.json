@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -160,6 +160,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2108.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788566994/wpebivd3dycyfq0uqirr.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788566994/wpebivd3dycyfq0uqirr.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788588397508",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "bookOrSurah": "Sourate Al-Baqara (سُورَةُ البَقَرَةِ)",
+      "numberOrAyah": "Verset 201",
+      "surahNumber": 2,
+      "ayahNumber": 201,
+      "arabicText": "وَمِنْهُم مَّن يَقُولُ رَبَّنَآ ءَاتِنَا فِى ٱلدُّنْيَا حَسَنَةًۭ وَفِى ٱلْءَاخِرَةِ حَسَنَةًۭ وَقِنَا عَذَابَ ٱلنَّارِ",
+      "translationFr": "« Et il est des gens qui disent: «Seigneur! Accorde nous belle part ici-bas, et belle part aussi dans l'au-delà; et protège-nous du châtiment du Feu! »",
+      "translationEn": "\"But among them is he who says, \"Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.\"",
+      "contentHash": "ومنهم من يقول ربنا ءاتنا فى ٱل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/208.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788588362/klu8kbhxmo20m5rt8pm2.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788588362/klu8kbhxmo20m5rt8pm2.png",
       "platforms": [
         "instagram",
         "tiktok",
