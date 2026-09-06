@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -229,6 +229,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1735.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788631505/ioen8k1eh8latwkqtrsq.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788631505/ioen8k1eh8latwkqtrsq.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788653501831",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "bookOrSurah": "Sourate As-Sajda (سُورَةُ السَّجۡدَةِ)",
+      "numberOrAyah": "Verset 16",
+      "surahNumber": 32,
+      "ayahNumber": 16,
+      "arabicText": "تَتَجَافَىٰ جُنُوبُهُمْ عَنِ ٱلْمَضَاجِعِ يَدْعُونَ رَبَّهُمْ خَوْفًۭا وَطَمَعًۭا وَمِمَّا رَزَقْنَٰهُمْ يُنفِقُونَ",
+      "translationFr": "« Ils s'arrachent de leurs lits pour invoquer leur Seigneur, par crainte et espoir; et ils font largesse de ce que Nous leur attribuons. »",
+      "translationEn": "\"They arise from [their] beds; they supplicate their Lord in fear and aspiration, and from what We have provided them, they spend.\"",
+      "contentHash": "تتجافى جنوبهم عن ٱلمضاجع يدعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3519.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788653467/x388wqjwhvacy3oic7ug.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788653467/x388wqjwhvacy3oic7ug.png",
       "platforms": [
         "instagram",
         "tiktok",
