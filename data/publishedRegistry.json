@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -252,6 +252,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3519.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788653467/x388wqjwhvacy3oic7ug.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788653467/x388wqjwhvacy3oic7ug.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788674785178",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "bookOrSurah": "Sourate At-Tawba (سُورَةُ التَّوۡبَةِ)",
+      "numberOrAyah": "Verset 129",
+      "surahNumber": 9,
+      "ayahNumber": 129,
+      "arabicText": "فَإِن تَوَلَّوْا۟ فَقُلْ حَسْبِىَ ٱللَّهُ لَآ إِلَٰهَ إِلَّا هُوَ ۖ عَلَيْهِ تَوَكَّلْتُ ۖ وَهُوَ رَبُّ ٱلْعَرْشِ ٱلْعَظِيمِ",
+      "translationFr": "« Alors, s'ils se détournent dis: «Allah me suffit. Il n'y a de divinité que Lui. En Lui je place ma confiance; et Il est le Seigneur du Trône immense». »",
+      "translationEn": "\"But if they turn away, [O Muhammad], say, \"Sufficient for me is Allah; there is no deity except Him. On Him I have relied, and He is the Lord of the Great Throne.\"",
+      "contentHash": "فإن تولوا۟ فقل حسبى ٱلله لا إل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1364.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788674749/pzucg36kczduxrtyfh0b.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788674749/pzucg36kczduxrtyfh0b.png",
       "platforms": [
         "instagram",
         "tiktok",
