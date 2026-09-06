@@ -100,27 +100,54 @@ Tu DOIS impérativement répondre avec un objet JSON STRICT respectant cette str
       headers['Authorization'] = `Bearer ${apiKey}`;
     }
 
-    const response = await fetch(endpoint, {
-      method: 'POST',
-      headers,
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [
-              { text: systemPrompt },
-              { text: `Idée de contenu : ${params.prompt}` }
-            ]
+    let response: Response;
+    try {
+      response = await fetch('/api/gemini', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          model,
+          key: apiKey,
+          contents: [
+            {
+              parts: [
+                { text: systemPrompt },
+                { text: `Idée de contenu : ${params.prompt}` }
+              ]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 2048,
+            responseMimeType: 'application/json'
           }
-        ],
-        generationConfig: {
-          temperature: 0.7,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 2048,
-          responseMimeType: 'application/json'
-        }
-      })
-    });
+        })
+      });
+    } catch {
+      response = await fetch(endpoint, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [
+                { text: systemPrompt },
+                { text: `Idée de contenu : ${params.prompt}` }
+              ]
+            }
+          ],
+          generationConfig: {
+            temperature: 0.7,
+            topK: 40,
+            topP: 0.95,
+            maxOutputTokens: 2048,
+            responseMimeType: 'application/json'
+          }
+        })
+      });
+    }
 
     if (!response.ok) {
       const errorText = await response.text();

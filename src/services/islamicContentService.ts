@@ -427,12 +427,14 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
         for (const model of modelsToTry) {
           try {
-            const response = await fetch(
-              `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-              {
+            let response: Response;
+            try {
+              response = await fetch('/api/gemini', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                  model,
+                  key: apiKey,
                   contents: [{ parts: [{ text: prompt }] }],
                   generationConfig: {
                     temperature: 0.9,
@@ -440,8 +442,24 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
                     responseMimeType: 'application/json'
                   }
                 })
-              }
-            );
+              });
+            } catch {
+              response = await fetch(
+                `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
+                {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                    contents: [{ parts: [{ text: prompt }] }],
+                    generationConfig: {
+                      temperature: 0.9,
+                      maxOutputTokens: 4096,
+                      responseMimeType: 'application/json'
+                    }
+                  })
+                }
+              );
+            }
 
             if (response.ok) {
               const data = await response.json();
