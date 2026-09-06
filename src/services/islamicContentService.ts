@@ -447,6 +447,11 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
               const data = await response.json();
               rawText = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
               if (rawText) break;
+            } else if (response.status === 403) {
+              const errData = await response.json().catch(() => ({}));
+              const msg = errData?.error?.message || '';
+              console.warn(`⚠️ Gemini API returned 403 (${msg}). Falling back to verified authentic catalog.`);
+              break;
             }
           } catch (err) {
             console.warn(`Model ${model} failed, trying next...`, err);

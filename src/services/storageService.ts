@@ -60,12 +60,11 @@ export const StorageService = {
     const userKey = this.getSettings().geminiApiKey;
     if (userKey && userKey.trim() !== '') return userKey.trim();
     try {
-      if (typeof atob !== 'undefined') {
-        return atob('QVEuQWI4Uk42Szh0TmZOekVTemtPVFEwTkdIU1VpVUx0TVo5Q1lqZFFtM3Y3WGRnb216QWc=');
+      const envKey = (import.meta as any).env?.VITE_GEMINI_API_KEY;
+      if (envKey && typeof envKey === 'string' && envKey.trim() !== '') {
+        return envKey.trim();
       }
-    } catch (e) {
-      console.warn('Could not decode default key:', e);
-    }
+    } catch {}
     return '';
   },
 

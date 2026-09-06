@@ -24,3 +24,14 @@ dist-ssr
 *.sw?
 
 .vercel
+
+# Environment variables & API credentials (NEVER commit to GitHub)
+.env
+.env.*
+!.env.example
+
+# Test scripts that may contain API keys
+test*.js
+test*.cjs
+test*.mjs
+scratch/
