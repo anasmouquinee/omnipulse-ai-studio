@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -275,6 +275,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1364.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788674749/pzucg36kczduxrtyfh0b.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788674749/pzucg36kczduxrtyfh0b.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788717917941",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "bookOrSurah": "Sourate At-Talaaq (سُورَةُ الطَّلَاقِ)",
+      "numberOrAyah": "Verset 3",
+      "surahNumber": 65,
+      "ayahNumber": 3,
+      "arabicText": "وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ۚ وَمَن يَتَوَكَّلْ عَلَى ٱللَّهِ فَهُوَ حَسْبُهُۥٓ ۚ إِنَّ ٱللَّهَ بَٰلِغُ أَمْرِهِۦ ۚ قَدْ جَعَلَ ٱللَّهُ لِكُلِّ شَىْءٍۢ قَدْرًۭا",
+      "translationFr": "« et lui accordera Ses dons par [des moyens] sur lesquels il ne comptait pas. Et quiconque place sa confiance en Allah, Il [Allah] lui suffit. Allah atteint ce qu'Il Se propose, et Allah a assigné une mesure à chaque chose. »",
+      "translationEn": "\"And will provide for him from where he does not expect. And whoever relies upon Allah - then He is sufficient for him. Indeed, Allah will accomplish His purpose. Allah has already set for everything a [decreed] extent.\"",
+      "contentHash": "ويرزقه من حيث لا يحتسب ۚ ومن ي",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5220.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788717887/l0lz7xkkatbdhbucsjdx.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788717887/l0lz7xkkatbdhbucsjdx.png",
       "platforms": [
         "instagram",
         "tiktok",
