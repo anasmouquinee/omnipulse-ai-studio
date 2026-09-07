@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -321,6 +321,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/293.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788761307/p8fssztmysrlsanskbiw.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788761307/p8fssztmysrlsanskbiw.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788782780133",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "bookOrSurah": "Sourate Ash-Sharh (سُورَةُ الشَّرۡحِ)",
+      "numberOrAyah": "Verset 5",
+      "surahNumber": 94,
+      "ayahNumber": 5,
+      "arabicText": "فَإِنَّ مَعَ ٱلْعُسْرِ يُسْرًا",
+      "translationFr": "« A côté de la difficulté est, certes, une facilité! »",
+      "translationEn": "\"For indeed, with hardship [will be] ease.\"",
+      "contentHash": "فإن مع ٱلعسر يسرا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6095.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788782744/mc4ix5sqhf68qubye2du.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788782744/mc4ix5sqhf68qubye2du.png",
       "platforms": [
         "instagram",
         "tiktok",
