@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -390,6 +390,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6096.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788869190/yaounllemo3zepr5kdwh.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788869190/yaounllemo3zepr5kdwh.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788934048170",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "bookOrSurah": "Sourate Aal-i-Imraan (سُورَةُ آلِ عِمۡرَانَ)",
+      "numberOrAyah": "Verset 173",
+      "surahNumber": 3,
+      "ayahNumber": 173,
+      "arabicText": "ٱلَّذِينَ قَالَ لَهُمُ ٱلنَّاسُ إِنَّ ٱلنَّاسَ قَدْ جَمَعُوا۟ لَكُمْ فَٱخْشَوْهُمْ فَزَادَهُمْ إِيمَٰنًۭا وَقَالُوا۟ حَسْبُنَا ٱللَّهُ وَنِعْمَ ٱلْوَكِيلُ",
+      "translationFr": "« Certes ceux auxquels l'on disait: «Les gens se sont rassemblés contre vous; craignez-les» - cela accrut leur foi - et ils dirent: «Allah nous suffit; Il est notre meilleur garant». »",
+      "translationEn": "\"Those to whom hypocrites said, \"Indeed, the people have gathered against you, so fear them.\" But it [merely] increased them in faith, and they said, \"Sufficient for us is Allah, and [He is] the best Disposer of affairs.\"",
+      "contentHash": "ٱلذين قال لهم ٱلناس إن ٱلناس ق",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/466.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788934019/lth34jwjydsbl4mybpnd.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788934019/lth34jwjydsbl4mybpnd.png",
       "platforms": [
         "instagram",
         "tiktok",
