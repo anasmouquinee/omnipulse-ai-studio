@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -413,6 +413,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/466.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788934019/lth34jwjydsbl4mybpnd.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788934019/lth34jwjydsbl4mybpnd.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1788977227994",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "bookOrSurah": "Sourate Al-Baqara (سُورَةُ البَقَرَةِ)",
+      "numberOrAyah": "Verset 216",
+      "surahNumber": 2,
+      "ayahNumber": 216,
+      "arabicText": "كُتِبَ عَلَيْكُمُ ٱلْقِتَالُ وَهُوَ كُرْهٌۭ لَّكُمْ ۖ وَعَسَىٰٓ أَن تَكْرَهُوا۟ شَيْـًۭٔا وَهُوَ خَيْرٌۭ لَّكُمْ ۖ وَعَسَىٰٓ أَن تُحِبُّوا۟ شَيْـًۭٔا وَهُوَ شَرٌّۭ لَّكُمْ ۗ وَٱللَّهُ يَعْلَمُ وَأَنتُمْ لَا تَعْلَمُونَ",
+      "translationFr": "« Le combat vous a été prescrit alors qu'il vous est désagréable. Or, il se peut que vous ayez de l'aversion pour une chose alors qu'elle vous est un bien. Et il se peut que vous aimiez une chose alors qu'elle vous est mauvaise. C'est Allah qui sait, alors que vous ne savez pas. »",
+      "translationEn": "\"Fighting has been enjoined upon you while it is hateful to you. But perhaps you hate a thing and it is good for you; and perhaps you love a thing and it is bad for you. And Allah Knows, while you know not.\"",
+      "contentHash": "كتب عليكم ٱلقتال وهو كرهۭ لكم ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/223.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788977191/nms9vke3woyxacjcprmv.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788977191/nms9vke3woyxacjcprmv.png",
       "platforms": [
         "instagram",
         "tiktok",
