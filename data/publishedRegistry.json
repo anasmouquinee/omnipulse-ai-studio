@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -436,6 +436,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/223.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788977191/nms9vke3woyxacjcprmv.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1788977191/nms9vke3woyxacjcprmv.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789063552715",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "bookOrSurah": "Sourate Al-Kahf (سُورَةُ الكَهۡفِ)",
+      "numberOrAyah": "Verset 1",
+      "surahNumber": 18,
+      "ayahNumber": 1,
+      "arabicText": "بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ٱلْحَمْدُ لِلَّهِ ٱلَّذِىٓ أَنزَلَ عَلَىٰ عَبْدِهِ ٱلْكِتَٰبَ وَلَمْ يَجْعَل لَّهُۥ عِوَجَا ۜ",
+      "translationFr": "« Louange à Allah qui a fait descendre sur Son serviteur (Muhammad), le Livre, et n'y a point introduit de tortuosité (ambiguité)! »",
+      "translationEn": "\"[All] praise is [due] to Allah, who has sent down upon His Servant the Book and has not made therein any deviance.\"",
+      "contentHash": "بسم ٱلله ٱلرحمن ٱلرحيم ٱلحمد ل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789063517/wsrcrjgxwurejy8hxwjo.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789063517/wsrcrjgxwurejy8hxwjo.png",
       "platforms": [
         "instagram",
         "tiktok",
