@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -528,6 +528,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2186.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789128371/a6ohpn3wfzhmjlz1dhez.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789128371/a6ohpn3wfzhmjlz1dhez.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789171811725",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "bookOrSurah": "Sourate Al-Muzzammil (سُورَةُ المُزَّمِّلِ)",
+      "numberOrAyah": "Verset 2",
+      "surahNumber": 73,
+      "ayahNumber": 2,
+      "arabicText": "قُمِ ٱلَّيْلَ إِلَّا قَلِيلًۭا",
+      "translationFr": "« Lève-toi [pour prier], toute la nuit, excepté une petite partie; »",
+      "translationEn": "\"Arise [to pray] the night, except for a little -\"",
+      "contentHash": "قم ٱليل إلا قليلۭا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5477.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789171776/sojt8il3qnejyjtrhnsa.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789171776/sojt8il3qnejyjtrhnsa.png",
       "platforms": [
         "instagram",
         "tiktok",
