@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -597,6 +597,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6084.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789214709/nclpvemq5pqeqad6wfqi.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789214709/nclpvemq5pqeqad6wfqi.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789236307833",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "bookOrSurah": "Sourate Aal-i-Imraan (سُورَةُ آلِ عِمۡرَانَ)",
+      "numberOrAyah": "Verset 139",
+      "surahNumber": 3,
+      "ayahNumber": 139,
+      "arabicText": "وَلَا تَهِنُوا۟ وَلَا تَحْزَنُوا۟ وَأَنتُمُ ٱلْأَعْلَوْنَ إِن كُنتُم مُّؤْمِنِينَ",
+      "translationFr": "« Ne vous laissez pas battre, ne vous affligez pas alors que vous êtes les supérieurs, si vous êtes de vrais croyants. »",
+      "translationEn": "\"So do not weaken and do not grieve, and you will be superior if you are [true] believers.\"",
+      "contentHash": "ولا تهنوا۟ ولا تحزنوا۟ وأنتم ٱ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/432.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789236277/ywohzgg1rfyc6iwpwtax.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789236277/ywohzgg1rfyc6iwpwtax.png",
       "platforms": [
         "instagram",
         "tiktok",
