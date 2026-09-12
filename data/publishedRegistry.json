@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -551,6 +551,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5477.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789171776/sojt8il3qnejyjtrhnsa.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789171776/sojt8il3qnejyjtrhnsa.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789193184498",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "bookOrSurah": "Sourate Taa-Haa (سُورَةُ طه)",
+      "numberOrAyah": "Verset 25",
+      "surahNumber": 20,
+      "ayahNumber": 25,
+      "arabicText": "قَالَ رَبِّ ٱشْرَحْ لِى صَدْرِى",
+      "translationFr": "« [Moïse] dit: «Seigneur, ouvre-moi ma poitrine, »",
+      "translationEn": "\"[Moses] said, \"My Lord, expand for me my breast [with assurance]\"",
+      "contentHash": "قال رب ٱشرح لى صدرى",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2373.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789193148/usepys8mnuho4c58ymrz.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789193148/usepys8mnuho4c58ymrz.png",
       "platforms": [
         "instagram",
         "tiktok",
