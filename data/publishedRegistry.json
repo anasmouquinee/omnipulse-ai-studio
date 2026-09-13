@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -643,6 +643,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5495.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789258278/j6iymqi7zqoudbjev849.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789258278/j6iymqi7zqoudbjev849.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789279738495",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "bookOrSurah": "Sourate Al-Qasas (سُورَةُ القَصَصِ)",
+      "numberOrAyah": "Verset 24",
+      "surahNumber": 28,
+      "ayahNumber": 24,
+      "arabicText": "فَسَقَىٰ لَهُمَا ثُمَّ تَوَلَّىٰٓ إِلَى ٱلظِّلِّ فَقَالَ رَبِّ إِنِّى لِمَآ أَنزَلْتَ إِلَىَّ مِنْ خَيْرٍۢ فَقِيرٌۭ",
+      "translationFr": "« Il abreuva [les bêtes] pour elles puis retourna à l'ombre et dit: «Seigneur, j'ai grand besoin du bien que tu feras descendre vers moi». »",
+      "translationEn": "\"So he watered [their flocks] for them; then he went back to the shade and said, \"My Lord, indeed I am, for whatever good You would send down to me, in need.\"",
+      "contentHash": "فسقى لهما ثم تولى إلى ٱلظل فقا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3276.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789279708/ybxft8n8ryamu5e9vawe.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789279708/ybxft8n8ryamu5e9vawe.png",
       "platforms": [
         "instagram",
         "tiktok",
