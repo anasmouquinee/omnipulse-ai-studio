@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -666,6 +666,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3276.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789279708/ybxft8n8ryamu5e9vawe.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789279708/ybxft8n8ryamu5e9vawe.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789344706041",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "bookOrSurah": "Sourate Adh-Dhaariyat (سُورَةُ الذَّارِيَاتِ)",
+      "numberOrAyah": "Verset 18",
+      "surahNumber": 51,
+      "ayahNumber": 18,
+      "arabicText": "وَبِٱلْأَسْحَارِ هُمْ يَسْتَغْفِرُونَ",
+      "translationFr": "« et aux dernières heures de la nuit ils imploraient le pardon [d'Allah]; »",
+      "translationEn": "\"And in the hours before dawn they would ask forgiveness,\"",
+      "contentHash": "وبٱلأسحار هم يستغفرون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4693.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789344670/i3zcr3qyklckikavlv1k.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789344670/i3zcr3qyklckikavlv1k.png",
       "platforms": [
         "instagram",
         "tiktok",
