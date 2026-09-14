@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -689,6 +689,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4693.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789344670/i3zcr3qyklckikavlv1k.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789344670/i3zcr3qyklckikavlv1k.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789366172871",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "bookOrSurah": "Sourate Aal-i-Imraan (سُورَةُ آلِ عِمۡرَانَ)",
+      "numberOrAyah": "Verset 8",
+      "surahNumber": 3,
+      "ayahNumber": 8,
+      "arabicText": "رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِن لَّدُنكَ رَحْمَةً ۚ إِنَّكَ أَنتَ ٱلْوَهَّابُ",
+      "translationFr": "« Seigneur! Ne laisse pas dévier nos cœurs après que Tu nous aies guidés; et accorde-nous Ta miséricorde. C'est Toi, certes, le Grand Donateur! »",
+      "translationEn": "\"[Who say], \"Our Lord, let not our hearts deviate after You have guided us and grant us from Yourself mercy. Indeed, You are the Bestower.\"",
+      "contentHash": "ربنا لا تزغ قلوبنا بعد إذ هديت",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/301.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789366138/fur93rgmdhwnqfj2k85u.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789366138/fur93rgmdhwnqfj2k85u.png",
       "platforms": [
         "instagram",
         "tiktok",
