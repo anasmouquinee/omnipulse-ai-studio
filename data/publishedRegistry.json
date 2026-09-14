@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -712,6 +712,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/301.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789366138/fur93rgmdhwnqfj2k85u.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789366138/fur93rgmdhwnqfj2k85u.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789387613306",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "bookOrSurah": "Sourate Al-Baqara (سُورَةُ البَقَرَةِ)",
+      "numberOrAyah": "Verset 186",
+      "surahNumber": 2,
+      "ayahNumber": 186,
+      "arabicText": "وَإِذَا سَأَلَكَ عِبَادِى عَنِّى فَإِنِّى قَرِيبٌ ۖ أُجِيبُ دَعْوَةَ ٱلدَّاعِ إِذَا دَعَانِ ۖ فَلْيَسْتَجِيبُوا۟ لِى وَلْيُؤْمِنُوا۟ بِى لَعَلَّهُمْ يَرْشُدُونَ",
+      "translationFr": "« Et quand Mes serviteurs t'interrogent sur Moi.. alors Je suis tout proche: Je réponds à l'appel de celui qui Me prie quand il Me prie. Qu'ils répondent à Mon appel, et qu'ils croient en Moi, afin qu'ils soient bien guidés. »",
+      "translationEn": "\"And when My servants ask you, [O Muhammad], concerning Me - indeed I am near. I respond to the invocation of the supplicant when he calls upon Me. So let them respond to Me [by obedience] and believe in Me that they may be [rightly] guided.\"",
+      "contentHash": "وإذا سألك عبادى عنى فإنى قريب ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/193.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789387577/pz75zfkwjoevjnoxuahs.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789387577/pz75zfkwjoevjnoxuahs.png",
       "platforms": [
         "instagram",
         "tiktok",
