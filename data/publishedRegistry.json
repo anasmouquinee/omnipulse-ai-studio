@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -735,6 +735,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/193.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789387577/pz75zfkwjoevjnoxuahs.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789387577/pz75zfkwjoevjnoxuahs.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789431046808",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "bookOrSurah": "Sourate Az-Zumar (سُورَةُ الزُّمَرِ)",
+      "numberOrAyah": "Verset 9",
+      "surahNumber": 39,
+      "ayahNumber": 9,
+      "arabicText": "أَمَّنْ هُوَ قَٰنِتٌ ءَانَآءَ ٱلَّيْلِ سَاجِدًۭا وَقَآئِمًۭا يَحْذَرُ ٱلْءَاخِرَةَ وَيَرْجُوا۟ رَحْمَةَ رَبِّهِۦ ۗ قُلْ هَلْ يَسْتَوِى ٱلَّذِينَ يَعْلَمُونَ وَٱلَّذِينَ لَا يَعْلَمُونَ ۗ إِنَّمَا يَتَذَكَّرُ أُو۟لُوا۟ ٱلْأَلْبَٰبِ",
+      "translationFr": "« Est-ce que celui qui, aux heures de la nuit, reste en dévotion, prosterné et debout, prenant garde à l'au-delà et espérant la miséricorde de son Seigneur... Dis: «Sont-ils égaux, ceux qui savent et ceux qui ne savent pas?» Seuls les doués d'intelligence se rappellent. »",
+      "translationEn": "\"Is one who is devoutly obedient during periods of the night, prostrating and standing [in prayer], fearing the Hereafter and hoping for the mercy of his Lord, [like one who does not]? Say, \"Are those who know equal to those who do not know?\" Only they will remember [who are] people of understanding.\"",
+      "contentHash": "أمن هو قنت ءاناء ٱليل ساجدۭا و",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4067.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789431015/mbrl64ewdhw1ijdwwpmb.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789431015/mbrl64ewdhw1ijdwwpmb.png",
       "platforms": [
         "instagram",
         "tiktok",
