@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -804,6 +804,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2570.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789473981/m8e5spexq3jgaznyqfkv.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789473981/m8e5spexq3jgaznyqfkv.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789495522679",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "bookOrSurah": "Sourate At-Talaaq (سُورَةُ الطَّلَاقِ)",
+      "numberOrAyah": "Verset 2",
+      "surahNumber": 65,
+      "ayahNumber": 2,
+      "arabicText": "فَإِذَا بَلَغْنَ أَجَلَهُنَّ فَأَمْسِكُوهُنَّ بِمَعْرُوفٍ أَوْ فَارِقُوهُنَّ بِمَعْرُوفٍۢ وَأَشْهِدُوا۟ ذَوَىْ عَدْلٍۢ مِّنكُمْ وَأَقِيمُوا۟ ٱلشَّهَٰدَةَ لِلَّهِ ۚ ذَٰلِكُمْ يُوعَظُ بِهِۦ مَن كَانَ يُؤْمِنُ بِٱللَّهِ وَٱلْيَوْمِ ٱلْءَاخِرِ ۚ وَمَن يَتَّقِ ٱللَّهَ يَجْعَل لَّهُۥ مَخْرَجًۭا",
+      "translationFr": "« Puis quand elles atteignent le terme prescrit, retenez-les de façon convenable, ou séparez-vous d'elles de façon convenable; et prenez deux hommes intègres parmi vous comme témoins. Et acquittez-vous du témoignage envers Allah. Voilà ce à quoi est exhorté celui qui croit en Allah et au Jour dernier. Et quiconque craint Allah, Il Lui donnera une issue favorable, »",
+      "translationEn": "\"And when they have [nearly] fulfilled their term, either retain them according to acceptable terms or part with them according to acceptable terms. And bring to witness two just men from among you and establish the testimony for [the acceptance of] Allah. That is instructed to whoever should believe in Allah and the Last day. And whoever fears Allah - He will make for him a way out\"",
+      "contentHash": "فإذا بلغن أجلهن فأمسكوهن بمعرو",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5219.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789495486/kdrubnyvytasg7ekxd6l.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789495486/kdrubnyvytasg7ekxd6l.png",
       "platforms": [
         "instagram",
         "tiktok",
