@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -758,6 +758,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4067.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789431015/mbrl64ewdhw1ijdwwpmb.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789431015/mbrl64ewdhw1ijdwwpmb.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789452440751",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "bookOrSurah": "Sourate Al-Furqaan (سُورَةُ الفُرۡقَانِ)",
+      "numberOrAyah": "Verset 74",
+      "surahNumber": 25,
+      "ayahNumber": 74,
+      "arabicText": "وَٱلَّذِينَ يَقُولُونَ رَبَّنَا هَبْ لَنَا مِنْ أَزْوَٰجِنَا وَذُرِّيَّٰتِنَا قُرَّةَ أَعْيُنٍۢ وَٱجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا",
+      "translationFr": "« et qui disent: «Seigneur, donne-nous, en nos épouses et nos descendants, la joie des yeux, et fais de nous un guide pour les pieux». »",
+      "translationEn": "\"And those who say, \"Our Lord, grant us from among our wives and offspring comfort to our eyes and make us an example for the righteous.\"",
+      "contentHash": "وٱلذين يقولون ربنا هب لنا من أ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2929.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789452412/lg5fyf2jwycuqtm5xn6r.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789452412/lg5fyf2jwycuqtm5xn6r.png",
       "platforms": [
         "instagram",
         "tiktok",
