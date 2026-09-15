@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -781,6 +781,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2929.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789452412/lg5fyf2jwycuqtm5xn6r.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789452412/lg5fyf2jwycuqtm5xn6r.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789474018409",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "bookOrSurah": "Sourate Al-Anbiyaa (سُورَةُ الأَنبِيَاءِ)",
+      "numberOrAyah": "Verset 87",
+      "surahNumber": 21,
+      "ayahNumber": 87,
+      "arabicText": "وَذَا ٱلنُّونِ إِذ ذَّهَبَ مُغَٰضِبًۭا فَظَنَّ أَن لَّن نَّقْدِرَ عَلَيْهِ فَنَادَىٰ فِى ٱلظُّلُمَٰتِ أَن لَّآ إِلَٰهَ إِلَّآ أَنتَ سُبْحَٰنَكَ إِنِّى كُنتُ مِنَ ٱلظَّٰلِمِينَ",
+      "translationFr": "« Et Dû'n-Nûn (Jonas) quand il partit, irrité. Il pensa que Nous N'allions pas l'éprouver. Puis il fit, dans les ténèbres, l'appel que voici: «Pas de divinité à part Toi! Pureté à Toi! J'ai été vraiment du nombre des injustes». »",
+      "translationEn": "\"And [mention] the man of the fish, when he went off in anger and thought that We would not decree [anything] upon him. And he called out within the darknesses, \"There is no deity except You; exalted are You. Indeed, I have been of the wrongdoers.\"",
+      "contentHash": "وذا ٱلنون إذ ذهب مغضبۭا فظن أن",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2570.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789473981/m8e5spexq3jgaznyqfkv.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789473981/m8e5spexq3jgaznyqfkv.png",
       "platforms": [
         "instagram",
         "tiktok",
