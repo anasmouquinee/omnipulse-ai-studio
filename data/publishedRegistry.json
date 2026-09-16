@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -827,6 +827,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5219.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789495486/kdrubnyvytasg7ekxd6l.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789495486/kdrubnyvytasg7ekxd6l.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789517408294",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "bookOrSurah": "Sourate Al-Furqaan (سُورَةُ الفُرۡقَانِ)",
+      "numberOrAyah": "Verset 64",
+      "surahNumber": 25,
+      "ayahNumber": 64,
+      "arabicText": "وَٱلَّذِينَ يَبِيتُونَ لِرَبِّهِمْ سُجَّدًۭا وَقِيَٰمًۭا",
+      "translationFr": "« qui passent les nuits prosternés et debout devant leur Seigneur; »",
+      "translationEn": "\"And those who spend [part of] the night to their Lord prostrating and standing [in prayer]\"",
+      "contentHash": "وٱلذين يبيتون لربهم سجدۭا وقيم",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2919.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789517373/qm5y6itfebqg90lchguk.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789517373/qm5y6itfebqg90lchguk.png",
       "platforms": [
         "instagram",
         "tiktok",
