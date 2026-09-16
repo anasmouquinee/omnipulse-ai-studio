@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -850,6 +850,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2919.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789517373/qm5y6itfebqg90lchguk.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789517373/qm5y6itfebqg90lchguk.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789560406032",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "bookOrSurah": "Sourate Az-Zumar (سُورَةُ الزُّمَرِ)",
+      "numberOrAyah": "Verset 53",
+      "surahNumber": 39,
+      "ayahNumber": 53,
+      "arabicText": "۞ قُلْ يَٰعِبَادِىَ ٱلَّذِينَ أَسْرَفُوا۟ عَلَىٰٓ أَنفُسِهِمْ لَا تَقْنَطُوا۟ مِن رَّحْمَةِ ٱللَّهِ ۚ إِنَّ ٱللَّهَ يَغْفِرُ ٱلذُّنُوبَ جَمِيعًا ۚ إِنَّهُۥ هُوَ ٱلْغَفُورُ ٱلرَّحِيمُ",
+      "translationFr": "« Dis: «O Mes serviteurs qui avez commis des excès à votre propre détriment, ne désespérez pas de la miséricorde d'Allah. Car Allah pardonne tous les péchés. Oui, c'est Lui le Pardonneur, le Très Miséricordieux. »",
+      "translationEn": "\"Say, \"O My servants who have transgressed against themselves [by sinning], do not despair of the mercy of Allah. Indeed, Allah forgives all sins. Indeed, it is He who is the Forgiving, the Merciful.\"",
+      "contentHash": "۞ قل يعبادى ٱلذين أسرفوا۟ على ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4111.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789560374/b80qvrn79wjralb0exrk.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789560374/b80qvrn79wjralb0exrk.png",
       "platforms": [
         "instagram",
         "tiktok",
