@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -942,6 +942,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4646.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789646804/kwtjtezldqc31jslqywh.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789646804/kwtjtezldqc31jslqywh.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789668360752",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "bookOrSurah": "Sourate Al-Kahf (سُورَةُ الكَهۡفِ)",
+      "numberOrAyah": "Verset 110",
+      "surahNumber": 18,
+      "ayahNumber": 110,
+      "arabicText": "قُلْ إِنَّمَآ أَنَا۠ بَشَرٌۭ مِّثْلُكُمْ يُوحَىٰٓ إِلَىَّ أَنَّمَآ إِلَٰهُكُمْ إِلَٰهٌۭ وَٰحِدٌۭ ۖ فَمَن كَانَ يَرْجُوا۟ لِقَآءَ رَبِّهِۦ فَلْيَعْمَلْ عَمَلًۭا صَٰلِحًۭا وَلَا يُشْرِكْ بِعِبَادَةِ رَبِّهِۦٓ أَحَدًۢا",
+      "translationFr": "« Dis: «Je suis en fait un être humain comme vous. Il m'a été révélé que votre Dieu est un Dieu unique! Quiconque, donc, espère rencontrer son Seigneur, qu'il fasse de bonnes actions et qu'il n'associe dans son adoration aucun autre à son Seigneur». »",
+      "translationEn": "\"Say, \"I am only a man like you, to whom has been revealed that your god is one God. So whoever would hope for the meeting with his Lord - let him do righteous work and not associate in the worship of his Lord anyone.\"",
+      "contentHash": "قل إنما أنا۠ بشرۭ مثلكم يوحى إ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2250.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789668325/jgyljw6q5pzsdpl4bgue.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789668325/jgyljw6q5pzsdpl4bgue.png",
       "platforms": [
         "instagram",
         "tiktok",
