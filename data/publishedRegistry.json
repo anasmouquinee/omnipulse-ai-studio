@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -873,6 +873,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4111.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789560374/b80qvrn79wjralb0exrk.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789560374/b80qvrn79wjralb0exrk.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789603794118",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "bookOrSurah": "Sourate Al-Insaan (سُورَةُ الإِنسَانِ)",
+      "numberOrAyah": "Verset 26",
+      "surahNumber": 76,
+      "ayahNumber": 26,
+      "arabicText": "وَمِنَ ٱلَّيْلِ فَٱسْجُدْ لَهُۥ وَسَبِّحْهُ لَيْلًۭا طَوِيلًا",
+      "translationFr": "« et prosterne-toi devant Lui une partie de la nuit; et glorifie-Le de longues [heures] pendant la nuit. »",
+      "translationEn": "\"And during the night prostrate to Him and exalt Him a long [part of the] night.\"",
+      "contentHash": "ومن ٱليل فٱسجد لهۥ وسبحه ليلۭا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5617.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789603759/ikmiqmj41acbovyn6e0s.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789603759/ikmiqmj41acbovyn6e0s.png",
       "platforms": [
         "instagram",
         "tiktok",
