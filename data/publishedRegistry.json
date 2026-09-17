@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -896,6 +896,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5617.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789603759/ikmiqmj41acbovyn6e0s.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789603759/ikmiqmj41acbovyn6e0s.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789625243279",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "bookOrSurah": "Sourate Al-Israa (سُورَةُ الإِسۡرَاءِ)",
+      "numberOrAyah": "Verset 24",
+      "surahNumber": 17,
+      "ayahNumber": 24,
+      "arabicText": "وَٱخْفِضْ لَهُمَا جَنَاحَ ٱلذُّلِّ مِنَ ٱلرَّحْمَةِ وَقُل رَّبِّ ٱرْحَمْهُمَا كَمَا رَبَّيَانِى صَغِيرًۭا",
+      "translationFr": "« et par miséricorde, abaisse pour eux l'aile de l'humilité, et dis: «O mon Seigneur, fais-leur, à tous deux, miséricorde comme ils m'ont élevé tout petit». »",
+      "translationEn": "\"And lower to them the wing of humility out of mercy and say, \"My Lord, have mercy upon them as they brought me up [when I was] small.\"",
+      "contentHash": "وٱخفض لهما جناح ٱلذل من ٱلرحمة",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2053.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789625205/lupxsg4b2n3scpk7fvmc.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789625205/lupxsg4b2n3scpk7fvmc.png",
       "platforms": [
         "instagram",
         "tiktok",
