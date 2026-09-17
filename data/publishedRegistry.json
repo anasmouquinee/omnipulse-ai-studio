@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -919,6 +919,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2053.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789625205/lupxsg4b2n3scpk7fvmc.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789625205/lupxsg4b2n3scpk7fvmc.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789646852185",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "bookOrSurah": "Sourate Qaaf (سُورَةُ قٓ)",
+      "numberOrAyah": "Verset 16",
+      "surahNumber": 50,
+      "ayahNumber": 16,
+      "arabicText": "وَلَقَدْ خَلَقْنَا ٱلْإِنسَٰنَ وَنَعْلَمُ مَا تُوَسْوِسُ بِهِۦ نَفْسُهُۥ ۖ وَنَحْنُ أَقْرَبُ إِلَيْهِ مِنْ حَبْلِ ٱلْوَرِيدِ",
+      "translationFr": "« Nous avons effectivement créé l'homme et Nous savons ce que son âme lui suggère et Nous sommes plus près de lui que sa veine jugulaire »",
+      "translationEn": "\"And We have already created man and know what his soul whispers to him, and We are closer to him than [his] jugular vein\"",
+      "contentHash": "ولقد خلقنا ٱلإنسن ونعلم ما توس",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4646.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789646804/kwtjtezldqc31jslqywh.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789646804/kwtjtezldqc31jslqywh.png",
       "platforms": [
         "instagram",
         "tiktok",
