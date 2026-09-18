@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -988,6 +988,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3589.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789690172/v3q2v5obnyrvfqnkn15d.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789690172/v3q2v5obnyrvfqnkn15d.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789754763099",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "bookOrSurah": "Sourate Al-Jumu'a (سُورَةُ الجُمُعَةِ)",
+      "numberOrAyah": "Verset 11",
+      "surahNumber": 62,
+      "ayahNumber": 11,
+      "arabicText": "وَإِذَا رَأَوْا۟ تِجَٰرَةً أَوْ لَهْوًا ٱنفَضُّوٓا۟ إِلَيْهَا وَتَرَكُوكَ قَآئِمًۭا ۚ قُلْ مَا عِندَ ٱللَّهِ خَيْرٌۭ مِّنَ ٱللَّهْوِ وَمِنَ ٱلتِّجَٰرَةِ ۚ وَٱللَّهُ خَيْرُ ٱلرَّٰزِقِينَ",
+      "translationFr": "« Quand ils entrevoient quelque commerce ou quelque divertissement, ils s'y dispersent et te laissent debout. Dis: «Ce qui est auprès d'Allah est bien meilleur que le divertissement et le commerce, et Allah est le Meilleur des pourvoyeurs». »",
+      "translationEn": "\"But when they saw a transaction or a diversion, [O Muhammad], they rushed to it and left you standing. Say, \"What is with Allah is better than diversion and than a transaction, and Allah is the best of providers.\"",
+      "contentHash": "وإذا رأوا۟ تجرة أو لهوا ٱنفضوا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5188.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789754725/wmnor06vcrzmo9tevhae.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789754725/wmnor06vcrzmo9tevhae.png",
       "platforms": [
         "instagram",
         "tiktok",
