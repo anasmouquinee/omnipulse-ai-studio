@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -965,6 +965,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2250.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789668325/jgyljw6q5pzsdpl4bgue.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789668325/jgyljw6q5pzsdpl4bgue.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789690209134",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "bookOrSurah": "Sourate Al-Ahzaab (سُورَةُ الأَحۡزَابِ)",
+      "numberOrAyah": "Verset 56",
+      "surahNumber": 33,
+      "ayahNumber": 56,
+      "arabicText": "إِنَّ ٱللَّهَ وَمَلَٰٓئِكَتَهُۥ يُصَلُّونَ عَلَى ٱلنَّبِىِّ ۚ يَٰٓأَيُّهَا ٱلَّذِينَ ءَامَنُوا۟ صَلُّوا۟ عَلَيْهِ وَسَلِّمُوا۟ تَسْلِيمًا",
+      "translationFr": "« Certes, Allah et Ses Anges prient sur le Prophète; ô vous qui croyez priez sur lui et adressez [lui] vos salutations. »",
+      "translationEn": "\"Indeed, Allah confers blessing upon the Prophet, and His angels [ask Him to do so]. O you who have believed, ask [Allah to confer] blessing upon him and ask [Allah to grant him] peace.\"",
+      "contentHash": "إن ٱلله وملئكتهۥ يصلون على ٱلن",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3589.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789690172/v3q2v5obnyrvfqnkn15d.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789690172/v3q2v5obnyrvfqnkn15d.png",
       "platforms": [
         "instagram",
         "tiktok",
