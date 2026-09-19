@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1034,6 +1034,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4784.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789776581/eognw6mhuwiejdnthnhw.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789776581/eognw6mhuwiejdnthnhw.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789819563060",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "bookOrSurah": "Sourate Ibrahim (سُورَةُ إِبۡرَاهِيمَ)",
+      "numberOrAyah": "Verset 7",
+      "surahNumber": 14,
+      "ayahNumber": 7,
+      "arabicText": "وَإِذْ تَأَذَّنَ رَبُّكُمْ لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ ۖ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِى لَشَدِيدٌۭ",
+      "translationFr": "« Et lorsque votre Seigneur proclama: «Si vous êtes reconnaissants, très certainement J'augmenterai [Mes bienfaits] pour vous. Mais si vous êtes ingrats, Mon châtiment sera terrible». »",
+      "translationEn": "\"And [remember] when your Lord proclaimed, 'If you are grateful, I will surely increase you [in favor]; but if you deny, indeed, My punishment is severe.'\"",
+      "contentHash": "وإذ تأذن ربكم لئن شكرتم لأزيدن",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1757.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789819517/f3os8u6lbzhcxhj6yuuq.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789819517/f3os8u6lbzhcxhj6yuuq.png",
       "platforms": [
         "instagram",
         "tiktok",
