@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1011,6 +1011,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5188.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789754725/wmnor06vcrzmo9tevhae.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789754725/wmnor06vcrzmo9tevhae.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789776618377",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "bookOrSurah": "Sourate At-Tur (سُورَةُ الطُّورِ)",
+      "numberOrAyah": "Verset 49",
+      "surahNumber": 52,
+      "ayahNumber": 49,
+      "arabicText": "وَمِنَ ٱلَّيْلِ فَسَبِّحْهُ وَإِدْبَٰرَ ٱلنُّجُومِ",
+      "translationFr": "« Glorifie-Le une partie de la nuit et au déclin des étoiles. »",
+      "translationEn": "\"And in a part of the night exalt Him and after [the setting of] the stars.\"",
+      "contentHash": "ومن ٱليل فسبحه وإدبر ٱلنجوم",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4784.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789776581/eognw6mhuwiejdnthnhw.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789776581/eognw6mhuwiejdnthnhw.png",
       "platforms": [
         "instagram",
         "tiktok",
