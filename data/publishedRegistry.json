@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1057,6 +1057,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1757.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789819517/f3os8u6lbzhcxhj6yuuq.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789819517/f3os8u6lbzhcxhj6yuuq.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789884415030",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "bookOrSurah": "Sourate Al-Muminoon (سُورَةُ المُؤۡمِنُونَ)",
+      "numberOrAyah": "Verset 118",
+      "surahNumber": 23,
+      "ayahNumber": 118,
+      "arabicText": "وَقُل رَّبِّ ٱغْفِرْ وَٱرْحَمْ وَأَنتَ خَيْرُ ٱلرَّٰحِمِينَ",
+      "translationFr": "« Et dis: «Seigneur, pardonne et fais miséricorde. C'est Toi le Meilleur des miséricordieux». »",
+      "translationEn": "\"And, [O Muhammad], say, \"My Lord, forgive and have mercy, and You are the best of the merciful.\"",
+      "contentHash": "وقل رب ٱغفر وٱرحم وأنت خير ٱلر",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2791.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789884379/ddichsogcskztxpu1c8r.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789884379/ddichsogcskztxpu1c8r.png",
       "platforms": [
         "instagram",
         "tiktok",
