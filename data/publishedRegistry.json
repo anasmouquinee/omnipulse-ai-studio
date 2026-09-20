@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1080,6 +1080,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2791.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789884379/ddichsogcskztxpu1c8r.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789884379/ddichsogcskztxpu1c8r.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789905957261",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "bookOrSurah": "Sourate Taa-Haa (سُورَةُ طه)",
+      "numberOrAyah": "Verset 114",
+      "surahNumber": 20,
+      "ayahNumber": 114,
+      "arabicText": "فَتَعَٰلَى ٱللَّهُ ٱلْمَلِكُ ٱلْحَقُّ ۗ وَلَا تَعْجَلْ بِٱلْقُرْءَانِ مِن قَبْلِ أَن يُقْضَىٰٓ إِلَيْكَ وَحْيُهُۥ ۖ وَقُل رَّبِّ زِدْنِى عِلْمًۭا",
+      "translationFr": "« Que soit éxalté Allah, le Vrai Souverain! Ne te hâte pas [de réciter] le Coran avant que ne te soit achevée sa révélation. Et dis: «O mon Seigneur, accroît mes connaissances! »",
+      "translationEn": "\"So high [above all] is Allah, the Sovereign, the Truth. And, [O Muhammad], do not hasten with [recitation of] the Qur'an before its revelation is completed to you, and say, \"My Lord, increase me in knowledge.\"",
+      "contentHash": "فتعلى ٱلله ٱلملك ٱلحق ۗ ولا تع",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2462.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789905922/qcuczpqstplrqf9yyera.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789905922/qcuczpqstplrqf9yyera.png",
       "platforms": [
         "instagram",
         "tiktok",
