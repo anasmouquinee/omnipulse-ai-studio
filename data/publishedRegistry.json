@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1103,6 +1103,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2462.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789905922/qcuczpqstplrqf9yyera.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789905922/qcuczpqstplrqf9yyera.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789927531871",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "bookOrSurah": "Sourate Al-Anfaal (سُورَةُ الأَنفَالِ)",
+      "numberOrAyah": "Verset 46",
+      "surahNumber": 8,
+      "ayahNumber": 46,
+      "arabicText": "وَأَطِيعُوا۟ ٱللَّهَ وَرَسُولَهُۥ وَلَا تَنَٰزَعُوا۟ فَتَفْشَلُوا۟ وَتَذْهَبَ رِيحُكُمْ ۖ وَٱصْبِرُوٓا۟ ۚ إِنَّ ٱللَّهَ مَعَ ٱلصَّٰبِرِينَ",
+      "translationFr": "« Et obéissez à Allah et à Son messager; et ne vous disputez pas, sinon vous fléchirez et perdrez votre force. Et soyez endurants, car Allah est avec les endurants. »",
+      "translationEn": "\"And obey Allah and His Messenger, and do not dispute and [thus] lose courage and [then] your strength would depart; and be patient. Indeed, Allah is with the patient.\"",
+      "contentHash": "وأطيعوا۟ ٱلله ورسولهۥ ولا تنزع",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1206.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789927496/oyqaxbwrjrmefc5e3wuk.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789927496/oyqaxbwrjrmefc5e3wuk.png",
       "platforms": [
         "instagram",
         "tiktok",
