@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1126,6 +1126,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1206.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789927496/oyqaxbwrjrmefc5e3wuk.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789927496/oyqaxbwrjrmefc5e3wuk.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1789949510788",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "bookOrSurah": "Sourate Aal-i-Imraan (سُورَةُ آلِ عِمۡرَانَ)",
+      "numberOrAyah": "Verset 17",
+      "surahNumber": 3,
+      "ayahNumber": 17,
+      "arabicText": "ٱلصَّٰبِرِينَ وَٱلصَّٰدِقِينَ وَٱلْقَٰنِتِينَ وَٱلْمُنفِقِينَ وَٱلْمُسْتَغْفِرِينَ بِٱلْأَسْحَارِ",
+      "translationFr": "« ce sont les endurants, les véridiques, les obéissants, ceux qui dépensent [dans le sentier d'Allah] et ceux qui implorent pardon juste avant l'aube. »",
+      "translationEn": "\"The patient, the true, the obedient, those who spend [in the way of Allah], and those who seek forgiveness before dawn.\"",
+      "contentHash": "ٱلصبرين وٱلصدقين وٱلقنتين وٱلم",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/310.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789949475/bpslal1eyxpx7hc1mz58.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789949475/bpslal1eyxpx7hc1mz58.png",
       "platforms": [
         "instagram",
         "tiktok",
