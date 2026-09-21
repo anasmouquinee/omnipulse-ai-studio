@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1195,6 +1195,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4914.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789992349/nvy7olb5nfvnlzmbhmlb.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1789992349/nvy7olb5nfvnlzmbhmlb.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790013964942",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "bookOrSurah": "Sourate Al-Ankaboot (سُورَةُ العَنكَبُوتِ)",
+      "numberOrAyah": "Verset 69",
+      "surahNumber": 29,
+      "ayahNumber": 69,
+      "arabicText": "وَٱلَّذِينَ جَٰهَدُوا۟ فِينَا لَنَهْدِيَنَّهُمْ سُبُلَنَا ۚ وَإِنَّ ٱللَّهَ لَمَعَ ٱلْمُحْسِنِينَ",
+      "translationFr": "« Et quant à ceux qui luttent pour Notre cause, Nous les guiderons certes sur Nos sentiers. Allah est en vérité avec les bienfaisants. »",
+      "translationEn": "\"And those who strive for Us - We will surely guide them to Our ways. And indeed, Allah is with the doers of good.\"",
+      "contentHash": "وٱلذين جهدوا۟ فينا لنهدينهم سب",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3409.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790013932/zcsvcawymsubn05xk8z3.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790013932/zcsvcawymsubn05xk8z3.png",
       "platforms": [
         "instagram",
         "tiktok",
