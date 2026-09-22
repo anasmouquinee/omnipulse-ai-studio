@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1241,6 +1241,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2108.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790035823/vlo25rtoyyytjrv1gqdn.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790035823/vlo25rtoyyytjrv1gqdn.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790078786933",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "bookOrSurah": "Sourate Ar-Rahmaan (سُورَةُ الرَّحۡمَٰن)",
+      "numberOrAyah": "Verset 13",
+      "surahNumber": 55,
+      "ayahNumber": 13,
+      "arabicText": "فَبِأَىِّ ءَالَآءِ رَبِّكُمَا تُكَذِّبَانِ",
+      "translationFr": "« Lequel donc des bienfaits de votre Seigneur nierez-vous? »",
+      "translationEn": "\"So which of the favors of your Lord would you deny?\"",
+      "contentHash": "فبأى ءالاء ربكما تكذبان",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4914.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790078738/vnukmzvv3labtbrwcxrz.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790078738/vnukmzvv3labtbrwcxrz.png",
       "platforms": [
         "instagram",
         "tiktok",
