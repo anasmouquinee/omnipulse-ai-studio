@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1264,6 +1264,29 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4914.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790078738/vnukmzvv3labtbrwcxrz.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790078738/vnukmzvv3labtbrwcxrz.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790100366502",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "bookOrSurah": "Sourate An-Nahl (سُورَةُ النَّحۡلِ)",
+      "numberOrAyah": "Verset 128",
+      "surahNumber": 16,
+      "ayahNumber": 128,
+      "arabicText": "إِنَّ ٱللَّهَ مَعَ ٱلَّذِينَ ٱتَّقَوا۟ وَّٱلَّذِينَ هُم مُّحْسِنُونَ",
+      "translationFr": "« Certes, Allah est avec ceux qui [L'] ont craint avec piété et ceux qui sont bienfaisants. »",
+      "translationEn": "\"Indeed, Allah is with those who fear Him and those who are doers of good.\"",
+      "contentHash": "إن ٱلله مع ٱلذين ٱتقوا۟ وٱلذين",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2029.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790100329/we7d4e7rc4gsredhajsa.mp4",
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790100329/we7d4e7rc4gsredhajsa.png",
       "platforms": [
         "instagram",
         "tiktok",
