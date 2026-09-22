@@ -197,10 +197,11 @@ export const SocialPublisher = {
             }
           `;
 
+          const hasCarousel = Array.isArray(post.media?.carouselItems) && post.media.carouselItems.length > 0;
           let variables: any;
 
           if (platform === 'instagram') {
-            const isVideo = post.media?.type === 'video';
+            const isVideo = !hasCarousel && post.media?.type === 'video';
 
             if (isVideo) {
               const videoUrl = post.media?.url || 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
@@ -227,19 +228,36 @@ export const SocialPublisher = {
                 }
               };
             } else {
-              // Photo Post
-              let imageUrl = 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&auto=format&fit=crop&q=85';
+              // Photo or Carousel Post
+              let assetList: Array<{ image: { url: string } }> = [];
 
-              if (post.media?.url) {
-                if (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) {
-                  imageUrl = post.media.url;
-                } else if (post.media.url.startsWith('data:image/')) {
-                  // Real canvas card image: upload to Imgur to give Buffer a direct public HTTPS URL
-                  const uploaded = await uploadBase64Image(post.media.url);
-                  if (uploaded) {
-                    imageUrl = uploaded;
+              if (hasCarousel) {
+                // Multi-slide carousel post
+                for (const slideUrl of (post.media?.carouselItems || [])) {
+                  let finalUrl = slideUrl;
+                  if (slideUrl.startsWith('data:image/')) {
+                    const uploaded = await uploadBase64Image(slideUrl);
+                    if (uploaded) finalUrl = uploaded;
+                  }
+                  if (finalUrl && finalUrl.startsWith('http')) {
+                    assetList.push({ image: { url: finalUrl } });
                   }
                 }
+              }
+
+              if (assetList.length === 0) {
+                let imageUrl = 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?w=1200&auto=format&fit=crop&q=85';
+                if (post.media?.url) {
+                  if (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) {
+                    imageUrl = post.media.url;
+                  } else if (post.media.url.startsWith('data:image/')) {
+                    const uploaded = await uploadBase64Image(post.media.url);
+                    if (uploaded) {
+                      imageUrl = uploaded;
+                    }
+                  }
+                }
+                assetList = [{ image: { url: imageUrl } }];
               }
 
               variables = {
@@ -255,19 +273,13 @@ export const SocialPublisher = {
                       shouldShareToFeed: true
                     }
                   },
-                  assets: [
-                    {
-                      image: {
-                        url: imageUrl
-                      }
-                    }
-                  ]
+                  assets: assetList
                 }
               };
             }
           } else if (platform === 'youtube') {
             // YouTube Shorts (Requires video, title, privacy, categoryId)
-            const videoUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) && post.media.type === 'video')
+            const videoUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) && (post.media.type === 'video' || post.media.type === 'carousel' || hasCarousel))
               ? post.media.url
               : 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
 
@@ -297,7 +309,7 @@ export const SocialPublisher = {
             };
           } else {
             // TikTok (Requires video)
-            const videoUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) && post.media.type === 'video')
+            const videoUrl = (post.media?.url && (post.media.url.startsWith('http://') || post.media.url.startsWith('https://')) && (post.media.type === 'video' || post.media.type === 'carousel' || hasCarousel))
               ? post.media.url
               : 'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4';
 

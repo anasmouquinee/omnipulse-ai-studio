@@ -86,10 +86,12 @@ export interface AutoPilotLog {
   timestamp: string;
   themeTitle: string;
   type: string;
+  format?: 'reel' | 'carousel' | 'mixed';
   status: 'success' | 'failed' | 'running';
   message: string;
   videoUrl?: string;
   cardUrl?: string;
+  carouselSlides?: string[];
 }
 
 export interface AutoPilotConfig {
@@ -355,17 +357,33 @@ class AutoPilotServiceClass {
       }
 
       const referenceText = `${selectedItem.source.bookOrSurah} — ${selectedItem.source.numberOrAyah}`;
+      
+      // Determine if this cycle should publish a 5-Slide Carousel (Adhkar routine or alternating cycles)
+      const isCarouselCycle = currentTheme.category === 'adhkar_routine' || ((config.currentThemeIndex || 0) % 2 === 1);
+      let carouselSlides: string[] = [];
+
+      if (isCarouselCycle) {
+        if (onProgress) onProgress(`2/4 Génération des 5 slides Carrousel Instagram (Design Cream) pour "${selectedItem.source.bookOrSurah}"...`);
+        try {
+          carouselSlides = await IslamicContentService.generateCarouselSlidesCanvas(selectedItem, '9:16');
+        } catch (carouselErr) {
+          console.warn('Carousel generation fallback to quote card:', carouselErr);
+        }
+      }
+
       if (onProgress) onProgress(`2/4 Rendu graphique HD 9:16 pour "${selectedItem.source.bookOrSurah}"...`);
 
       // 2. Render Luxury 4K Quote Card Canvas (Photographic background + Calligraphy)
-      const cardUrl = await IslamicContentService.renderQuoteCardCanvas(
-        selectedItem,
-        '9:16',
-        'all',
-        selectedItem.visualTheme || 'golden_night'
-      );
+      const cardUrl = carouselSlides.length > 0
+        ? carouselSlides[0]
+        : await IslamicContentService.renderQuoteCardCanvas(
+            selectedItem,
+            '9:16',
+            'all',
+            selectedItem.visualTheme || 'golden_night'
+          );
 
-      // 3. Audio & Video Reel Generation
+      // 3. Audio & Video Reel Generation (Always generated for TikTok, YouTube Shorts & Video fallback)
       let publicVideoUrl = '';
       const audioUrl = selectedItem.reciterAudio?.audioUrl || 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/1.mp3';
 
@@ -374,9 +392,14 @@ class AutoPilotServiceClass {
       const videoBlob = await VideoGenerator.generateQuoteVideoMp4(cardUrl, audioUrl);
       publicVideoUrl = await VideoGenerator.uploadVideoToCDN(videoBlob);
 
-      if (onProgress) onProgress('4/4 Envoi vers Instagram (@kae.islamic), TikTok (@kaelar.islamic) & YouTube Shorts...');
+      if (onProgress) {
+        onProgress(isCarouselCycle && carouselSlides.length > 0
+          ? '4/4 Envoi du Carrousel 5p (Instagram) et du Reel Vidéo (TikTok & YouTube)...'
+          : '4/4 Envoi vers Instagram (@kae.islamic), TikTok (@kaelar.islamic) & YouTube Shorts...'
+        );
+      }
 
-      // 4. Dispatch to Buffer (All 3 platforms)
+      // 4. Dispatch to Buffer (Instagram gets Carousel, TikTok & YouTube get Video Reel)
       const scheduled = IslamicContentService.convertToScheduledPost(
         selectedItem,
         'all',
@@ -386,12 +409,13 @@ class AutoPilotServiceClass {
       scheduled.title = `${selectedItem.source.bookOrSurah} — ${selectedItem.source.numberOrAyah} 🕋 #Shorts`;
       scheduled.media = {
         id: `med-auto-${Date.now()}`,
-        type: 'video',
+        type: isCarouselCycle && carouselSlides.length > 0 ? 'carousel' : 'video',
         url: publicVideoUrl,
+        carouselItems: carouselSlides.length > 0 ? carouselSlides : undefined,
         aspectRatio: '9:16',
         durationSeconds: Math.ceil(selectedItem.reciterAudio?.durationSeconds || 15),
         createdAt: new Date().toISOString(),
-        engine: 'autopilot-reel'
+        engine: isCarouselCycle && carouselSlides.length > 0 ? 'autopilot-carousel' : 'autopilot-reel'
       };
 
       await SocialPublisher.publishNow(scheduled);
@@ -401,13 +425,16 @@ class AutoPilotServiceClass {
         selectedItem,
         cardUrl,
         publicVideoUrl,
-        'reel',
-        ['instagram', 'tiktok', 'youtube']
+        isCarouselCycle && carouselSlides.length > 0 ? 'carousel' : 'reel',
+        ['instagram', 'tiktok', 'youtube'],
+        carouselSlides.length > 0 ? carouselSlides : undefined
       );
 
       // 5b. Send Discord Notification
       SocialPublisher.sendDiscordNotification({
-        title: `Auto-Pilot 6h : ${currentTheme.title}`,
+        title: isCarouselCycle && carouselSlides.length > 0
+          ? `Auto-Pilot 6h : Carrousel 5 Slides (Instagram) & Reel (TikTok) — ${currentTheme.title}`
+          : `Auto-Pilot 6h : ${currentTheme.title}`,
         description: `${selectedItem.arabicText}\n\n*${selectedItem.translationFr}*\n\n📍 ${selectedItem.source.bookOrSurah} — ${selectedItem.source.numberOrAyah}`,
         videoUrl: publicVideoUrl,
         platforms: ['instagram', 'tiktok', 'youtube']
@@ -420,9 +447,13 @@ class AutoPilotServiceClass {
       finalConfig.nextRunAt = new Date(Date.now() + finalConfig.intervalHours * 3600 * 1000).toISOString();
       
       log.status = 'success';
-      log.message = `Reel publié avec succès sur Instagram & TikTok : "${selectedItem.source.bookOrSurah}"`;
+      log.format = isCarouselCycle && carouselSlides.length > 0 ? 'carousel' : 'reel';
+      log.message = isCarouselCycle && carouselSlides.length > 0
+        ? `Carrousel 5 slides publié sur Instagram (@kae.islamic) + Reel sur TikTok & YouTube : "${selectedItem.source.bookOrSurah}"`
+        : `Reel publié avec succès sur Instagram & TikTok : "${selectedItem.source.bookOrSurah}"`;
       log.videoUrl = publicVideoUrl;
       log.cardUrl = cardUrl;
+      log.carouselSlides = carouselSlides;
 
       finalConfig.logs = [log, ...(finalConfig.logs || [])].slice(0, 50);
       this.saveConfig(finalConfig);

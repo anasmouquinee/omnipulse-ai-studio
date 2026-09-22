@@ -680,8 +680,21 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
                     {!isSuccess && !isFailed && <RotateCw size={18} color="#f59e0b" className="spin" />}
 
                     <div>
-                      <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#f1f5f9' }}>
-                        {log.themeTitle}
+                      <div style={{ fontSize: '0.88rem', fontWeight: 600, color: '#f1f5f9', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <span>{log.themeTitle}</span>
+                        {log.format === 'carousel' && (
+                          <span style={{
+                            fontSize: '0.68rem',
+                            fontWeight: 700,
+                            padding: '0.1rem 0.45rem',
+                            borderRadius: '999px',
+                            background: 'rgba(217, 119, 6, 0.25)',
+                            color: '#fbbf24',
+                            border: '1px solid rgba(217, 119, 6, 0.4)'
+                          }}>
+                            📑 Carrousel 5p
+                          </span>
+                        )}
                       </div>
                       <div style={{ fontSize: '0.78rem', color: isSuccess ? 'var(--text-secondary)' : isFailed ? '#f87171' : '#f59e0b' }}>
                         {log.message}
@@ -690,6 +703,25 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
                   </div>
 
                   <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                    {log.carouselSlides && log.carouselSlides.length > 0 && (
+                      <a
+                        href={log.carouselSlides[0]}
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '0.3rem',
+                          fontSize: '0.75rem',
+                          color: '#fbbf24',
+                          textDecoration: 'none',
+                          fontWeight: 600
+                        }}
+                      >
+                        <span>📑 Slides (5)</span>
+                      </a>
+                    )}
+
                     {log.videoUrl && (
                       <a
                         href={log.videoUrl}

@@ -225,11 +225,16 @@ function saveRegistry(reg) {
   fs.writeFileSync(REGISTRY_PATH, JSON.stringify(reg, null, 2), 'utf8');
 }
 
-// Helper: Upload file to Cloudinary
-function uploadToCloudinary(filePath) {
+// Helper: Upload file to Cloudinary (Supports both Videos and Images)
+function uploadToCloudinary(filePath, resourceType = null) {
   return new Promise((resolve, reject) => {
+    const ext = path.extname(filePath).toLowerCase();
+    const isImage = resourceType === 'image' || ext === '.png' || ext === '.jpg' || ext === '.jpeg';
+    const type = isImage ? 'image' : 'video';
+    const mime = isImage ? (ext === '.png' ? 'image/png' : 'image/jpeg') : 'video/mp4';
+
     const fileData = fs.readFileSync(filePath);
-    const base64Data = `data:video/mp4;base64,${fileData.toString('base64')}`;
+    const base64Data = `data:${mime};base64,${fileData.toString('base64')}`;
 
     const postData = JSON.stringify({
       file: base64Data,
@@ -239,7 +244,7 @@ function uploadToCloudinary(filePath) {
     const options = {
       hostname: 'api.cloudinary.com',
       port: 443,
-      path: `/v1_1/${CLOUDINARY_CLOUD_NAME}/video/upload`,
+      path: `/v1_1/${CLOUDINARY_CLOUD_NAME}/${type}/upload`,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -280,8 +285,8 @@ const bufferRateLimitState = {
   retryAfterSeconds: 0
 };
 
-// Helper: Publish to Buffer with Rate-Limiting & Quota Guard
-function publishToBuffer(channelId, text, videoUrl, platform = 'general', title = '') {
+// Helper: Publish to Buffer with Rate-Limiting & Quota Guard (Supports Video Reels & Multi-Slide Carousels)
+function publishToBuffer(channelId, text, media, platform = 'general', title = '') {
   // If we already detected Buffer 429 / quota limit in this run, do not make further HTTP requests
   if (bufferRateLimitState.isLimited) {
     const hoursLeft = Math.ceil(bufferRateLimitState.retryAfterSeconds / 3600);
@@ -321,13 +326,25 @@ function publishToBuffer(channelId, text, videoUrl, platform = 'general', title 
       }
     `;
 
+    const isCarousel = Array.isArray(media) && media.length > 0;
+    const isSingleImage = typeof media === 'string' && (media.includes('.png') || media.includes('.jpg') || media.includes('.jpeg') || media.startsWith('data:image/'));
+
+    let assets = [];
+    if (isCarousel) {
+      assets = media.map(url => ({ image: { url } }));
+    } else if (isSingleImage) {
+      assets = [{ image: { url: media } }];
+    } else {
+      assets = [{ video: { url: typeof media === 'string' ? media : '' } }];
+    }
+
     const input = {
       channelId,
       text,
       mode: 'shareNow',
       schedulingType: 'automatic',
       needsApproval: false,
-      assets: [{ video: { url: videoUrl } }]
+      assets
     };
 
     if (platform === 'youtube') {
@@ -349,7 +366,7 @@ function publishToBuffer(channelId, text, videoUrl, platform = 'general', title 
     } else if (platform === 'instagram') {
       input.metadata = {
         instagram: {
-          type: 'reel',
+          type: (isCarousel || isSingleImage) ? 'post' : 'reel',
           shouldShareToFeed: true
         }
       };
@@ -423,16 +440,19 @@ function publishToBuffer(channelId, text, videoUrl, platform = 'general', title 
 }
 
 // Helper: Send Discord Webhook notification
-function sendDiscordNotification(item, theme, publicVideoUrl) {
+function sendDiscordNotification(item, theme, publicVideoUrl, carouselUrls = []) {
   if (!DISCORD_WEBHOOK_URL || !DISCORD_WEBHOOK_URL.startsWith('http')) return Promise.resolve();
 
   return new Promise((resolve) => {
     try {
       const urlObj = new URL(DISCORD_WEBHOOK_URL);
+      const isCarousel = Array.isArray(carouselUrls) && carouselUrls.length > 0;
       const embed = {
-        title: `🕋 Auto-Pilot 6h : Nouveau Reel Publié !`,
+        title: isCarousel
+          ? `🕋 Auto-Pilot : Carrousel 5 Slides (Instagram) & Reel (TikTok) !`
+          : `🕋 Auto-Pilot 6h : Nouveau Reel Publié !`,
         description: `${item.arabicText}\n\n*${item.translationFr}*`,
-        color: 0x10b981,
+        color: isCarousel ? 0xd97706 : 0x10b981,
         fields: [
           {
             name: '📖 Thématique',
@@ -446,11 +466,20 @@ function sendDiscordNotification(item, theme, publicVideoUrl) {
           },
           {
             name: '📱 Réseaux Publiés',
-            value: YOUTUBE_CHANNEL_ID 
-              ? '📷 Instagram (`@kae.islamic`)\n🎵 TikTok (`@kaelar.islamic`)\n🔴 YouTube Shorts' 
-              : '📷 Instagram (`@kae.islamic`)\n🎵 TikTok (`@kaelar.islamic`)',
+            value: isCarousel
+              ? (YOUTUBE_CHANNEL_ID
+                  ? '📷 Instagram (`@kae.islamic` — Carrousel 5p)\n🎵 TikTok (`@kaelar.islamic` — Reel)\n🔴 YouTube Shorts (Reel)'
+                  : '📷 Instagram (`@kae.islamic` — Carrousel 5p)\n🎵 TikTok (`@kaelar.islamic` — Reel)')
+              : (YOUTUBE_CHANNEL_ID 
+                  ? '📷 Instagram (`@kae.islamic`)\n🎵 TikTok (`@kaelar.islamic`)\n🔴 YouTube Shorts' 
+                  : '📷 Instagram (`@kae.islamic`)\n🎵 TikTok (`@kaelar.islamic`)'),
             inline: false
           },
+          ...(isCarousel ? [{
+            name: '📑 Carrousel Multi-Slides (Instagram)',
+            value: `5 Slides HD créées & publiées en swipe post !\n[Voir Slide 1 Couverture](${carouselUrls[0]})`,
+            inline: false
+          }] : []),
           {
             name: '🎬 Lien Direct Vidéo Reel HD',
             value: `[Cliquer ici pour regarder le Reel MP4](${publicVideoUrl})`,
@@ -458,7 +487,7 @@ function sendDiscordNotification(item, theme, publicVideoUrl) {
           },
           ...(bufferRateLimitState.isLimited ? [{
             name: '⚠️ Statut Quota Buffer API',
-            value: `Quota Buffer 24h atteint (250 req/jour). Le Reel vidéo a été généré & hébergé sur Cloudinary avec succès. Publication Buffer en pause jusqu'à la réinitialisation (~${Math.ceil(bufferRateLimitState.retryAfterSeconds / 3600)}h).`,
+            value: `Quota Buffer 24h atteint (250 req/jour). Le contenu a été généré & hébergé sur Cloudinary avec succès. Publication Buffer en pause jusqu'à la réinitialisation (~${Math.ceil(bufferRateLimitState.retryAfterSeconds / 3600)}h).`,
             inline: false
           }] : [])
         ],
@@ -918,6 +947,230 @@ function generatePosterSvg(item, hookOverride = '') {
   return generateRoyalPosterSvg(item);
 }
 
+// Minimal Cream 5-Slide Carousel SVG Generator (Pure SVG 1.1 compatible with rsvg-convert & mobile carousels)
+function generateCarouselSvgSlides(item, hookOverride = '') {
+  const escapeXml = (str) => String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+
+  const baseHook = hookOverride || item.arabicText || "نصف دقيقة فقط 🤍";
+  const closingAyah = item.closingAyah || "﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾";
+  const bookSurah = item.bookOrSurah || "Sourate Adh-Dhariyat";
+  const ayahRef = item.numberOrAyah || "Verset 55";
+
+  const getHeaderAndDefs = (slideIndex, totalSlides = 5) => `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="creamBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FCFAF6" />
+      <stop offset="35%" stop-color="#FAF5EE" />
+      <stop offset="70%" stop-color="#F5EFE6" />
+      <stop offset="100%" stop-color="#EFE8DC" />
+    </linearGradient>
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.96)" />
+      <stop offset="100%" stop-color="rgba(253, 251, 247, 0.92)" />
+    </linearGradient>
+    <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E7DFD5" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#D8CEC1" stop-opacity="0.10" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="rgba(120, 113, 108, 0.10)" />
+    </filter>
+  </defs>
+
+  <!-- Background Base -->
+  <rect width="1080" height="1920" fill="url(#creamBg)" />
+  <path d="M -50 400 Q 200 250 540 380 T 1130 300 L 1130 -50 L -50 -50 Z" fill="url(#waveGrad)" />
+  <path d="M -50 1600 Q 300 1750 650 1620 T 1130 1700 L 1130 1970 L -50 1970 Z" fill="url(#waveGrad)" />
+
+  <!-- Double Outer Frame -->
+  <rect x="42" y="42" width="996" height="1836" rx="36" fill="none" stroke="#E2DDD5" stroke-width="1.8" />
+  <rect x="54" y="54" width="972" height="1812" rx="28" fill="none" stroke="#D6CEC3" stroke-width="1" stroke-dasharray="6,4" stroke-opacity="0.6" />
+
+  <!-- Corner Minimal Marks -->
+  <g stroke="#C7BEB1" stroke-width="1.5" fill="none">
+    <path d="M 72 96 L 96 96 L 96 72" />
+    <path d="M 1008 96 L 984 96 L 984 72" />
+    <path d="M 72 1824 L 96 1824 L 96 1848" />
+    <path d="M 1008 1824 L 984 1824 L 984 1848" />
+  </g>
+
+  <!-- Top Counter Badge -->
+  <g transform="translate(540, 110)">
+    <rect x="-110" y="-23" width="220" height="46" rx="23" fill="rgba(255, 255, 255, 0.92)" stroke="#E2DDD5" stroke-width="1.2" />
+    <text x="0" y="7" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="20" font-weight="700" fill="#78716C" text-anchor="middle">${slideIndex} / ${totalSlides} 🤍</text>
+  </g>
+
+  <!-- Footer Watermark -->
+  <text x="540" y="1865" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="22" font-weight="600" fill="#A8A29E" text-anchor="middle">
+    @kae.islamic • @kaelar.islamic
+  </text>`;
+
+  const slides = [];
+
+  // SLIDE 1: Cover Hook Slide
+  slides.push(`${getHeaderAndDefs(1, 5)}
+  <!-- Header Hook Capsule Pill -->
+  <g transform="translate(540, 360)" filter="url(#softShadow)">
+    <rect x="-260" y="-42" width="520" height="84" rx="42" fill="#FFFFFF" stroke="#E5E0D8" stroke-width="2" />
+    <text x="0" y="12" font-family="'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif" font-size="38" font-weight="bold" fill="#1C1917" text-anchor="middle">
+      ${escapeXml(baseHook)}
+    </text>
+  </g>
+
+  <!-- Main Card -->
+  <rect x="70" y="470" width="940" height="780" rx="32" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" filter="url(#softShadow)" />
+
+  <!-- Islamic Emblem -->
+  <g transform="translate(540, 580) scale(1.2)" stroke="#d97706" stroke-width="1.5" fill="rgba(217, 119, 6, 0.12)">
+    <rect x="-18" y="-18" width="36" height="36" rx="4" />
+    <rect x="-18" y="-18" width="36" height="36" rx="4" transform="rotate(45)" />
+    <circle cx="0" cy="0" r="7" fill="#d97706" />
+  </g>
+
+  <!-- Arabic Reminder Hadith -->
+  <text x="540" y="760" font-family="'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif" font-size="44" font-weight="bold" fill="#1C1917" text-anchor="middle">
+    « لَا يَزَالُ لِسَانُكَ رَطْبًا مِنْ ذِكْرِ اللَّهِ »
+  </text>
+
+  <!-- Divider -->
+  <line x1="280" y1="840" x2="800" y2="840" stroke="#E2DDD5" stroke-width="1.5" stroke-dasharray="6,4" />
+
+  <!-- French Meaning -->
+  <text x="540" y="930" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="28" font-weight="600" fill="#44403C" text-anchor="middle">
+    « Que ta langue ne cesse d’être humide
+  </text>
+  <text x="540" y="975" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="28" font-weight="600" fill="#44403C" text-anchor="middle">
+    par l’évocation d’Allah »
+  </text>
+
+  <!-- Secondary Note -->
+  <text x="540" y="1120" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="23" font-weight="bold" fill="#78716C" text-anchor="middle">
+    ✦ 5 rappels courts pour illuminer ta journée ✦
+  </text>
+
+  <!-- Bottom CTA Swipe Button -->
+  <g transform="translate(540, 1420)" filter="url(#softShadow)">
+    <rect x="-180" y="-34" width="360" height="68" rx="34" fill="#1C1917" />
+    <text x="0" y="9" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF" text-anchor="middle">
+      Glisse pour réciter ➔
+    </text>
+  </g>
+</svg>`);
+
+  // SLIDE 2: Tasbeeh & Tahmeed
+  slides.push(`${getHeaderAndDefs(2, 5)}
+  <!-- Card 1: Tasbeeh -->
+  <g transform="translate(540, 480)" filter="url(#softShadow)">
+    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
+    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
+    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="58" font-weight="bold" fill="#1C1917" text-anchor="middle">سُبْحَانَ اللَّهِ</text>
+    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Gloire et pureté absolue à Allah »</text>
+    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Plante un palmier pour toi au Paradis ✦</text>
+  </g>
+
+  <!-- Card 2: Tahmeed -->
+  <g transform="translate(540, 1070)" filter="url(#softShadow)">
+    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
+    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
+    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="58" font-weight="bold" fill="#1C1917" text-anchor="middle">الْحَمْدُ لِلَّهِ</text>
+    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Toutes les louanges appartiennent à Allah »</text>
+    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Remplit la balance des bonnes actions ✦</text>
+  </g>
+</svg>`);
+
+  // SLIDE 3: Tahleel & Takbeer
+  slides.push(`${getHeaderAndDefs(3, 5)}
+  <!-- Card 1: Tahleel -->
+  <g transform="translate(540, 480)" filter="url(#softShadow)">
+    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
+    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
+    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="52" font-weight="bold" fill="#1C1917" text-anchor="middle">لَا إِلَهَ إِلَّا اللَّهُ</text>
+    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Il n’y a de divinité digne d’adoration qu’Allah »</text>
+    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ La meilleure parole prononcée par les Prophètes ✦</text>
+  </g>
+
+  <!-- Card 2: Takbeer -->
+  <g transform="translate(540, 1070)" filter="url(#softShadow)">
+    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
+    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
+    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="58" font-weight="bold" fill="#1C1917" text-anchor="middle">اللَّهُ أَكْبَرُ</text>
+    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Allah est infiniment plus Grand que tout »</text>
+    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Plus précieux que le monde et ce qu’il contient ✦</text>
+  </g>
+</svg>`);
+
+  // SLIDE 4: Istighfar & Salawat
+  slides.push(`${getHeaderAndDefs(4, 5)}
+  <!-- Card 1: Istighfar -->
+  <g transform="translate(540, 480)" filter="url(#softShadow)">
+    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
+    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
+    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="46" font-weight="bold" fill="#1C1917" text-anchor="middle">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</text>
+    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Je demande pardon à Allah et je reviens à Lui »</text>
+    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Efface les péchés et dissipe les angoisses ✦</text>
+  </g>
+
+  <!-- Card 2: Salawat -->
+  <g transform="translate(540, 1070)" filter="url(#softShadow)">
+    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
+    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
+    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="42" font-weight="bold" fill="#1C1917" text-anchor="middle">اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</text>
+    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="25" font-weight="600" fill="#44403C" text-anchor="middle">« Ô Allah, prie et salue notre Prophète Muhammad »</text>
+    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Allah t’accorde 10 bénédictions en retour ✦</text>
+  </g>
+</svg>`);
+
+  // SLIDE 5: Closing Ayah & CTA Slide
+  slides.push(`${getHeaderAndDefs(5, 5)}
+  <!-- Closing Card -->
+  <g transform="translate(540, 520)" filter="url(#softShadow)">
+    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
+    <text x="0" y="-55" font-family="'Amiri Quran', 'Amiri', serif" font-size="44" font-weight="bold" fill="#1C1917" text-anchor="middle">
+      ${escapeXml(closingAyah)}
+    </text>
+    <text x="0" y="20" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">
+      « Et rappelle, car le rappel profite aux croyants »
+    </text>
+    <!-- Reference pill -->
+    <rect x="-240" y="70" width="480" height="48" rx="24" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+    <text x="0" y="102" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="bold" fill="#78716C" text-anchor="middle">
+      ✦ ${escapeXml(bookSurah)} — ${escapeXml(ayahRef)} ✦
+    </text>
+  </g>
+
+  <!-- CTA Box -->
+  <g transform="translate(540, 1140)" filter="url(#softShadow)">
+    <rect x="-460" y="-220" width="920" height="440" rx="32" fill="#1C1917" stroke="#292524" stroke-width="2" />
+    <text x="0" y="-90" font-family="'Amiri Quran', 'Amiri', serif" font-size="38" font-weight="bold" fill="#FEF08A" text-anchor="middle">
+      احفظ المنشور لتكرارها يومياً 🤍
+    </text>
+    <text x="0" y="-20" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#F8FAFC" text-anchor="middle">
+      Enregistre ce carrousel pour réciter chaque jour
+    </text>
+    <text x="0" y="45" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="500" fill="#CBD5E1" text-anchor="middle">
+      Partage pour récolter les récompenses (Sadaqah Jariyah 🤲)
+    </text>
+    <text x="0" y="125" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="bold" fill="#94A3B8" text-anchor="middle">
+      Sauvegarde 🔖 • Partage ↗️ • Like ❤️
+    </text>
+  </g>
+</svg>`);
+
+  return slides;
+}
+
 // Dynamic Viral Islamic Hashtags Generator (TikTok FYP, Instagram Reels Explore, YouTube Shorts)
 function getViralIslamicTags(type, platform = 'all', limit = 14) {
   const typeMap = {
@@ -1134,6 +1387,31 @@ async function runCloudAutoPilot() {
   console.log(`🪝 Active Viral 3-Second Hook: "${viralHook}"`);
   fs.writeFileSync(svgPath, generatePosterSvg(item, viralHook), 'utf8');
 
+  // Determine if this cycle generates a 5-Slide Carousel (Adhkar routine or alternating cycle)
+  const isCarouselCycle = (theme.category === 'adhkar_routine') || (currentIdx % 2 === 1);
+  console.log(`📑 Cycle Format: ${isCarouselCycle ? 'Carrousel Multi-Slides 5p (Instagram) + Reel Vidéo (TikTok / YouTube)' : 'Reel Vidéo Plein Écran (Toutes plateformes)'}`);
+
+  let carouselSlideUrls = [];
+  if (isCarouselCycle) {
+    console.log('🎨 Generating 5 High-Quality SVG Carousel Slides (Cream Aesthetic)...');
+    const svgSlides = generateCarouselSvgSlides(item, viralHook);
+    for (let i = 0; i < svgSlides.length; i++) {
+      const slideNum = i + 1;
+      const slideSvgPath = path.join(tempDir, `carousel_slide_${slideNum}.svg`);
+      const slidePngPath = path.join(tempDir, `carousel_slide_${slideNum}.png`);
+      fs.writeFileSync(slideSvgPath, svgSlides[i], 'utf8');
+      try {
+        execSync(`rsvg-convert -w 1080 -h 1920 "${slideSvgPath}" -o "${slidePngPath}"`, { stdio: 'ignore' });
+      } catch {
+        fs.copyFileSync(slideSvgPath, slidePngPath);
+      }
+      console.log(`📡 Uploading Carousel Slide ${slideNum}/5 to Cloudinary...`);
+      const slideUrl = await uploadToCloudinary(slidePngPath, 'image');
+      carouselSlideUrls.push(slideUrl);
+      console.log(`✅ Slide ${slideNum}/5 uploaded: ${slideUrl}`);
+    }
+  }
+
   // 3. Download Audio MP3
   console.log(`🎙️ Downloading recitation audio from ${item.audioUrl}...`);
   await downloadFile(item.audioUrl, audioPath);
@@ -1193,16 +1471,28 @@ async function runCloudAutoPilot() {
   const ttCaption = `${sunnahCallout}${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${ttTags}${extraTags}`;
   const ytCaption = `${item.bookOrSurah} — ${item.numberOrAyah} 🕋\n\n${sunnahCallout}${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n${ytTags}${extraTags}`;
 
-  // 6a. Publish to Instagram Reel
+  // 6a. Publish to Instagram (5-Slide Carousel if carousel cycle, else Reel)
   try {
-    console.log('📤 Publishing to Instagram Reel (@kae.islamic) with Viral Tags...');
-    const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, publicVideoUrl, 'instagram', `${item.bookOrSurah} — ${item.numberOrAyah}`);
-    if (igRes?.status || igRes?.id) {
-      console.log('✅ Instagram publication queued successfully in Buffer!');
-    } else if (igRes?.isRateLimited) {
-      console.warn(`🛑 Instagram Buffer rate-limited: ${igRes?.error || 'Rate limit reached'}`);
+    if (isCarouselCycle && carouselSlideUrls.length > 0) {
+      console.log('📤 Publishing Multi-Slide Carousel (5 slides) to Instagram (@kae.islamic)...');
+      const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, carouselSlideUrls, 'instagram', `${item.bookOrSurah} — ${item.numberOrAyah}`);
+      if (igRes?.status || igRes?.id) {
+        console.log('✅ Instagram 5-Slide Carousel queued successfully in Buffer!');
+      } else if (igRes?.isRateLimited) {
+        console.warn(`🛑 Instagram Buffer rate-limited: ${igRes?.error || 'Rate limit reached'}`);
+      } else {
+        console.warn(`⚠️ Instagram Buffer issue: ${igRes?.error || igRes?.message || 'Non-fatal'}`);
+      }
     } else {
-      console.warn(`⚠️ Instagram Buffer issue: ${igRes?.error || igRes?.message || 'Non-fatal'}`);
+      console.log('📤 Publishing to Instagram Reel (@kae.islamic) with Viral Tags...');
+      const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, publicVideoUrl, 'instagram', `${item.bookOrSurah} — ${item.numberOrAyah}`);
+      if (igRes?.status || igRes?.id) {
+        console.log('✅ Instagram Reel publication queued successfully in Buffer!');
+      } else if (igRes?.isRateLimited) {
+        console.warn(`🛑 Instagram Buffer rate-limited: ${igRes?.error || 'Rate limit reached'}`);
+      } else {
+        console.warn(`⚠️ Instagram Buffer issue: ${igRes?.error || igRes?.message || 'Non-fatal'}`);
+      }
     }
   } catch (err) {
     console.warn('⚠️ Instagram publication notice:', err.message);
@@ -1214,7 +1504,7 @@ async function runCloudAutoPilot() {
     await sleep(5000);
   }
 
-  // 6b. Publish to TikTok
+  // 6b. Publish to TikTok (Video Reel)
   try {
     if (bufferRateLimitState.isLimited) {
       console.log('⏸️ Skipping TikTok Buffer dispatch (Buffer API 24h rate limit active).');
@@ -1268,6 +1558,7 @@ async function runCloudAutoPilot() {
     timestamp: reg.lastRunAt,
     theme: theme.title,
     type: item.type,
+    format: (isCarouselCycle && carouselSlideUrls.length > 0) ? 'carousel' : 'reel',
     bookOrSurah: item.bookOrSurah,
     numberOrAyah: item.numberOrAyah,
     surahNumber: item.surahNumber,
@@ -1278,7 +1569,8 @@ async function runCloudAutoPilot() {
     contentHash: contentHash(item.arabicText),
     audioUrl: item.audioUrl,
     videoUrl: publicVideoUrl,
-    cardImageUrl: publicVideoUrl ? publicVideoUrl.replace(/\.mp4$/, '.png') : '',
+    carouselSlides: carouselSlideUrls,
+    cardImageUrl: (carouselSlideUrls.length > 0) ? carouselSlideUrls[0] : (publicVideoUrl ? publicVideoUrl.replace(/\.mp4$/, '.png') : ''),
     platforms: YOUTUBE_CHANNEL_ID ? ['instagram', 'tiktok', 'youtube'] : ['instagram', 'tiktok'],
     reciterName: item.reciterName || 'Mishary Rashid Alafasy'
   });
@@ -1286,7 +1578,7 @@ async function runCloudAutoPilot() {
 
   // 8. Send Discord Notification
   console.log('🔔 Sending Discord notification...');
-  await sendDiscordNotification(item, theme, publicVideoUrl);
+  await sendDiscordNotification(item, theme, publicVideoUrl, carouselSlideUrls);
 
   console.log('🎉 Auto-Pilot cycle completed successfully!');
 
@@ -1308,6 +1600,7 @@ module.exports = {
   getNextItemForTheme, 
   getSunnahThemeForCurrentTime,
   generatePosterSvg,
+  generateCarouselSvgSlides,
   VERIFIED_ITEMS, 
   loadRegistry 
 };

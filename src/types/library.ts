@@ -14,8 +14,9 @@ export interface IslamicLibraryItem {
   cardImageUrl?: string;
   videoUrl?: string;
   publishedAt: string;
-  platforms: ('instagram' | 'tiktok')[];
-  format: 'reel' | 'photo';
+  platforms: ('instagram' | 'tiktok' | 'youtube')[];
+  format: 'reel' | 'photo' | 'carousel';
+  carouselSlides?: string[];
   metadata?: {
     surahNumber?: number;
     ayahNumber?: number;

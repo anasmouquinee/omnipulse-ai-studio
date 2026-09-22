@@ -157,8 +157,9 @@ export const IslamicLibraryService = {
     item: IslamicQuoteItem,
     cardUrl: string,
     videoUrl?: string,
-    format: 'reel' | 'photo' = 'reel',
-    platforms: ('instagram' | 'tiktok')[] = ['instagram', 'tiktok']
+    format: 'reel' | 'photo' | 'carousel' = 'reel',
+    platforms: ('instagram' | 'tiktok' | 'youtube')[] = ['instagram', 'tiktok', 'youtube'],
+    carouselSlides?: string[]
   ): IslamicLibraryItem {
     const items = this.getItems();
     const canonicalKey = this.generateCanonicalKey(item);
@@ -179,6 +180,7 @@ export const IslamicLibraryService = {
       publishedAt: new Date().toISOString(),
       platforms,
       format,
+      carouselSlides,
       metadata: {
         surahNumber: item.surahMetadata?.surahNumber,
         ayahNumber: item.surahMetadata?.ayahNumber,

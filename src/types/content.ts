@@ -27,7 +27,8 @@ export interface MediaAsset {
   createdAt: string;
   thumbnailUrl?: string;
   durationSeconds?: number;
-  engine: 'imagen3' | 'video_ai' | 'upload';
+  engine: 'imagen3' | 'video_ai' | 'upload' | string;
+  carouselItems?: string[];
 }
 
 export interface ScheduledPost {
