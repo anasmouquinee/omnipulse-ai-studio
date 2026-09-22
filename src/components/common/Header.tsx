@@ -1,8 +1,10 @@
 import React from 'react';
 import type { NavView } from './Sidebar';
-import { Sparkles, Plus, Compass, LogOut, User, ShieldCheck } from 'lucide-react';
+import { Sparkles, Plus, Compass, LogOut, User, BookOpen, Calendar, Zap, Share2, Film } from 'lucide-react';
 import type { SocialAccount } from '../../types/content';
 import { AuthService } from '../../services/authService';
+import { ThreeSceneControls } from './ThreeSceneControls';
+import type { ThreeSceneMode } from './ThreeVgpuScene';
 
 interface HeaderProps {
   currentView: NavView;
@@ -11,52 +13,64 @@ interface HeaderProps {
   onOpenSettings: () => void;
   onLogout?: () => void;
   accounts: SocialAccount[];
+  threeMode: ThreeSceneMode;
+  onSelectThreeMode: (mode: ThreeSceneMode) => void;
+  wireframe: boolean;
+  onToggleWireframe: () => void;
+  autoRotate: boolean;
+  onToggleAutoRotate: () => void;
+  fps: number;
 }
 
 const VIEW_TITLES: Record<NavView, { title: string; subtitle: string; icon: React.ReactNode }> = {
   studio: {
     title: 'Studio de Création & Reels Islamiques',
-    subtitle: 'Récitations HD, calligraphie ornée et audio synchronisé pour Instagram (@kae.islamic) & TikTok (@kaelar.islamic)',
+    subtitle: 'Récitations HD, calligraphie ornée et audio synchronisé pour Instagram & TikTok',
     icon: <Sparkles size={22} color="#10b981" />
   },
   autopilot: {
     title: 'Centre de Contrôle Auto-Pilot 24h/24',
-    subtitle: 'Planificateur Cloud autonome — Publication toutes les 6 heures avec rotation thématique et protection anti-doublon',
+    subtitle: 'Planificateur Cloud autonome — Publication toutes les 6 heures avec rotation thématique',
     icon: <Compass size={22} color="#34d399" />
   },
   library: {
     title: 'Bibliothèque Sacrée & Registre Anti-Répétition',
-    subtitle: 'Historique exhaustif des versets et hadiths publiés pour garantir un contenu 100% inédit et authentique',
-    icon: <span style={{ fontSize: '1.3rem' }}>📚</span>
+    subtitle: 'Historique exhaustif des versets et hadiths publiés pour garantir un contenu inédit',
+    icon: <BookOpen size={22} color="#60a5fa" />
   },
   calendar: {
     title: 'Calendrier des Rappels Spirituels',
     subtitle: 'Vue d’ensemble des publications programmées pour TikTok et Instagram',
-    icon: <span style={{ fontSize: '1.3rem' }}>📅</span>
+    icon: <Calendar size={22} color="#06b6d4" />
   },
   campaigns: {
     title: 'Programme Spirituel 7 Jours',
-    subtitle: 'Génération automatisée d’une semaine de rappels, invocations du matin et Jumu’ah',
-    icon: <span style={{ fontSize: '1.3rem' }}>⚡</span>
+    subtitle: 'Génération automatisée d’une semaine de rappels, invocations et Jumu’ah',
+    icon: <Zap size={22} color="#fbbf24" />
   },
   accounts: {
     title: 'Canaux Connectés',
     subtitle: 'Diffusion directe vers @kae.islamic et @kaelar.islamic via Buffer API',
-    icon: <span style={{ fontSize: '1.3rem' }}>📡</span>
+    icon: <Share2 size={22} color="#a855f7" />
   },
   media: {
-    title: 'Banque Vidéos HD & Décors (Sans Filigrane)',
-    subtitle: 'Clips et visuels 4K/HD libres de droits pour l’incrustation de vos rappels et signatures officielles',
-    icon: <span style={{ fontSize: '1.3rem' }}>🎥</span>
+    title: 'Banque Vidéos 4K & Décors Sans Filigrane',
+    subtitle: 'Clips et visuels haute définition libres de droits pour vos rappels spirituels',
+    icon: <Film size={22} color="#f59e0b" />
   }
 };
 
 export const Header: React.FC<HeaderProps> = ({
   currentView,
   onNewPost,
-  onNavigate,
-  onOpenSettings,
-  onLogout
+  onLogout,
+  threeMode,
+  onSelectThreeMode,
+  wireframe,
+  onToggleWireframe,
+  autoRotate,
+  onToggleAutoRotate,
+  fps
 }) => {
   const current = VIEW_TITLES[currentView] || VIEW_TITLES.studio;
   const user = AuthService.getCurrentUser();
@@ -64,7 +78,7 @@ export const Header: React.FC<HeaderProps> = ({
   return (
     <header className="app-header">
       {/* View Title */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <div className="header-left">
         <div style={{
           width: 44,
           height: 44,
@@ -78,26 +92,35 @@ export const Header: React.FC<HeaderProps> = ({
         }}>
           {current.icon}
         </div>
-        <div>
-          <h1 style={{
-            fontSize: '1.25rem',
-            fontWeight: 800,
-            letterSpacing: '-0.02em',
-            background: 'linear-gradient(135deg, #ffffff 0%, #fde68a 60%, #34d399 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            margin: 0
-          }}>
-            {current.title}
+        <div className="header-title-group">
+          <h1 className="header-page-title">
+            <span style={{
+              background: 'linear-gradient(135deg, #ffffff 0%, #fde68a 60%, #34d399 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent'
+            }}>
+              {current.title}
+            </span>
           </h1>
-          <p style={{ fontSize: '0.82rem', color: '#94a3b8', margin: '0.15rem 0 0 0' }}>
+          <p className="header-subtitle">
             {current.subtitle}
           </p>
         </div>
       </div>
 
       {/* Header Right Actions */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '0.85rem' }}>
+      <div className="header-right">
+        {/* Three.js 3D Controls Badge */}
+        <ThreeSceneControls
+          currentMode={threeMode}
+          onSelectMode={onSelectThreeMode}
+          wireframe={wireframe}
+          onToggleWireframe={onToggleWireframe}
+          autoRotate={autoRotate}
+          onToggleAutoRotate={onToggleAutoRotate}
+          fps={fps}
+        />
+
         {/* Connected Channels Pill */}
         <div style={{
           display: 'flex',
@@ -117,7 +140,7 @@ export const Header: React.FC<HeaderProps> = ({
             boxShadow: '0 0 8px #10b981'
           }} />
           <span style={{ fontSize: '0.78rem', fontWeight: 700, color: '#34d399' }}>
-            @kae.islamic & @kaelar.islamic (Actifs)
+            @kae.islamic & @kaelar.islamic
           </span>
         </div>
 
@@ -148,6 +171,7 @@ export const Header: React.FC<HeaderProps> = ({
           </span>
           {onLogout && (
             <button
+              type="button"
               onClick={onLogout}
               title="Déconnexion"
               style={{
@@ -168,6 +192,7 @@ export const Header: React.FC<HeaderProps> = ({
 
         {/* New Reel Button */}
         <button
+          type="button"
           className="btn btn-gold btn-sm"
           onClick={onNewPost}
           style={{ gap: '0.4rem', fontWeight: 800 }}

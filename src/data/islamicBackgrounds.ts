@@ -12,10 +12,22 @@ export interface IslamicBackgroundTheme {
   accentColor: string;
   textColor: string;
   arabicColor: string;
-  layoutStyle?: 'ornate_card' | 'reciter_minimal';
+  layoutStyle?: 'ornate_card' | 'reciter_minimal' | 'minimal_cream';
 }
 
 export const ISLAMIC_BACKGROUND_THEMES: IslamicBackgroundTheme[] = [
+  // 0. Minimalist Cream & Linen Aesthetic (Inspired by Viral Dhikr Reels 🤍)
+  {
+    id: 'minimal_cream',
+    name: '📜 Papier Crème Lin Minimaliste (Style Épuré 🤍)',
+    category: 'minimal',
+    imageUrl: 'https://images.unsplash.com/photo-1607604276583-eef5d076aa5f?w=1200&auto=format&fit=crop&q=85',
+    overlayOpacity: 0.12,
+    accentColor: '#b45309',
+    textColor: '#292524',
+    arabicColor: '#1c1917',
+    layoutStyle: 'minimal_cream'
+  },
   // 1. Viral TikTok Reciter Portrait Styles (Inspiration @c7l.11)
   {
     id: 'reciter_luhaidan',

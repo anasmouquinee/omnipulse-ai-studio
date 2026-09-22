@@ -83,6 +83,18 @@ export const DIVERSE_ISLAMIC_TOPICS: Record<IslamicContentType, string[]> = {
     "La paix intérieure d'un vendredi passé dans le rappel d'Allah",
     "Invoquer pour ses frères et sœurs opprimés le jour du vendredi",
     "Les bénédictions de la Salawat sur le Messager d'Allah ﷺ"
+  ],
+  adhkar_routine: [
+    "Routine de 30 secondes pour purifier le cœur et apaiser l'âme (نصف دقيقة فقط 🤍)",
+    "Les trésors du rappel avant le sommeil pour une nuit paisible",
+    "Adhkar du matin pour débuter la journée sous la protection divine",
+    "Les 5 formules de louange les plus chères à Allah (Subhanallah, Alhamdulillah)",
+    "Routine d'Istighfar et Salawat pour soulager les angoisses et attirer la paix",
+    "Checklist de sérénité : un bouclier spirituel contre les tourments du quotidien",
+    "Les paroles légères sur la langue et lourdes sur la balance divine",
+    "Invocation de protection complète (Bismillah alladhi la yadurru ma'asmihi shay')",
+    "Routine du vendredi : Salawat sur le Prophète ﷺ et prières de bénédiction",
+    "Se ressourcer en 1 minute : l'évocation d'Allah au milieu d'une journée chargée"
   ]
 };
 
@@ -661,6 +673,242 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
   },
 
   /**
+   * Renders the Aesthetic Warm Cream Dhikr Routine Checklist Canvas (Matching user's screenshot format)
+   */
+  renderMinimalCreamCanvas(
+    ctx: CanvasRenderingContext2D,
+    item: IslamicPostItem,
+    width: number,
+    height: number,
+    aspectRatio: '9:16' | '1:1',
+    displayLanguage: IslamicLanguage
+  ): string {
+    // 1. Linen Cream Background Gradient
+    const creamGrad = ctx.createLinearGradient(0, 0, 0, height);
+    creamGrad.addColorStop(0, '#FCFAF6');
+    creamGrad.addColorStop(0.35, '#FAF5EE');
+    creamGrad.addColorStop(0.70, '#F5EFE6');
+    creamGrad.addColorStop(1, '#EFE8DC');
+    ctx.fillStyle = creamGrad;
+    ctx.fillRect(0, 0, width, height);
+
+    // 2. Subtle Soft Organic Waves (Linen aesthetic)
+    ctx.save();
+    ctx.fillStyle = 'rgba(216, 206, 193, 0.25)';
+    ctx.beginPath();
+    ctx.moveTo(0, height * 0.2);
+    ctx.bezierCurveTo(width * 0.25, height * 0.12, width * 0.6, height * 0.25, width, height * 0.16);
+    ctx.lineTo(width, 0);
+    ctx.lineTo(0, 0);
+    ctx.closePath();
+    ctx.fill();
+
+    ctx.beginPath();
+    ctx.moveTo(0, height * 0.85);
+    ctx.bezierCurveTo(width * 0.35, height * 0.92, width * 0.7, height * 0.82, width, height * 0.9);
+    ctx.lineTo(width, height);
+    ctx.lineTo(0, height);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+
+    // 3. Elegant Double Outer Frame
+    ctx.save();
+    ctx.strokeStyle = '#E2DDD5';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.roundRect(42, 42, width - 84, height - 84, 34);
+    ctx.stroke();
+
+    ctx.strokeStyle = '#D6CEC3';
+    ctx.lineWidth = 1;
+    ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.roundRect(54, 54, width - 108, height - 108, 26);
+    ctx.stroke();
+    ctx.restore();
+
+    // 4. Header Hook Capsule Pill Badge ("نصف دقيقة فقط 🤍")
+    const hookText = item.arabicText || "نصف دقيقة فقط 🤍";
+    const headerPillY = aspectRatio === '9:16' ? 175 : 90;
+    const pillW = 460;
+    const pillH = 70;
+
+    ctx.save();
+    ctx.shadowColor = 'rgba(120, 113, 108, 0.12)';
+    ctx.shadowBlur = 14;
+    ctx.shadowOffsetY = 4;
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.roundRect(width / 2 - pillW / 2, headerPillY - pillH / 2, pillW, pillH, 35);
+    ctx.fill();
+
+    ctx.strokeStyle = '#E5E0D8';
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+
+    ctx.shadowColor = 'transparent';
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 34px "Amiri Quran", "Amiri", "Noto Naskh Arabic", serif';
+    ctx.fillStyle = '#292524';
+    ctx.fillText(hookText, width / 2, headerPillY + 11);
+    ctx.restore();
+
+    // 5. Main Checklist Card
+    const cardMarginX = 65;
+    const cardTop = aspectRatio === '9:16' ? 260 : 155;
+    const cardW = width - (cardMarginX * 2);
+    const cardH = aspectRatio === '9:16' ? 1240 : 760;
+
+    ctx.save();
+    ctx.shadowColor = 'rgba(120, 113, 108, 0.10)';
+    ctx.shadowBlur = 18;
+    ctx.shadowOffsetY = 6;
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+    ctx.beginPath();
+    ctx.roundRect(cardMarginX, cardTop, cardW, cardH, 32);
+    ctx.fill();
+
+    ctx.strokeStyle = '#E7E2DA';
+    ctx.lineWidth = 1.8;
+    ctx.stroke();
+    ctx.restore();
+
+    // 6. Checklist Items
+    const rawItems = (Array.isArray(item.checklistItems) && item.checklistItems.length > 0)
+      ? item.checklistItems
+      : [
+          "سُبْحَانَ اللَّهِ (3 مرات)",
+          "الْحَمْدُ لِلَّهِ (3 مرات)",
+          "لَا إِلَهَ إِلَّا اللَّهُ (3 مرات)",
+          "اللَّهُ أَكْبَرُ (3 مرات)",
+          "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ (3 مرات)",
+          "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ (3 مرات)"
+        ];
+
+    const rowCount = Math.min(rawItems.length, 7);
+    const availableH = cardH - 240;
+    const rowGap = Math.min(140, Math.floor(availableH / rowCount));
+    const startRowY = cardTop + (aspectRatio === '9:16' ? 95 : 65);
+
+    rawItems.slice(0, 7).forEach((rawLine, idx) => {
+      const rowY = startRowY + (idx * rowGap);
+      const match = rawLine.match(/^(.*?)\s*(\((?:\d+|مرة|\s*مرات)+\))\s*$/);
+      const mainText = match ? match[1].trim() : rawLine;
+      const badgeText = match ? match[2].trim() : '';
+
+      ctx.save();
+      // Row soft pill
+      const rowW = cardW - 100;
+      const rowH = 74;
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.beginPath();
+      ctx.roundRect(width / 2 - rowW / 2, rowY - rowH / 2, rowW, rowH, 20);
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(231, 229, 228, 0.9)';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      // Badge on left
+      if (badgeText) {
+        ctx.fillStyle = '#F5F5F4';
+        ctx.beginPath();
+        ctx.roundRect(width / 2 - rowW / 2 + 16, rowY - 22, 130, 44, 14);
+        ctx.fill();
+        ctx.strokeStyle = '#E7E5E4';
+        ctx.lineWidth = 1;
+        ctx.stroke();
+
+        ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+        ctx.fillStyle = '#78716C';
+        ctx.textAlign = 'center';
+        ctx.fillText(badgeText, width / 2 - rowW / 2 + 81, rowY + 8);
+      }
+
+      // Arabic Dhikr Text
+      ctx.font = 'bold 34px "Amiri Quran", "Amiri", "Noto Naskh Arabic", serif';
+      ctx.fillStyle = '#1C1917';
+      ctx.textAlign = 'center';
+      ctx.direction = 'rtl';
+      ctx.fillText(mainText, width / 2 + (badgeText ? 35 : 0), rowY + 11);
+      ctx.direction = 'ltr';
+
+      // Indicator circle on right
+      const circleX = width / 2 + rowW / 2 - 35;
+      ctx.strokeStyle = '#D6D3D1';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.arc(circleX, rowY, 13, 0, Math.PI * 2);
+      ctx.stroke();
+
+      ctx.fillStyle = '#A8A29E';
+      ctx.beginPath();
+      ctx.arc(circleX, rowY, 4.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    });
+
+    // 7. Divider Line Above Closing Ayah
+    const ayahDividerY = cardTop + cardH - (aspectRatio === '9:16' ? 145 : 100);
+    ctx.save();
+    ctx.strokeStyle = '#E7E0D6';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([4, 4]);
+    ctx.beginPath();
+    ctx.moveTo(cardMarginX + 80, ayahDividerY);
+    ctx.lineTo(width - cardMarginX - 80, ayahDividerY);
+    ctx.stroke();
+    ctx.restore();
+
+    // 8. Closing Quranic Ayah ﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾
+    const closingAyah = item.closingAyah || "﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾";
+    ctx.save();
+    ctx.textAlign = 'center';
+    ctx.font = 'bold 34px "Amiri Quran", "Amiri", "Noto Naskh Arabic", serif';
+    ctx.fillStyle = '#44403C';
+    ctx.fillText(closingAyah, width / 2, ayahDividerY + (aspectRatio === '9:16' ? 70 : 50));
+    ctx.restore();
+
+    // 9. French Reflection Under Card
+    const cleanFr = (item.translationFr || '').replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
+    if (cleanFr && (displayLanguage === 'fr' || displayLanguage === 'all')) {
+      ctx.save();
+      ctx.textAlign = 'center';
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#57534E';
+      ctx.fillText(`« ${cleanFr.slice(0, 90)}${cleanFr.length > 90 ? '...' : ''} »`, width / 2, cardTop + cardH + 50);
+      ctx.restore();
+    }
+
+    // 10. Source Reference Pill
+    const refPillY = height - (aspectRatio === '9:16' ? 115 : 60);
+    ctx.save();
+    ctx.fillStyle = '#FFFFFF';
+    ctx.beginPath();
+    ctx.roundRect(width / 2 - 280, refPillY - 24, 560, 48, 24);
+    ctx.fill();
+    ctx.strokeStyle = '#D6CEC3';
+    ctx.lineWidth = 1.4;
+    ctx.stroke();
+
+    ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#78716C';
+    ctx.textAlign = 'center';
+    ctx.fillText(`✦ ${item.source.bookOrSurah} — ${item.source.numberOrAyah} ✦`, width / 2, refPillY + 8);
+    ctx.restore();
+
+    // 11. Footer Watermark
+    ctx.save();
+    ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+    ctx.fillStyle = '#A8A29E';
+    ctx.textAlign = 'center';
+    ctx.fillText('@kae.islamic • @kaelar.islamic', width / 2, height - (aspectRatio === '9:16' ? 40 : 15));
+    ctx.restore();
+
+    return ctx.canvas.toDataURL('image/png');
+  },
+
+  /**
    * Generates a high-definition, authentic photographic Islamic Quote Card on HTML Canvas (9:16 or 1:1)
    */
   async renderQuoteCardCanvas(
@@ -701,6 +949,12 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       }
     } else if (themeOrCustomUrl && typeof themeOrCustomUrl === 'object') {
       bgTheme = themeOrCustomUrl;
+    }
+
+    // Check for Minimal Cream Dhikr Routine format
+    const isMinimalCream = item.type === 'adhkar_routine' || bgTheme.layoutStyle === 'minimal_cream' || item.visualStyle === 'minimal_cream';
+    if (isMinimalCream) {
+      return this.renderMinimalCreamCanvas(ctx, item, width, height, aspectRatio, displayLanguage);
     }
 
     const bgUrlToLoad = customImgUrl || bgTheme.imageUrl;
@@ -1031,5 +1285,378 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
     ctx.restore();
 
     return canvas.toDataURL('image/png');
+  },
+
+  /**
+   * Generates a Multi-Slide Carousel (5 sequential PNG slides) for Instagram & TikTok swipe posts
+   */
+  async generateCarouselSlidesCanvas(
+    item: IslamicPostItem,
+    aspectRatio: '9:16' | '1:1' = '9:16',
+    hookOverride?: string
+  ): Promise<string[]> {
+    const width = 1080;
+    const height = aspectRatio === '9:16' ? 1920 : 1080;
+    const slides: string[] = [];
+
+    if (typeof document !== 'undefined' && document.fonts) {
+      try { await document.fonts.ready; } catch {}
+    }
+
+    const baseHook = hookOverride || item.arabicText || "نصف دقيقة فقط 🤍";
+    const closingAyah = item.closingAyah || "﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾";
+
+    const paintSlideBase = (ctx: CanvasRenderingContext2D, slideIndex: number, totalSlides: number = 5) => {
+      const creamGrad = ctx.createLinearGradient(0, 0, 0, height);
+      creamGrad.addColorStop(0, '#FCFAF6');
+      creamGrad.addColorStop(0.35, '#FAF5EE');
+      creamGrad.addColorStop(0.70, '#F5EFE6');
+      creamGrad.addColorStop(1, '#EFE8DC');
+      ctx.fillStyle = creamGrad;
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.save();
+      ctx.strokeStyle = '#E2DDD5';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.roundRect(42, 42, width - 84, height - 84, 34);
+      ctx.stroke();
+
+      ctx.strokeStyle = '#D6CEC3';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.roundRect(54, 54, width - 108, height - 108, 26);
+      ctx.stroke();
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+      ctx.beginPath();
+      ctx.roundRect(width / 2 - 110, 85, 220, 46, 23);
+      ctx.fill();
+      ctx.strokeStyle = '#E2DDD5';
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+
+      ctx.font = '700 20px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#78716C';
+      ctx.textAlign = 'center';
+      ctx.fillText(`${slideIndex} / ${totalSlides} 🤍`, width / 2, 116);
+      ctx.restore();
+
+      ctx.save();
+      ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#A8A29E';
+      ctx.textAlign = 'center';
+      ctx.fillText('@kae.islamic • @kaelar.islamic', width / 2, height - (aspectRatio === '9:16' ? 55 : 25));
+      ctx.restore();
+    };
+
+    const createCtx = () => {
+      const c = document.createElement('canvas');
+      c.width = width;
+      c.height = height;
+      return { canvas: c, ctx: c.getContext('2d')! };
+    };
+
+    // SLIDE 1: Cover Hook Slide
+    {
+      const { canvas, ctx } = createCtx();
+      paintSlideBase(ctx, 1, 5);
+
+      ctx.save();
+      ctx.shadowColor = 'rgba(120, 113, 108, 0.15)';
+      ctx.shadowBlur = 16;
+      ctx.shadowOffsetY = 6;
+      ctx.fillStyle = '#FFFFFF';
+      ctx.beginPath();
+      ctx.roundRect(width / 2 - 270, height * 0.28, 540, 88, 44);
+      ctx.fill();
+      ctx.strokeStyle = '#E5E0D8';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.font = 'bold 40px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#1C1917';
+      ctx.textAlign = 'center';
+      ctx.fillText(baseHook, width / 2, height * 0.28 + 58);
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
+      ctx.beginPath();
+      ctx.roundRect(80, height * 0.38, width - 160, height * 0.35, 32);
+      ctx.fill();
+      ctx.strokeStyle = '#E7E2DA';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.font = '54px serif';
+      ctx.fillStyle = '#d97706';
+      ctx.textAlign = 'center';
+      ctx.fillText('۞', width / 2, height * 0.46);
+
+      ctx.font = 'bold 36px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#292524';
+      ctx.fillText('« لَا يَزَالُ لِسَانُكَ رَطْبًا مِنْ ذِكْرِ اللَّهِ »', width / 2, height * 0.54);
+
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#57534E';
+      ctx.fillText('« Que ta langue ne cesse d’être humide par l’évocation d’Allah »', width / 2, height * 0.61);
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = '#1C1917';
+      ctx.beginPath();
+      ctx.roundRect(width / 2 - 160, height * 0.80, 320, 60, 30);
+      ctx.fill();
+      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#FFFFFF';
+      ctx.textAlign = 'center';
+      ctx.fillText('Glisse pour réciter ➔', width / 2, height * 0.80 + 38);
+      ctx.restore();
+
+      slides.push(canvas.toDataURL('image/png'));
+    }
+
+    // SLIDE 2: Tasbeeh & Tahmeed
+    {
+      const { canvas, ctx } = createCtx();
+      paintSlideBase(ctx, 2, 5);
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.beginPath();
+      ctx.roundRect(75, height * 0.18, width - 150, height * 0.28, 28);
+      ctx.fill();
+      ctx.strokeStyle = '#E7E2DA';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = '#F5F5F4';
+      ctx.beginPath();
+      ctx.roundRect(100, height * 0.18 + 25, 140, 46, 16);
+      ctx.fill();
+      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#78716C';
+      ctx.textAlign = 'center';
+      ctx.fillText('(3 مرات)', 170, height * 0.18 + 56);
+
+      ctx.font = 'bold 44px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#1C1917';
+      ctx.fillText('سُبْحَانَ اللَّهِ', width / 2, height * 0.18 + 115);
+
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#57534E';
+      ctx.fillText('« Gloire et pureté absolue à Allah »', width / 2, height * 0.18 + 165);
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.beginPath();
+      ctx.roundRect(75, height * 0.50, width - 150, height * 0.28, 28);
+      ctx.fill();
+      ctx.strokeStyle = '#E7E2DA';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = '#F5F5F4';
+      ctx.beginPath();
+      ctx.roundRect(100, height * 0.50 + 25, 140, 46, 16);
+      ctx.fill();
+      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#78716C';
+      ctx.textAlign = 'center';
+      ctx.fillText('(3 مرات)', 170, height * 0.50 + 56);
+
+      ctx.font = 'bold 44px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#1C1917';
+      ctx.fillText('الْحَمْدُ لِلَّهِ', width / 2, height * 0.50 + 115);
+
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#57534E';
+      ctx.fillText('« Toutes les louanges et gratitudes appartiennent à Allah »', width / 2, height * 0.50 + 165);
+      ctx.restore();
+
+      slides.push(canvas.toDataURL('image/png'));
+    }
+
+    // SLIDE 3: Tahleel & Takbeer
+    {
+      const { canvas, ctx } = createCtx();
+      paintSlideBase(ctx, 3, 5);
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.beginPath();
+      ctx.roundRect(75, height * 0.18, width - 150, height * 0.28, 28);
+      ctx.fill();
+      ctx.strokeStyle = '#E7E2DA';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = '#F5F5F4';
+      ctx.beginPath();
+      ctx.roundRect(100, height * 0.18 + 25, 140, 46, 16);
+      ctx.fill();
+      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#78716C';
+      ctx.textAlign = 'center';
+      ctx.fillText('(3 مرات)', 170, height * 0.18 + 56);
+
+      ctx.font = 'bold 40px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#1C1917';
+      ctx.fillText('لَا إِلَهَ إِلَّا اللَّهُ', width / 2, height * 0.18 + 115);
+
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#57534E';
+      ctx.fillText('« Il n’y a de divinité digne d’adoration qu’Allah »', width / 2, height * 0.18 + 165);
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.beginPath();
+      ctx.roundRect(75, height * 0.50, width - 150, height * 0.28, 28);
+      ctx.fill();
+      ctx.strokeStyle = '#E7E2DA';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = '#F5F5F4';
+      ctx.beginPath();
+      ctx.roundRect(100, height * 0.50 + 25, 140, 46, 16);
+      ctx.fill();
+      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#78716C';
+      ctx.textAlign = 'center';
+      ctx.fillText('(3 مرات)', 170, height * 0.50 + 56);
+
+      ctx.font = 'bold 44px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#1C1917';
+      ctx.fillText('اللَّهُ أَكْبَرُ', width / 2, height * 0.50 + 115);
+
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#57534E';
+      ctx.fillText('« Allah est infiniment plus Grand que tout »', width / 2, height * 0.50 + 165);
+      ctx.restore();
+
+      slides.push(canvas.toDataURL('image/png'));
+    }
+
+    // SLIDE 4: Istighfar & Salawat
+    {
+      const { canvas, ctx } = createCtx();
+      paintSlideBase(ctx, 4, 5);
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.beginPath();
+      ctx.roundRect(75, height * 0.18, width - 150, height * 0.28, 28);
+      ctx.fill();
+      ctx.strokeStyle = '#E7E2DA';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = '#F5F5F4';
+      ctx.beginPath();
+      ctx.roundRect(100, height * 0.18 + 25, 140, 46, 16);
+      ctx.fill();
+      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#78716C';
+      ctx.textAlign = 'center';
+      ctx.fillText('(3 مرات)', 170, height * 0.18 + 56);
+
+      ctx.font = 'bold 36px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#1C1917';
+      ctx.fillText('أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ', width / 2, height * 0.18 + 115);
+
+      ctx.font = '600 23px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#57534E';
+      ctx.fillText('« Je demande pardon à Allah et je reviens à Lui »', width / 2, height * 0.18 + 165);
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.beginPath();
+      ctx.roundRect(75, height * 0.50, width - 150, height * 0.28, 28);
+      ctx.fill();
+      ctx.strokeStyle = '#E7E2DA';
+      ctx.lineWidth = 1.8;
+      ctx.stroke();
+
+      ctx.fillStyle = '#F5F5F4';
+      ctx.beginPath();
+      ctx.roundRect(100, height * 0.50 + 25, 140, 46, 16);
+      ctx.fill();
+      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#78716C';
+      ctx.textAlign = 'center';
+      ctx.fillText('(3 مرات)', 170, height * 0.50 + 56);
+
+      ctx.font = 'bold 34px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#1C1917';
+      ctx.fillText('اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ', width / 2, height * 0.50 + 115);
+
+      ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#57534E';
+      ctx.fillText('« Ô Allah, prie et salue notre Prophète Muhammad »', width / 2, height * 0.50 + 165);
+      ctx.restore();
+
+      slides.push(canvas.toDataURL('image/png'));
+    }
+
+    // SLIDE 5: Closing & CTA
+    {
+      const { canvas, ctx } = createCtx();
+      paintSlideBase(ctx, 5, 5);
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
+      ctx.beginPath();
+      ctx.roundRect(75, height * 0.22, width - 150, height * 0.30, 28);
+      ctx.fill();
+      ctx.strokeStyle = '#E7E2DA';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.font = 'bold 38px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#292524';
+      ctx.textAlign = 'center';
+      ctx.fillText(closingAyah, width / 2, height * 0.33);
+
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#78716C';
+      ctx.fillText('« Et rappelle, car le rappel profite aux croyants »', width / 2, height * 0.40);
+
+      ctx.font = '700 20px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#A8A29E';
+      ctx.fillText(`✦ ${item.source.bookOrSurah} — ${item.source.numberOrAyah} ✦`, width / 2, height * 0.46);
+      ctx.restore();
+
+      ctx.save();
+      ctx.fillStyle = '#1C1917';
+      ctx.beginPath();
+      ctx.roundRect(75, height * 0.58, width - 150, height * 0.24, 28);
+      ctx.fill();
+
+      ctx.font = 'bold 32px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#FEF08A';
+      ctx.textAlign = 'center';
+      ctx.fillText('احفظ المنشور لتكرارها يومياً 🤍', width / 2, height * 0.66);
+
+      ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#F8FAFC';
+      ctx.fillText('Enregistre ce carrousel pour réciter chaque jour', width / 2, height * 0.72);
+
+      ctx.font = '500 20px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#CBD5E1';
+      ctx.fillText('Partage pour récolter les récompenses (Sadaqah Jariyah 🤲)', width / 2, height * 0.77);
+      ctx.restore();
+
+      slides.push(canvas.toDataURL('image/png'));
+    }
+
+    return slides;
   }
 };

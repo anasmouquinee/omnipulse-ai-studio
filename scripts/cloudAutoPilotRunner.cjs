@@ -21,7 +21,7 @@ const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || 'https://discord.
 
 const REGISTRY_PATH = path.join(__dirname, '..', 'data', 'publishedRegistry.json');
 
-// 6-Pillar Rotation Definitions
+// 7-Pillar Rotation Definitions
 const THEMES = [
   {
     id: 'theme-quran',
@@ -34,6 +34,12 @@ const THEMES = [
     category: 'sahih_hadith',
     title: 'Hadith Sahih Authentique & Sagesse',
     badge: 'Hadith'
+  },
+  {
+    id: 'theme-adhkar',
+    category: 'adhkar_routine',
+    title: 'Routine Adhkar & Checklist Sérénité 🤍',
+    badge: 'Adhkar 🤍'
   },
   {
     id: 'theme-dua',
@@ -509,8 +515,203 @@ function wrapWords(text, maxChars) {
   return lines;
 }
 
-// Helper: Generate crisp SVG poster (100% SVG 1.1 native text compatible with rsvg-convert & FFmpeg)
-function generatePosterSvg(item) {
+// Helper: Check if item uses minimal cream aesthetic
+function isMinimalCream(item) {
+  return item.type === 'adhkar_routine' || item.visualStyle === 'minimal_cream' || (Array.isArray(item.checklistItems) && item.checklistItems.length > 0);
+}
+
+// 7 Tested High-Retention Viral Hooks for 3-Second Retention Optimization
+const VIRAL_ISLAMIC_HOOKS = [
+  'نصف دقيقة فقط 🤍',
+  'لا تمر دون أن تستغفر ✨',
+  'رسالة إلى قلبك الليلة 🌙',
+  '30 ثانية تمحو بها ذنوبك 🤍',
+  'خُذ استراحة مع ذكر الله 🕊️',
+  'كنز عظيم من كنوز الجنة 💎',
+  '﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾'
+];
+
+function pickViralHook(item, reg) {
+  if (item.type === 'adhkar_routine') {
+    const idx = (reg?.currentIndex || 0) % VIRAL_ISLAMIC_HOOKS.length;
+    return VIRAL_ISLAMIC_HOOKS[idx];
+  }
+  return item.arabicText || 'نصف دقيقة فقط 🤍';
+}
+
+// Minimal Cream Checklist SVG Generator (Matches Aesthetic Cream Dhikr Routine Checklist)
+function generateMinimalCreamSvg(item, hookOverride = '') {
+  const escapeXml = (str) => String(str || '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&apos;');
+
+  // Checklist items
+  const rawItems = (Array.isArray(item.checklistItems) && item.checklistItems.length > 0)
+    ? item.checklistItems
+    : [
+        "سُبْحَانَ اللَّهِ (3 مرات)",
+        "الْحَمْدُ لِلَّهِ (3 مرات)",
+        "لَا إِلَهَ إِلَّا اللَّهُ (3 مرات)",
+        "اللَّهُ أَكْبَرُ (3 مرات)",
+        "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ (3 مرات)",
+        "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ (3 مرات)"
+      ];
+
+  // Header hook capsule text (dynamically picked or item text)
+  const hookText = hookOverride || item.arabicText || "نصف دقيقة فقط 🤍";
+
+  // Closing Quranic Ayah
+  const closingAyah = item.closingAyah || "﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾";
+
+  const cleanFr = (item.translationFr || '').replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
+
+  // Layout geometry
+  const cardX = 70;
+  const cardY = 270;
+  const cardW = 940;
+  const cardH = 1240;
+
+  // Render checklist rows
+  const rowCount = Math.min(rawItems.length, 7);
+  const availableH = 860;
+  const rowGap = Math.min(145, Math.floor(availableH / rowCount));
+  const startRowY = cardY + 95;
+
+  const rowsSvg = rawItems.slice(0, 7).map((rawLine, idx) => {
+    const rowY = startRowY + (idx * rowGap);
+    const match = rawLine.match(/^(.*?)\s*(\((?:\d+|مرة|\s*مرات)+\))\s*$/);
+    const mainText = match ? match[1].trim() : rawLine;
+    const badgeText = match ? match[2].trim() : '';
+
+    return `
+      <!-- Row ${idx + 1} -->
+      <g transform="translate(540, ${rowY})">
+        <!-- Soft translucent background pill for each dhikr row -->
+        <rect x="-420" y="-38" width="840" height="76" rx="20" fill="rgba(255, 255, 255, 0.94)" stroke="rgba(231, 229, 228, 0.88)" stroke-width="1.2" />
+        
+        <!-- Left side badge (repetition count) -->
+        ${badgeText ? `
+        <rect x="-400" y="-22" width="135" height="44" rx="14" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+        <text x="-332" y="7" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="22" font-weight="600" fill="#78716C" text-anchor="middle">${escapeXml(badgeText)}</text>
+        ` : ''}
+
+        <!-- Arabic Dhikr Text -->
+        <text x="${badgeText ? 40 : 0}" y="10" font-family="'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif" font-size="34" font-weight="bold" fill="#1C1917" text-anchor="middle">
+          ${escapeXml(mainText)}
+        </text>
+
+        <!-- Right side subtle indicator ring -->
+        <circle cx="380" cy="0" r="13" fill="none" stroke="#D6D3D1" stroke-width="1.5" />
+        <circle cx="380" cy="0" r="4.5" fill="#A8A29E" />
+      </g>`;
+  }).join('\n');
+
+  // Divider above closing Ayah
+  const ayahDividerY = cardY + cardH - 145;
+  const ayahY = ayahDividerY + 70;
+
+  // French translation below card
+  const frLines = cleanFr ? wrapWords(`« ${cleanFr} »`, 48) : [];
+  const frTspans = frLines.slice(0, 2).map((line, idx) => {
+    const yPos = 1555 + (idx * 36);
+    return `<tspan x="540" y="${yPos}">${escapeXml(line)}</tspan>`;
+  }).join('\n      ');
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Warm Linen / Cream Background Gradient -->
+    <linearGradient id="creamBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FCFAF6" />
+      <stop offset="35%" stop-color="#FAF5EE" />
+      <stop offset="70%" stop-color="#F5EFE6" />
+      <stop offset="100%" stop-color="#EFE8DC" />
+    </linearGradient>
+
+    <!-- Warm Soft Card Gradient -->
+    <linearGradient id="cardGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="rgba(255, 255, 255, 0.96)" />
+      <stop offset="100%" stop-color="rgba(253, 251, 247, 0.92)" />
+    </linearGradient>
+
+    <!-- Subtle Taupe/Sand Waves -->
+    <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#E7DFD5" stop-opacity="0.35" />
+      <stop offset="100%" stop-color="#D8CEC1" stop-opacity="0.10" />
+    </linearGradient>
+
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="6" stdDeviation="12" flood-color="rgba(120, 113, 108, 0.08)" />
+    </filter>
+  </defs>
+
+  <!-- Cream Canvas Base -->
+  <rect width="1080" height="1920" fill="url(#creamBg)" />
+
+  <!-- Organic Warm Linen Geometry / Wavy Silhouettes -->
+  <path d="M -50 400 Q 200 250 540 380 T 1130 300 L 1130 -50 L -50 -50 Z" fill="url(#waveGrad)" />
+  <path d="M -50 1600 Q 300 1750 650 1620 T 1130 1700 L 1130 1970 L -50 1970 Z" fill="url(#waveGrad)" />
+
+  <!-- Elegant Double Outer Frame -->
+  <rect x="42" y="42" width="996" height="1836" rx="36" fill="none" stroke="#E2DDD5" stroke-width="1.8" />
+  <rect x="54" y="54" width="972" height="1812" rx="28" fill="none" stroke="#D6CEC3" stroke-width="1" stroke-dasharray="6,4" stroke-opacity="0.6" />
+
+  <!-- Corner Minimalist Marks -->
+  <g stroke="#C7BEB1" stroke-width="1.5" fill="none">
+    <path d="M 72 96 L 96 96 L 96 72" />
+    <path d="M 1008 96 L 984 96 L 984 72" />
+    <path d="M 72 1824 L 96 1824 L 96 1848" />
+    <path d="M 1008 1824 L 984 1824 L 984 1848" />
+  </g>
+
+  <!-- Header Hook Capsule Pill Badge (Matches User Screenshot: نصف دقيقة فقط 🤍) -->
+  <g transform="translate(540, 175)" filter="url(#softShadow)">
+    <rect x="-240" y="-36" width="480" height="72" rx="36" fill="#FFFFFF" stroke="#E5E0D8" stroke-width="1.8" />
+    <text x="0" y="11" font-family="'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif" font-size="34" font-weight="bold" fill="#292524" text-anchor="middle">
+      ${escapeXml(hookText)}
+    </text>
+  </g>
+
+  <!-- Main Checklist Glass Container -->
+  <rect x="${cardX}" y="${cardY}" width="${cardW}" height="${cardH}" rx="32" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="1.8" filter="url(#softShadow)" />
+
+  <!-- Checklist Rows -->
+  ${rowsSvg}
+
+  <!-- Divider Line Above Closing Ayah -->
+  <line x1="160" y1="${ayahDividerY}" x2="920" y2="${ayahDividerY}" stroke="#E7E0D6" stroke-width="1.5" stroke-dasharray="4,4" />
+
+  <!-- Closing Quranic Ayah ﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾ -->
+  <text x="540" y="${ayahY}" font-family="'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif" font-size="34" font-weight="bold" fill="#44403C" text-anchor="middle">
+    ${escapeXml(closingAyah)}
+  </text>
+
+  <!-- French Meaning / Meditation (Under the Card) -->
+  ${frLines.length > 0 ? `
+  <text x="540" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="24" font-weight="600" fill="#57534E" text-anchor="middle">
+      ${frTspans}
+  </text>` : ''}
+
+  <!-- Source Reference Pill Badge -->
+  <g transform="translate(540, 1640)">
+    <rect x="-300" y="-24" width="600" height="48" rx="24" fill="#FFFFFF" stroke="#D6CEC3" stroke-width="1.4" />
+    <text x="0" y="8" font-family="'Plus Jakarta Sans', -apple-system, 'Segoe UI', sans-serif" font-size="22" font-weight="bold" fill="#78716C" text-anchor="middle">
+      ✦ ${escapeXml(item.bookOrSurah)} — ${escapeXml(item.numberOrAyah)} ✦
+    </text>
+  </g>
+
+  <!-- Footer Watermark (@kae.islamic • @kaelar.islamic) -->
+  <text x="540" y="1700" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="22" font-weight="600" fill="#A8A29E" text-anchor="middle">
+    @kae.islamic • @kaelar.islamic
+  </text>
+</svg>`;
+}
+
+// Royal Dark Gold Poster SVG Generator
+function generateRoyalPosterSvg(item) {
   const escapeXml = (str) => String(str || '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -709,12 +910,21 @@ function generatePosterSvg(item) {
 </svg>`;
 }
 
+// Master Poster SVG Dispatcher (Pure SVG 1.1 native text compatible with rsvg-convert & FFmpeg)
+function generatePosterSvg(item, hookOverride = '') {
+  if (isMinimalCream(item)) {
+    return generateMinimalCreamSvg(item, hookOverride);
+  }
+  return generateRoyalPosterSvg(item);
+}
+
 // Dynamic Viral Islamic Hashtags Generator (TikTok FYP, Instagram Reels Explore, YouTube Shorts)
 function getViralIslamicTags(type, platform = 'all', limit = 14) {
   const typeMap = {
     quran_verse: ['#quranrecitation', '#quranverses', '#surah', '#tilawat', '#beautifultilawat', '#holyquran', '#قرآن', '#تلاوة'],
     sahih_hadith: ['#hadith', '#hadithoftheday', '#sahihbukhari', '#sahihmuslim', '#propheticwisdom', '#sunnahrasul', '#حديث', '#سنة'],
     authentic_dua: ['#dua', '#dhikr', '#adhkar', '#hisnulmuslim', '#supplication', '#istighfar', '#subhanallah', '#دعاء', '#أذكار'],
+    adhkar_routine: ['#adhkar', '#dhikr', '#subhanallah', '#alhamdulillah', '#astaghfirullah', '#salawat', '#نصف_دقيقة', '#أذكار', '#راحة_نفسية'],
     tahajjud_motivation: ['#tahajjud', '#nightprayer', '#qiyamullail', '#fajr', '#peaceofmind', '#spiritualgrowth', '#قيام_الليل', '#تهجد'],
     islamic_reminder: ['#tawakkul', '#sabr', '#patience', '#islamicmotivation', '#trustallah', '#hopeinallah', '#صبر', '#توكل_على_الله'],
     jumua_special: ['#jummahmubarak', '#jumuah', '#fridayprayer', '#suratalkahf', '#salawat', '#blessedfriday', '#جمعة_مباركة', '#سورة_الكهف']
@@ -810,74 +1020,89 @@ function getNextItemForTheme(theme, reg) {
   }
 
   const now = Date.now();
-  const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
+  const SIXTY_DAYS_MS = 60 * 24 * 60 * 60 * 1000;
 
-  // Candidates not published in the last 30 days
+  // Candidates not published in the last 60 days
   const eligible = candidates.filter(c => {
     const hash = contentHash(c.arabicText);
     const verseId = `${c.surahNumber}:${c.ayahNumber}`;
     const lastPub = Math.max(lastPublishedTime.get(hash) || 0, lastPublishedTime.get(verseId) || 0);
-    return (now - lastPub) > THIRTY_DAYS_MS;
+    return (now - lastPub) > SIXTY_DAYS_MS;
   });
 
-  if (eligible.length > 0) {
-    // Pick the one published longest ago (or never published)
-    eligible.sort((a, b) => {
+  const sortOldest = (list) => {
+    return list.slice().sort((a, b) => {
       const aHash = contentHash(a.arabicText);
       const bHash = contentHash(b.arabicText);
       const aLast = Math.max(lastPublishedTime.get(aHash) || 0, lastPublishedTime.get(`${a.surahNumber}:${a.ayahNumber}`) || 0);
       const bLast = Math.max(lastPublishedTime.get(bHash) || 0, lastPublishedTime.get(`${b.surahNumber}:${b.ayahNumber}`) || 0);
       return aLast - bLast;
     });
-    console.log(`📋 ${eligible.length}/${candidates.length} eligible (30d cooldown) for "${theme.category}".`);
-    return eligible[0];
+  };
+
+  if (eligible.length > 0) {
+    const sorted = sortOldest(eligible);
+    // Pick among the top 3 oldest candidates to avoid static repetition
+    const topPool = sorted.slice(0, Math.min(3, sorted.length));
+    const picked = topPool[Math.floor(Math.random() * topPool.length)];
+    console.log(`📋 ${eligible.length}/${candidates.length} eligible (60d cooldown) for "${theme.category}". Selected: "${picked.bookOrSurah}"`);
+    return picked;
   }
 
-  // If all were published within 30 days, pick the absolute oldest published one (LRU)
-  candidates.sort((a, b) => {
-    const aHash = contentHash(a.arabicText);
-    const bHash = contentHash(b.arabicText);
-    const aLast = Math.max(lastPublishedTime.get(aHash) || 0, lastPublishedTime.get(`${a.surahNumber}:${a.ayahNumber}`) || 0);
-    const bLast = Math.max(lastPublishedTime.get(bHash) || 0, lastPublishedTime.get(`${b.surahNumber}:${b.ayahNumber}`) || 0);
-    return aLast - bLast;
-  });
-  console.log(`🔄 Picking least-recently published item for "${theme.category}".`);
-  return candidates[0];
+  // If all were published within 60 days, pick among the absolute least-recently published (LRU pool)
+  const sortedAll = sortOldest(candidates);
+  const topPool = sortedAll.slice(0, Math.min(3, sortedAll.length));
+  const picked = topPool[Math.floor(Math.random() * topPool.length)];
+  console.log(`🔄 Picking least-recently published item from top pool for "${theme.category}". Selected: "${picked.bookOrSurah}"`);
+  return picked;
 }
 
 // Time-Aware Sunnah Scheduler: selects authentic theme based on prayer time & day
-function getSunnahThemeForCurrentTime(now = new Date()) {
+function getSunnahThemeForCurrentTime(now = new Date(), reg = null) {
   const day = now.getUTCDay(); // 0 = Sun, 4 = Thu, 5 = Fri
   const hour = now.getUTCHours(); // 00, 06, 12, 18 UTC
+  const currentIdx = reg?.currentIndex ?? Math.floor(Math.random() * THEMES.length);
 
   // 1. Spécial Jumu'ah: Thursday night (>=16:00 UTC) through all of Friday
   if ((day === 4 && hour >= 16) || day === 5) {
     console.log("🕌 Sunnah Time: Spécial Jumu'ah (Sourate Al-Kahf & Salawat)");
-    return THEMES.find(t => t.id === 'theme-jumuah') || THEMES[5];
+    if (hour <= 14) {
+      return THEMES.find(t => t.id === 'theme-jumuah') || THEMES[6];
+    }
+    return (currentIdx % 2 === 0)
+      ? (THEMES.find(t => t.id === 'theme-jumuah') || THEMES[6])
+      : (THEMES.find(t => t.id === 'theme-adhkar') || THEMES[2]);
   }
 
   // 2. Tahajjud & Prière de Nuit: 23:00 - 04:00 UTC (Qiyam al-Layl & Istighfar)
   if (hour >= 23 || hour <= 4) {
-    console.log("🌙 Sunnah Time: Tahajjud & Qiyam al-Layl (Prière de Nuit & Pardon)");
-    return THEMES.find(t => t.id === 'theme-tahajjud') || THEMES[3];
+    console.log("🌙 Sunnah Time: Tahajjud & Qiyam al-Layl / Routine Nuit");
+    return (currentIdx % 2 === 0)
+      ? (THEMES.find(t => t.id === 'theme-tahajjud') || THEMES[4])
+      : (THEMES.find(t => t.id === 'theme-adhkar') || THEMES[2]);
   }
 
   // 3. Morning Invocations & Protection: 05:00 - 09:00 UTC (Fajr & Adhkar as-Sabah)
   if (hour >= 5 && hour <= 9) {
-    console.log("🌅 Sunnah Time: Adhkar as-Sabah & Invocations du Matin");
-    return THEMES.find(t => t.id === 'theme-dua') || THEMES[2];
+    console.log("🌅 Sunnah Time: Adhkar as-Sabah & Routine Sérénité 🤍");
+    return (currentIdx % 2 === 0)
+      ? (THEMES.find(t => t.id === 'theme-adhkar') || THEMES[2])
+      : (THEMES.find(t => t.id === 'theme-dua') || THEMES[3]);
   }
 
   // 4. Evening Invocations & Gratitude: 16:00 - 20:00 UTC (Maghrib & Adhkar al-Masaa)
   if (hour >= 16 && hour <= 20) {
     console.log("🌆 Sunnah Time: Adhkar al-Masaa & Sagesse du Soir (Tawakkul)");
-    return THEMES.find(t => t.id === 'theme-reminder') || THEMES[4];
+    const eveningThemes = ['theme-reminder', 'theme-adhkar', 'theme-hadith'];
+    const chosenId = eveningThemes[currentIdx % eveningThemes.length];
+    return THEMES.find(t => t.id === chosenId) || THEMES[5];
   }
 
-  // 5. General / Midday Slots (10:00 - 15:00 UTC): Alternates between Quran and Hadith
-  return (hour % 2 === 0)
-    ? (THEMES.find(t => t.id === 'theme-quran') || THEMES[0])
-    : (THEMES.find(t => t.id === 'theme-hadith') || THEMES[1]);
+  // 5. General / Midday Slots (10:00 - 15:00 UTC): Balanced rotation between Quran, Hadith, and Adhkar
+  const middayThemes = ['theme-quran', 'theme-hadith', 'theme-adhkar'];
+  const chosenId = middayThemes[currentIdx % middayThemes.length];
+  console.log(`☀️ Midday Rotation: ${chosenId}`);
+  return THEMES.find(t => t.id === chosenId) || THEMES[0];
 }
 
 // Main Execution Routine
@@ -889,7 +1114,7 @@ async function runCloudAutoPilot() {
   const currentIdx = reg.currentIndex || 0;
 
   // Intelligently select theme aligned with Sunnah and prayer time
-  const theme = getSunnahThemeForCurrentTime();
+  const theme = getSunnahThemeForCurrentTime(new Date(), reg);
   console.log(`🎯 Sunnah Selected Theme: ${theme.title}`);
 
   // 1. Pick an unposted verified item for this theme
@@ -904,8 +1129,10 @@ async function runCloudAutoPilot() {
   const audioPath = path.join(tempDir, 'audio.mp3');
   const videoPath = path.join(tempDir, 'output.mp4');
 
-  // 2. Write SVG Poster
-  fs.writeFileSync(svgPath, generatePosterSvg(item), 'utf8');
+  // 2. Write SVG Poster with Dynamic 3-Second Viral Hook
+  const viralHook = pickViralHook(item, reg);
+  console.log(`🪝 Active Viral 3-Second Hook: "${viralHook}"`);
+  fs.writeFileSync(svgPath, generatePosterSvg(item, viralHook), 'utf8');
 
   // 3. Download Audio MP3
   console.log(`🎙️ Downloading recitation audio from ${item.audioUrl}...`);
@@ -921,7 +1148,8 @@ async function runCloudAutoPilot() {
     }
     try {
       // High-retention cinematic video: smooth slow zoom + real-time audio waveform overlay
-      const cinematicCmd = `ffmpeg -y -loop 1 -framerate 30 -i "${pngPath}" -i "${audioPath}" -filter_complex "[0:v]scale=1144:2034,zoompan=z='min(zoom+0.0005,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30[vbg];[1:a]showwaves=s=880x90:mode=line:colors=0xfbbf24@0.85[waves];[vbg][waves]overlay=(W-w)/2:H-220:shortest=1[vout]" -map "[vout]" -map 1:a -c:v libx264 -preset veryfast -profile:v high -level 4.1 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
+      const waveColor = isMinimalCream(item) ? '0xd97706@0.80' : '0xfbbf24@0.85';
+      const cinematicCmd = `ffmpeg -y -loop 1 -framerate 30 -i "${pngPath}" -i "${audioPath}" -filter_complex "[0:v]scale=1144:2034,zoompan=z='min(zoom+0.0005,1.05)':x='iw/2-(iw/zoom/2)':y='ih/2-(ih/zoom/2)':d=1:s=1080x1920:fps=30[vbg];[1:a]showwaves=s=880x90:mode=line:colors=${waveColor}[waves];[vbg][waves]overlay=(W-w)/2:H-220:shortest=1[vout]" -map "[vout]" -map 1:a -c:v libx264 -preset veryfast -profile:v high -level 4.1 -pix_fmt yuv420p -c:a aac -b:a 192k -ar 44100 -movflags +faststart -shortest "${videoPath}"`;
       execSync(cinematicCmd, { stdio: 'inherit' });
       console.log('✨ Video encoded with Ken Burns zoom & audio waveform visualizer!');
     } catch {
@@ -939,15 +1167,31 @@ async function runCloudAutoPilot() {
   const publicVideoUrl = await uploadToCloudinary(videoPath);
   console.log(`✅ Cloudinary Public URL: ${publicVideoUrl}`);
 
-  // 6. Post with Viral Optimized Tags to Instagram, TikTok & YouTube Shorts
+  // 6. Post with Viral Optimized Tags & Sunnah Event Triggers to Instagram, TikTok & YouTube Shorts
   const igTags = getViralIslamicTags(item.type, 'instagram');
   const ttTags = getViralIslamicTags(item.type, 'tiktok');
   const ytTags = getViralIslamicTags(item.type, 'youtube');
 
+  // Sunnah & Day Event Triggers (Monday/Thursday fasting, Friday Sa'at al-Istijabah)
+  const nowDay = new Date().getUTCDay();
+  const nowHour = new Date().getUTCHours();
+  let sunnahCallout = '';
+  let extraTags = '';
+  if (nowDay === 1) {
+    sunnahCallout = '🌿 سنة صيام يوم الاثنين — ترفع فيه الأعمال إلى الله 🤍\n\n';
+    extraTags = ' #صيام_الاثنين #SunnahFasting';
+  } else if (nowDay === 4) {
+    sunnahCallout = '🌿 سنة صيام يوم الخميس — ترفع فيه الأعمال إلى الله 🤍\n\n';
+    extraTags = ' #صيام_الخميس #SunnahFasting';
+  } else if (nowDay === 5 && nowHour >= 13 && nowHour <= 19) {
+    sunnahCallout = '🤲 ساعة الاستجابة يوم الجمعة — ارفع حاجتك إلى الله ولا تفوّت الدعاء قبل الغروب 🤍\n\n';
+    extraTags = ' #ساعة_الاستجابة #جمعة_مباركة';
+  }
+
   const cleanCaptionFr = (item.translationFr || '').replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
-  const igCaption = `${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${igTags}`;
-  const ttCaption = `${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${ttTags}`;
-  const ytCaption = `${item.bookOrSurah} — ${item.numberOrAyah} 🕋\n\n${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n${ytTags}`;
+  const igCaption = `${sunnahCallout}${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${igTags}${extraTags}`;
+  const ttCaption = `${sunnahCallout}${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${ttTags}${extraTags}`;
+  const ytCaption = `${item.bookOrSurah} — ${item.numberOrAyah} 🕋\n\n${sunnahCallout}${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n${ytTags}${extraTags}`;
 
   // 6a. Publish to Instagram Reel
   try {

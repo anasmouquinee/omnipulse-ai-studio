@@ -419,6 +419,52 @@ export const VERIFIED_ISLAMIC_POSTS: IslamicPostItem[] = [
       en: ['#TrustAllah', '#PeaceOfMind', '#IslamicQuotes', '#DailyReminder'],
       ar: ['#توكل_على_الله', '#حسبي_الله', '#راحة_نفسية', '#يقين']
     }
+  },
+  {
+    id: 'islamic-11',
+    type: 'adhkar_routine',
+    topic: 'Routine de 30 secondes d’évocations (Dhikr)',
+    arabicText: 'نصف دقيقة فقط 🤍',
+    phonetic: 'Nisf daqiqah faqat',
+    translationFr: '« Prends juste 30 secondes pour répéter ces paroles bénies et apaiser ton cœur. »',
+    translationEn: '“Just 30 seconds to utter these blessed words and tranquilize your soul.”',
+    source: {
+      type: 'dua',
+      bookOrSurah: 'الأذكار والتحصين اليومي',
+      numberOrAyah: 'حصن المسلم',
+      surahNumber: 51,
+      ayahNumber: 55,
+      arabicReference: 'حصن المسلم / سورة الذاريات ٥٥',
+      authenticityGrade: 'Sahih (Al-Bukhari & Muslim)',
+      verifiedBy: 'Texte Authentifié'
+    },
+    reciterAudio: {
+      reciterId: 'ar.alafasy',
+      reciterName: 'Mishary Rashid Alafasy',
+      surahOrTitle: 'Sourate Adh-Dhariyat (Verset 55)',
+      audioUrl: 'https://cdn.islamic.network/quran/audio/128/ar.alafasy/4730.mp3',
+      durationSeconds: 15
+    },
+    visualTheme: 'minimal_cream',
+    checklistItems: [
+      'سُبْحَانَ اللَّهِ (3 مرات)',
+      'الْحَمْدُ لِلَّهِ (3 مرات)',
+      'لَا إِلَهَ إِلَّا اللَّهُ (3 مرات)',
+      'اللَّهُ أَكْبَرُ (3 مرات)',
+      'أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ (3 مرات)',
+      'اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ (3 مرات)'
+    ],
+    closingAyah: '﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾',
+    reflection: {
+      fr: 'N’oublie jamais : quelques secondes consacrées au rappel d’Allah pèsent plus lourd sur la balance que la terre entière et ce qu’elle contient.',
+      en: 'Never forget: a few seconds remembering Allah weigh heavier on the scales than the entire world and everything within it.',
+      ar: 'كلمات خفيفة على اللسان، ثقيلة في الميزان، حبيبة إلى الرحمن.'
+    },
+    hashtags: {
+      fr: ['#Dhikr', '#Rappel', '#Paix', '#Routine', '#KaelarIslamic'],
+      en: ['#DhikrChecklist', '#MuslimDaily', '#PeaceOfMind', '#FYP'],
+      ar: ['#اذكار', '#نصف_دقيقة', '#تسبيح', '#استغفار', '#ذكر_الله']
+    }
   }
 ];
 
@@ -438,6 +484,14 @@ export const ISLAMIC_THEME_PRESETS: IslamicThemePreset[] = [
     description: 'Paroles du Prophète ﷺ sourcées avec précision (Sahih Al-Bukhari & Muslim).',
     category: 'sahih_hadith',
     defaultTopic: 'L’expiation des péchés (Kaffarah) et la prière'
+  },
+  {
+    id: 'preset-adhkar',
+    name: 'Routine Adhkar & Checklist 🤍',
+    icon: '🤍',
+    description: 'Checklist minimaliste d’évocations et trésors de rappel (30 secondes de sérénité).',
+    category: 'adhkar_routine',
+    defaultTopic: 'Routine de 30 secondes pour purifier le cœur et apaiser l’âme'
   },
   {
     id: 'preset-dua',

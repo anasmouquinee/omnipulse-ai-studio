@@ -8,14 +8,23 @@ export type IslamicContentType =
   | 'authentic_dua' 
   | 'islamic_reminder' 
   | 'jumua_special' 
-  | 'tahajjud_motivation';
+  | 'tahajjud_motivation'
+  | 'adhkar_routine';
 
 export type IslamicLanguage = 'fr' | 'en' | 'ar' | 'all';
 
-export type AuthenticityGrade = 'Coran (Parole d’Allah)' | 'Sahih Bukhari' | 'Sahih Muslim' | 'Muttafaq Alayh (Bukhari & Muslim)' | 'Sahih Tirmidhi' | 'Sahih Abu Dawud' | 'Hisn al-Muslim (Authentique)';
+export type AuthenticityGrade = 
+  | 'Coran (Parole d’Allah)' 
+  | 'Sahih Bukhari' 
+  | 'Sahih Muslim' 
+  | 'Muttafaq Alayh (Bukhari & Muslim)' 
+  | 'Sahih Tirmidhi' 
+  | 'Sahih Abu Dawud' 
+  | 'Hisn al-Muslim (Authentique)'
+  | 'Adhkar Sahih (Sunnah Authentique)';
 
 export interface VerifiedSource {
-  type: 'quran' | 'hadith' | 'dua';
+  type: 'quran' | 'hadith' | 'dua' | 'adhkar';
   bookOrSurah: string;
   numberOrAyah: string;
   surahNumber?: number;
@@ -43,7 +52,9 @@ export interface IslamicPostItem {
   translationEn: string;
   source: VerifiedSource;
   reciterAudio?: ReciterAudio;
-  visualTheme: 'emerald_mosque' | 'golden_night' | 'desert_dunes' | 'celestial_sky' | 'minimal_marble';
+  visualTheme: 'emerald_mosque' | 'golden_night' | 'desert_dunes' | 'celestial_sky' | 'minimal_marble' | 'minimal_cream';
+  checklistItems?: string[];
+  closingAyah?: string;
   reflection: {
     fr: string;
     en: string;

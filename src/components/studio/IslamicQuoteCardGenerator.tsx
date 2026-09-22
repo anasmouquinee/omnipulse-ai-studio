@@ -8,6 +8,7 @@ import { VideoGenerator } from '../../services/videoGenerator';
 import { IslamicViralTagsService } from '../../services/islamicViralTagsService';
 import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../../data/islamicBackgrounds';
 import { VERIFIED_ISLAMIC_POSTS, ISLAMIC_THEME_PRESETS, VERIFIED_RECITERS } from '../../data/verifiedIslamicData';
+import { SunnahCalendarService, VIRAL_ISLAMIC_HOOKS, type SunnahEvent, type HijriDateInfo } from '../../services/sunnahCalendarService';
 import { 
   Sparkles, 
   Volume2, 
@@ -28,7 +29,11 @@ import {
   Flame,
   TrendingUp,
   Plus,
-  X
+  X,
+  Calendar,
+  Layers,
+  ChevronLeft,
+  ChevronRight
 } from 'lucide-react';
 
 interface IslamicQuoteCardGeneratorProps {
@@ -61,9 +66,17 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
   const [newTagInput, setNewTagInput] = useState('');
 
   // Audio Playback & Interactive Live Reel Mode
-  const [previewMode, setPreviewMode] = useState<'video' | 'photo'>('video');
+  const [previewMode, setPreviewMode] = useState<'video' | 'photo' | 'carousel'>('video');
   const [isPlayingAudio, setIsPlayingAudio] = useState(false);
   const [audioProgressPercent, setAudioProgressPercent] = useState(0);
+
+  // Brainstormed Features: Viral Hooks, Carousel Mode & Sunnah Calendar
+  const [selectedHook, setSelectedHook] = useState<string>('');
+  const [carouselSlides, setCarouselSlides] = useState<string[]>([]);
+  const [activeSlideIdx, setActiveSlideIdx] = useState<number>(0);
+  const [isGeneratingCarousel, setIsGeneratingCarousel] = useState(false);
+  const [todayHijri] = useState<HijriDateInfo>(() => SunnahCalendarService.getHijriDate());
+  const [todaySunnahEvents] = useState<SunnahEvent[]>(() => SunnahCalendarService.getActiveSunnahEvents());
 
   const cardRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
@@ -84,6 +97,29 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
       isMounted = false;
     };
   }, [currentItem, aspectRatio, selectedLanguage, selectedThemeId]);
+
+  // Generate carousel slides whenever currentItem, aspectRatio, or selectedHook changes
+  useEffect(() => {
+    let isMounted = true;
+    setIsGeneratingCarousel(true);
+    IslamicContentService.generateCarouselSlidesCanvas(
+      currentItem,
+      aspectRatio,
+      selectedHook || undefined
+    ).then(slides => {
+      if (isMounted) {
+        setCarouselSlides(slides);
+        setIsGeneratingCarousel(false);
+      }
+    }).catch(err => {
+      console.warn('Carousel render error:', err);
+      if (isMounted) setIsGeneratingCarousel(false);
+    });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentItem, aspectRatio, selectedHook]);
 
   // Update hashtags automatically when currentItem or language changes
   useEffect(() => {
@@ -458,6 +494,30 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
     onShowToast('success', 'Carte de rappel téléchargée en haute définition !');
   };
 
+  const handleDownloadCarousel = () => {
+    if (carouselSlides.length === 0) {
+      onShowToast('info', 'Les slides du carrousel sont en cours de génération...');
+      return;
+    }
+    carouselSlides.forEach((url, i) => {
+      const link = document.createElement('a');
+      link.download = `islamic-carousel-${currentItem.type}-slide-${i + 1}-of-${carouselSlides.length}.png`;
+      link.href = url;
+      link.click();
+    });
+    onShowToast('success', '✨ 5 slides HD du carrousel téléchargées avec succès !');
+  };
+
+  const handleNextSlide = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setActiveSlideIdx(prev => (prev + 1) % (carouselSlides.length || 5));
+  };
+
+  const handlePrevSlide = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setActiveSlideIdx(prev => (prev - 1 + (carouselSlides.length || 5)) % (carouselSlides.length || 5));
+  };
+
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
       {/* Audio Element */}
@@ -523,6 +583,87 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
         </div>
       </div>
 
+      {/* Sunnah & Hijri Calendar Intelligence Alert Bar */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(245, 158, 11, 0.12) 50%, rgba(15, 23, 42, 0.8) 100%)',
+        border: '1px solid rgba(245, 158, 11, 0.35)',
+        borderRadius: 'var(--radius-sm)',
+        padding: '0.85rem 1.15rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '0.75rem',
+        boxShadow: '0 4px 15px rgba(0,0,0,0.3)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+          <div style={{
+            width: 38,
+            height: 38,
+            borderRadius: '50%',
+            background: 'rgba(245, 158, 11, 0.2)',
+            border: '1px solid rgba(245, 158, 11, 0.4)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.2rem'
+          }}>
+            🌙
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '0.88rem', fontWeight: 800, color: '#fef08a' }}>
+                📅 {todayHijri.formattedStr}
+              </span>
+              {todayHijri.isWhiteDay && (
+                <span style={{ fontSize: '0.7rem', fontWeight: 800, padding: '0.15rem 0.5rem', borderRadius: '999px', background: 'rgba(245, 158, 11, 0.25)', color: '#fbbf24', border: '1px solid rgba(245, 158, 11, 0.5)' }}>
+                  🌕 Jours Blancs (الأيام البيض)
+                </span>
+              )}
+            </div>
+            <div style={{ fontSize: '0.78rem', color: '#94a3b8', marginTop: '2px' }}>
+              Algorithme astronomique Umm al-Qura • Déclencheurs de la Sunnah en temps réel
+            </div>
+          </div>
+        </div>
+
+        {todaySunnahEvents.length > 0 && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+            {todaySunnahEvents.slice(0, 2).map(evt => (
+              <button
+                key={evt.id}
+                type="button"
+                onClick={() => {
+                  setSelectedCategory(evt.recommendedCategory);
+                  setSelectedHook(evt.defaultHook);
+                  if (evt.recommendedCategory === 'adhkar_routine') {
+                    setSelectedThemeId('minimal_cream');
+                  }
+                  onShowToast('success', `✨ Sunnah appliquée : ${evt.title}`);
+                }}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.4rem',
+                  padding: '0.4rem 0.8rem',
+                  borderRadius: '999px',
+                  background: 'rgba(16, 185, 129, 0.2)',
+                  border: '1px solid rgba(16, 185, 129, 0.45)',
+                  color: '#34d399',
+                  fontSize: '0.75rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease'
+                }}
+              >
+                <span>{evt.badge}</span>
+                <span style={{ color: '#fff' }}>➔ {evt.actionText}</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
       {/* Preset Categories Buttons */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '0.85rem' }}>
         {ISLAMIC_THEME_PRESETS.map(preset => {
@@ -582,7 +723,84 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
           background: 'linear-gradient(145deg, rgba(13, 22, 44, 0.85) 0%, rgba(6, 12, 26, 0.95) 100%)',
           boxShadow: '0 16px 40px rgba(0, 0, 0, 0.5)'
         }}>
-          
+          {/* Viral Hook Variator Bar (3s Retention A/B Testing) */}
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(15, 23, 42, 0.6) 100%)',
+            border: '1px solid rgba(245, 158, 11, 0.25)',
+            borderRadius: 'var(--radius-xs)',
+            padding: '0.85rem 1rem',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.5rem'
+          }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <label className="form-label" style={{ margin: 0 }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.35rem', fontSize: '0.82rem', fontWeight: 700, color: '#fbbf24' }}>
+                  <TrendingUp size={15} color="#f59e0b" />
+                  Accroche Virale 3s (A/B Test Rétention TikTok & Reels)
+                </span>
+              </label>
+              {selectedHook && (
+                <button
+                  type="button"
+                  onClick={() => setSelectedHook('')}
+                  style={{
+                    background: 'transparent',
+                    border: 'none',
+                    color: '#94a3b8',
+                    fontSize: '0.72rem',
+                    cursor: 'pointer',
+                    textDecoration: 'underline'
+                  }}
+                >
+                  Réinitialiser
+                </button>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem' }}>
+              <button
+                type="button"
+                onClick={() => setSelectedHook('')}
+                style={{
+                  padding: '0.3rem 0.65rem',
+                  borderRadius: '999px',
+                  fontSize: '0.73rem',
+                  fontWeight: 600,
+                  background: !selectedHook ? 'linear-gradient(135deg, #059669 0%, #10b981 100%)' : 'rgba(255,255,255,0.06)',
+                  color: !selectedHook ? '#fff' : '#94a3b8',
+                  border: !selectedHook ? '1px solid #10b981' : '1px solid rgba(255,255,255,0.1)',
+                  cursor: 'pointer'
+                }}
+              >
+                Défaut (Original)
+              </button>
+              {VIRAL_ISLAMIC_HOOKS.map(hook => (
+                <button
+                  key={hook.id}
+                  type="button"
+                  onClick={() => {
+                    setSelectedHook(hook.text);
+                    onShowToast('info', `🎣 Accroche virale sélectionnée : « ${hook.text} »`);
+                  }}
+                  title={hook.description}
+                  style={{
+                    padding: '0.3rem 0.65rem',
+                    borderRadius: '999px',
+                    fontSize: '0.73rem',
+                    fontWeight: 600,
+                    background: selectedHook === hook.text ? 'linear-gradient(135deg, #d97706 0%, #f59e0b 100%)' : 'rgba(255,255,255,0.06)',
+                    color: selectedHook === hook.text ? '#1c1917' : '#e2e8f0',
+                    border: selectedHook === hook.text ? '1px solid #f59e0b' : '1px solid rgba(255,255,255,0.1)',
+                    cursor: 'pointer'
+                  }}
+                >
+                  {hook.text}
+                </button>
+              ))}
+            </div>
+          </div>
+
           {/* Custom Topic Input */}
           <div className="form-group">
             <label className="form-label">
@@ -1020,95 +1238,159 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
 
           {/* Action Buttons */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-            {/* 1. Main 1-Click Automated Reel & Audio Publishing to Both Instagram and TikTok */}
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={handlePublishVideoReel}
-              disabled={isPublishingReel || isPublishingDirectly}
-              style={{
-                width: '100%',
-                padding: '0.9rem',
-                fontSize: '0.95rem',
-                fontWeight: 700,
-                gap: '0.55rem',
-                background: 'linear-gradient(135deg, #d97706 0%, #059669 100%)',
-                boxShadow: '0 0 25px rgba(245, 158, 11, 0.45)',
-                border: '1px solid rgba(251, 191, 36, 0.5)'
-              }}
-            >
-              {isPublishingReel ? (
-                <>
-                  <RefreshCw size={18} className="animate-spin" />
-                  <span>{videoProgress > 0 ? `Encodage MP4 (${videoProgress}%)...` : 'Création & Diffusion du Reel...'}</span>
-                </>
-              ) : (
-                <>
-                  <Send size={18} />
-                  <span>🎬🚀 Publier Vidéo sur Instagram, TikTok & YouTube Shorts (avec Audio)</span>
-                </>
-              )}
-            </button>
+            {previewMode === 'carousel' ? (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleDownloadCarousel}
+                  disabled={isGeneratingCarousel || carouselSlides.length === 0}
+                  style={{
+                    width: '100%',
+                    padding: '0.9rem',
+                    fontSize: '0.95rem',
+                    fontWeight: 700,
+                    gap: '0.55rem',
+                    background: 'linear-gradient(135deg, #d97706 0%, #059669 100%)',
+                    boxShadow: '0 0 25px rgba(245, 158, 11, 0.45)',
+                    border: '1px solid rgba(251, 191, 36, 0.5)'
+                  }}
+                >
+                  {isGeneratingCarousel ? (
+                    <>
+                      <RefreshCw size={18} className="animate-spin" />
+                      <span>Génération des 5 slides...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Download size={18} />
+                      <span>📑 Télécharger les 5 Slides HD du Carrousel (PNG)</span>
+                    </>
+                  )}
+                </button>
 
-            {/* 2. Photo post to Instagram & Local Video Export */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleDirectPublish}
-                disabled={isPublishingDirectly || isPublishingReel}
-                style={{ 
-                  gap: '0.4rem', 
-                  fontSize: '0.82rem',
-                  background: 'rgba(16, 185, 129, 0.12)',
-                  borderColor: 'rgba(16, 185, 129, 0.4)',
-                  color: '#34d399'
-                }}
-              >
-                {isPublishingDirectly ? <RefreshCw size={14} className="animate-spin" /> : <ImageIcon size={14} />}
-                <span>{isPublishingDirectly ? 'Envoi...' : '🖼️ Affiche Photo (Instagram)'}</span>
-              </button>
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleDirectPublish}
+                    disabled={isPublishingDirectly}
+                    style={{ 
+                      gap: '0.4rem', 
+                      fontSize: '0.82rem',
+                      background: 'rgba(16, 185, 129, 0.12)',
+                      borderColor: 'rgba(16, 185, 129, 0.4)',
+                      color: '#34d399'
+                    }}
+                  >
+                    {isPublishingDirectly ? <RefreshCw size={14} className="animate-spin" /> : <Send size={14} />}
+                    <span>{isPublishingDirectly ? 'Envoi...' : '🖼️ Couverture (Instagram)'}</span>
+                  </button>
 
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleExportVideoReel}
-                disabled={isExportingVideo || isPublishingReel}
-                style={{ 
-                  gap: '0.4rem', 
-                  fontSize: '0.82rem',
-                  background: 'rgba(245, 158, 11, 0.12)',
-                  borderColor: 'rgba(245, 158, 11, 0.4)',
-                  color: '#fbbf24'
-                }}
-              >
-                {isExportingVideo ? <RefreshCw size={14} className="animate-spin" /> : <Download size={14} />}
-                <span>{isExportingVideo ? (videoProgress > 0 ? `MP4 (${videoProgress}%)` : 'Génération...') : '💾 Télécharger Vidéo Reel'}</span>
-              </button>
-            </div>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleApplyToStudio}
+                    style={{ gap: '0.4rem', fontSize: '0.82rem' }}
+                  >
+                    <Share2 size={14} />
+                    <span>Éditer le texte</span>
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <>
+                {/* 1. Main 1-Click Automated Reel & Audio Publishing to Both Instagram and TikTok */}
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handlePublishVideoReel}
+                  disabled={isPublishingReel || isPublishingDirectly}
+                  style={{
+                    width: '100%',
+                    padding: '0.9rem',
+                    fontSize: '0.95rem',
+                    fontWeight: 700,
+                    gap: '0.55rem',
+                    background: 'linear-gradient(135deg, #d97706 0%, #059669 100%)',
+                    boxShadow: '0 0 25px rgba(245, 158, 11, 0.45)',
+                    border: '1px solid rgba(251, 191, 36, 0.5)'
+                  }}
+                >
+                  {isPublishingReel ? (
+                    <>
+                      <RefreshCw size={18} className="animate-spin" />
+                      <span>{videoProgress > 0 ? `Encodage MP4 (${videoProgress}%)...` : 'Création & Diffusion du Reel...'}</span>
+                    </>
+                  ) : (
+                    <>
+                      <Send size={18} />
+                      <span>🎬🚀 Publier Vidéo sur Instagram, TikTok & YouTube Shorts (avec Audio)</span>
+                    </>
+                  )}
+                </button>
 
-            {/* 3. Image Download & Text edit */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleDownload}
-                style={{ gap: '0.4rem', fontSize: '0.82rem' }}
-              >
-                <Download size={14} />
-                <span>Télécharger Image HD</span>
-              </button>
+                {/* 2. Photo post to Instagram & Local Video Export */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleDirectPublish}
+                    disabled={isPublishingDirectly || isPublishingReel}
+                    style={{ 
+                      gap: '0.4rem', 
+                      fontSize: '0.82rem',
+                      background: 'rgba(16, 185, 129, 0.12)',
+                      borderColor: 'rgba(16, 185, 129, 0.4)',
+                      color: '#34d399'
+                    }}
+                  >
+                    {isPublishingDirectly ? <RefreshCw size={14} className="animate-spin" /> : <ImageIcon size={14} />}
+                    <span>{isPublishingDirectly ? 'Envoi...' : '🖼️ Affiche Photo (Instagram)'}</span>
+                  </button>
 
-              <button
-                type="button"
-                className="btn btn-secondary"
-                onClick={handleApplyToStudio}
-                style={{ gap: '0.4rem', fontSize: '0.82rem' }}
-              >
-                <Share2 size={14} />
-                <span>Éditer le texte</span>
-              </button>
-            </div>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleExportVideoReel}
+                    disabled={isExportingVideo || isPublishingReel}
+                    style={{ 
+                      gap: '0.4rem', 
+                      fontSize: '0.82rem',
+                      background: 'rgba(245, 158, 11, 0.12)',
+                      borderColor: 'rgba(245, 158, 11, 0.4)',
+                      color: '#fbbf24'
+                    }}
+                  >
+                    {isExportingVideo ? <RefreshCw size={14} className="animate-spin" /> : <Download size={14} />}
+                    <span>{isExportingVideo ? (videoProgress > 0 ? `MP4 (${videoProgress}%)` : 'Génération...') : '💾 Télécharger Vidéo Reel'}</span>
+                  </button>
+                </div>
+
+                {/* 3. Image Download & Text edit */}
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.6rem' }}>
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleDownload}
+                    style={{ gap: '0.4rem', fontSize: '0.82rem' }}
+                  >
+                    <Download size={14} />
+                    <span>Télécharger Image HD</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    onClick={handleApplyToStudio}
+                    style={{ gap: '0.4rem', fontSize: '0.82rem' }}
+                  >
+                    <Share2 size={14} />
+                    <span>Éditer le texte</span>
+                  </button>
+                </div>
+              </>
+            )}
           </div>
         </div>
 
@@ -1131,8 +1413,8 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
               onClick={() => setPreviewMode('video')}
               style={{
                 flex: 1,
-                padding: '0.45rem 0.6rem',
-                fontSize: '0.78rem',
+                padding: '0.45rem 0.5rem',
+                fontSize: '0.75rem',
                 fontWeight: 700,
                 borderRadius: 'var(--radius-xs)',
                 background: previewMode === 'video' ? 'linear-gradient(135deg, #10b981 0%, #d97706 100%)' : 'transparent',
@@ -1142,20 +1424,26 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '0.35rem',
+                gap: '0.3rem',
                 boxShadow: previewMode === 'video' ? '0 0 10px rgba(16, 185, 129, 0.4)' : 'none'
               }}
             >
-              <span>🎬 Mode Reel Vidéo (Animé)</span>
+              <span>🎬 Reel Vidéo</span>
             </button>
 
             <button
               type="button"
-              onClick={() => setPreviewMode('photo')}
+              onClick={() => {
+                setPreviewMode('photo');
+                if (audioRef.current && isPlayingAudio) {
+                  audioRef.current.pause();
+                  setIsPlayingAudio(false);
+                }
+              }}
               style={{
                 flex: 1,
-                padding: '0.45rem 0.6rem',
-                fontSize: '0.78rem',
+                padding: '0.45rem 0.5rem',
+                fontSize: '0.75rem',
                 fontWeight: 700,
                 borderRadius: 'var(--radius-xs)',
                 background: previewMode === 'photo' ? 'rgba(255, 255, 255, 0.1)' : 'transparent',
@@ -1165,10 +1453,40 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                gap: '0.35rem'
+                gap: '0.3rem'
               }}
             >
-              <span>🖼️ Affiche Fixe</span>
+              <span>🖼️ Affiche</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                setPreviewMode('carousel');
+                if (audioRef.current && isPlayingAudio) {
+                  audioRef.current.pause();
+                  setIsPlayingAudio(false);
+                }
+              }}
+              style={{
+                flex: 1,
+                padding: '0.45rem 0.5rem',
+                fontSize: '0.75rem',
+                fontWeight: 700,
+                borderRadius: 'var(--radius-xs)',
+                background: previewMode === 'carousel' ? 'linear-gradient(135deg, #d97706 0%, #b45309 100%)' : 'transparent',
+                color: previewMode === 'carousel' ? '#fff' : 'var(--text-secondary)',
+                border: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '0.3rem',
+                boxShadow: previewMode === 'carousel' ? '0 0 10px rgba(217, 119, 6, 0.4)' : 'none'
+              }}
+            >
+              <Layers size={13} />
+              <span>📑 Carrousel (5p)</span>
             </button>
           </div>
 
@@ -1187,7 +1505,145 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
             {/* Dynamic Island on Phone Mockup */}
             {aspectRatio === '9:16' && <div className="phone-dynamic-island" />}
 
-            {renderedCardUrl ? (
+            {previewMode === 'carousel' ? (
+              <div style={{ position: 'relative', width: '100%', borderRadius: '32px', overflow: 'hidden' }}>
+                <img
+                  src={carouselSlides[activeSlideIdx] || renderedCardUrl}
+                  alt={`Slide ${activeSlideIdx + 1}`}
+                  style={{
+                    width: '100%',
+                    display: 'block',
+                    height: 'auto',
+                    opacity: isGeneratingCarousel ? 0.6 : 1,
+                    transition: 'opacity 0.2s ease'
+                  }}
+                />
+
+                {/* Left Navigation Arrow */}
+                <button
+                  type="button"
+                  onClick={handlePrevSlide}
+                  style={{
+                    position: 'absolute',
+                    left: 10,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    background: 'rgba(0, 0, 0, 0.65)',
+                    backdropFilter: 'blur(8px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+                    zIndex: 10
+                  }}
+                >
+                  <ChevronLeft size={20} />
+                </button>
+
+                {/* Right Navigation Arrow */}
+                <button
+                  type="button"
+                  onClick={handleNextSlide}
+                  style={{
+                    position: 'absolute',
+                    right: 10,
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    background: 'rgba(0, 0, 0, 0.65)',
+                    backdropFilter: 'blur(8px)',
+                    border: '1px solid rgba(255, 255, 255, 0.2)',
+                    color: '#fff',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    boxShadow: '0 4px 12px rgba(0,0,0,0.5)',
+                    zIndex: 10
+                  }}
+                >
+                  <ChevronRight size={20} />
+                </button>
+
+                {/* Top Badge: Slide indicator */}
+                <div style={{
+                  position: 'absolute',
+                  top: 12,
+                  left: 12,
+                  background: 'rgba(0, 0, 0, 0.65)',
+                  backdropFilter: 'blur(8px)',
+                  color: '#f8fafc',
+                  padding: '0.25rem 0.6rem',
+                  borderRadius: '999px',
+                  fontSize: '0.68rem',
+                  fontWeight: 800,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  border: '1px solid rgba(255,255,255,0.15)'
+                }}>
+                  <Layers size={11} color="#f59e0b" />
+                  <span>SLIDE {activeSlideIdx + 1} / {carouselSlides.length || 5}</span>
+                </div>
+
+                {/* Bottom Navigation Dots */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 16,
+                  left: 0,
+                  right: 0,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: '0.35rem',
+                  zIndex: 10
+                }}>
+                  <div style={{
+                    display: 'flex',
+                    gap: '0.45rem',
+                    background: 'rgba(0, 0, 0, 0.7)',
+                    backdropFilter: 'blur(8px)',
+                    padding: '0.3rem 0.75rem',
+                    borderRadius: '999px',
+                    border: '1px solid rgba(255, 255, 255, 0.2)'
+                  }}>
+                    {(carouselSlides.length > 0 ? carouselSlides : [0, 1, 2, 3, 4]).map((_, idx) => (
+                      <div
+                        key={idx}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setActiveSlideIdx(idx);
+                        }}
+                        style={{
+                          width: activeSlideIdx === idx ? 20 : 7,
+                          height: 7,
+                          borderRadius: '999px',
+                          background: activeSlideIdx === idx ? '#f59e0b' : 'rgba(255, 255, 255, 0.4)',
+                          cursor: 'pointer',
+                          transition: 'all 0.2s ease'
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <div style={{
+                    fontSize: '0.66rem',
+                    fontWeight: 700,
+                    color: '#ffffff',
+                    textShadow: '0 2px 4px rgba(0,0,0,0.8)'
+                  }}>
+                    Cliquez ➔ pour faire défiler le carrousel
+                  </div>
+                </div>
+              </div>
+            ) : renderedCardUrl ? (
               <div style={{ position: 'relative', width: '100%', borderRadius: '32px', overflow: 'hidden' }}>
                 {/* Visual Card Image with Cinematic Zoom */}
                 <img
@@ -1375,7 +1831,11 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
           </div>
 
           <div style={{ fontSize: '0.78rem', color: '#94a3b8', textAlign: 'center' }}>
-            {previewMode === 'video' ? '🎬 Rendu vidéo cinématique actif • Synchronisé avec la récitation' : '🖼️ Mode affiche photo • Haute définition 1080x1920'}
+            {previewMode === 'video' 
+              ? '🎬 Rendu vidéo cinématique actif • Synchronisé avec la récitation' 
+              : previewMode === 'carousel'
+                ? '📑 Carrousel multi-slides actif • 5 slides séquentielles pour Instagram & TikTok'
+                : '🖼️ Mode affiche photo • Haute définition 1080x1920'}
           </div>
         </div>
 

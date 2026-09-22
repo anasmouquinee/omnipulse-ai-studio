@@ -40,6 +40,14 @@ export const AUTOPILOT_THEMES: AutoPilotTheme[] = [
     badge: 'Hadith'
   },
   {
+    id: 'theme-adhkar',
+    category: 'adhkar_routine',
+    title: 'Routine Adhkar & Checklist Sérénité 🤍',
+    subtitle: 'Checklist minimaliste de 30 secondes d’évocations et trésors de rappel',
+    icon: '🤍',
+    badge: 'Adhkar 🤍'
+  },
+  {
     id: 'theme-dua',
     category: 'authentic_dua',
     title: 'Invocations & Adhkar (Protection & Barakah)',

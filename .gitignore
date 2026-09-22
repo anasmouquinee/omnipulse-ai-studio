@@ -35,3 +35,5 @@ test*.js
 test*.cjs
 test*.mjs
 scratch/
+.agents/
+

@@ -6,6 +6,7 @@ import { ToastNotification } from './components/common/ToastNotification';
 import type { ToastMessage } from './components/common/ToastNotification';
 import { SettingsModal } from './components/settings/SettingsModal';
 import { LoginView } from './components/auth/LoginView';
+import { ThreeVgpuScene, type ThreeSceneMode } from './components/common/ThreeVgpuScene';
 
 import { StudioView } from './components/studio/StudioView';
 import { AutoPilotDashboard } from './components/autopilot/AutoPilotDashboard';
@@ -36,6 +37,12 @@ export const App: React.FC = () => {
   const [accounts, setAccounts] = useState<SocialAccount[]>(() => StorageService.getAccounts());
   const [mediaList, setMediaList] = useState<MediaAsset[]>(() => StorageService.getMediaLibrary());
   const [settings, setSettings] = useState<AISettings>(() => StorageService.getSettings());
+
+  // Three.js 3D Scene & WebGPU State
+  const [threeMode, setThreeMode] = useState<ThreeSceneMode>('sacred_crystal');
+  const [threeWireframe, setThreeWireframe] = useState<boolean>(false);
+  const [threeAutoRotate, setThreeAutoRotate] = useState<boolean>(true);
+  const [threeFps, setThreeFps] = useState<number>(60);
 
   // Editing / Creation state
   const [editingPost, setEditingPost] = useState<ScheduledPost | null>(null);
@@ -147,7 +154,15 @@ export const App: React.FC = () => {
 
   return (
     <div className="app-container">
-      {/* Background Ambients */}
+      {/* 3D Three.js & VGPU Interactive Scene */}
+      <ThreeVgpuScene
+        mode={threeMode}
+        wireframe={threeWireframe}
+        autoRotate={threeAutoRotate}
+        onFpsUpdate={setThreeFps}
+      />
+
+      {/* Ambient Lighting Accents */}
       <div className="ambient-glow-1" />
       <div className="ambient-glow-2" />
 
@@ -173,6 +188,13 @@ export const App: React.FC = () => {
             showToast('info', 'Session sécurisée fermée.');
           }}
           accounts={accounts}
+          threeMode={threeMode}
+          onSelectThreeMode={setThreeMode}
+          wireframe={threeWireframe}
+          onToggleWireframe={() => setThreeWireframe(prev => !prev)}
+          autoRotate={threeAutoRotate}
+          onToggleAutoRotate={() => setThreeAutoRotate(prev => !prev)}
+          fps={threeFps}
         />
 
         {/* Content Viewport */}

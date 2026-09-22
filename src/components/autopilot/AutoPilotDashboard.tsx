@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { AutoPilotService, AUTOPILOT_THEMES } from '../../services/autoPilotService';
 import { getBufferRateLimitStatus } from '../../services/socialPublisher';
+import { SunnahCalendarService, type SunnahEvent, type HijriDateInfo } from '../../services/sunnahCalendarService';
 import type { AutoPilotConfig, AutoPilotLog, AutoPilotTheme } from '../../services/autoPilotService';
 import { 
   Sparkles, 
@@ -28,6 +29,8 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
   const [isRunningManual, setIsRunningManual] = useState(false);
   const [currentStep, setCurrentStep] = useState('');
   const [timeRemainingStr, setTimeRemainingStr] = useState('');
+  const [hijriDate] = useState<HijriDateInfo>(() => SunnahCalendarService.getHijriDate());
+  const [sunnahEvents] = useState<SunnahEvent[]>(() => SunnahCalendarService.getActiveSunnahEvents());
 
   // Subscribe to config changes
   useEffect(() => {
@@ -115,6 +118,16 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
       setIsRunningManual(false);
       setCurrentStep('');
       setConfig(AutoPilotService.getConfig());
+    }
+  };
+
+  const handleAlignWithSunnah = (event: SunnahEvent) => {
+    const themeIdx = AUTOPILOT_THEMES.findIndex(t => t.category === event.recommendedCategory);
+    if (themeIdx !== -1) {
+      handleSelectTheme(themeIdx);
+      onShowToast('success', `🌙 Auto-Pilot synchronisé avec : ${event.title}`);
+    } else {
+      onShowToast('info', `Événement actif : ${event.title}`);
     }
   };
 
@@ -241,6 +254,89 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
           </div>
         </div>
       )}
+
+      {/* Sunnah & Hijri Calendar Intelligence Widget */}
+      <div style={{
+        background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.12) 0%, rgba(245, 158, 11, 0.1) 50%, rgba(15, 23, 42, 0.9) 100%)',
+        border: '1px solid rgba(245, 158, 11, 0.3)',
+        borderRadius: 'var(--radius-lg)',
+        padding: '1.25rem 1.6rem',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        flexWrap: 'wrap',
+        gap: '1rem',
+        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.35)'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+          <div style={{
+            width: 46,
+            height: 46,
+            borderRadius: '50%',
+            background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.3) 0%, rgba(16, 185, 129, 0.25) 100%)',
+            border: '1px solid rgba(245, 158, 11, 0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '1.4rem'
+          }}>
+            🌙
+          </div>
+          <div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+              <span style={{ fontSize: '1.05rem', fontWeight: 800, color: '#fef08a' }}>
+                {hijriDate.formattedStr}
+              </span>
+              {hijriDate.isWhiteDay && (
+                <span style={{
+                  fontSize: '0.72rem',
+                  fontWeight: 800,
+                  padding: '0.15rem 0.55rem',
+                  borderRadius: '999px',
+                  background: 'rgba(245, 158, 11, 0.25)',
+                  color: '#fbbf24',
+                  border: '1px solid rgba(245, 158, 11, 0.5)'
+                }}>
+                  🌕 Jours Blancs (الأيام البيض)
+                </span>
+              )}
+            </div>
+            <div style={{ fontSize: '0.82rem', color: '#94a3b8', marginTop: '3px' }}>
+              Intelligence calendaire prophétique • Détection astronomique Umm al-Qura
+            </div>
+          </div>
+        </div>
+
+        {sunnahEvents.length > 0 && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+            {sunnahEvents.slice(0, 2).map(evt => (
+              <button
+                key={evt.id}
+                type="button"
+                onClick={() => handleAlignWithSunnah(evt)}
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '0.45rem',
+                  padding: '0.45rem 0.9rem',
+                  borderRadius: '999px',
+                  background: 'rgba(16, 185, 129, 0.2)',
+                  border: '1px solid rgba(16, 185, 129, 0.45)',
+                  color: '#34d399',
+                  fontSize: '0.78rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)'
+                }}
+              >
+                <span>{evt.badge}</span>
+                <span style={{ color: '#fff' }}>➔ Aligner Auto-Pilot ({evt.title.split('—')[0].trim()})</span>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
 
       {/* KPI Cards Grid */}
       <div style={{
@@ -413,7 +509,7 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
           <div>
             <h3 style={{ margin: '0 0 0.2rem 0', fontSize: '1.1rem', fontWeight: 800, color: '#f8fafc', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <span>🔁 Rotation Séquentielle des Thèmes (6 Piliers Islamiques)</span>
+              <span>🔁 Rotation Séquentielle des Thèmes (7 Piliers Islamiques & Adhkar 🤍)</span>
             </h3>
             <p style={{ margin: 0, fontSize: '0.82rem', color: 'var(--text-secondary)' }}>
               L’Auto-Pilot enchaîne automatiquement ces thématiques une par une pour garantir une variété totale sur vos comptes. Vous pouvez aussi cliquer sur un thème pour le choisir directement comme prochain post.
@@ -455,7 +551,7 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
                       color: isCurrent ? '#34d399' : 'var(--text-tertiary)',
                       border: isCurrent ? '1px solid rgba(16, 185, 129, 0.5)' : 'none'
                     }}>
-                      Étape {idx + 1}/6 : {theme.badge}
+                      Étape {idx + 1}/{AUTOPILOT_THEMES.length} : {theme.badge}
                     </span>
                   </div>
 
