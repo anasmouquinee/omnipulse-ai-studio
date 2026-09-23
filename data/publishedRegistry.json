@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1349,6 +1349,31 @@
         "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790165194/tmtdvboyu8ojrrq9fli5.png"
       ],
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790165192/f0rghbpovujggdsdweyj.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790186759884",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "reel",
+      "bookOrSurah": "Sahih Al-Bukhari & Muslim",
+      "numberOrAyah": "Bukhari 6018 / Muslim 47",
+      "surahNumber": 50,
+      "ayahNumber": 18,
+      "arabicText": "مَنْ كَانَ يُؤْمِنُ بِاللَّهِ وَالْيَوْمِ الآخِرِ فَلْيَقُلْ خَيْرًا أَوْ لِيَصْمُتْ",
+      "translationFr": "Le Prophète ﷺ a dit : « Que celui qui croit en Allah et au Jour dernier dise du bien ou qu’il se taise. »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever believes in Allah and the Last Day should speak good or remain silent.'",
+      "contentHash": "من كان يؤمن بالله واليوم الآخر",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4648.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790186723/cqh2cvll73mdcvhuc6yw.mp4",
+      "carouselSlides": [],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790186723/cqh2cvll73mdcvhuc6yw.png",
       "platforms": [
         "instagram",
         "tiktok",
