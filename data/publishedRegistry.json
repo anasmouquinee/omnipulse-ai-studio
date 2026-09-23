@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1318,6 +1318,37 @@
         "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790143614/yqn0lk86lwvqql9f2sq9.png"
       ],
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790143610/mghkxnuhdg7gvwbsw70o.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790165230375",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "bookOrSurah": "Jami` at-Tirmidhi (Sahih)",
+      "numberOrAyah": "Hadith n° 1956",
+      "surahNumber": 33,
+      "ayahNumber": 21,
+      "arabicText": "تَبَسُّمُكَ فِي وَجْهِ أَخِيكَ لَكَ صَدَقَةٌ",
+      "translationFr": "Le Messager d'Allah ﷺ a dit : « Ton sourire à l'égard de ton frère est une aumône pour toi. »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'Your smile for your brother is a charity for you.'",
+      "contentHash": "تبسمك في وجه أخيك لك صدقة",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3554.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790165203/yki30btk0xjezsttfyeo.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790165192/f0rghbpovujggdsdweyj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790165192/pi0fqkpa7vjqxqkbg6ln.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790165193/dhfkm3oid0hykctwbekg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790165194/hkajidkqabqlqv29ohtq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790165194/tmtdvboyu8ojrrq9fli5.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790165192/f0rghbpovujggdsdweyj.png",
       "platforms": [
         "instagram",
         "tiktok",
