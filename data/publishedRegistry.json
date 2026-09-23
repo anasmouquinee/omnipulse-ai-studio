@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1287,6 +1287,37 @@
       "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2029.mp3",
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790100329/we7d4e7rc4gsredhajsa.mp4",
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790100329/we7d4e7rc4gsredhajsa.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790143657368",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "bookOrSurah": "Sahih Al-Bukhari & Muslim",
+      "numberOrAyah": "Bukhari 6405",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "دقيقة واحدة تمحو ذنوبك بإذن الله 🤍\nسُبْحَانَ اللَّهِ وَبِحَمْدِهِ (100) مرة\nأَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ (100) مرة\nلا إِلَهَ إِلا اللَّهُ وَحْدَهُ لا شَرِيكَ لَهُ (10) مرات\nسُبْحَانَ اللَّهِ، وَالْحَمْدُ لِلَّهِ، وَلا إِلَهَ إِلا اللَّهُ، وَاللَّهُ أَكْبَرُ\n﴿إِنَّ الْحَسَنَاتِ يُذْهِبْنَ السَّيِّئَاتِ﴾",
+      "translationFr": "Le Prophète ﷺ a dit : « Celui qui dit : 'Subhanallahi wa bihamdihi' 100 fois par jour, ses péchés sont effacés même s'ils étaient comme l'écume de la mer. »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790143627/nui5mqavtqeoyth4zrd2.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790143610/mghkxnuhdg7gvwbsw70o.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790143612/daqilt0myeoyft0zmbxj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790143612/pwtnqru93ke2dwz76wly.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790143613/phtyqleprgxosqghirlf.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790143614/yqn0lk86lwvqql9f2sq9.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790143610/mghkxnuhdg7gvwbsw70o.png",
       "platforms": [
         "instagram",
         "tiktok",
