@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1436,6 +1436,37 @@
         "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790230034/hjry3ontnnso6ad2qctl.png"
       ],
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790230031/arzdk4vrctvag6v4yg9f.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790273157796",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "bookOrSurah": "Hisn al-Muslim (Citadelle du Musulman)",
+      "numberOrAyah": "Adhkar as-Sabah",
+      "surahNumber": 12,
+      "ayahNumber": 64,
+      "arabicText": "أذكار الصباح السريعة 🌅\nأَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ 🤍\nبِسْمِ اللَّهِ الَّذِي لا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ (3) مرات\nرَضِيتُ بِاللَّهِ رَبًّا وَبِالإِسْلامِ دِينًا (3) مرات\nيَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ 🤍\nحَسْبِيَ اللَّهُ لا إِلَهَ إِلا هُوَ عَلَيْهِ تَوَكَّلْتُ (7) مرات\n﴿فَاللَّهُ خَيْرٌ حَافِظًا وَهُوَ أَرْحَمُ الرَّاحِمِينَ﴾",
+      "translationFr": "Les invocations du matin créent un bouclier spirituel pour toute ta journée. Commence chaque matin sous la protection divine d'Allah.",
+      "translationEn": "Morning remembrances create a divine spiritual shield for your entire day. Start your morning under Allah's care.",
+      "contentHash": "أذكار الصباح السريعة 🌅\nأصبحنا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1660.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790273121/p3ebqcevci2mzaxxi8zy.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790273107/pcrhwuewireltanmgtl8.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790273107/of2x0xnigmt5txukyjlo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790273108/rozjema4huvtd0ay1ir7.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790273109/sg7xsbwxu7vzoehkgt30.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790273110/rmmimxdqrn9sykml2tmy.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790273107/pcrhwuewireltanmgtl8.png",
       "platforms": [
         "instagram",
         "tiktok",
