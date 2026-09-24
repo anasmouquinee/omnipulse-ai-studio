@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1374,6 +1374,37 @@
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790186723/cqh2cvll73mdcvhuc6yw.mp4",
       "carouselSlides": [],
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790186723/cqh2cvll73mdcvhuc6yw.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790208576855",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "bookOrSurah": "Sahih Al-Bukhari & Muslim",
+      "numberOrAyah": "Bukhari 4205",
+      "surahNumber": 40,
+      "ayahNumber": 44,
+      "arabicText": "كنز من كنوز الجنة 🤲\nلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ\nحَسْبُنَا اللَّهُ وَنِعْمَ الْوَكِيلُ (7) مرات\nلَا إِلَهَ إِلَّا أَنْتَ سُبْحَانَكَ إِنِّي كُنْتُ مِنَ الظَّالِمِينَ (7) مرات\nيَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ 🤍\n﴿وَأُفَوِّضُ أَمْرِي إِلَى اللَّهِ ۚ إِنَّ اللَّهَ بَصِيرٌ بِالْعِبَادِ﴾",
+      "translationFr": "« La hawla wa la quwwata illa billah » est l'un des trésors du Paradis. Elle débloque les situations impossibles et apporte le secours d'Allah.",
+      "translationEn": "'La hawla wa la quwwata illa billah' is a treasure of Paradise. It unlocks every hardship and brings divine aid.",
+      "contentHash": "كنز من كنوز الجنة 🤲\nلا حول ول",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4204.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790208550/qmyopsrbruvrentr0byn.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790208538/qorvb5usqxuztuq06gtq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790208539/cidlqhts1r5eomv48ntj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790208540/gxztx99fw6many2jtue8.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790208541/x74kafztnjxvbgqovsjl.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790208543/betkpy57bbehbib7gwwp.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790208538/qorvb5usqxuztuq06gtq.png",
       "platforms": [
         "instagram",
         "tiktok",
