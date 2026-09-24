@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1405,6 +1405,37 @@
         "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790208543/betkpy57bbehbib7gwwp.png"
       ],
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790208538/qorvb5usqxuztuq06gtq.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790230077646",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "bookOrSurah": "Sahih Al-Bukhari",
+      "numberOrAyah": "Hadith 6306",
+      "surahNumber": 2,
+      "ayahNumber": 199,
+      "arabicText": "سيد الاستغفار 🤍\nاللَّهُمَّ أَنْتَ رَبِّي لَا إِلَهَ إِلَّا أَنْتَ\nخَلَقْتَنِي وَأَنَا عَبْدُكَ\nوَأَنَا عَلَى عَهْدِكَ وَوَعْدِكَ مَا اسْتَطَعْتُ\nأَعُوذُ بِكَ مِنْ شَرِّ مَا صَنَعْتُ\nأَبُوءُ لَكَ بِنِعْمَتِكَ عَلَيَّ وَأَبُوءُ لَكَ بِذَنْبِي\nفَاغْفِرْ لِي فَإِنَّهُ لَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ\n﴿وَاسْتَغْفِرُوا اللَّهَ ۖ إِنَّ اللَّهَ غَفُورٌ رَّحِيمٌ﴾",
+      "translationFr": "Sayyid al-Istighfar (Le maître du repentir). Quiconque le prononce le soir avec conviction et meurt dans la nuit entrera au Paradis, de même pour le matin.",
+      "translationEn": "Sayyid al-Istighfar (The chief prayer for forgiveness). Whoever recites it during day or night with faith and passes away will enter Paradise.",
+      "contentHash": "سيد الاستغفار 🤍\nاللهم أنت ربي",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/206.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790230042/eospmkak6oasego4vyz8.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790230031/arzdk4vrctvag6v4yg9f.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790230031/k0euyydiinehp1k2mzc1.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790230032/miglefxeozvp86fcslrv.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790230033/c3slkm8rokvmfy9f0utw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790230034/hjry3ontnnso6ad2qctl.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790230031/arzdk4vrctvag6v4yg9f.png",
       "platforms": [
         "instagram",
         "tiktok",
