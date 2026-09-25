@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1517,6 +1517,37 @@
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790316407/wvdmvrftil6jrahwptty.mp4",
       "carouselSlides": [],
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790316407/wvdmvrftil6jrahwptty.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790338023956",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "bookOrSurah": "Sunan Abi Dawud & An-Nasa'i",
+      "numberOrAyah": "Abu Dawud 1047 (Sahih)",
+      "surahNumber": 33,
+      "ayahNumber": 56,
+      "arabicText": "إِنَّ مِنْ أَفْضَلِ أَيَّامِكُمْ يَوْمَ الْجُمُعَةِ، فِيهِ خُلِقَ آدَمُ، وَفِيهِ قُبِضَ.. فَأَكْثِرُوا عَلَيَّ مِنَ الصَّلَاةِ فِيهِ، فَإِنَّ صَلَاتَكُمْ مَعْرُوضَةٌ عَلَيَّ",
+      "translationFr": "Le Prophète ﷺ a dit : « Certes, le jour du vendredi compte parmi vos meilleurs jours... Multipliez donc les prières sur moi en ce jour béni, car vos prières me sont présentées. »",
+      "translationEn": "The Prophet ﷺ said: 'Among the best of your days is Friday... So invoke abundant blessings upon me on it, for your blessings are presented to me.'",
+      "contentHash": "إن من أفضل أيامكم يوم الجمعة، ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3589.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790337988/ywypb2mwyme59uq5hq8q.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790337974/tvfyt4po8wnfw7bqu1co.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790337976/l7xss9kzlfztpyekzy4h.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790337977/xvssawcl8qyqgszavdwy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790337979/vsjngejs1x2v7leabjmj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790337979/f1kd9znqi1tumtypeqai.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790337974/tvfyt4po8wnfw7bqu1co.png",
       "platforms": [
         "instagram",
         "tiktok",
