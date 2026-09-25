@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1492,6 +1492,31 @@
       "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790295010/djbisemf9yxdncrwwfxw.mp4",
       "carouselSlides": [],
       "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790295010/djbisemf9yxdncrwwfxw.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790316441876",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "reel",
+      "bookOrSurah": "Sourate Al-Kahf (سُورَةُ الكَهۡفِ)",
+      "numberOrAyah": "Sourate 18, Verset 1",
+      "surahNumber": 18,
+      "ayahNumber": 1,
+      "arabicText": "الْحَمْدُ لِلَّهِ الَّذِي أَنزَلَ عَلَىٰ عَبْدِهِ الْكِتَابَ وَلَمْ يَجْعَل لَّهُ عِوَجًا",
+      "translationFr": "« Louange à Allah qui a fait descendre sur Son serviteur le Livre, et n'y a point introduit de tortuosité ! » (Lumière de Sourate Al-Kahf)",
+      "translationEn": "“[All] praise is due to Allah, who has sent down upon His Servant the Book and has not made therein any deviance.”",
+      "contentHash": "الحمد لله الذي أنزل على عبده ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790316407/wvdmvrftil6jrahwptty.mp4",
+      "carouselSlides": [],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790316407/wvdmvrftil6jrahwptty.png",
       "platforms": [
         "instagram",
         "tiktok",
