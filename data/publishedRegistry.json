@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1554,6 +1554,43 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790359536214",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-sabah",
+      "bookOrSurah": "أذكار الصباح 🕊️ • Routine Adhkar du Matin & Sérénité",
+      "numberOrAyah": "Sourate Qaf — Verset 39",
+      "surahNumber": 18,
+      "ayahNumber": 1,
+      "arabicText": "« أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ »",
+      "translationFr": "« Nous voici au matin et la royauté appartient à Allah »",
+      "translationEn": "“[All] praise is due to Allah, who has sent down upon His Servant the Book and has not made therein any deviance.”",
+      "contentHash": "الحمد لله الذي أنزل على عبده ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790359500/ahrjvkp89xn4lccmrysk.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790359490/n4kwlpp27whvb2h4lhev.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790359491/vjgyrupnnbmaxznlj2ia.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790359492/pnnllp5qwm3knfd6lszb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790359492/oos8zr1snydq0znyuwgo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790359493/uhaza14bfnnywbgtqmf8.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790359490/n4kwlpp27whvb2h4lhev.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
+  ],
+  "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
+  "lastCarouselPackId": "carousel-sabah",
+  "publishedCarouselPackIds": [
+    "carousel-sabah"
   ]
 }
