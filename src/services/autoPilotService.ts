@@ -9,6 +9,7 @@ import { IslamicLibraryService } from './islamicLibraryService';
 import { VideoGenerator } from './videoGenerator';
 import { SocialPublisher, getBufferRateLimitStatus } from './socialPublisher';
 import type { IslamicContentType } from '../types/islamic';
+import { DAILY_CAROUSEL_PACKS } from '../data/dailyCarouselPacks';
 
 const AUTOPILOT_STORAGE_KEY = 'omnipulse_autopilot_config';
 const AUTOPILOT_LOCK_KEY = 'omnipulse_autopilot_exec_lock';
@@ -100,6 +101,8 @@ export interface AutoPilotConfig {
   lastRunAt: string | null;
   nextRunAt: string | null;
   currentThemeIndex: number;
+  lastCarouselRunAt?: string | null;
+  publishedCarouselPackIds?: string[];
   logs: AutoPilotLog[];
 }
 
@@ -358,14 +361,27 @@ class AutoPilotServiceClass {
 
       const referenceText = `${selectedItem.source.bookOrSurah} — ${selectedItem.source.numberOrAyah}`;
       
-      // Determine if this cycle should publish a 5-Slide Carousel (Adhkar routine or alternating cycles)
-      const isCarouselCycle = currentTheme.category === 'adhkar_routine' || ((config.currentThemeIndex || 0) % 2 === 1);
-      let carouselSlides: string[] = [];
+      // 1. Determine Carousel eligibility: strictly ONCE per day (20-hour minimum cooldown)
+      const lastCarouselTime = config.lastCarouselRunAt ? new Date(config.lastCarouselRunAt).getTime() : 0;
+      const hoursSinceLastCarousel = (Date.now() - lastCarouselTime) / (1000 * 60 * 60);
+      const currentUtcHour = new Date().getUTCHours();
+      const isMorningSlot = currentUtcHour >= 5 && currentUtcHour <= 10;
 
-      if (isCarouselCycle) {
-        if (onProgress) onProgress(`2/4 Génération des 5 slides Carrousel Instagram (Design Cream) pour "${selectedItem.source.bookOrSurah}"...`);
+      // Strictly ONCE a day: only when 20+ hours have passed AND either in morning/adhkar or if > 23h elapsed
+      const isCarouselCycle = (hoursSinceLastCarousel >= 20) && (isMorningSlot || currentTheme.id === 'theme-adhkar' || hoursSinceLastCarousel >= 23);
+      let carouselSlides: string[] = [];
+      let activeCarouselPack = null;
+
+      if (isCarouselCycle && DAILY_CAROUSEL_PACKS.length > 0) {
+        const publishedPackIds = config.publishedCarouselPackIds || [];
+        activeCarouselPack = DAILY_CAROUSEL_PACKS.find(p => !publishedPackIds.includes(p.id));
+        if (!activeCarouselPack) {
+          activeCarouselPack = DAILY_CAROUSEL_PACKS[publishedPackIds.length % DAILY_CAROUSEL_PACKS.length];
+        }
+
+        if (onProgress) onProgress(`2/4 Génération des 5 slides Carrousel Instagram [${activeCarouselPack.themeTitle}]...`);
         try {
-          carouselSlides = await IslamicContentService.generateCarouselSlidesCanvas(selectedItem, '9:16');
+          carouselSlides = await IslamicContentService.generateCarouselSlidesCanvas(selectedItem, '9:16', activeCarouselPack);
         } catch (carouselErr) {
           console.warn('Carousel generation fallback to quote card:', carouselErr);
         }
@@ -445,6 +461,11 @@ class AutoPilotServiceClass {
       finalConfig.currentThemeIndex = ((finalConfig.currentThemeIndex || 0) + 1) % AUTOPILOT_THEMES.length;
       finalConfig.lastRunAt = startTime;
       finalConfig.nextRunAt = new Date(Date.now() + finalConfig.intervalHours * 3600 * 1000).toISOString();
+      if (isCarouselCycle && activeCarouselPack && carouselSlides.length > 0) {
+        finalConfig.lastCarouselRunAt = startTime;
+        if (!Array.isArray(finalConfig.publishedCarouselPackIds)) finalConfig.publishedCarouselPackIds = [];
+        finalConfig.publishedCarouselPackIds.push(activeCarouselPack.id);
+      }
       
       log.status = 'success';
       log.format = isCarouselCycle && carouselSlides.length > 0 ? 'carousel' : 'reel';

@@ -10,6 +10,7 @@ import { ISLAMIC_BACKGROUND_THEMES, type IslamicBackgroundTheme } from '../data/
 import { StorageService } from './storageService';
 import { IslamicViralTagsService } from './islamicViralTagsService';
 import { IslamicLibraryService } from './islamicLibraryService';
+import { DAILY_CAROUSEL_PACKS, type DailyCarouselPack } from '../data/dailyCarouselPacks';
 
 export const DIVERSE_ISLAMIC_TOPICS: Record<IslamicContentType, string[]> = {
   quran_verse: [
@@ -1290,10 +1291,13 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
   /**
    * Generates a Multi-Slide Carousel (5 sequential PNG slides) for Instagram & TikTok swipe posts
    */
+  /**
+   * Generates a Multi-Slide Carousel (5 sequential PNG slides) for Instagram & TikTok swipe posts
+   */
   async generateCarouselSlidesCanvas(
     item: IslamicPostItem,
     aspectRatio: '9:16' | '1:1' = '9:16',
-    hookOverride?: string
+    hookOrPack?: string | DailyCarouselPack
   ): Promise<string[]> {
     const width = 1080;
     const height = aspectRatio === '9:16' ? 1920 : 1080;
@@ -1303,8 +1307,31 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       try { await document.fonts.ready; } catch {}
     }
 
-    const baseHook = hookOverride || item.arabicText || "نصف دقيقة فقط 🤍";
-    const closingAyah = item.closingAyah || "﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾";
+    const wrapCanvasText = (ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] => {
+      const words = (text || '').trim().split(/\s+/);
+      const lines: string[] = [];
+      let current = '';
+      for (const word of words) {
+        const testLine = current ? `${current} ${word}` : word;
+        if (ctx.measureText(testLine).width <= maxWidth) {
+          current = testLine;
+        } else {
+          if (current) lines.push(current);
+          current = word;
+        }
+      }
+      if (current) lines.push(current);
+      return lines;
+    };
+
+    let pack: DailyCarouselPack;
+    if (hookOrPack && typeof hookOrPack === 'object') {
+      pack = hookOrPack;
+    } else {
+      pack = DAILY_CAROUSEL_PACKS[0];
+    }
+
+    const hookPill = (typeof hookOrPack === 'string' && hookOrPack ? hookOrPack : (pack.hook || pack.badge || 'أذكار مباركة 🤍')).slice(0, 24);
 
     const paintSlideBase = (ctx: CanvasRenderingContext2D, slideIndex: number, totalSlides: number = 5) => {
       const creamGrad = ctx.createLinearGradient(0, 0, 0, height);
@@ -1365,293 +1392,222 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
       const { canvas, ctx } = createCtx();
       paintSlideBase(ctx, 1, 5);
 
+      // Header Hook Capsule Pill (Guaranteed <= 24 chars, perfectly centered, no text overflow)
       ctx.save();
-      ctx.shadowColor = 'rgba(120, 113, 108, 0.15)';
-      ctx.shadowBlur = 16;
+      ctx.shadowColor = 'rgba(120, 113, 108, 0.12)';
+      ctx.shadowBlur = 14;
       ctx.shadowOffsetY = 6;
       ctx.fillStyle = '#FFFFFF';
       ctx.beginPath();
-      ctx.roundRect(width / 2 - 270, height * 0.28, 540, 88, 44);
+      ctx.roundRect(width / 2 - 250, 320, 500, 80, 40);
       ctx.fill();
       ctx.strokeStyle = '#E5E0D8';
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      ctx.font = 'bold 40px "Amiri Quran", "Amiri", serif';
+      ctx.font = 'bold 32px "Amiri Quran", "Amiri", serif';
       ctx.fillStyle = '#1C1917';
       ctx.textAlign = 'center';
-      ctx.fillText(baseHook, width / 2, height * 0.28 + 58);
+      ctx.fillText(hookPill, width / 2, 372);
       ctx.restore();
 
+      // Main Card
       ctx.save();
       ctx.fillStyle = 'rgba(255, 255, 255, 0.95)';
       ctx.beginPath();
-      ctx.roundRect(80, height * 0.38, width - 160, height * 0.35, 32);
+      ctx.roundRect(70, 440, width - 140, 880, 32);
       ctx.fill();
       ctx.strokeStyle = '#E7E2DA';
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      ctx.font = '54px serif';
+      // Emblem
+      ctx.font = '48px serif';
       ctx.fillStyle = '#d97706';
       ctx.textAlign = 'center';
-      ctx.fillText('۞', width / 2, height * 0.46);
+      ctx.fillText('۞', width / 2, 540);
 
-      ctx.font = 'bold 36px "Amiri Quran", "Amiri", serif';
-      ctx.fillStyle = '#292524';
-      ctx.fillText('« لَا يَزَالُ لِسَانُكَ رَطْبًا مِنْ ذِكْرِ اللَّهِ »', width / 2, height * 0.54);
+      // Cover Title (Word Wrapped)
+      ctx.font = 'bold 38px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#1C1917';
+      const titleLines = wrapCanvasText(ctx, pack.coverTitle, width - 240);
+      const titleStartY = 660 - ((titleLines.length - 1) * 50) / 2;
+      titleLines.forEach((l, idx) => {
+        ctx.fillText(l, width / 2, titleStartY + idx * 52);
+      });
 
+      // Divider
+      ctx.strokeStyle = '#E2DDD5';
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.moveTo(280, 790);
+      ctx.lineTo(800, 790);
+      ctx.stroke();
+
+      // French Meaning
       ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#57534E';
-      ctx.fillText('« Que ta langue ne cesse d’être humide par l’évocation d’Allah »', width / 2, height * 0.61);
+      ctx.fillStyle = '#44403C';
+      const subLines = wrapCanvasText(ctx, pack.coverSubtitleFr, width - 260);
+      subLines.forEach((l, idx) => {
+        ctx.fillText(l, width / 2, 850 + idx * 36);
+      });
+
+      // Note
+      ctx.font = '700 20px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#d97706';
+      const noteLines = wrapCanvasText(ctx, pack.coverNote, width - 260);
+      noteLines.forEach((l, idx) => {
+        ctx.fillText(l, width / 2, 1020 + idx * 32);
+      });
       ctx.restore();
 
+      // Swipe Button
       ctx.save();
       ctx.fillStyle = '#1C1917';
       ctx.beginPath();
-      ctx.roundRect(width / 2 - 160, height * 0.80, 320, 60, 30);
+      ctx.roundRect(width / 2 - 180, 1420, 360, 68, 34);
       ctx.fill();
-      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.font = '700 23px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = '#FFFFFF';
       ctx.textAlign = 'center';
-      ctx.fillText('Glisse pour réciter ➔', width / 2, height * 0.80 + 38);
+      ctx.fillText('Glisse pour réciter ➔', width / 2, 1462);
       ctx.restore();
 
       slides.push(canvas.toDataURL('image/png'));
     }
 
-    // SLIDE 2: Tasbeeh & Tahmeed
-    {
-      const { canvas, ctx } = createCtx();
-      paintSlideBase(ctx, 2, 5);
-
+    // Helper for Dhikr Cards (Slides 2, 3, 4)
+    const paintCard = (ctx: CanvasRenderingContext2D, item: { dhikr: string; count: string; fr: string; merit: string }, yTop: number) => {
       ctx.save();
       ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
       ctx.beginPath();
-      ctx.roundRect(75, height * 0.18, width - 150, height * 0.28, 28);
+      ctx.roundRect(70, yTop, width - 140, 520, 28);
       ctx.fill();
       ctx.strokeStyle = '#E7E2DA';
       ctx.lineWidth = 1.8;
       ctx.stroke();
 
+      // Count Badge
       ctx.fillStyle = '#F5F5F4';
       ctx.beginPath();
-      ctx.roundRect(100, height * 0.18 + 25, 140, 46, 16);
+      ctx.roundRect(width - 270, yTop + 25, 170, 42, 14);
       ctx.fill();
-      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
+      ctx.font = '700 20px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = '#78716C';
       ctx.textAlign = 'center';
-      ctx.fillText('(3 مرات)', 170, height * 0.18 + 56);
+      ctx.fillText(item.count || '(مرة واحدة)', width - 185, yTop + 54);
 
-      ctx.font = 'bold 44px "Amiri Quran", "Amiri", serif';
-      ctx.fillStyle = '#1C1917';
-      ctx.fillText('سُبْحَانَ اللَّهِ', width / 2, height * 0.18 + 115);
-
-      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#57534E';
-      ctx.fillText('« Gloire et pureté absolue à Allah »', width / 2, height * 0.18 + 165);
-      ctx.restore();
-
-      ctx.save();
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
-      ctx.beginPath();
-      ctx.roundRect(75, height * 0.50, width - 150, height * 0.28, 28);
-      ctx.fill();
-      ctx.strokeStyle = '#E7E2DA';
-      ctx.lineWidth = 1.8;
-      ctx.stroke();
-
-      ctx.fillStyle = '#F5F5F4';
-      ctx.beginPath();
-      ctx.roundRect(100, height * 0.50 + 25, 140, 46, 16);
-      ctx.fill();
-      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#78716C';
-      ctx.textAlign = 'center';
-      ctx.fillText('(3 مرات)', 170, height * 0.50 + 56);
-
-      ctx.font = 'bold 44px "Amiri Quran", "Amiri", serif';
-      ctx.fillStyle = '#1C1917';
-      ctx.fillText('الْحَمْدُ لِلَّهِ', width / 2, height * 0.50 + 115);
-
-      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#57534E';
-      ctx.fillText('« Toutes les louanges et gratitudes appartiennent à Allah »', width / 2, height * 0.50 + 165);
-      ctx.restore();
-
-      slides.push(canvas.toDataURL('image/png'));
-    }
-
-    // SLIDE 3: Tahleel & Takbeer
-    {
-      const { canvas, ctx } = createCtx();
-      paintSlideBase(ctx, 3, 5);
-
-      ctx.save();
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
-      ctx.beginPath();
-      ctx.roundRect(75, height * 0.18, width - 150, height * 0.28, 28);
-      ctx.fill();
-      ctx.strokeStyle = '#E7E2DA';
-      ctx.lineWidth = 1.8;
-      ctx.stroke();
-
-      ctx.fillStyle = '#F5F5F4';
-      ctx.beginPath();
-      ctx.roundRect(100, height * 0.18 + 25, 140, 46, 16);
-      ctx.fill();
-      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#78716C';
-      ctx.textAlign = 'center';
-      ctx.fillText('(3 مرات)', 170, height * 0.18 + 56);
-
+      // Arabic Dhikr (Wrapped)
       ctx.font = 'bold 40px "Amiri Quran", "Amiri", serif';
       ctx.fillStyle = '#1C1917';
-      ctx.fillText('لَا إِلَهَ إِلَّا اللَّهُ', width / 2, height * 0.18 + 115);
+      const arLines = wrapCanvasText(ctx, item.dhikr, width - 220);
+      const arStartY = yTop + 140 - ((arLines.length - 1) * 48) / 2;
+      arLines.forEach((l, idx) => {
+        ctx.fillText(l, width / 2, arStartY + idx * 50);
+      });
 
-      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#57534E';
-      ctx.fillText('« Il n’y a de divinité digne d’adoration qu’Allah »', width / 2, height * 0.18 + 165);
-      ctx.restore();
-
-      ctx.save();
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
-      ctx.beginPath();
-      ctx.roundRect(75, height * 0.50, width - 150, height * 0.28, 28);
-      ctx.fill();
-      ctx.strokeStyle = '#E7E2DA';
-      ctx.lineWidth = 1.8;
-      ctx.stroke();
-
-      ctx.fillStyle = '#F5F5F4';
-      ctx.beginPath();
-      ctx.roundRect(100, height * 0.50 + 25, 140, 46, 16);
-      ctx.fill();
-      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#78716C';
-      ctx.textAlign = 'center';
-      ctx.fillText('(3 مرات)', 170, height * 0.50 + 56);
-
-      ctx.font = 'bold 44px "Amiri Quran", "Amiri", serif';
-      ctx.fillStyle = '#1C1917';
-      ctx.fillText('اللَّهُ أَكْبَرُ', width / 2, height * 0.50 + 115);
-
-      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#57534E';
-      ctx.fillText('« Allah est infiniment plus Grand que tout »', width / 2, height * 0.50 + 165);
-      ctx.restore();
-
-      slides.push(canvas.toDataURL('image/png'));
-    }
-
-    // SLIDE 4: Istighfar & Salawat
-    {
-      const { canvas, ctx } = createCtx();
-      paintSlideBase(ctx, 4, 5);
-
-      ctx.save();
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
-      ctx.beginPath();
-      ctx.roundRect(75, height * 0.18, width - 150, height * 0.28, 28);
-      ctx.fill();
-      ctx.strokeStyle = '#E7E2DA';
-      ctx.lineWidth = 1.8;
-      ctx.stroke();
-
-      ctx.fillStyle = '#F5F5F4';
-      ctx.beginPath();
-      ctx.roundRect(100, height * 0.18 + 25, 140, 46, 16);
-      ctx.fill();
-      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#78716C';
-      ctx.textAlign = 'center';
-      ctx.fillText('(3 مرات)', 170, height * 0.18 + 56);
-
-      ctx.font = 'bold 36px "Amiri Quran", "Amiri", serif';
-      ctx.fillStyle = '#1C1917';
-      ctx.fillText('أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ', width / 2, height * 0.18 + 115);
-
+      // French (Wrapped)
       ctx.font = '600 23px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#57534E';
-      ctx.fillText('« Je demande pardon à Allah et je reviens à Lui »', width / 2, height * 0.18 + 165);
+      ctx.fillStyle = '#44403C';
+      const frLines = wrapCanvasText(ctx, item.fr, width - 240);
+      frLines.forEach((l, idx) => {
+        ctx.fillText(l, width / 2, yTop + 270 + idx * 34);
+      });
+
+      // Merit (Wrapped)
+      ctx.font = '700 20px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#d97706';
+      const meritLines = wrapCanvasText(ctx, item.merit, width - 240);
+      meritLines.forEach((l, idx) => {
+        ctx.fillText(l, width / 2, yTop + 430 + idx * 30);
+      });
       ctx.restore();
+    };
 
-      ctx.save();
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
-      ctx.beginPath();
-      ctx.roundRect(75, height * 0.50, width - 150, height * 0.28, 28);
-      ctx.fill();
-      ctx.strokeStyle = '#E7E2DA';
-      ctx.lineWidth = 1.8;
-      ctx.stroke();
-
-      ctx.fillStyle = '#F5F5F4';
-      ctx.beginPath();
-      ctx.roundRect(100, height * 0.50 + 25, 140, 46, 16);
-      ctx.fill();
-      ctx.font = '700 22px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#78716C';
-      ctx.textAlign = 'center';
-      ctx.fillText('(3 مرات)', 170, height * 0.50 + 56);
-
-      ctx.font = 'bold 34px "Amiri Quran", "Amiri", serif';
-      ctx.fillStyle = '#1C1917';
-      ctx.fillText('اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ', width / 2, height * 0.50 + 115);
-
-      ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#57534E';
-      ctx.fillText('« Ô Allah, prie et salue notre Prophète Muhammad »', width / 2, height * 0.50 + 165);
-      ctx.restore();
-
+    // SLIDES 2, 3, 4
+    const slidePacks = [pack.slide2, pack.slide3, pack.slide4];
+    slidePacks.forEach((sData, idx) => {
+      const { canvas, ctx } = createCtx();
+      paintSlideBase(ctx, idx + 2, 5);
+      paintCard(ctx, sData.item1, 330);
+      paintCard(ctx, sData.item2, 920);
       slides.push(canvas.toDataURL('image/png'));
-    }
+    });
 
-    // SLIDE 5: Closing & CTA
+    // SLIDE 5: Closing Ayah & CTA
     {
       const { canvas, ctx } = createCtx();
       paintSlideBase(ctx, 5, 5);
 
+      // Closing Ayah Card
       ctx.save();
       ctx.fillStyle = 'rgba(255, 255, 255, 0.96)';
       ctx.beginPath();
-      ctx.roundRect(75, height * 0.22, width - 150, height * 0.30, 28);
+      ctx.roundRect(70, 360, width - 140, 560, 32);
       ctx.fill();
       ctx.strokeStyle = '#E7E2DA';
       ctx.lineWidth = 2;
       ctx.stroke();
 
-      ctx.font = 'bold 38px "Amiri Quran", "Amiri", serif';
-      ctx.fillStyle = '#292524';
+      ctx.font = '36px serif';
+      ctx.fillStyle = '#d97706';
       ctx.textAlign = 'center';
-      ctx.fillText(closingAyah, width / 2, height * 0.33);
+      ctx.fillText('۞', width / 2, 450);
 
-      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
+      // Ayah Arabic
+      ctx.font = 'bold 38px "Amiri Quran", "Amiri", serif';
+      ctx.fillStyle = '#1C1917';
+      const ayahLines = wrapCanvasText(ctx, pack.slide5.closingAyah, width - 240);
+      const ayahStartY = 540 - ((ayahLines.length - 1) * 50) / 2;
+      ayahLines.forEach((l, idx) => {
+        ctx.fillText(l, width / 2, ayahStartY + idx * 52);
+      });
+
+      // Ayah French
+      ctx.font = '600 23px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#44403C';
+      const frLines = wrapCanvasText(ctx, pack.slide5.closingAyahFr, width - 240);
+      frLines.forEach((l, idx) => {
+        ctx.fillText(l, width / 2, 700 + idx * 34);
+      });
+
+      // Source Badge
+      ctx.fillStyle = '#F5F5F4';
+      ctx.beginPath();
+      ctx.roundRect(width / 2 - 240, 810, 480, 46, 23);
+      ctx.fill();
+      ctx.font = '700 19px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = '#78716C';
-      ctx.fillText('« Et rappelle, car le rappel profite aux croyants »', width / 2, height * 0.40);
-
-      ctx.font = '700 20px "Plus Jakarta Sans", sans-serif';
-      ctx.fillStyle = '#A8A29E';
-      ctx.fillText(`✦ ${item.source.bookOrSurah} — ${item.source.numberOrAyah} ✦`, width / 2, height * 0.46);
+      ctx.fillText(`✦ ${pack.slide5.source} ✦`, width / 2, 840);
       ctx.restore();
 
+      // CTA Box
       ctx.save();
       ctx.fillStyle = '#1C1917';
       ctx.beginPath();
-      ctx.roundRect(75, height * 0.58, width - 150, height * 0.24, 28);
+      ctx.roundRect(70, 1020, width - 140, 440, 32);
       ctx.fill();
 
-      ctx.font = 'bold 32px "Amiri Quran", "Amiri", serif';
+      ctx.font = 'bold 36px "Amiri Quran", "Amiri", serif';
       ctx.fillStyle = '#FEF08A';
       ctx.textAlign = 'center';
-      ctx.fillText('احفظ المنشور لتكرارها يومياً 🤍', width / 2, height * 0.66);
+      ctx.fillText(pack.slide5.ctaTitle, width / 2, 1120);
 
-      ctx.font = '600 22px "Plus Jakarta Sans", sans-serif';
+      ctx.font = '600 24px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = '#F8FAFC';
-      ctx.fillText('Enregistre ce carrousel pour réciter chaque jour', width / 2, height * 0.72);
+      const ctaFrLines = wrapCanvasText(ctx, pack.slide5.ctaFr, width - 240);
+      ctaFrLines.forEach((l, idx) => {
+        ctx.fillText(l, width / 2, 1200 + idx * 36);
+      });
 
-      ctx.font = '500 20px "Plus Jakarta Sans", sans-serif';
+      ctx.font = '500 21px "Plus Jakarta Sans", sans-serif';
       ctx.fillStyle = '#CBD5E1';
-      ctx.fillText('Partage pour récolter les récompenses (Sadaqah Jariyah 🤲)', width / 2, height * 0.77);
+      ctx.fillText('Partage pour récolter les récompenses (Sadaqah Jariyah 🤲)', width / 2, 1310);
+
+      ctx.font = '700 21px "Plus Jakarta Sans", sans-serif';
+      ctx.fillStyle = '#94A3B8';
+      ctx.fillText('Sauvegarde 🔖 • Partage ↗️ • Like ❤️', width / 2, 1380);
       ctx.restore();
 
       slides.push(canvas.toDataURL('image/png'));
@@ -1659,4 +1615,5 @@ Format de réponse OBLIGATOIRE en JSON pur (sans balises markdown) :
 
     return slides;
   }
+
 };

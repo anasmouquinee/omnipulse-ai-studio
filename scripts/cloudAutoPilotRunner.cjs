@@ -20,6 +20,24 @@ const CLOUDINARY_UPLOAD_PRESET = process.env.CLOUDINARY_UPLOAD_PRESET || 'ml_def
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL || 'https://discord.com/api/webhooks/1542317690255839402/lJKv3K4988iwAhvc7Jpay8zvBhJ4aXB3dL6GMPGR8o4D9FauC3cuGoIcrOTfJBzAZkPU';
 
 const REGISTRY_PATH = path.join(__dirname, '..', 'data', 'publishedRegistry.json');
+const CAROUSEL_PACKS_PATH = path.join(__dirname, '..', 'data', 'dailyCarouselPacks.json');
+
+function loadDailyCarouselPacks() {
+  try {
+    if (fs.existsSync(CAROUSEL_PACKS_PATH)) {
+      const packs = JSON.parse(fs.readFileSync(CAROUSEL_PACKS_PATH, 'utf8'));
+      if (Array.isArray(packs) && packs.length > 0) {
+        console.log(`📑 Loaded ${packs.length} authentic Daily Carousel Packs.`);
+        return packs;
+      }
+    }
+  } catch (e) {
+    console.warn('Could not read dailyCarouselPacks.json:', e.message);
+  }
+  return [];
+}
+
+const DAILY_CAROUSEL_PACKS = loadDailyCarouselPacks();
 
 // 7-Pillar Rotation Definitions
 const THEMES = [
@@ -948,7 +966,7 @@ function generatePosterSvg(item, hookOverride = '') {
 }
 
 // Minimal Cream 5-Slide Carousel SVG Generator (Pure SVG 1.1 compatible with rsvg-convert & mobile carousels)
-function generateCarouselSvgSlides(item, hookOverride = '') {
+function generateCarouselSvgSlides(packOrItem, hookOverride = '') {
   const escapeXml = (str) => String(str || '')
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -956,10 +974,43 @@ function generateCarouselSvgSlides(item, hookOverride = '') {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&apos;');
 
-  const baseHook = hookOverride || item.arabicText || "نصف دقيقة فقط 🤍";
-  const closingAyah = item.closingAyah || "﴿وَذَكِّرْ فَإِنَّ الذِّكْرَىٰ تَنفَعُ الْمُؤْمِنِينَ﴾";
-  const bookSurah = item.bookOrSurah || "Sourate Adh-Dhariyat";
-  const ayahRef = item.numberOrAyah || "Verset 55";
+  // Normalize: if passed item instead of pack, pick a pack from DAILY_CAROUSEL_PACKS or build safe pack
+  let pack = packOrItem;
+  if (!pack || !pack.slide2) {
+    pack = DAILY_CAROUSEL_PACKS[0] || {
+      hook: "أذكار الصباح ☀️",
+      badge: "أذكار الصباح ☀️",
+      themeTitle: "Routine Adhkar & Sérénité",
+      coverTitle: "« لَا يَزَالُ لِسَانُكَ رَطْبًا مِنْ ذِكْرِ اللَّهِ »",
+      coverSubtitleFr: "« Que ta langue ne cesse d’être humide par l’évocation d’Allah »",
+      coverNote: "✦ 5 rappels authentiques pour illuminer ta journée ✦",
+      slide2: {
+        item1: { dhikr: "سُبْحَانَ اللَّهِ", count: "(33 مرة)", fr: "« Gloire et pureté absolue à Allah »", merit: "✦ Plante un palmier au Paradis ✦" },
+        item2: { dhikr: "الْحَمْدُ لِلَّهِ", count: "(33 مرة)", fr: "« Toutes les louanges appartiennent à Allah »", merit: "✦ Remplit la balance des mérites ✦" }
+      },
+      slide3: {
+        item1: { dhikr: "لَا إِلَهَ إِلَّا اللَّهُ", count: "(33 مرة)", fr: "« Nul divinité digne d'adoration sauf Allah »", merit: "✦ La plus noble parole ✦" },
+        item2: { dhikr: "اللَّهُ أَكْبَرُ", count: "(34 مرة)", fr: "« Allah est infiniment plus Grand que tout »", merit: "✦ Plus précieux que ce bas monde ✦" }
+      },
+      slide4: {
+        item1: { dhikr: "أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ", count: "(100 مرة)", fr: "« Je demande pardon à Allah et me repens à Lui »", merit: "✦ Efface les fautes et ouvre les cœurs ✦" },
+        item2: { dhikr: "اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ", count: "(10 مرات)", fr: "« Ô Allah, prie et salue notre Prophète Muhammad »", merit: "✦ 10 bénédictions en retour ✦" }
+      },
+      slide5: {
+        closingAyah: "﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾",
+        closingAyahFr: "« N’est-ce point par l’évocation d’Allah que les cœurs se tranquillisent ? »",
+        source: "Sourate Ar-Ra'd — Verset 28",
+        ctaTitle: "احفظ هذا الذكر لتكراره يومياً 🤍",
+        ctaFr: "Enregistre ce carrousel pour réciter chaque jour et partage la récompense"
+      }
+    };
+  }
+
+  const badgeText = (hookOverride || pack.badge || pack.hook || "أذكار مباركة 🤍").slice(0, 24);
+  const hookPill = (hookOverride || pack.hook || badgeText).slice(0, 24);
+  const coverTitle = pack.coverTitle || "« لَا يَزَالُ لِسَانُكَ رَطْبًا مِنْ ذِكْرِ اللَّهِ »";
+  const coverSubtitleFr = pack.coverSubtitleFr || "« Que ta langue ne cesse d’être humide par l’évocation d’Allah »";
+  const coverNote = pack.coverNote || "✦ 5 rappels authentiques pour illuminer ta journée ✦";
 
   const getHeaderAndDefs = (slideIndex, totalSlides = 5) => `<?xml version="1.0" encoding="UTF-8"?>
 <svg width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg">
@@ -1014,162 +1065,176 @@ function generateCarouselSvgSlides(item, hookOverride = '') {
   const slides = [];
 
   // SLIDE 1: Cover Hook Slide
+  const titleLines = wrapWords(coverTitle, 28);
+  const titleFontSize = titleLines.length > 2 ? 36 : 42;
+  const titleLineHeight = titleLines.length > 2 ? 48 : 56;
+  const titleStartY = 680 - ((titleLines.length - 1) * titleLineHeight) / 2;
+
+  const subLines = wrapWords(coverSubtitleFr, 42);
+  const subStartY = 870;
+
+  const noteLines = wrapWords(coverNote, 46);
+  const noteStartY = 1040;
+
   slides.push(`${getHeaderAndDefs(1, 5)}
   <!-- Header Hook Capsule Pill -->
-  <g transform="translate(540, 360)" filter="url(#softShadow)">
-    <rect x="-260" y="-42" width="520" height="84" rx="42" fill="#FFFFFF" stroke="#E5E0D8" stroke-width="2" />
-    <text x="0" y="12" font-family="'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif" font-size="38" font-weight="bold" fill="#1C1917" text-anchor="middle">
-      ${escapeXml(baseHook)}
+  <g transform="translate(540, 340)" filter="url(#softShadow)">
+    <rect x="-240" y="-38" width="480" height="76" rx="38" fill="#FFFFFF" stroke="#E5E0D8" stroke-width="2" />
+    <text x="0" y="12" font-family="'Amiri Quran', 'Amiri', serif" font-size="30" font-weight="bold" fill="#1C1917" text-anchor="middle">
+      ${escapeXml(hookPill)}
     </text>
   </g>
 
   <!-- Main Card -->
-  <rect x="70" y="470" width="940" height="780" rx="32" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" filter="url(#softShadow)" />
+  <rect x="70" y="440" width="940" height="880" rx="32" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" filter="url(#softShadow)" />
 
-  <!-- Islamic Emblem -->
-  <g transform="translate(540, 580) scale(1.2)" stroke="#d97706" stroke-width="1.5" fill="rgba(217, 119, 6, 0.12)">
+  <!-- Emblem -->
+  <g transform="translate(540, 540) scale(1.2)" stroke="#d97706" stroke-width="1.5" fill="rgba(217, 119, 6, 0.12)">
     <rect x="-18" y="-18" width="36" height="36" rx="4" />
     <rect x="-18" y="-18" width="36" height="36" rx="4" transform="rotate(45)" />
     <circle cx="0" cy="0" r="7" fill="#d97706" />
   </g>
 
-  <!-- Arabic Reminder Hadith -->
-  <text x="540" y="760" font-family="'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif" font-size="44" font-weight="bold" fill="#1C1917" text-anchor="middle">
-    « لَا يَزَالُ لِسَانُكَ رَطْبًا مِنْ ذِكْرِ اللَّهِ »
+  <!-- Title -->
+  <text font-family="'Amiri Quran', 'Amiri', serif" font-size="${titleFontSize}" font-weight="bold" fill="#1C1917" text-anchor="middle">
+    ${titleLines.map((l, idx) => `<tspan x="540" y="${titleStartY + idx * titleLineHeight}">${escapeXml(l)}</tspan>`).join('')}
   </text>
 
   <!-- Divider -->
-  <line x1="280" y1="840" x2="800" y2="840" stroke="#E2DDD5" stroke-width="1.5" stroke-dasharray="6,4" />
+  <line x1="280" y1="810" x2="800" y2="810" stroke="#E2DDD5" stroke-width="1.5" stroke-dasharray="6,4" />
 
-  <!-- French Meaning -->
-  <text x="540" y="930" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="28" font-weight="600" fill="#44403C" text-anchor="middle">
-    « Que ta langue ne cesse d’être humide
-  </text>
-  <text x="540" y="975" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="28" font-weight="600" fill="#44403C" text-anchor="middle">
-    par l’évocation d’Allah »
+  <!-- Subtitle FR -->
+  <text font-family="'Plus Jakarta Sans', sans-serif" font-size="25" font-weight="600" fill="#44403C" text-anchor="middle">
+    ${subLines.map((l, idx) => `<tspan x="540" y="${subStartY + idx * 38}">${escapeXml(l)}</tspan>`).join('')}
   </text>
 
-  <!-- Secondary Note -->
-  <text x="540" y="1120" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="23" font-weight="bold" fill="#78716C" text-anchor="middle">
-    ✦ 5 rappels courts pour illuminer ta journée ✦
+  <!-- Merit Note -->
+  <text font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">
+    ${noteLines.map((l, idx) => `<tspan x="540" y="${noteStartY + idx * 34}">${escapeXml(l)}</tspan>`).join('')}
   </text>
 
-  <!-- Bottom CTA Swipe Button -->
-  <g transform="translate(540, 1420)" filter="url(#softShadow)">
-    <rect x="-180" y="-34" width="360" height="68" rx="34" fill="#1C1917" />
-    <text x="0" y="9" font-family="'Plus Jakarta Sans', -apple-system, sans-serif" font-size="24" font-weight="700" fill="#FFFFFF" text-anchor="middle">
+  <!-- CTA Swipe Button -->
+  <g transform="translate(540, 1440)" filter="url(#softShadow)">
+    <rect x="-190" y="-34" width="380" height="68" rx="34" fill="#1C1917" />
+    <text x="0" y="9" font-family="'Plus Jakarta Sans', sans-serif" font-size="23" font-weight="700" fill="#FFFFFF" text-anchor="middle">
       Glisse pour réciter ➔
     </text>
   </g>
 </svg>`);
 
-  // SLIDE 2: Tasbeeh & Tahmeed
-  slides.push(`${getHeaderAndDefs(2, 5)}
-  <!-- Card 1: Tasbeeh -->
-  <g transform="translate(540, 480)" filter="url(#softShadow)">
-    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
-    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
-    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
-    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="58" font-weight="bold" fill="#1C1917" text-anchor="middle">سُبْحَانَ اللَّهِ</text>
-    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Gloire et pureté absolue à Allah »</text>
-    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Plante un palmier pour toi au Paradis ✦</text>
-  </g>
+  // Helper for Slides 2, 3, 4
+  function renderCard(item, yCenter) {
+    const arLines = wrapWords(item.dhikr, 32);
+    const arFontSize = arLines.length > 2 ? 34 : (arLines.length > 1 ? 40 : 48);
+    const arLineHeight = arLines.length > 2 ? 46 : 54;
+    const arStartY = yCenter - 80 - ((arLines.length - 1) * arLineHeight) / 2;
 
-  <!-- Card 2: Tahmeed -->
-  <g transform="translate(540, 1070)" filter="url(#softShadow)">
-    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
-    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
-    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
-    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="58" font-weight="bold" fill="#1C1917" text-anchor="middle">الْحَمْدُ لِلَّهِ</text>
-    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Toutes les louanges appartiennent à Allah »</text>
-    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Remplit la balance des bonnes actions ✦</text>
+    const frLines = wrapWords(item.fr, 44);
+    const frStartY = yCenter + 25;
+
+    const meritLines = wrapWords(item.merit, 46);
+    const meritStartY = yCenter + 155;
+
+    return `
+  <!-- Dhikr Card at Y=${yCenter} -->
+  <g transform="translate(540, ${yCenter})" filter="url(#softShadow)">
+    <rect x="-460" y="-260" width="920" height="520" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
+    <!-- Count Badge -->
+    <rect x="230" y="-230" width="180" height="42" rx="14" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+    <text x="320" y="-202" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="bold" fill="#78716C" text-anchor="middle">${escapeXml(item.count || '(مرة واحدة)')}</text>
   </g>
+  <!-- Arabic -->
+  <text font-family="'Amiri Quran', 'Amiri', serif" font-size="${arFontSize}" font-weight="bold" fill="#1C1917" text-anchor="middle">
+    ${arLines.map((l, idx) => `<tspan x="540" y="${arStartY + idx * arLineHeight}">${escapeXml(l)}</tspan>`).join('')}
+  </text>
+  <!-- French -->
+  <text font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="600" fill="#44403C" text-anchor="middle">
+    ${frLines.map((l, idx) => `<tspan x="540" y="${frStartY + idx * 36}">${escapeXml(l)}</tspan>`).join('')}
+  </text>
+  <!-- Merit -->
+  <text font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="bold" fill="#d97706" text-anchor="middle">
+    ${meritLines.map((l, idx) => `<tspan x="540" y="${meritStartY + idx * 32}">${escapeXml(l)}</tspan>`).join('')}
+  </text>`;
+  }
+
+  // Slide 2, 3, 4
+  const slideKeys = ['slide2', 'slide3', 'slide4'];
+  slideKeys.forEach((key, idx) => {
+    const sData = pack[key] || {
+      item1: { dhikr: "سُبْحَانَ اللَّهِ", count: "(33x)", fr: "« Gloire à Allah »", merit: "✦ Mérite sublime ✦" },
+      item2: { dhikr: "الْحَمْدُ لِلَّهِ", count: "(33x)", fr: "« Louange à Allah »", merit: "✦ Remplit la balance ✦" }
+    };
+    slides.push(`${getHeaderAndDefs(idx + 2, 5)}
+    ${renderCard(sData.item1, 560)}
+    ${renderCard(sData.item2, 1180)}
 </svg>`);
+  });
 
-  // SLIDE 3: Tahleel & Takbeer
-  slides.push(`${getHeaderAndDefs(3, 5)}
-  <!-- Card 1: Tahleel -->
-  <g transform="translate(540, 480)" filter="url(#softShadow)">
-    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
-    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
-    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
-    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="52" font-weight="bold" fill="#1C1917" text-anchor="middle">لَا إِلَهَ إِلَّا اللَّهُ</text>
-    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Il n’y a de divinité digne d’adoration qu’Allah »</text>
-    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ La meilleure parole prononcée par les Prophètes ✦</text>
-  </g>
+  // Slide 5: Closing Ayah & CTA
+  const slide5Data = pack.slide5 || {
+    closingAyah: "﴿أَلَا بِذِكْرِ اللَّهِ تَطْمَئِنُّ الْقُلُوبُ﴾",
+    closingAyahFr: "« N’est-ce point par l’évocation d’Allah que les cœurs se tranquillisent ? »",
+    source: "Sourate Ar-Ra'd — Verset 28",
+    ctaTitle: "احفظ هذا الذكر لتكراره يومياً 🤍",
+    ctaFr: "Enregistre ce carrousel pour réciter chaque jour et partage la récompense"
+  };
 
-  <!-- Card 2: Takbeer -->
-  <g transform="translate(540, 1070)" filter="url(#softShadow)">
-    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
-    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
-    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
-    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="58" font-weight="bold" fill="#1C1917" text-anchor="middle">اللَّهُ أَكْبَرُ</text>
-    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Allah est infiniment plus Grand que tout »</text>
-    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Plus précieux que le monde et ce qu’il contient ✦</text>
-  </g>
-</svg>`);
+  const ayahLines = wrapWords(slide5Data.closingAyah, 30);
+  const ayahFontSize = ayahLines.length > 2 ? 34 : 40;
+  const ayahLineHeight = 52;
+  const ayahStartY = 540 - ((ayahLines.length - 1) * ayahLineHeight) / 2;
 
-  // SLIDE 4: Istighfar & Salawat
-  slides.push(`${getHeaderAndDefs(4, 5)}
-  <!-- Card 1: Istighfar -->
-  <g transform="translate(540, 480)" filter="url(#softShadow)">
-    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
-    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
-    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
-    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="46" font-weight="bold" fill="#1C1917" text-anchor="middle">أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ</text>
-    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">« Je demande pardon à Allah et je reviens à Lui »</text>
-    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Efface les péchés et dissipe les angoisses ✦</text>
-  </g>
+  const ayahFrLines = wrapWords(slide5Data.closingAyahFr, 44);
+  const ayahFrStartY = 720;
 
-  <!-- Card 2: Salawat -->
-  <g transform="translate(540, 1070)" filter="url(#softShadow)">
-    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
-    <rect x="-420" y="-195" width="140" height="50" rx="16" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
-    <text x="-350" y="-163" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="700" fill="#78716C" text-anchor="middle">(3 مرات)</text>
-    <text x="0" y="-40" font-family="'Amiri Quran', 'Amiri', serif" font-size="42" font-weight="bold" fill="#1C1917" text-anchor="middle">اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ</text>
-    <text x="0" y="35" font-family="'Plus Jakarta Sans', sans-serif" font-size="25" font-weight="600" fill="#44403C" text-anchor="middle">« Ô Allah, prie et salue notre Prophète Muhammad »</text>
-    <text x="0" y="115" font-family="'Plus Jakarta Sans', sans-serif" font-size="21" font-weight="bold" fill="#d97706" text-anchor="middle">✦ Allah t’accorde 10 bénédictions en retour ✦</text>
-  </g>
-</svg>`);
+  const ctaFrLines = wrapWords(slide5Data.ctaFr, 42);
 
-  // SLIDE 5: Closing Ayah & CTA Slide
   slides.push(`${getHeaderAndDefs(5, 5)}
   <!-- Closing Card -->
-  <g transform="translate(540, 520)" filter="url(#softShadow)">
-    <rect x="-460" y="-230" width="920" height="460" rx="30" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
-    <text x="0" y="-55" font-family="'Amiri Quran', 'Amiri', serif" font-size="44" font-weight="bold" fill="#1C1917" text-anchor="middle">
-      ${escapeXml(closingAyah)}
-    </text>
-    <text x="0" y="20" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#44403C" text-anchor="middle">
-      « Et rappelle, car le rappel profite aux croyants »
-    </text>
-    <!-- Reference pill -->
-    <rect x="-240" y="70" width="480" height="48" rx="24" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
-    <text x="0" y="102" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="bold" fill="#78716C" text-anchor="middle">
-      ✦ ${escapeXml(bookSurah)} — ${escapeXml(ayahRef)} ✦
-    </text>
+  <g transform="translate(540, 600)" filter="url(#softShadow)">
+    <rect x="-460" y="-270" width="920" height="540" rx="32" fill="url(#cardGrad)" stroke="#E7E2DA" stroke-width="2" />
+    <!-- Emblem -->
+    <circle cx="0" cy="-190" r="24" fill="rgba(217, 119, 6, 0.12)" stroke="#d97706" stroke-width="1.5" />
+    <text x="0" y="-180" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="bold" fill="#d97706" text-anchor="middle">۞</text>
+  </g>
+
+  <!-- Ayah Arabic -->
+  <text font-family="'Amiri Quran', 'Amiri', serif" font-size="${ayahFontSize}" font-weight="bold" fill="#1C1917" text-anchor="middle">
+    ${ayahLines.map((l, idx) => `<tspan x="540" y="${ayahStartY + idx * ayahLineHeight}">${escapeXml(l)}</tspan>`).join('')}
+  </text>
+
+  <!-- Ayah French -->
+  <text font-family="'Plus Jakarta Sans', sans-serif" font-size="24" font-weight="600" fill="#44403C" text-anchor="middle">
+    ${ayahFrLines.map((l, idx) => `<tspan x="540" y="${ayahFrStartY + idx * 36}">${escapeXml(l)}</tspan>`).join('')}
+  </text>
+
+  <!-- Source Badge -->
+  <g transform="translate(540, 810)">
+    <rect x="-240" y="-23" width="480" height="46" rx="23" fill="#F5F5F4" stroke="#E7E5E4" stroke-width="1" />
+    <text x="0" y="8" font-family="'Plus Jakarta Sans', sans-serif" font-size="20" font-weight="bold" fill="#78716C" text-anchor="middle">✦ ${escapeXml(slide5Data.source)} ✦</text>
   </g>
 
   <!-- CTA Box -->
-  <g transform="translate(540, 1140)" filter="url(#softShadow)">
-    <rect x="-460" y="-220" width="920" height="440" rx="32" fill="#1C1917" stroke="#292524" stroke-width="2" />
-    <text x="0" y="-90" font-family="'Amiri Quran', 'Amiri', serif" font-size="38" font-weight="bold" fill="#FEF08A" text-anchor="middle">
-      احفظ المنشور لتكرارها يومياً 🤍
-    </text>
-    <text x="0" y="-20" font-family="'Plus Jakarta Sans', sans-serif" font-size="26" font-weight="600" fill="#F8FAFC" text-anchor="middle">
-      Enregistre ce carrousel pour réciter chaque jour
-    </text>
-    <text x="0" y="45" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="500" fill="#CBD5E1" text-anchor="middle">
-      Partage pour récolter les récompenses (Sadaqah Jariyah 🤲)
-    </text>
-    <text x="0" y="125" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="bold" fill="#94A3B8" text-anchor="middle">
-      Sauvegarde 🔖 • Partage ↗️ • Like ❤️
+  <g transform="translate(540, 1220)" filter="url(#softShadow)">
+    <rect x="-460" y="-230" width="920" height="460" rx="32" fill="#1C1917" stroke="#292524" stroke-width="2" />
+    <text x="0" y="-110" font-family="'Amiri Quran', 'Amiri', serif" font-size="38" font-weight="bold" fill="#FEF08A" text-anchor="middle">
+      ${escapeXml(slide5Data.ctaTitle)}
     </text>
   </g>
+  <text font-family="'Plus Jakarta Sans', sans-serif" font-size="25" font-weight="600" fill="#F8FAFC" text-anchor="middle">
+    ${ctaFrLines.map((l, idx) => `<tspan x="540" y="${1180 + idx * 38}">${escapeXml(l)}</tspan>`).join('')}
+  </text>
+  <text x="540" y="1290" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="500" fill="#CBD5E1" text-anchor="middle">
+    Partage pour récolter les récompenses (Sadaqah Jariyah 🤲)
+  </text>
+  <text x="540" y="1370" font-family="'Plus Jakarta Sans', sans-serif" font-size="22" font-weight="bold" fill="#94A3B8" text-anchor="middle">
+    Sauvegarde 🔖 • Partage ↗️ • Like ❤️
+  </text>
 </svg>`);
 
   return slides;
 }
+
 
 // Dynamic Viral Islamic Hashtags Generator (TikTok FYP, Instagram Reels Explore, YouTube Shorts)
 function getViralIslamicTags(type, platform = 'all', limit = 14) {
@@ -1387,14 +1452,31 @@ async function runCloudAutoPilot() {
   console.log(`🪝 Active Viral 3-Second Hook: "${viralHook}"`);
   fs.writeFileSync(svgPath, generatePosterSvg(item, viralHook), 'utf8');
 
-  // Determine if this cycle generates a 5-Slide Carousel (Adhkar routine or alternating cycle)
-  const isCarouselCycle = (theme.category === 'adhkar_routine') || (currentIdx % 2 === 1);
-  console.log(`📑 Cycle Format: ${isCarouselCycle ? 'Carrousel Multi-Slides 5p (Instagram) + Reel Vidéo (TikTok / YouTube)' : 'Reel Vidéo Plein Écran (Toutes plateformes)'}`);
+  // 1. Determine Carousel eligibility: strictly ONCE per day (20-hour minimum cooldown)
+  const lastCarouselTime = reg.lastCarouselRunAt ? new Date(reg.lastCarouselRunAt).getTime() : 0;
+  const hoursSinceLastCarousel = (Date.now() - lastCarouselTime) / (1000 * 60 * 60);
+  const currentUtcHour = new Date().getUTCHours();
+  const isMorningSlot = (currentUtcHour >= 5 && currentUtcHour <= 10);
+
+  // Exactly ONCE a day: only when 20+ hours have passed AND either in morning/adhkar or if > 23h elapsed
+  const isCarouselCycle = (hoursSinceLastCarousel >= 20) && (isMorningSlot || theme.id === 'theme-adhkar' || hoursSinceLastCarousel >= 23);
+  console.log(`📑 Cycle Format: ${isCarouselCycle ? 'Carrousel Quotidien Inédit 5p (Instagram) + Reel Vidéo (TikTok / YouTube)' : 'Reel Vidéo Plein Écran (Toutes plateformes)'}`);
+  console.log(`⏳ Cooldown Carrousel: ${hoursSinceLastCarousel.toFixed(1)}h écoulées depuis le dernier carrousel (Seuil: 20h)`);
 
   let carouselSlideUrls = [];
-  if (isCarouselCycle) {
-    console.log('🎨 Generating 5 High-Quality SVG Carousel Slides (Cream Aesthetic)...');
-    const svgSlides = generateCarouselSvgSlides(item, viralHook);
+  let activeCarouselPack = null;
+
+  if (isCarouselCycle && DAILY_CAROUSEL_PACKS.length > 0) {
+    const publishedPackIds = Array.isArray(reg.publishedCarouselPackIds) ? reg.publishedCarouselPackIds : [];
+    activeCarouselPack = DAILY_CAROUSEL_PACKS.find(p => !publishedPackIds.includes(p.id));
+    if (!activeCarouselPack) {
+      // Cycled through all 30 packs, loop cleanly
+      activeCarouselPack = DAILY_CAROUSEL_PACKS[publishedPackIds.length % DAILY_CAROUSEL_PACKS.length];
+    }
+
+    console.log(`🌟 Selected Daily Carousel Pack [Jour ${activeCarouselPack.dayNumber || 1}]: "${activeCarouselPack.themeTitle}" (${activeCarouselPack.hook})`);
+    console.log('🎨 Generating 5 High-Quality SVG Carousel Slides (Cream Aesthetic, No Text Overflow)...');
+    const svgSlides = generateCarouselSvgSlides(activeCarouselPack);
     for (let i = 0; i < svgSlides.length; i++) {
       const slideNum = i + 1;
       const slideSvgPath = path.join(tempDir, `carousel_slide_${slideNum}.svg`);
@@ -1467,7 +1549,12 @@ async function runCloudAutoPilot() {
   }
 
   const cleanCaptionFr = (item.translationFr || '').replace(/^[«"“' ]+|[»"”' ]+$/g, '').trim();
-  const igCaption = `${sunnahCallout}${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${igTags}${extraTags}`;
+
+  // Custom caption for Carousel post if carousel cycle, else standard Video Reel caption
+  const igCaption = (isCarouselCycle && activeCarouselPack && carouselSlideUrls.length > 0)
+    ? `${activeCarouselPack.badge} • ${activeCarouselPack.themeTitle}\n\n${activeCarouselPack.coverTitle}\n\n« ${activeCarouselPack.coverSubtitleFr.replace(/^[«"“' ]+|[»"”' ]+$/g, '')} »\n\n📌 5 rappels authentiques à faire défiler et réciter.\n📍 ${activeCarouselPack.slide5.source}\n\n🤍 Enregistre ce carrousel pour le retrouver facilement et partage pour la récompense (Sadaqah Jariyah 🤲).\n\n${igTags}${extraTags}`
+    : `${sunnahCallout}${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${igTags}${extraTags}`;
+
   const ttCaption = `${sunnahCallout}${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n📍 ${item.bookOrSurah} — ${item.numberOrAyah}\n\n${ttTags}${extraTags}`;
   const ytCaption = `${item.bookOrSurah} — ${item.numberOrAyah} 🕋\n\n${sunnahCallout}${item.arabicText}\n\n« ${cleanCaptionFr} »\n\n${ytTags}${extraTags}`;
 
@@ -1475,7 +1562,8 @@ async function runCloudAutoPilot() {
   try {
     if (isCarouselCycle && carouselSlideUrls.length > 0) {
       console.log('📤 Publishing Multi-Slide Carousel (5 slides) to Instagram (@kae.islamic)...');
-      const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, carouselSlideUrls, 'instagram', `${item.bookOrSurah} — ${item.numberOrAyah}`);
+      const igPostTitle = activeCarouselPack ? `${activeCarouselPack.badge} • ${activeCarouselPack.themeTitle}` : `${item.bookOrSurah} — ${item.numberOrAyah}`;
+      const igRes = await publishToBuffer(INSTAGRAM_CHANNEL_ID, igCaption, carouselSlideUrls, 'instagram', igPostTitle);
       if (igRes?.status || igRes?.id) {
         console.log('✅ Instagram 5-Slide Carousel queued successfully in Buffer!');
       } else if (igRes?.isRateLimited) {
@@ -1553,18 +1641,25 @@ async function runCloudAutoPilot() {
 
   // 7. Update Registry & Advance to Next Theme
   reg.currentIndex = (currentIdx + 1) % THEMES.length;
+  if (isCarouselCycle && activeCarouselPack && carouselSlideUrls.length > 0) {
+    reg.lastCarouselRunAt = reg.lastRunAt || new Date().toISOString();
+    reg.lastCarouselPackId = activeCarouselPack.id;
+    if (!Array.isArray(reg.publishedCarouselPackIds)) reg.publishedCarouselPackIds = [];
+    reg.publishedCarouselPackIds.push(activeCarouselPack.id);
+  }
   reg.publishedItems.push({
     id: `autopilot-${Date.now()}`,
     timestamp: reg.lastRunAt,
     theme: theme.title,
     type: item.type,
     format: (isCarouselCycle && carouselSlideUrls.length > 0) ? 'carousel' : 'reel',
-    bookOrSurah: item.bookOrSurah,
-    numberOrAyah: item.numberOrAyah,
+    carouselPackId: (isCarouselCycle && activeCarouselPack) ? activeCarouselPack.id : undefined,
+    bookOrSurah: (isCarouselCycle && activeCarouselPack) ? `${activeCarouselPack.badge} • ${activeCarouselPack.themeTitle}` : item.bookOrSurah,
+    numberOrAyah: (isCarouselCycle && activeCarouselPack) ? activeCarouselPack.slide5.source : item.numberOrAyah,
     surahNumber: item.surahNumber,
     ayahNumber: item.ayahNumber,
-    arabicText: item.arabicText,
-    translationFr: item.translationFr,
+    arabicText: (isCarouselCycle && activeCarouselPack) ? activeCarouselPack.coverTitle : item.arabicText,
+    translationFr: (isCarouselCycle && activeCarouselPack) ? activeCarouselPack.coverSubtitleFr : item.translationFr,
     translationEn: item.translationEn,
     contentHash: contentHash(item.arabicText),
     audioUrl: item.audioUrl,
