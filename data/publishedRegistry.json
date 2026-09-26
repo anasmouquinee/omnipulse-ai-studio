@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1586,11 +1586,44 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790381397460",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-masaa",
+      "bookOrSurah": "أذكار المساء 🌙 • Routine Adhkar du Soir & Paix Intérieure",
+      "numberOrAyah": "Sourate Ta-Ha — Verset 130",
+      "surahNumber": 110,
+      "ayahNumber": 3,
+      "arabicText": "« أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ »",
+      "translationFr": "« Nous voici au soir et la royauté appartient à Allah, Seigneur des mondes »",
+      "translationEn": "« Two words are light on the tongue, heavy in the balance, and beloved to the Most Merciful: Subhan Allahi wa bihamdihi, Subhan Allahil Azeem. »",
+      "contentHash": "كلمتان خفيفتان على اللسان ⚖️\nث",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6215.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790381371/fywackaiyhx8kebxdxwd.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790381363/gmtuxoffsctyamdo2ota.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790381364/goejgaiy6xckapqdsljq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790381365/zmmn1y5gfxjxmijpa2yz.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790381366/lyo3rlqjxfpq62e65srs.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790381366/p2saadwsf2d8qbcfq0eo.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790381363/gmtuxoffsctyamdo2ota.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sabah",
+  "lastCarouselPackId": "carousel-masaa",
   "publishedCarouselPackIds": [
-    "carousel-sabah"
+    "carousel-sabah",
+    "carousel-masaa"
   ]
 }
