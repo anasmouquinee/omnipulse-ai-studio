@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1650,13 +1650,46 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790424374440",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-karb-relief",
+      "bookOrSurah": "تفريج الكرب 🤍 • Invocations Prophétiques contre l'Angoisse",
+      "numberOrAyah": "Sourate Al-Anbiya — Verset 88",
+      "surahNumber": 5,
+      "ayahNumber": 67,
+      "arabicText": "« دَعْوَةُ ذِي النُّونِ الَّتِي لَمْ يَدْعُ بِهَا مُسْلِمٌ إِلَّا اسْتُجِيبَ لَهُ »",
+      "translationFr": "« L’invocation de Dhun-Nun : nul croyant ne l'a récitée sans être exaucé »",
+      "translationEn": "Authentic supplications for protection and peace of mind. Recite them with faith to remove worry and protect your soul.",
+      "contentHash": "تحصين النفس والسكينة 🛡️\nأعوذ ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/736.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790424339/km4mffblgshoo2jcheup.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790424324/ed3rphqzcvk2grlnndwt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790424325/qxl6ovb5seo0p9brzbl5.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790424325/zfndty0lzbaap2obnivw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790424326/c2sremutk0mkd24kd31k.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790424327/scgpfynbvt5ajtyfft9l.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790424324/ed3rphqzcvk2grlnndwt.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-4-treasures",
+  "lastCarouselPackId": "carousel-karb-relief",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
-    "carousel-4-treasures"
+    "carousel-4-treasures",
+    "carousel-karb-relief"
   ]
 }
