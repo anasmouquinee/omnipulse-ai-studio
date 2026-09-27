@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1746,16 +1746,49 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790532360921",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-jumuah-sunan",
+      "bookOrSurah": "سنن الجمعة 🕌 • Sunan & Mérites du Vendredi Béni",
+      "numberOrAyah": "Sourate Al-Jumu'ah — Verset 9",
+      "surahNumber": 11,
+      "ayahNumber": 88,
+      "arabicText": "« خَيْرُ يَوْمٍ طَلَعَتْ عَلَيْهِ الشَّمْسُ يَوْمُ الْجُمُعَةِ »",
+      "translationFr": "« Le meilleur jour sur lequel le soleil s'est levé est le jour du vendredi »",
+      "translationEn": "The prophetic supplication of Al-Istikhara for seeking divine guidance before any major life decision.",
+      "contentHash": "دعاء الاستخارة في الأمر 🧭\nالل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1561.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790532325/jg302eylczlnbnmzoe7p.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790532302/kuchpclhkedckoqmu6ly.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790532303/bhvfptbhsk98qzphgaz2.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790532304/hf5rkxtdwamtdv3gz6f1.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790532306/cqvnrj2pwkwhpyc5vz92.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790532306/ro209txwrf5xedqpqrnt.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790532302/kuchpclhkedckoqmu6ly.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-rizq-barakah",
+  "lastCarouselPackId": "carousel-jumuah-sunan",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
     "carousel-4-treasures",
     "carousel-karb-relief",
     "carousel-sayyid-istighfar",
-    "carousel-rizq-barakah"
+    "carousel-rizq-barakah",
+    "carousel-jumuah-sunan"
   ]
 }
