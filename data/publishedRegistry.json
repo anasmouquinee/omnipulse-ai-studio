@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1682,14 +1682,47 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790489259152",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-sayyid-istighfar",
+      "bookOrSurah": "سيد الاستغفار ✨ • Le Maître du Pardon & Clés de la Rédemption",
+      "numberOrAyah": "Sourate Nuh — Versets 10-11",
+      "surahNumber": 4,
+      "ayahNumber": 103,
+      "arabicText": "« سَيِّدُ الاسْتِغْفَارِ أَنْ تَقُولَ اللَّهُمَّ أَنْتَ رَبِّي »",
+      "translationFr": "« La formule maîtresse de la demande de pardon est de dire : Ô Allah, Tu es mon Seigneur »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever recites Ayat al-Kursi after every obligatory prayer, nothing prevents him from entering Paradise except death.'",
+      "contentHash": "أذكار بعد الصلاة المكتوبة 📿\nأ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/596.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790489224/an4lpiyergtsrq6ylrrz.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790489202/vnw5khgbhsetz8rwabtv.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790489203/wqpria4zqriwdcg755xy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790489204/qan0quexio1al5scalqg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790489204/qhrucolcd90rwkxow7gy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790489205/gkf86e9r3c4lcyefspie.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790489202/vnw5khgbhsetz8rwabtv.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-karb-relief",
+  "lastCarouselPackId": "carousel-sayyid-istighfar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
     "carousel-4-treasures",
-    "carousel-karb-relief"
+    "carousel-karb-relief",
+    "carousel-sayyid-istighfar"
   ]
 }
