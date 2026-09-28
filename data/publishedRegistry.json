@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1842,10 +1842,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790597250400",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-baqiyat-salihat",
+      "bookOrSurah": "الباقيات الصالحات 💎 • Les Œuvres Durables & Vertueuses",
+      "numberOrAyah": "Sourate Al-Kahf — Verset 46",
+      "surahNumber": 98,
+      "ayahNumber": 5,
+      "arabicText": "« خُذُوا جُنَّتَكُمْ مِنَ النَّارِ : سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ »",
+      "translationFr": "« Prenez votre bouclier contre le Feu : SubhanAllah, Alhamdulillah... »",
+      "translationEn": "The Prophet ﷺ said: 'Actions are judged only by intentions, and every person will have only that which he intended.'",
+      "contentHash": "إنما الأعمال بالنيات، وإنما لك",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6134.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790597215/mciqrio6jgmr3mvgh3lv.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790597203/vwlmqqjt19ojfhdmpbmk.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790597204/xlka9ts7wtd7ahh8h6xc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790597206/jjdktgen87072v7t9qvy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790597207/bqpbezgeavjayjufiw34.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790597208/rgr98jokdvxo4wrf8bla.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790597203/vwlmqqjt19ojfhdmpbmk.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-shifa-ruqyah",
+  "lastCarouselPackId": "carousel-baqiyat-salihat",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -1855,6 +1887,7 @@
     "carousel-rizq-barakah",
     "carousel-jumuah-sunan",
     "carousel-qiyam-tahajjud",
-    "carousel-shifa-ruqyah"
+    "carousel-shifa-ruqyah",
+    "carousel-baqiyat-salihat"
   ]
 }
