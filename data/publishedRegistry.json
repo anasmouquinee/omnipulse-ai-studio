@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1778,10 +1778,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790554360213",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-qiyam-tahajjud",
+      "bookOrSurah": "قيام الليل 🌙 • Sagesse du Dernier Tiers de la Nuit (Qiyam)",
+      "numberOrAyah": "Sourate As-Sajdah — Verset 16",
+      "surahNumber": 73,
+      "ayahNumber": 1,
+      "arabicText": "« يَنْزِلُ رَبُّنَا كُلَّ لَيْلَةٍ حِينَ يَبْقَى ثُلُثُ اللَّيْلِ الآخِرُ »",
+      "translationFr": "« Notre Seigneur descend chaque nuit au ciel le plus proche au dernier tiers de la nuit »",
+      "translationEn": "“O you wrapped in garments! Arise [to pray] the night, except for a little - half of it - or subtract from it a little, or add to it, and recite the Qur'an with measured recitation.”",
+      "contentHash": "قم الليل إلا قليلا ۝ نصفه أو ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5476.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790554334/apyn7dfxzkm40sp38spw.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790554326/ignttb3vcdqipyucay70.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790554327/kq24t4l5wmashyhkuxjt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790554328/vfgveibehesuxeaakhzq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790554329/ofs2bqgbskztt3as8rig.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790554330/dznsbswzlvsayk8nydsn.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790554326/ignttb3vcdqipyucay70.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-jumuah-sunan",
+  "lastCarouselPackId": "carousel-qiyam-tahajjud",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -1789,6 +1821,7 @@
     "carousel-karb-relief",
     "carousel-sayyid-istighfar",
     "carousel-rizq-barakah",
-    "carousel-jumuah-sunan"
+    "carousel-jumuah-sunan",
+    "carousel-qiyam-tahajjud"
   ]
 }
