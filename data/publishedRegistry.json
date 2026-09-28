@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1810,10 +1810,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790575784639",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "format": "carousel",
+      "carouselPackId": "carousel-shifa-ruqyah",
+      "bookOrSurah": "الشفاء والعافية 🕊️ • Invocations de Guérison & Protection Corporelle",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Verset 80",
+      "surahNumber": 97,
+      "ayahNumber": 1,
+      "arabicText": "« أَذْهِبِ الْبَاسَ رَبَّ النَّاسِ ، اشْفِ أَنْتَ الشَّافِي »",
+      "translationFr": "« Fais disparaître le mal, Ô Seigneur des hommes, guéris car Tu es le Seul Guérisseur »",
+      "translationEn": "“O Allah, You are Forgiving and love forgiveness, so forgive me!”",
+      "contentHash": "اللهم إنك عفو تحب العفو فاعف ع",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6126.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790575750/jwfzjdervxe20huwhatv.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790575742/gs6uqrhucggoc1qchc7e.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790575743/dr3rpnaxpgipfagym2yx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790575743/vkufebvxlsib2v5theim.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790575744/ttvwshswtkd63ovhp9ng.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790575745/g1dbmsj4qc3ymvaie6ku.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790575742/gs6uqrhucggoc1qchc7e.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-qiyam-tahajjud",
+  "lastCarouselPackId": "carousel-shifa-ruqyah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -1822,6 +1854,7 @@
     "carousel-sayyid-istighfar",
     "carousel-rizq-barakah",
     "carousel-jumuah-sunan",
-    "carousel-qiyam-tahajjud"
+    "carousel-qiyam-tahajjud",
+    "carousel-shifa-ruqyah"
   ]
 }
