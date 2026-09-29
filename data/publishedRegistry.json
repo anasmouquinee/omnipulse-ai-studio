@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1906,10 +1906,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790662097493",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-istikhara-tawakkul",
+      "bookOrSurah": "الاستخارة واليقين 🕊️ • Prière de Consultation & Prise de Décision",
+      "numberOrAyah": "Sourate Al-Imran — Verset 159",
+      "surahNumber": 2,
+      "ayahNumber": 255,
+      "arabicText": "« كَانَ النَّبِيُّ ﷺ يُعَلِّمُنَا الِاسْتِخَارَةَ فِي الْأُمُورِ كُلِّهَا »",
+      "translationFr": "« Le Prophète ﷺ nous enseignait la consultation dans toutes les affaires »",
+      "translationEn": "Treasures of remembrance before sleep 🤍",
+      "contentHash": "كنوز التسبيح قبل النوم 🤍",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/262.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790662062/xgezpfncbdsma7jskygg.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790662032/yamf7wpiltxih0bfubf1.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790662033/ajrtbvcurqgedvd06e49.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790662034/t1biisj5mgmkqv2psek5.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790662035/hqf5nxtti1nrm8xryv0f.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790662035/wroeg8mkwihofwwq5tsq.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790662032/yamf7wpiltxih0bfubf1.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-post-prayer",
+  "lastCarouselPackId": "carousel-istikhara-tawakkul",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -1921,6 +1953,7 @@
     "carousel-qiyam-tahajjud",
     "carousel-shifa-ruqyah",
     "carousel-baqiyat-salihat",
-    "carousel-post-prayer"
+    "carousel-post-prayer",
+    "carousel-istikhara-tawakkul"
   ]
 }
