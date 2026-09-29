@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1874,10 +1874,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790640749009",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-post-prayer",
+      "bookOrSurah": "أذكار الصلاة 🕌 • Évocations Prescrites Après la Prière",
+      "numberOrAyah": "Sourate An-Nisa — Verset 103",
+      "surahNumber": 28,
+      "ayahNumber": 77,
+      "arabicText": "« مَنْ سَبَّحَ اللَّهَ دُبُرَ كُلِّ صَلَاةٍ ثَلَاثًا وَثَلَاثِينَ »",
+      "translationFr": "« Quiconque glorifie Allah après chaque prière 33 fois... »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'Whoever enters the marketplace and recites this supplication, Allah writes for him a million good deeds and erases a million sins.'",
+      "contentHash": "دعاء السوق وألف ألف حسنة 🤍\nلا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3329.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790640713/zupcfwaylwgx2g369jcf.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790640685/obnosmqryqzeaub6kkf7.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790640686/w9eobsz18dkthxe5fw7d.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790640688/xjpu1onlqy902cnsyrxt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790640689/i6oq0xlkxfrr4bsqudsg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790640690/kikh2dew3kfyecrhiqfw.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790640685/obnosmqryqzeaub6kkf7.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-baqiyat-salihat",
+  "lastCarouselPackId": "carousel-post-prayer",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -1888,6 +1920,7 @@
     "carousel-jumuah-sunan",
     "carousel-qiyam-tahajjud",
     "carousel-shifa-ruqyah",
-    "carousel-baqiyat-salihat"
+    "carousel-baqiyat-salihat",
+    "carousel-post-prayer"
   ]
 }
