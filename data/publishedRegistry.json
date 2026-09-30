@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -1970,10 +1970,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790727100488",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-parents-dua",
+      "bookOrSurah": "بر الوالدين 🤍 • Invocations Sacrées pour les Pères et Mères",
+      "numberOrAyah": "Sourate Al-Isra — Verset 23",
+      "surahNumber": 71,
+      "ayahNumber": 10,
+      "arabicText": "« وَاخْفِضْ لَهُمَا جَنَاحَ الذُّلِّ مِنَ الرَّحْمَةِ وَقُل رَّبِّ ارْحَمْهُمَا »",
+      "translationFr": "« Et incline vers eux l’aile de l’humilité par miséricorde, et dis : Ô mon Seigneur, fais-leur miséricorde »",
+      "translationEn": "Seeking forgiveness brings provision, mends broken hearts, and opens doors you thought were locked forever.",
+      "contentHash": "استغفار تفريج الكروب 🤍\nأستغفر",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5429.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790727065/lmasqs4f1hc2atr6yl0a.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790727058/paojngcn8atf5eid9aj4.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790727059/wqpqshrajo0jvrsvuxqq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790727060/h51ymefssgwzdgph4vlk.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790727060/w4yuztjbtjx6dwxpjyhg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790727061/ch6bp3gcniacbb2wlden.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790727058/paojngcn8atf5eid9aj4.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-salawat-prophet",
+  "lastCarouselPackId": "carousel-parents-dua",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -1987,6 +2019,7 @@
     "carousel-baqiyat-salihat",
     "carousel-post-prayer",
     "carousel-istikhara-tawakkul",
-    "carousel-salawat-prophet"
+    "carousel-salawat-prophet",
+    "carousel-parents-dua"
   ]
 }
