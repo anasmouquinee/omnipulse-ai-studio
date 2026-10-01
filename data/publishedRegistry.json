@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2066,10 +2066,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790856453019",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-adhan-wudu",
+      "bookOrSurah": "الأذان والوضوء 🕌 • Évocations lors de l'Appel à la Prière & Après les Ablutions",
+      "numberOrAyah": "Sourate Al-Ma'idah — Verset 6",
+      "surahNumber": 7,
+      "ayahNumber": 31,
+      "arabicText": "« فُتِحَتْ لَهُ أَبْوَابُ الْجَنَّةِ الثَّمَانِيَةُ يَدْخُلُ مِنْ أَيِّهَا شَاءَ »",
+      "translationFr": "« Les huit portes du Paradis s'ouvrent à lui, il y entre par celle qu'il désire »",
+      "translationEn": "The Prophet ﷺ said: 'Indeed, Allah is Beautiful and He loves beauty.'",
+      "contentHash": "إن الله جميل يحب الجمال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/985.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790856416/ekuwmiyzlynrsxacevxx.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790856402/lvmhvv9u2qmomqqc5zmq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790856404/eyscpu0jsmm7h5kzj41f.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790856405/sr7v1wap6diw46umlzgy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790856405/v67sq8zewfgcnfgoyoka.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790856406/thwchyskcnpp06epttvq.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790856402/lvmhvv9u2qmomqqc5zmq.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sleep-waking",
+  "lastCarouselPackId": "carousel-adhan-wudu",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -2086,6 +2118,7 @@
     "carousel-salawat-prophet",
     "carousel-parents-dua",
     "carousel-leaving-home",
-    "carousel-sleep-waking"
+    "carousel-sleep-waking",
+    "carousel-adhan-wudu"
   ]
 }
