@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2098,10 +2098,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1790878024355",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-protection-evil-eye",
+      "bookOrSurah": "الحفظ والرقية 🛡️ • Bouclier Spirituel contre l'Œil et la Jalousie",
+      "numberOrAyah": "Sourate Al-Qalam — Verset 51",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« أُعِيذُكُمَا بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ »",
+      "translationFr": "« Je vous confie à la protection des paroles parfaites d'Allah contre tout démon et nuisible »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1790877988/v91fcow58l76ynj8ssnf.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790877971/wb7atenybc4mkblktl6j.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790877971/lwqdkqrxz1p85r4zqkyj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790877972/lot8zlgyw6sc2tsdzuqo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790877973/dw0glczrvlfsx7juomts.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790877974/mmbqivz9firx8vfegws2.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1790877971/wb7atenybc4mkblktl6j.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-adhan-wudu",
+  "lastCarouselPackId": "carousel-protection-evil-eye",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -2119,6 +2151,7 @@
     "carousel-parents-dua",
     "carousel-leaving-home",
     "carousel-sleep-waking",
-    "carousel-adhan-wudu"
+    "carousel-adhan-wudu",
+    "carousel-protection-evil-eye"
   ]
 }
