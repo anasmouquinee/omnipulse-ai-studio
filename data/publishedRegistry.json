@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2290,10 +2290,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791052588400",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-illness-visiting",
+      "bookOrSurah": "الشفاء وعيادة المريض 🤍 • Invocations de la Guérison & Visite aux Malades",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Verset 80",
+      "surahNumber": 12,
+      "ayahNumber": 64,
+      "arabicText": "« أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ »",
+      "translationFr": "« Je demande à Allah l'Immense, Seigneur de l'Immense Trône, de te guérir »",
+      "translationEn": "Morning remembrances create a divine spiritual shield for your entire day. Start your morning under Allah's care.",
+      "contentHash": "أذكار الصباح السريعة 🌅\nأصبحنا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1660.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791052553/bjljhcyj8vzokhh0baqr.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791052541/xjqdd0mayo1p898jkwe0.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791052542/gj7hugdmosdgcnc1lciy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791052543/igrwto9nmcb49suepbov.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791052544/lkmjnrnvc4gvwvil0pbe.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791052545/irovatjkhudkogibshrf.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791052541/xjqdd0mayo1p898jkwe0.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-travel-safar",
+  "lastCarouselPackId": "carousel-illness-visiting",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -2317,6 +2349,7 @@
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
     "carousel-heart-purification",
-    "carousel-travel-safar"
+    "carousel-travel-safar",
+    "carousel-illness-visiting"
   ]
 }
