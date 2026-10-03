@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2258,10 +2258,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791034171315",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "format": "carousel",
+      "carouselPackId": "carousel-travel-safar",
+      "bookOrSurah": "دعاء السفر ✈️ • Invocation Sacrée du Voyageur & Protection du Trajet",
+      "numberOrAyah": "Sourate Yunus — Verset 22",
+      "surahNumber": 35,
+      "ayahNumber": 15,
+      "arabicText": "« سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ »",
+      "translationFr": "« Gloire à Celui qui a mis ceci à notre service alors que nous n'étions pas capables de le dominer »",
+      "translationEn": "“O mankind, you are those in need of Allah, while Allah is the Free of need, the Praiseworthy.”",
+      "contentHash": "يا أيها الناس أنتم الفقراء إلى",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3675.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791034137/lgi9nnkx8af4gfwjjmzn.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791034126/sehao4ygfpkqb2a0yiyy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791034127/nvicpnbuhwvkxw1uynzt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791034127/oop3r6cybkrjf96i6rgf.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791034129/yzxpantqujed1zvfpjjy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791034129/uoa2ykeqjnaopbf0j09k.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791034126/sehao4ygfpkqb2a0yiyy.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-heart-purification",
+  "lastCarouselPackId": "carousel-travel-safar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -2284,6 +2316,7 @@
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
-    "carousel-heart-purification"
+    "carousel-heart-purification",
+    "carousel-travel-safar"
   ]
 }
