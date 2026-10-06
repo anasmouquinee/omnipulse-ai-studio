@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2418,10 +2418,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791288435983",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-fasting-iftar",
+      "bookOrSurah": "الصيام والإفطار 🌙 • Invocations & Vertus du Jeûne et de la Rupture",
+      "numberOrAyah": "Sourate Al-Haqqah — Verset 24",
+      "surahNumber": 2,
+      "ayahNumber": 261,
+      "arabicText": "« ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ »",
+      "translationFr": "« La soif est étanchée, les veines sont humectées, et la récompense est assurée si Allah le veut »",
+      "translationEn": "The Prophet ﷺ said: 'Charity does not decrease wealth, and no one forgives another except that Allah increases his honor.'",
+      "contentHash": "ما نقصت صدقة من مال، وما زاد ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/268.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791288400/rprihlflzcclbgjhymbq.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791288386/per5ofokd61sgzopjxxj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791288386/n5ehq5cafyta1o73mgz5.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791288387/wbdtbphx7bt4viequlld.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791288388/rkfowaxpgjb3gaunqwad.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791288389/bxhqkemcga1zwa37xt9d.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791288386/per5ofokd61sgzopjxxj.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-rain-thunder",
+  "lastCarouselPackId": "carousel-fasting-iftar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -2449,6 +2481,7 @@
     "carousel-illness-visiting",
     "carousel-anger-calmness",
     "carousel-entering-market",
-    "carousel-rain-thunder"
+    "carousel-rain-thunder",
+    "carousel-fasting-iftar"
   ]
 }
