@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2386,10 +2386,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791266884679",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-rain-thunder",
+      "bookOrSurah": "الغيث والرياح 🌧️ • Invocations de la Pluie, du Tonnerre et du Vent",
+      "numberOrAyah": "Sourate Ash-Shura — Verset 28",
+      "surahNumber": 12,
+      "ayahNumber": 64,
+      "arabicText": "« ثِنْتَانِ مَا تُرَدَّانِ : الدُّعَاءُ عِنْدَ النِّدَاءِ ، وَتَحْتَ الْمَطَرِ »",
+      "translationFr": "« Deux invocations ne sont jamais rejetées : l'appel à la prière et sous la pluie tombante »",
+      "translationEn": "Morning remembrances create a divine spiritual shield for your entire day. Start your morning under Allah's care.",
+      "contentHash": "أذكار الصباح السريعة 🌅\nأصبحنا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1660.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791266849/qhw3bar4bewromxn3wgu.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791266835/zpieuxl9mchzzp71zuev.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791266835/vsvah6eo1xfompza9llr.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791266836/gqqanxs2dosiszdbgoet.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791266837/q5flixn2bw1f71y7xhff.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791266838/zkzlvoyllwztspsvhfwz.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791266835/zpieuxl9mchzzp71zuev.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-entering-market",
+  "lastCarouselPackId": "carousel-rain-thunder",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -2416,6 +2448,7 @@
     "carousel-travel-safar",
     "carousel-illness-visiting",
     "carousel-anger-calmness",
-    "carousel-entering-market"
+    "carousel-entering-market",
+    "carousel-rain-thunder"
   ]
 }
