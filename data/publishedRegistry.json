@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2514,10 +2514,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791374839688",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-sabah",
+      "bookOrSurah": "أذكار الصباح 🕊️ • Routine Adhkar du Matin & Sérénité",
+      "numberOrAyah": "Sourate Qaf — Verset 39",
+      "surahNumber": 3,
+      "ayahNumber": 134,
+      "arabicText": "« أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ »",
+      "translationFr": "« Nous voici au matin et la royauté appartient à Allah »",
+      "translationEn": "The Prophet ﷺ said: 'The strong man is not the one who can wrestle his adversaries; rather, the truly strong man is the one who controls himself during anger.'",
+      "contentHash": "ليس الشديد بالصرعة، إنما الشدي",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/427.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791374804/kalpmzltiybqls2r8egp.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791374793/ahzmayfouqrq5tp5zx08.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791374793/n9gkft9g4wnoka8ith7b.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791374794/e7cfacptjfkeesedbaqb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791374794/ka3le3mjlhezdowlgarf.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791374795/ii6mowynjqvlsuolvnog.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791374793/ahzmayfouqrq5tp5zx08.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-jannah-firdaus",
+  "lastCarouselPackId": "carousel-sabah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -2548,6 +2580,7 @@
     "carousel-rain-thunder",
     "carousel-fasting-iftar",
     "carousel-names-of-allah",
-    "carousel-jannah-firdaus"
+    "carousel-jannah-firdaus",
+    "carousel-sabah"
   ]
 }
