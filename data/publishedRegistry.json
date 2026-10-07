@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2450,10 +2450,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791331903746",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-names-of-allah",
+      "bookOrSurah": "أسماء الله الحسنى ✨ • Invoquer Allah par Ses Plus Beaux Noms & le Nom Suprême",
+      "numberOrAyah": "Sourate Al-A'raf — Verset 180",
+      "surahNumber": 51,
+      "ayahNumber": 17,
+      "arabicText": "« دَعَا اللَّهَ بِاسْمِهِ الْأَعْظَمِ الَّذِي إِذَا دُعِيَ بِهِ أَجَابَ وَإِذَا سُئِلَ بِهِ أَعْطَى »",
+      "translationFr": "« Il a invoqué Allah par Son Nom Suprême qui, dès qu'Il est imploré par lui, exauce sans faillir »",
+      "translationEn": "“They used to sleep but little of the night, and in the hours before dawn they would ask forgiveness.”",
+      "contentHash": "كانوا قليلا من الليل ما يهجعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4692.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791331868/jolo9nelefhvwabo8yzc.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791331860/nmhrazet2gfk8h6qe3nf.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791331860/kpj2jecyuow7eit9hrsq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791331861/xj2mykrqwvivmosc2obf.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791331862/lilqyypgrvk8dxkjnu4r.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791331863/uunjispekgtobakels5w.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791331860/nmhrazet2gfk8h6qe3nf.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-fasting-iftar",
+  "lastCarouselPackId": "carousel-names-of-allah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -2482,6 +2514,7 @@
     "carousel-anger-calmness",
     "carousel-entering-market",
     "carousel-rain-thunder",
-    "carousel-fasting-iftar"
+    "carousel-fasting-iftar",
+    "carousel-names-of-allah"
   ]
 }
