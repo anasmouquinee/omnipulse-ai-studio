@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2770,10 +2770,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791569159910",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-shifa-ruqyah",
+      "bookOrSurah": "الشفاء والعافية 🕊️ • Invocations de Guérison & Protection Corporelle",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Verset 80",
+      "surahNumber": 51,
+      "ayahNumber": 55,
+      "arabicText": "« أَذْهِبِ الْبَاسَ رَبَّ النَّاسِ ، اشْفِ أَنْتَ الشَّافِي »",
+      "translationFr": "« Fais disparaître le mal, Ô Seigneur des hommes, guéris car Tu es le Seul Guérisseur »",
+      "translationEn": "Take only 30 seconds to purify your heart with the most beloved remembrance of Allah. Recite with full sincerity.",
+      "contentHash": "نصف دقيقة فقط 🤍\nسبحان الله (3",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4730.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791569124/ap4xjw0qt97sy31gr4cj.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791569116/syupochbs1tx3ftxhnbl.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791569116/pjkvifzjdhmd85wdqhn6.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791569117/hchhocimughvpx3asfko.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791569118/sd2ki57r52ocnvvsk6ny.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791569119/h6q87tk7bee0qeig2dyq.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791569116/syupochbs1tx3ftxhnbl.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-qiyam-tahajjud",
+  "lastCarouselPackId": "carousel-shifa-ruqyah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -2812,6 +2844,7 @@
     "carousel-sayyid-istighfar",
     "carousel-rizq-barakah",
     "carousel-jumuah-sunan",
-    "carousel-qiyam-tahajjud"
+    "carousel-qiyam-tahajjud",
+    "carousel-shifa-ruqyah"
   ]
 }
