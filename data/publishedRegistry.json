@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2994,10 +2994,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791828342984",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-sleep-waking",
+      "bookOrSurah": "أذكار النوم والاستيقاظ 🌙 • Invocations du Sommeil et du Réveil",
+      "numberOrAyah": "Sourate Al-An'am — Verset 60",
+      "surahNumber": 3,
+      "ayahNumber": 159,
+      "arabicText": "« بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي ، وَبِكَ أَرْفَعُهُ »",
+      "translationFr": "« En Ton nom mon Seigneur, j'ai posé mon flanc, et par Toi je me relève »",
+      "translationEn": "“The Prophet ﷺ said: 'Indeed, Allah is gentle and loves gentleness in all matters.'”",
+      "contentHash": "إن الله رفيق يحب الرفق في الأم",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/452.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791828307/yewpf6torbbkep0qb9v7.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791828291/oj0qmmqjga2kor29a3a4.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791828293/aoryb4ci4gpqnoinezb0.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791828293/p6csz20psb1hkidv5h17.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791828294/m7xsfvuvimfano2dhc0u.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791828295/y5as22jj9qpwshovyf2v.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791828291/oj0qmmqjga2kor29a3a4.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-leaving-home",
+  "lastCarouselPackId": "carousel-sleep-waking",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3043,6 +3075,7 @@
     "carousel-istikhara-tawakkul",
     "carousel-salawat-prophet",
     "carousel-parents-dua",
-    "carousel-leaving-home"
+    "carousel-leaving-home",
+    "carousel-sleep-waking"
   ]
 }
