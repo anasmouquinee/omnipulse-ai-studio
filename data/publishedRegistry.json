@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -2962,10 +2962,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791807022827",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-leaving-home",
+      "bookOrSurah": "التوكل والحفظ 🕊️ • Sortir de Chez Soi & Bouclier de Protection",
+      "numberOrAyah": "Sourate An-Naml — Verset 79",
+      "surahNumber": 14,
+      "ayahNumber": 24,
+      "arabicText": "« إِذَا خَرَجَ الرَّجُلُ مِنْ بَيْتِهِ فَقَالَ : بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ »",
+      "translationFr": "« Quand l'homme sort de chez lui et dit : Bismillah tawakkaltu 'ala Allah... »",
+      "translationEn": "“The Prophet ﷺ said: 'A kind word is a charity.'”",
+      "contentHash": "الكلمة الطيبة صدقة",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1774.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791806986/ixrf1u4hdoeficbkonmg.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791806970/waer7vgrclwrrglufxae.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791806971/rranvlkhr4lqzzlt29fj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791806972/mobgbmjebfxzvpsmjviu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791806973/z6ya62wqsjnyf14neaoj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791806974/qb6haq0nizdsqm7bbwnz.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791806970/waer7vgrclwrrglufxae.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-parents-dua",
+  "lastCarouselPackId": "carousel-leaving-home",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3010,6 +3042,7 @@
     "carousel-post-prayer",
     "carousel-istikhara-tawakkul",
     "carousel-salawat-prophet",
-    "carousel-parents-dua"
+    "carousel-parents-dua",
+    "carousel-leaving-home"
   ]
 }
