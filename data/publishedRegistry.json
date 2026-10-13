@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3026,10 +3026,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791850356676",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-adhan-wudu",
+      "bookOrSurah": "الأذان والوضوء 🕌 • Évocations lors de l'Appel à la Prière & Après les Ablutions",
+      "numberOrAyah": "Sourate Al-Ma'idah — Verset 6",
+      "surahNumber": 32,
+      "ayahNumber": 16,
+      "arabicText": "« فُتِحَتْ لَهُ أَبْوَابُ الْجَنَّةِ الثَّمَانِيَةُ يَدْخُلُ مِنْ أَيِّهَا شَاءَ »",
+      "translationFr": "« Les huit portes du Paradis s'ouvrent à lui, il y entre par celle qu'il désire »",
+      "translationEn": "“Their sides part [vacate] from their beds; they supplicate their Lord in fear and aspiration. And no soul knows what has been hidden for them of comfort for eyes as reward for what they used to do.”",
+      "contentHash": "تتجافى جنوبهم عن المضاجع يدعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3519.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791850321/j5rfxt6yjpryo6dz8sjv.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791850309/u7hrejw4plmmjd8vzkqh.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791850310/ql9foaberclo28rgxbns.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791850311/iaj2vsvwnpsesj1b2m2j.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791850312/kivoqlscyoxw3tzhkcm3.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791850313/hx9sctwmbkxr6csr2red.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791850309/u7hrejw4plmmjd8vzkqh.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sleep-waking",
+  "lastCarouselPackId": "carousel-adhan-wudu",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3076,6 +3108,7 @@
     "carousel-salawat-prophet",
     "carousel-parents-dua",
     "carousel-leaving-home",
-    "carousel-sleep-waking"
+    "carousel-sleep-waking",
+    "carousel-adhan-wudu"
   ]
 }
