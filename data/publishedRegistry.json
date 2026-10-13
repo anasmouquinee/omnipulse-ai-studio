@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3058,10 +3058,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791871786483",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-protection-evil-eye",
+      "bookOrSurah": "الحفظ والرقية 🛡️ • Bouclier Spirituel contre l'Œil et la Jalousie",
+      "numberOrAyah": "Sourate Al-Qalam — Verset 51",
+      "surahNumber": 12,
+      "ayahNumber": 64,
+      "arabicText": "« أُعِيذُكُمَا بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ »",
+      "translationFr": "« Je vous confie à la protection des paroles parfaites d'Allah contre tout démon et nuisible »",
+      "translationEn": "Morning remembrances create a divine spiritual shield for your entire day. Start your morning under Allah's care.",
+      "contentHash": "أذكار الصباح السريعة 🌅\nأصبحنا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1660.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791871751/ilcetjnxklavgmqnihj8.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791871735/u9zdkeixmuiv889g7t9i.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791871736/hxr1uws6zjocovfxwx6c.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791871737/xscwkcotiorxfv5iwnf6.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791871737/fwlijwbjejwu4robgpdi.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791871738/ewnk22myt4ha7ohy62hq.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791871735/u9zdkeixmuiv889g7t9i.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-adhan-wudu",
+  "lastCarouselPackId": "carousel-protection-evil-eye",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3109,6 +3141,7 @@
     "carousel-parents-dua",
     "carousel-leaving-home",
     "carousel-sleep-waking",
-    "carousel-adhan-wudu"
+    "carousel-adhan-wudu",
+    "carousel-protection-evil-eye"
   ]
 }
