@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3122,10 +3122,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791914835567",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-gratitude-shukr",
+      "bookOrSurah": "الشكر والحمد 🌿 • La Gratitude qui Préserve et Multiplie les Faveurs",
+      "numberOrAyah": "Sourate An-Nahl — Verset 18",
+      "surahNumber": 5,
+      "ayahNumber": 2,
+      "arabicText": "« لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ ۖ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِي لَشَدِيدٌ »",
+      "translationFr": "« Si vous êtes reconnaissants, très certainement J'augmenterai Mes bienfaits pour vous »",
+      "translationEn": "“The Prophet ﷺ said: 'Whoever fulfills the needs of his brother, Allah will fulfill his needs.'”",
+      "contentHash": "من كان في حاجة أخيه كان الله ف",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/671.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791914800/zo7b30ajuuyd8wrzytw0.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791914742/h3m7haeuogx8stpvdci3.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791914743/bed4pexrsavwus1tzr6o.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791914744/wxubnvd5bb25a9ssytu0.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791914745/udgkkhr0df7yhzm2wtxc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791914746/fcsrdxneapg9splmpe3k.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791914742/h3m7haeuogx8stpvdci3.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-wealth-debt",
+  "lastCarouselPackId": "carousel-gratitude-shukr",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3175,6 +3207,7 @@
     "carousel-sleep-waking",
     "carousel-adhan-wudu",
     "carousel-protection-evil-eye",
-    "carousel-wealth-debt"
+    "carousel-wealth-debt",
+    "carousel-gratitude-shukr"
   ]
 }
