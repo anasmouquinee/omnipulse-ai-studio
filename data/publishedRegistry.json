@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3218,10 +3218,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792001145520",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-travel-safar",
+      "bookOrSurah": "دعاء السفر ✈️ • Invocation Sacrée du Voyageur & Protection du Trajet",
+      "numberOrAyah": "Sourate Yunus — Verset 22",
+      "surahNumber": 17,
+      "ayahNumber": 78,
+      "arabicText": "« سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ »",
+      "translationFr": "« Gloire à Celui qui a mis ceci à notre service alors que nous n'étions pas capables de le dominer »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever prays the two cool prayers [Fajr and Asr] will enter Paradise.'",
+      "contentHash": "من صلى البردين دخل الجنة",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2107.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792001109/pmcygfedqtmoqesuruxi.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792001099/gbccbgzf1w0nayg5r1hh.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792001100/jdmslw187jnmusjou03m.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792001101/ptojgvuerqq3mtbj1huz.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792001101/t1fyk205wc5g40shtmvn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792001102/yq8dxqatuu5wph1teq59.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792001099/gbccbgzf1w0nayg5r1hh.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-heart-purification",
+  "lastCarouselPackId": "carousel-travel-safar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3274,6 +3306,7 @@
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
-    "carousel-heart-purification"
+    "carousel-heart-purification",
+    "carousel-travel-safar"
   ]
 }
