@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3154,10 +3154,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791936639930",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-patience-sabr",
+      "bookOrSurah": "الصبر واحتساب الأجر 🌿 • La Patience Sacrée face aux Épreuves de la Vie",
+      "numberOrAyah": "Sourate Az-Zumar — Verset 10",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« وَبَشِّرِ الصَّابِرِينَ ۝ الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ »",
+      "translationFr": "« Et fais bonne annonce aux endurants, qui disent : Nous appartenons à Allah et à Lui nous retournons »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791936604/cuowaqueiykvaacfksyv.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791936590/v9xk8lvjvzbh9dugjcof.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791936591/cqkldqbluohfgqrdzwx1.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791936592/y0gfovbvywf9p4mv50kd.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791936592/c9kgvlg2l3wtfvzkmp2p.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791936593/d4ml4mk8eq8fdp5awzfe.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791936590/v9xk8lvjvzbh9dugjcof.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-gratitude-shukr",
+  "lastCarouselPackId": "carousel-patience-sabr",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3208,6 +3240,7 @@
     "carousel-adhan-wudu",
     "carousel-protection-evil-eye",
     "carousel-wealth-debt",
-    "carousel-gratitude-shukr"
+    "carousel-gratitude-shukr",
+    "carousel-patience-sabr"
   ]
 }
