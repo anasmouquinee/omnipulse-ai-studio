@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3186,10 +3186,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1791979624917",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-heart-purification",
+      "bookOrSurah": "ثبات القلوب ونقاؤها 🤍 • La Purification du Cœur & la Constance dans la Foi",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Versets 88-89",
+      "surahNumber": 76,
+      "ayahNumber": 25,
+      "arabicText": "« يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ »",
+      "translationFr": "« Ô Toi qui retournes les cœurs, affermis mon cœur sur Ta religion »",
+      "translationEn": "The Prophet ﷺ said: 'The most beloved deeds to Allah are those done regularly, even if they are small.'",
+      "contentHash": "أحب الأعمال إلى الله أدومها وإ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5616.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1791979589/fw3zymvbd1f2ds08clm6.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791979584/ptp5u1zjebmcmmhpxyfs.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791979584/rrmfoiz3blkm1g4w8kbp.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791979585/iltcxymfl7qclsgdw8zy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791979585/jhgdutrrqhicpcy34t77.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791979586/euq8k9wqlihc7bagrugz.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1791979584/ptp5u1zjebmcmmhpxyfs.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-patience-sabr",
+  "lastCarouselPackId": "carousel-heart-purification",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3241,6 +3273,7 @@
     "carousel-protection-evil-eye",
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
-    "carousel-patience-sabr"
+    "carousel-patience-sabr",
+    "carousel-heart-purification"
   ]
 }
