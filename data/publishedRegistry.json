@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3250,10 +3250,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792087593322",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-illness-visiting",
+      "bookOrSurah": "الشفاء وعيادة المريض 🤍 • Invocations de la Guérison & Visite aux Malades",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Verset 80",
+      "surahNumber": 62,
+      "ayahNumber": 9,
+      "arabicText": "« أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ »",
+      "translationFr": "« Je demande à Allah l'Immense, Seigneur de l'Immense Trône, de te guérir »",
+      "translationEn": "“O you who have believed, when [the adhan] is called for the prayer on the day of Jumu'ah, then proceed to the remembrance of Allah and leave trade. That is better for you, if you only knew.”",
+      "contentHash": "يا أيها الذين آمنوا إذا نودي ل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5186.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792087558/hh6seydhwpnml1heltpn.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792087541/akrbp8shhkjsngexrvsz.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792087542/fgdkctu0owxmjokb1b23.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792087543/ptfm4mfz1c9bldcssebi.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792087544/x9zb1vktqxo4qajlsywc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792087545/w0hh5ntlshi0almp1ynl.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792087541/akrbp8shhkjsngexrvsz.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-travel-safar",
+  "lastCarouselPackId": "carousel-illness-visiting",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3307,6 +3339,7 @@
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
     "carousel-heart-purification",
-    "carousel-travel-safar"
+    "carousel-travel-safar",
+    "carousel-illness-visiting"
   ]
 }
