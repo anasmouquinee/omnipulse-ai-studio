@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3282,10 +3282,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792109376221",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-anger-calmness",
+      "bookOrSurah": "كظم الغيظ والسكينة 🌿 • Maîtrise de Soi, Paix Intérieure & Chasser la Colère",
+      "numberOrAyah": "Sourate Fussilat — Verset 34",
+      "surahNumber": 62,
+      "ayahNumber": 9,
+      "arabicText": "« وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ »",
+      "translationFr": "« Qui dominent leur ressentiment et pardonnent à autrui. Et Allah aime les bienfaisants »",
+      "translationEn": "“O you who have believed, when [the adhan] is called for the prayer on the day of Jumu'ah, then proceed to the remembrance of Allah and leave trade. That is better for you, if you only knew.”",
+      "contentHash": "يا أيها الذين آمنوا إذا نودي ل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5186.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792109341/hk91cy7pbdqix3utzgmg.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792109324/nlofncrpinee60lz2ngr.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792109325/q3hnfemtawcn8vtry5in.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792109325/pjscywbjcehhrzbd1ave.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792109327/umzcvwunqdw5fx03j9jd.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792109328/vj6ezdwzya62rk2gvuhk.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792109324/nlofncrpinee60lz2ngr.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-illness-visiting",
+  "lastCarouselPackId": "carousel-anger-calmness",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3340,6 +3372,7 @@
     "carousel-patience-sabr",
     "carousel-heart-purification",
     "carousel-travel-safar",
-    "carousel-illness-visiting"
+    "carousel-illness-visiting",
+    "carousel-anger-calmness"
   ]
 }
