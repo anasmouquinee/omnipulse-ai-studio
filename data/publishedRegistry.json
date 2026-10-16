@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3378,10 +3378,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792173952398",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-fasting-iftar",
+      "bookOrSurah": "الصيام والإفطار 🌙 • Invocations & Vertus du Jeûne et de la Rupture",
+      "numberOrAyah": "Sourate Al-Haqqah — Verset 24",
+      "surahNumber": 51,
+      "ayahNumber": 55,
+      "arabicText": "« ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ »",
+      "translationFr": "« La soif est étanchée, les veines sont humectées, et la récompense est assurée si Allah le veut »",
+      "translationEn": "Take only 30 seconds to purify your heart with the most beloved remembrance of Allah. Recite with full sincerity.",
+      "contentHash": "نصف دقيقة فقط 🤍\nسبحان الله (3",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4730.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792173917/zoaaclknkzo55qktnmnm.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792173908/vdrjfozpdhgfkcdr4idc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792173908/yct7x6daa4enpshxgurn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792173910/zm7ugfy1tezdslvr1zis.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792173910/c17ygn2ft4go38vyyfpx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792173911/hahfmsswv7wbpwrvx4a4.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792173908/vdrjfozpdhgfkcdr4idc.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-rain-thunder",
+  "lastCarouselPackId": "carousel-fasting-iftar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3439,6 +3471,7 @@
     "carousel-illness-visiting",
     "carousel-anger-calmness",
     "carousel-entering-market",
-    "carousel-rain-thunder"
+    "carousel-rain-thunder",
+    "carousel-fasting-iftar"
   ]
 }
