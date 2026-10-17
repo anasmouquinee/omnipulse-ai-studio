@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3474,10 +3474,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792238760967",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "format": "carousel",
+      "carouselPackId": "carousel-sabah",
+      "bookOrSurah": "أذكار الصباح 🕊️ • Routine Adhkar du Matin & Sérénité",
+      "numberOrAyah": "Sourate Qaf — Verset 39",
+      "surahNumber": 4,
+      "ayahNumber": 110,
+      "arabicText": "« أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ »",
+      "translationFr": "« Nous voici au matin et la royauté appartient à Allah »",
+      "translationEn": "“And whoever does a wrong or wrongs himself but then seeks forgiveness of Allah will find Allah Forgiving and Merciful.”",
+      "contentHash": "ومن يعمل سوءا أو يظلم نفسه ثم ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/603.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792238726/mwtcup1ncnbro08mnvt6.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792238716/qnakmvt4shzlcgapkdwc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792238716/f8knbjliayh1xil8n7dx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792238717/pdogo9xordmvkrj75ync.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792238718/zkxiabbneutzb6ku9qlw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792238719/pgdzdlbapaeipqjlnkie.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792238716/qnakmvt4shzlcgapkdwc.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-jannah-firdaus",
+  "lastCarouselPackId": "carousel-sabah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3538,6 +3570,7 @@
     "carousel-rain-thunder",
     "carousel-fasting-iftar",
     "carousel-names-of-allah",
-    "carousel-jannah-firdaus"
+    "carousel-jannah-firdaus",
+    "carousel-sabah"
   ]
 }
