@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3602,10 +3602,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792346716892",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "format": "carousel",
+      "carouselPackId": "carousel-sayyid-istighfar",
+      "bookOrSurah": "سيد الاستغفار ✨ • Le Maître du Pardon & Clés de la Rédemption",
+      "numberOrAyah": "Sourate Nuh — Versets 10-11",
+      "surahNumber": 39,
+      "ayahNumber": 36,
+      "arabicText": "« سَيِّدُ الاسْتِغْفَارِ أَنْ تَقُولَ اللَّهُمَّ أَنْتَ رَبِّي »",
+      "translationFr": "« La formule maîtresse de la demande de pardon est de dire : Ô Allah, Tu es mon Seigneur »",
+      "translationEn": "“Is not Allah sufficient for His Servant?”",
+      "contentHash": "أليس الله بكاف عبده",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4094.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792346682/ft3r0xrpxdo2vwymefnk.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792346667/m0lys2t4ar6tkg4ioqgk.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792346668/wtcasjuww3txtkzzvdi1.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792346669/pwpxrrv0wdxydejhvink.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792346670/z4gu4f7ww0pnwdfhortg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792346670/zzpz3pc6uk2iygg26qpy.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792346667/m0lys2t4ar6tkg4ioqgk.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-karb-relief",
+  "lastCarouselPackId": "carousel-sayyid-istighfar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3670,6 +3702,7 @@
     "carousel-sabah",
     "carousel-masaa",
     "carousel-4-treasures",
-    "carousel-karb-relief"
+    "carousel-karb-relief",
+    "carousel-sayyid-istighfar"
   ]
 }
