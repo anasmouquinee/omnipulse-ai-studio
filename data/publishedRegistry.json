@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3570,10 +3570,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792325159456",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-karb-relief",
+      "bookOrSurah": "تفريج الكرب 🤍 • Invocations Prophétiques contre l'Angoisse",
+      "numberOrAyah": "Sourate Al-Anbiya — Verset 88",
+      "surahNumber": 12,
+      "ayahNumber": 64,
+      "arabicText": "« دَعْوَةُ ذِي النُّونِ الَّتِي لَمْ يَدْعُ بِهَا مُسْلِمٌ إِلَّا اسْتُجِيبَ لَهُ »",
+      "translationFr": "« L’invocation de Dhun-Nun : nul croyant ne l'a récitée sans être exaucé »",
+      "translationEn": "Morning remembrances create a divine spiritual shield for your entire day. Start your morning under Allah's care.",
+      "contentHash": "أذكار الصباح السريعة 🌅\nأصبحنا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1660.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792325124/sfdfncdbcmplvugddg1s.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792325109/iuv5vqq2372zumvgrjvj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792325109/mkejju86clmjiad2p3qy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792325110/tgoy2vv9jsl5npp50dci.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792325111/y796kfxrmxavphvcprt3.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792325111/no1hojl3kfoylxcwyy1k.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792325109/iuv5vqq2372zumvgrjvj.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-4-treasures",
+  "lastCarouselPackId": "carousel-karb-relief",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3637,6 +3669,7 @@
     "carousel-jannah-firdaus",
     "carousel-sabah",
     "carousel-masaa",
-    "carousel-4-treasures"
+    "carousel-4-treasures",
+    "carousel-karb-relief"
   ]
 }
