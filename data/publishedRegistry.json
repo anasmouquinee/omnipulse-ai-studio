@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3666,10 +3666,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792390154801",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "format": "carousel",
+      "carouselPackId": "carousel-jumuah-sunan",
+      "bookOrSurah": "سنن الجمعة 🕌 • Sunan & Mérites du Vendredi Béni",
+      "numberOrAyah": "Sourate Al-Jumu'ah — Verset 9",
+      "surahNumber": 2,
+      "ayahNumber": 201,
+      "arabicText": "« خَيْرُ يَوْمٍ طَلَعَتْ عَلَيْهِ الشَّمْسُ يَوْمُ الْجُمُعَةِ »",
+      "translationFr": "« Le meilleur jour sur lequel le soleil s'est levé est le jour du vendredi »",
+      "translationEn": "“Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.”",
+      "contentHash": "ربنا آتنا في الدنيا حسنة وفي ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/208.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792390119/kllmgwnhgt4rmtyipkot.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792390106/ghcl6b2jtl8ahzagxagc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792390107/vhlpulzyxf9atcig5wle.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792390108/mj11bdkmhd95tccm54qn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792390108/sygqj0qouera66b6dlgw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792390109/lgvdw341jwyl4iw2bclu.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792390106/ghcl6b2jtl8ahzagxagc.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-rizq-barakah",
+  "lastCarouselPackId": "carousel-jumuah-sunan",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3736,6 +3768,7 @@
     "carousel-4-treasures",
     "carousel-karb-relief",
     "carousel-sayyid-istighfar",
-    "carousel-rizq-barakah"
+    "carousel-rizq-barakah",
+    "carousel-jumuah-sunan"
   ]
 }
