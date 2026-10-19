@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3698,10 +3698,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792411662312",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "format": "carousel",
+      "carouselPackId": "carousel-qiyam-tahajjud",
+      "bookOrSurah": "قيام الليل 🌙 • Sagesse du Dernier Tiers de la Nuit (Qiyam)",
+      "numberOrAyah": "Sourate As-Sajdah — Verset 16",
+      "surahNumber": 19,
+      "ayahNumber": 96,
+      "arabicText": "« يَنْزِلُ رَبُّنَا كُلَّ لَيْلَةٍ حِينَ يَبْقَى ثُلُثُ اللَّيْلِ الآخِرُ »",
+      "translationFr": "« Notre Seigneur descend chaque nuit au ciel le plus proche au dernier tiers de la nuit »",
+      "translationEn": "“Indeed, those who have believed and done righteous deeds - the Most Merciful will appoint for them affection.”",
+      "contentHash": "إن الذين آمنوا وعملوا الصالحات",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2346.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792411626/ljzayeqbpzgzjqlbg4f3.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792411615/jhf22tjjksatrunmqbgl.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792411615/hydr5qagnvr7qynbxkhb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792411616/ugpdrywlkbvzdagckm6r.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792411617/zzz2s8qwabnxy4iodxzi.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792411618/wv3xgcdwevyra5nrzdxc.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792411615/jhf22tjjksatrunmqbgl.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-jumuah-sunan",
+  "lastCarouselPackId": "carousel-qiyam-tahajjud",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3769,6 +3801,7 @@
     "carousel-karb-relief",
     "carousel-sayyid-istighfar",
     "carousel-rizq-barakah",
-    "carousel-jumuah-sunan"
+    "carousel-jumuah-sunan",
+    "carousel-qiyam-tahajjud"
   ]
 }
