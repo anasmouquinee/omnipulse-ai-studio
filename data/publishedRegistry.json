@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3826,10 +3826,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792497982656",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "format": "carousel",
+      "carouselPackId": "carousel-istikhara-tawakkul",
+      "bookOrSurah": "الاستخارة واليقين 🕊️ • Prière de Consultation & Prise de Décision",
+      "numberOrAyah": "Sourate Al-Imran — Verset 159",
+      "surahNumber": 11,
+      "ayahNumber": 123,
+      "arabicText": "« كَانَ النَّبِيُّ ﷺ يُعَلِّمُنَا الِاسْتِخَارَةَ فِي الْأُمُورِ كُلِّهَا »",
+      "translationFr": "« Le Prophète ﷺ nous enseignait la consultation dans toutes les affaires »",
+      "translationEn": "“And to Allah belongs the unseen [aspects] of the heavens and the earth and to Him will be returned the matter, all of it, so worship Him and rely upon Him.”",
+      "contentHash": "ولله غيب السماوات والأرض وإليه",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1596.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792497947/f4hrsrw9prupangqoltm.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792497934/xb4rycfeqpl2zkowkd14.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792497935/jqr1vghbkbqjldenkl7s.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792497936/ykuucf2ikbkmpqv7uv4y.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792497937/ln3lnooe2kvgmfhbufxs.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792497938/xcmqunewe3bso7qvq8vf.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792497934/xb4rycfeqpl2zkowkd14.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-post-prayer",
+  "lastCarouselPackId": "carousel-istikhara-tawakkul",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3901,6 +3933,7 @@
     "carousel-qiyam-tahajjud",
     "carousel-shifa-ruqyah",
     "carousel-baqiyat-salihat",
-    "carousel-post-prayer"
+    "carousel-post-prayer",
+    "carousel-istikhara-tawakkul"
   ]
 }
