@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3858,10 +3858,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792519551062",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-salawat-prophet",
+      "bookOrSurah": "الصلاة على النبي ﷺ 🤍 • Bénédictions & Mérites de la Prière sur le Prophète",
+      "numberOrAyah": "Sourate Al-Ahzab — Verset 56",
+      "surahNumber": 12,
+      "ayahNumber": 64,
+      "arabicText": "« مَنْ صَلَّى عَلَيَّ صَلَاةً صَلَّى اللَّهُ عَلَيْهِ بِهَا عَشْرًا »",
+      "translationFr": "« Celui qui prie sur moi une seule fois, Allah prie sur lui dix fois en retour »",
+      "translationEn": "Morning remembrances create a divine spiritual shield for your entire day. Start your morning under Allah's care.",
+      "contentHash": "أذكار الصباح السريعة 🌅\nأصبحنا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1660.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792519516/eh3cpjlr9btor4bkntw7.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792519501/lrcjwzceqjhknrvpaaaq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792519502/asob7dio3vj5z9nbyfne.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792519503/mip61fqsgv1jvvyyxs4g.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792519503/qhmxuobeptdpee4ou1k8.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792519504/tjprcb4n6jqashveonuu.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792519501/lrcjwzceqjhknrvpaaaq.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-istikhara-tawakkul",
+  "lastCarouselPackId": "carousel-salawat-prophet",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3934,6 +3966,7 @@
     "carousel-shifa-ruqyah",
     "carousel-baqiyat-salihat",
     "carousel-post-prayer",
-    "carousel-istikhara-tawakkul"
+    "carousel-istikhara-tawakkul",
+    "carousel-salawat-prophet"
   ]
 }
