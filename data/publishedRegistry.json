@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3762,10 +3762,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792455064447",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-baqiyat-salihat",
+      "bookOrSurah": "الباقيات الصالحات 💎 • Les Œuvres Durables & Vertueuses",
+      "numberOrAyah": "Sourate Al-Kahf — Verset 46",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« خُذُوا جُنَّتَكُمْ مِنَ النَّارِ : سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ »",
+      "translationFr": "« Prenez votre bouclier contre le Feu : SubhanAllah, Alhamdulillah... »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792455029/oxvzh30ahiwb0bjzxkhn.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792455014/hx2gzfg3ncfjzrlhq3hc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792455015/ew5qwzbvnrleclahyxae.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792455016/pyd0bodbnj5dshvcrxfk.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792455017/xk4kgsfo8ya2wsn0ak0r.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792455018/asdqbmswynvm7xjju5n1.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792455014/hx2gzfg3ncfjzrlhq3hc.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-shifa-ruqyah",
+  "lastCarouselPackId": "carousel-baqiyat-salihat",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -3835,6 +3867,7 @@
     "carousel-rizq-barakah",
     "carousel-jumuah-sunan",
     "carousel-qiyam-tahajjud",
-    "carousel-shifa-ruqyah"
+    "carousel-shifa-ruqyah",
+    "carousel-baqiyat-salihat"
   ]
 }
