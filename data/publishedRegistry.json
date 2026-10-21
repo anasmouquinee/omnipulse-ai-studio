@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3922,10 +3922,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792562828283",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-leaving-home",
+      "bookOrSurah": "التوكل والحفظ 🕊️ • Sortir de Chez Soi & Bouclier de Protection",
+      "numberOrAyah": "Sourate An-Naml — Verset 79",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« إِذَا خَرَجَ الرَّجُلُ مِنْ بَيْتِهِ فَقَالَ : بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ »",
+      "translationFr": "« Quand l'homme sort de chez lui et dit : Bismillah tawakkaltu 'ala Allah... »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792562793/hoxiqzed0h7thfzechnj.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792562778/mwexy5atqwxu6ofzzymk.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792562779/sw03wijrxpqnuxohx5uj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792562780/uzewitiblk93xef8a8yx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792562781/ahzpsyghen2exwuuh9xm.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792562782/yya0tomv0kcamecxzp1t.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792562778/mwexy5atqwxu6ofzzymk.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-parents-dua",
+  "lastCarouselPackId": "carousel-leaving-home",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4000,6 +4032,7 @@
     "carousel-post-prayer",
     "carousel-istikhara-tawakkul",
     "carousel-salawat-prophet",
-    "carousel-parents-dua"
+    "carousel-parents-dua",
+    "carousel-leaving-home"
   ]
 }
