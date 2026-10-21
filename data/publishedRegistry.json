@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3954,10 +3954,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792584403720",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "format": "carousel",
+      "carouselPackId": "carousel-sleep-waking",
+      "bookOrSurah": "أذكار النوم والاستيقاظ 🌙 • Invocations du Sommeil et du Réveil",
+      "numberOrAyah": "Sourate Al-An'am — Verset 60",
+      "surahNumber": 8,
+      "ayahNumber": 63,
+      "arabicText": "« بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي ، وَبِكَ أَرْفَعُهُ »",
+      "translationFr": "« En Ton nom mon Seigneur, j'ai posé mon flanc, et par Toi je me relève »",
+      "translationEn": "“And brought together their hearts. If you had spent all that is in the earth, you could not have brought their hearts together; but Allah brought them together.”",
+      "contentHash": "وألف بين قلوبهم ۚ لو أنفقت ما ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1223.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792584368/vtte4xvi8sngqeawbzep.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792584353/cimtiezqf8gccdmlfzbp.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792584354/fzfxixditcsz3zqwitqx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792584355/pcjg3sqcsaoab8s4l9qb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792584355/ubaan4pzhyi7puqwn7gz.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792584356/vl35efgwlscbxzgmhxse.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792584353/cimtiezqf8gccdmlfzbp.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-leaving-home",
+  "lastCarouselPackId": "carousel-sleep-waking",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4033,6 +4065,7 @@
     "carousel-istikhara-tawakkul",
     "carousel-salawat-prophet",
     "carousel-parents-dua",
-    "carousel-leaving-home"
+    "carousel-leaving-home",
+    "carousel-sleep-waking"
   ]
 }
