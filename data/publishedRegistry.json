@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -3986,10 +3986,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792606010337",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-adhan-wudu",
+      "bookOrSurah": "الأذان والوضوء 🕌 • Évocations lors de l'Appel à la Prière & Après les Ablutions",
+      "numberOrAyah": "Sourate Al-Ma'idah — Verset 6",
+      "surahNumber": 51,
+      "ayahNumber": 55,
+      "arabicText": "« فُتِحَتْ لَهُ أَبْوَابُ الْجَنَّةِ الثَّمَانِيَةُ يَدْخُلُ مِنْ أَيِّهَا شَاءَ »",
+      "translationFr": "« Les huit portes du Paradis s'ouvrent à lui, il y entre par celle qu'il désire »",
+      "translationEn": "Take only 30 seconds to purify your heart with the most beloved remembrance of Allah. Recite with full sincerity.",
+      "contentHash": "نصف دقيقة فقط 🤍\nسبحان الله (3",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4730.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792605974/vmjhivypconetisrvawe.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792605963/dusvr3petlsfw3kwu9hf.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792605964/sytm6o3ywfszx8tkcm9y.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792605965/wkxyw37oh5mf7a9dfckv.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792605966/kgqglttpbpzsll1h4ogs.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792605967/ev2zv2l55jdppusn7axk.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792605963/dusvr3petlsfw3kwu9hf.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sleep-waking",
+  "lastCarouselPackId": "carousel-adhan-wudu",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4066,6 +4098,7 @@
     "carousel-salawat-prophet",
     "carousel-parents-dua",
     "carousel-leaving-home",
-    "carousel-sleep-waking"
+    "carousel-sleep-waking",
+    "carousel-adhan-wudu"
   ]
 }
