@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4146,10 +4146,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792778760114",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-heart-purification",
+      "bookOrSurah": "ثبات القلوب ونقاؤها 🤍 • La Purification du Cœur & la Constance dans la Foi",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Versets 88-89",
+      "surahNumber": 62,
+      "ayahNumber": 9,
+      "arabicText": "« يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ »",
+      "translationFr": "« Ô Toi qui retournes les cœurs, affermis mon cœur sur Ta religion »",
+      "translationEn": "“O you who have believed, when [the adhan] is called for the prayer on the day of Jumu'ah, then proceed to the remembrance of Allah and leave trade. That is better for you, if you only knew.”",
+      "contentHash": "يا أيها الذين آمنوا إذا نودي ل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5186.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792778724/qabveppvjnqfyx7lkpdw.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792778709/ujfd6aakckni5udrgd9o.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792778709/ayvq3kcokkdhoswpseq6.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792778710/jpfya7w8hl8kh2jhakg8.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792778712/grghmxe8caett8fnk31r.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792778713/ewu01xofgbpxzhjwxquz.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792778709/ujfd6aakckni5udrgd9o.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-patience-sabr",
+  "lastCarouselPackId": "carousel-heart-purification",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4231,6 +4263,7 @@
     "carousel-protection-evil-eye",
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
-    "carousel-patience-sabr"
+    "carousel-patience-sabr",
+    "carousel-heart-purification"
   ]
 }
