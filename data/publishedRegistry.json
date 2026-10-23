@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4082,10 +4082,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792714235859",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-gratitude-shukr",
+      "bookOrSurah": "الشكر والحمد 🌿 • La Gratitude qui Préserve et Multiplie les Faveurs",
+      "numberOrAyah": "Sourate An-Nahl — Verset 18",
+      "surahNumber": 62,
+      "ayahNumber": 9,
+      "arabicText": "« لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ ۖ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِي لَشَدِيدٌ »",
+      "translationFr": "« Si vous êtes reconnaissants, très certainement J'augmenterai Mes bienfaits pour vous »",
+      "translationEn": "“O you who have believed, when [the adhan] is called for the prayer on the day of Jumu'ah, then proceed to the remembrance of Allah and leave trade. That is better for you, if you only knew.”",
+      "contentHash": "يا أيها الذين آمنوا إذا نودي ل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5186.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792714200/ekwkilypmrbzim1gjjyx.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792714184/nbujt8q0sjetf02z3rge.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792714185/eajldz0ybo2znvcarriq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792714185/jz1au4rkreukcrxo2chj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792714186/lub0m3aioskrhmqztwhg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792714187/vpzltdrgmzrewinoi5ws.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792714184/nbujt8q0sjetf02z3rge.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-wealth-debt",
+  "lastCarouselPackId": "carousel-gratitude-shukr",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4165,6 +4197,7 @@
     "carousel-sleep-waking",
     "carousel-adhan-wudu",
     "carousel-protection-evil-eye",
-    "carousel-wealth-debt"
+    "carousel-wealth-debt",
+    "carousel-gratitude-shukr"
   ]
 }
