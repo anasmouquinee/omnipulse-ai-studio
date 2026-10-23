@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4114,10 +4114,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792735637132",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-patience-sabr",
+      "bookOrSurah": "الصبر واحتساب الأجر 🌿 • La Patience Sacrée face aux Épreuves de la Vie",
+      "numberOrAyah": "Sourate Az-Zumar — Verset 10",
+      "surahNumber": 33,
+      "ayahNumber": 56,
+      "arabicText": "« وَبَشِّرِ الصَّابِرِينَ ۝ الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ »",
+      "translationFr": "« Et fais bonne annonce aux endurants, qui disent : Nous appartenons à Allah et à Lui nous retournons »",
+      "translationEn": "The Prophet ﷺ said: 'Among the best of your days is Friday... So invoke abundant blessings upon me on it, for your blessings are presented to me.'",
+      "contentHash": "إن من أفضل أيامكم يوم الجمعة، ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3589.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792735602/h7fcw2ddqqwwkdnyvnns.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792735591/xnqxx4ct99n7pzxhbldw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792735592/jcl1ezylfoiycqfhq8wg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792735592/gckffdg9gjzguxt2lbxx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792735593/tujdibnfsbsmhmhnxle5.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792735594/njsxvalkbkco96irntls.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792735591/xnqxx4ct99n7pzxhbldw.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-gratitude-shukr",
+  "lastCarouselPackId": "carousel-patience-sabr",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4198,6 +4230,7 @@
     "carousel-adhan-wudu",
     "carousel-protection-evil-eye",
     "carousel-wealth-debt",
-    "carousel-gratitude-shukr"
+    "carousel-gratitude-shukr",
+    "carousel-patience-sabr"
   ]
 }
