@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4210,10 +4210,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792843565363",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-illness-visiting",
+      "bookOrSurah": "الشفاء وعيادة المريض 🤍 • Invocations de la Guérison & Visite aux Malades",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Verset 80",
+      "surahNumber": 49,
+      "ayahNumber": 11,
+      "arabicText": "« أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ »",
+      "translationFr": "« Je demande à Allah l'Immense, Seigneur de l'Immense Trône, de te guérir »",
+      "translationEn": "The Prophet ﷺ said: 'The Muslim is the one from whose tongue and hand Muslims are safe.'",
+      "contentHash": "المسلم من سلم المسلمون من لسان",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4623.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792843530/fi34b0j64ifx5lrogx06.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792843498/q49v7t5s93fh8kqkwzng.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792843499/ix3xt94kwrubblcuhzjv.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792843499/lxngsqzxqtaj2r2kire4.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792843500/hbazaj4ebzzzocxuvg2u.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792843501/pdhj7czlxyecb26nbymd.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792843498/q49v7t5s93fh8kqkwzng.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-travel-safar",
+  "lastCarouselPackId": "carousel-illness-visiting",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4297,6 +4329,7 @@
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
     "carousel-heart-purification",
-    "carousel-travel-safar"
+    "carousel-travel-safar",
+    "carousel-illness-visiting"
   ]
 }
