@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4178,10 +4178,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792800621611",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-travel-safar",
+      "bookOrSurah": "دعاء السفر ✈️ • Invocation Sacrée du Voyageur & Protection du Trajet",
+      "numberOrAyah": "Sourate Yunus — Verset 22",
+      "surahNumber": 32,
+      "ayahNumber": 16,
+      "arabicText": "« سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ »",
+      "translationFr": "« Gloire à Celui qui a mis ceci à notre service alors que nous n'étions pas capables de le dominer »",
+      "translationEn": "“Their sides part [vacate] from their beds; they supplicate their Lord in fear and aspiration. And no soul knows what has been hidden for them of comfort for eyes as reward for what they used to do.”",
+      "contentHash": "تتجافى جنوبهم عن المضاجع يدعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3519.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792800585/vdxiagb5afremrxtqcyp.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792800572/w2jmxo3y77rh8fdaslid.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792800573/so25h3soq7gcvcecn2wq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792800574/qkhamnid3edmg00ghlbg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792800575/bqwuk6dzf3fd7s0oxuuu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792800576/ze34urazio2t9gam7vcs.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792800572/w2jmxo3y77rh8fdaslid.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-heart-purification",
+  "lastCarouselPackId": "carousel-travel-safar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4264,6 +4296,7 @@
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
-    "carousel-heart-purification"
+    "carousel-heart-purification",
+    "carousel-travel-safar"
   ]
 }
