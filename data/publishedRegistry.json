@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4306,10 +4306,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792929948330",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-rain-thunder",
+      "bookOrSurah": "الغيث والرياح 🌧️ • Invocations de la Pluie, du Tonnerre et du Vent",
+      "numberOrAyah": "Sourate Ash-Shura — Verset 28",
+      "surahNumber": 33,
+      "ayahNumber": 21,
+      "arabicText": "« ثِنْتَانِ مَا تُرَدَّانِ : الدُّعَاءُ عِنْدَ النِّدَاءِ ، وَتَحْتَ الْمَطَرِ »",
+      "translationFr": "« Deux invocations ne sont jamais rejetées : l'appel à la prière et sous la pluie tombante »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'Your smile for your brother is a charity for you.'",
+      "contentHash": "تبسمك في وجه أخيك لك صدقة",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3554.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792929914/qxmbceio3m9iwczfyt69.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792929901/kqop6tzvixoh74agx1ri.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792929902/kdg6pnppxo5lyscvggbo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792929903/rirbrfv1kpe12mwbzbdf.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792929903/ky6dynyfhihfnv0ethaw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792929904/ebyeytjcq7uo5bqla3sb.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792929901/kqop6tzvixoh74agx1ri.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-entering-market",
+  "lastCarouselPackId": "carousel-rain-thunder",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4396,6 +4428,7 @@
     "carousel-travel-safar",
     "carousel-illness-visiting",
     "carousel-anger-calmness",
-    "carousel-entering-market"
+    "carousel-entering-market",
+    "carousel-rain-thunder"
   ]
 }
