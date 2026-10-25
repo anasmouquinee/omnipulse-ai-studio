@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4338,10 +4338,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792951506398",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-fasting-iftar",
+      "bookOrSurah": "الصيام والإفطار 🌙 • Invocations & Vertus du Jeûne et de la Rupture",
+      "numberOrAyah": "Sourate Al-Haqqah — Verset 24",
+      "surahNumber": 98,
+      "ayahNumber": 5,
+      "arabicText": "« ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ »",
+      "translationFr": "« La soif est étanchée, les veines sont humectées, et la récompense est assurée si Allah le veut »",
+      "translationEn": "The Prophet ﷺ said: 'Actions are judged only by intentions, and every person will have only that which he intended.'",
+      "contentHash": "إنما الأعمال بالنيات، وإنما لك",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6134.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792951471/iddlo46qmclob4exyrbd.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792951461/e7bj33pyqvn2h8qsn82i.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792951462/z87pnvnlv5l6gdlmpxnp.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792951463/xhbngfryio1bpbkzrqjw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792951463/mhpkijzfge0g4tihtxht.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792951464/gnwsojltmsbwwkydypx4.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792951461/e7bj33pyqvn2h8qsn82i.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-rain-thunder",
+  "lastCarouselPackId": "carousel-fasting-iftar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4429,6 +4461,7 @@
     "carousel-illness-visiting",
     "carousel-anger-calmness",
     "carousel-entering-market",
-    "carousel-rain-thunder"
+    "carousel-rain-thunder",
+    "carousel-fasting-iftar"
   ]
 }
