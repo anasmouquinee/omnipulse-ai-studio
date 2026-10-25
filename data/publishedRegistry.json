@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4274,10 +4274,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1792908402394",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "format": "carousel",
+      "carouselPackId": "carousel-entering-market",
+      "bookOrSurah": "دعاء دخول السوق 🛍️ • L'Invocation au Million de Bonnes Actions dans les Marchés",
+      "numberOrAyah": "Sourate An-Nur — Verset 37",
+      "surahNumber": 9,
+      "ayahNumber": 129,
+      "arabicText": "« كَتَبَ اللَّهُ لَهُ أَلْفَ أَلْفِ حَسَنَةٍ وَمَحَا عَنْهُ أَلْفَ أَلْفِ سَيِّئَةٍ »",
+      "translationFr": "« Allah lui inscrit un million de bonnes actions et lui efface un million de péchés »",
+      "translationEn": "“Sufficient for me is Allah; there is no deity except Him. On Him I have relied, and He is the Lord of the Great Throne.”",
+      "contentHash": "حسبي الله لا إله إلا هو ۖ عليه",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1364.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1792908367/bmm4racun1ri3q1b6sqa.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792908356/hyf8d5x3dwu9nsukgw3c.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792908357/jp8e2nxuogh41lzomz9y.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792908357/l7mv35ldwmkcc1cvyfvi.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792908358/n9adoxqdonrukkskx4c0.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792908358/ajagdsxints3dlbfperb.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1792908356/hyf8d5x3dwu9nsukgw3c.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-anger-calmness",
+  "lastCarouselPackId": "carousel-entering-market",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4363,6 +4395,7 @@
     "carousel-heart-purification",
     "carousel-travel-safar",
     "carousel-illness-visiting",
-    "carousel-anger-calmness"
+    "carousel-anger-calmness",
+    "carousel-entering-market"
   ]
 }
