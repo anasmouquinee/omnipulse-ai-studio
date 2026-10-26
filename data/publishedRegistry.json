@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4434,10 +4434,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793038078074",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-sabah",
+      "bookOrSurah": "أذكار الصباح 🕊️ • Routine Adhkar du Matin & Sérénité",
+      "numberOrAyah": "Sourate Qaf — Verset 39",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ »",
+      "translationFr": "« Nous voici au matin et la royauté appartient à Allah »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793038042/zvhrqkawdck2tp66fjq7.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793038030/hqliwl16nvuzyf0x2uzy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793038031/tsgzpdwgujhxgqidy4tb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793038032/qfipe5zbia6btd7m4bij.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793038032/neqtcy14mbbu4actiotr.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793038033/tfzxw6wstawnjgppjthn.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793038030/hqliwl16nvuzyf0x2uzy.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-jannah-firdaus",
+  "lastCarouselPackId": "carousel-sabah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4528,6 +4560,7 @@
     "carousel-rain-thunder",
     "carousel-fasting-iftar",
     "carousel-names-of-allah",
-    "carousel-jannah-firdaus"
+    "carousel-jannah-firdaus",
+    "carousel-sabah"
   ]
 }
