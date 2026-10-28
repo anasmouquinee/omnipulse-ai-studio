@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4530,10 +4530,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793189107528",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-karb-relief",
+      "bookOrSurah": "تفريج الكرب 🤍 • Invocations Prophétiques contre l'Angoisse",
+      "numberOrAyah": "Sourate Al-Anbiya — Verset 88",
+      "surahNumber": 98,
+      "ayahNumber": 5,
+      "arabicText": "« دَعْوَةُ ذِي النُّونِ الَّتِي لَمْ يَدْعُ بِهَا مُسْلِمٌ إِلَّا اسْتُجِيبَ لَهُ »",
+      "translationFr": "« L’invocation de Dhun-Nun : nul croyant ne l'a récitée sans être exaucé »",
+      "translationEn": "The Prophet ﷺ said: 'Actions are judged only by intentions, and every person will have only that which he intended.'",
+      "contentHash": "إنما الأعمال بالنيات، وإنما لك",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6134.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793189064/cojuwduwwozok9t4d0dn.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793189054/xdsa4ycdaofoungbzd10.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793189055/m0tsugmqeiivbvdqz2hw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793189056/mcvyzfcni7blrbzqfrxn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793189057/d36i9mhchjd2sbglksgn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793189058/hfonkvybooljqoowbjxs.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793189054/xdsa4ycdaofoungbzd10.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-4-treasures",
+  "lastCarouselPackId": "carousel-karb-relief",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4627,6 +4659,7 @@
     "carousel-jannah-firdaus",
     "carousel-sabah",
     "carousel-masaa",
-    "carousel-4-treasures"
+    "carousel-4-treasures",
+    "carousel-karb-relief"
   ]
 }
