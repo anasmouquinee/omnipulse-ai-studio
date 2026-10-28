@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4562,10 +4562,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793210717121",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-sayyid-istighfar",
+      "bookOrSurah": "سيد الاستغفار ✨ • Le Maître du Pardon & Clés de la Rédemption",
+      "numberOrAyah": "Sourate Nuh — Versets 10-11",
+      "surahNumber": 3,
+      "ayahNumber": 139,
+      "arabicText": "« سَيِّدُ الاسْتِغْفَارِ أَنْ تَقُولَ اللَّهُمَّ أَنْتَ رَبِّي »",
+      "translationFr": "« La formule maîtresse de la demande de pardon est de dire : Ô Allah, Tu es mon Seigneur »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'The strong believer is better and more beloved to Allah than the weak believer, while there is good in both. Strive for that which benefits you, seek help from Allah, and do not lose heart.'",
+      "contentHash": "المؤمن القوي خير وأحب إلى الله",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/432.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793210673/kmuhworlhj92wlkcuf5v.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793210661/kedub2omkx4ejupmzphz.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793210662/rjkhxh4nmoncj0flxpqu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793210663/hta5ghdvxfmk8lgovwq0.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793210664/ccmxvqonczritxmls74i.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793210665/tswyaebinlsbi11zymju.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793210661/kedub2omkx4ejupmzphz.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-karb-relief",
+  "lastCarouselPackId": "carousel-sayyid-istighfar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4660,6 +4692,7 @@
     "carousel-sabah",
     "carousel-masaa",
     "carousel-4-treasures",
-    "carousel-karb-relief"
+    "carousel-karb-relief",
+    "carousel-sayyid-istighfar"
   ]
 }
