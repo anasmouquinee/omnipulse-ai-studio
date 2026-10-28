@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4466,10 +4466,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793146125562",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-masaa",
+      "bookOrSurah": "أذكار المساء 🌙 • Routine Adhkar du Soir & Paix Intérieure",
+      "numberOrAyah": "Sourate Ta-Ha — Verset 130",
+      "surahNumber": 51,
+      "ayahNumber": 17,
+      "arabicText": "« أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ »",
+      "translationFr": "« Nous voici au soir et la royauté appartient à Allah, Seigneur des mondes »",
+      "translationEn": "“They used to sleep but little of the night, and in the hours before dawn they would ask forgiveness.”",
+      "contentHash": "كانوا قليلا من الليل ما يهجعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4692.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793146090/lqapleqru0vipaa2qphv.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793146081/mvvndl3mnccocissh3ja.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793146082/m2rhsdsn5gwcghyurmcr.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793146083/qypq76qpgpxg6zvyzanb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793146084/dnw2jqqrxpxtdcq7y0bo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793146085/roqgiqgrwyddnihxwvlx.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793146081/mvvndl3mnccocissh3ja.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sabah",
+  "lastCarouselPackId": "carousel-masaa",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4561,6 +4593,7 @@
     "carousel-fasting-iftar",
     "carousel-names-of-allah",
     "carousel-jannah-firdaus",
-    "carousel-sabah"
+    "carousel-sabah",
+    "carousel-masaa"
   ]
 }
