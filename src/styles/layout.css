@@ -1,14 +1,16 @@
 /**
- * OmniPulse AI Studio - Ultra-Luxury Layout & VGPU Styles
- * Obsidian Deep Space Backdrop, Floating Glass Sidebar, Luminous Specular Accents.
+ * OmniPulse AI Studio - Liquid Glass Layout & Ambient Orbs
+ * Spatial Floating Dock, Translucent Frosted Glass, Ambient Orbs, Full-Canvas Depth.
  */
 
 .app-container {
   display: flex;
+  flex-direction: column;
   min-height: 100vh;
-  background-color: var(--bg-app);
+  background-color: var(--bg);
   position: relative;
   overflow-x: hidden;
+  align-items: center;
 }
 
 /* ==========================================================================
@@ -33,11 +35,6 @@
   display: block;
 }
 
-.three-controls-wrapper,
-.vgpu-badge-wrapper {
-  position: relative;
-}
-
 .vgpu-contrast-scrim {
   position: absolute;
   inset: 0;
@@ -45,643 +42,300 @@
   pointer-events: none;
 }
 
-/* Ambient Halos for Extra Depth */
-.ambient-glow-1 {
+/* ==========================================================================
+   Ambient Animated Orbs (ComfyUI Visual Aesthetic)
+   ========================================================================== */
+
+.ambient-container {
   position: fixed;
-  top: -100px;
-  right: 5%;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.35;
+  animation: floatOrb 18s ease-in-out infinite alternate;
+  will-change: transform, opacity;
+}
+
+.orb-1 {
+  top: -8%;
+  left: 15%;
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, var(--accent-emerald) 0%, transparent 70%);
+  animation-duration: 22s;
+}
+
+.orb-2 {
+  top: 35%;
+  right: -5%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
+  animation-duration: 26s;
+  animation-delay: -5s;
+}
+
+.orb-3 {
+  bottom: -10%;
+  left: 20%;
   width: 650px;
   height: 650px;
-  background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, rgba(5, 150, 105, 0.03) 45%, transparent 70%);
-  filter: blur(80px);
-  pointer-events: none;
-  z-index: 1;
-  animation: pulseGlow 8s ease-in-out infinite alternate;
+  background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
+  animation-duration: 28s;
+  animation-delay: -10s;
 }
 
-.ambient-glow-2 {
-  position: fixed;
-  bottom: -120px;
-  left: 15%;
-  width: 750px;
-  height: 750px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, rgba(217, 119, 6, 0.02) 50%, transparent 70%);
-  filter: blur(90px);
-  pointer-events: none;
-  z-index: 1;
-  animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
+@keyframes floatOrb {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, 30px) scale(1.08); }
+  100% { transform: translate(-30px, 50px) scale(0.95); }
 }
 
 /* ==========================================================================
-   Sidebar Navigation
+   FLOATING LIQUID GLASS DOCK (MASTER NAVBAR)
    ========================================================================== */
 
-.app-sidebar {
-  width: var(--sidebar-width);
-  min-width: var(--sidebar-width);
-  background: var(--bg-sidebar);
-  border-right: var(--border-glass-specular);
-  box-shadow: var(--inner-bevel), 8px 0 40px rgba(0, 0, 0, 0.55);
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
+.dock-wrapper {
   position: sticky;
-  top: 0;
-  z-index: 30;
-  backdrop-filter: blur(24px) saturate(180%);
-  transition: width var(--transition-normal);
+  top: 1rem;
+  z-index: 80;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 clamp(1rem, 3vw, 2rem);
+  pointer-events: none;
 }
 
-.sidebar-header {
-  height: var(--header-height);
+.dock {
+  pointer-events: auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 1.25rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  gap: 1.25rem;
+  background: var(--surface-glass);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-full);
+  padding: 0.6rem 1.25rem;
+  box-shadow: var(--glass-shadow);
+  transition: var(--transition-smooth);
+  width: 100%;
+  max-width: var(--container-max);
 }
 
-.brand-logo {
+.dock:hover {
+  border-color: rgba(255, 255, 255, 0.18);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+/* Brand Group */
+.dock-brand {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  font-family: var(--font-display);
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--text-primary);
-  letter-spacing: -0.01em;
+  gap: 0.75rem;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  user-select: none;
 }
 
-.brand-icon-wrapper {
-  width: 42px;
-  height: 42px;
-  border-radius: var(--radius-sm);
-  background: linear-gradient(135deg, #10b981 0%, #d97706 100%);
+.dock-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-gold) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  box-shadow: 0 0 24px rgba(16, 185, 129, 0.45);
+  font-size: 1.15rem;
+  box-shadow: 0 0 18px var(--accent-emerald-glow);
   border: 1px solid rgba(255, 255, 255, 0.25);
+  transition: var(--transition-smooth);
 }
 
-.brand-title {
-  background: linear-gradient(135deg, #ffffff 0%, #fde68a 60%, #34d399 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-weight: 800;
-  font-size: 1.05rem;
+.dock-avatar:hover {
+  transform: rotate(8deg) scale(1.05);
 }
 
-.brand-badge {
-  font-size: 0.65rem;
-  text-transform: uppercase;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  padding: 0.15rem 0.5rem;
-  border-radius: var(--radius-full);
-  background: rgba(245, 158, 11, 0.18);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  margin-left: 0.25rem;
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
-}
-
-.sidebar-nav {
-  flex: 1;
-  padding: 1.25rem 0.85rem;
+.dock-brand-meta {
   display: flex;
   flex-direction: column;
-  gap: 0.45rem;
-  overflow-y: auto;
 }
 
-.nav-section-title {
+.dock-brand-name {
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: -0.01em;
+  color: var(--fg-heading);
+}
+
+.dock-brand-tag {
   font-size: 0.68rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-  color: #64748b;
-  padding: 0.75rem 0.75rem 0.25rem 0.75rem;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-sm);
-  color: #94a3b8;
+  color: var(--accent-emerald-light);
+  font-family: var(--font-mono);
   font-weight: 600;
-  font-size: 0.9rem;
-  transition: all var(--transition-fast);
-  position: relative;
-  border: 1px solid transparent;
-  cursor: pointer;
-  background: transparent;
+  letter-spacing: 0.04em;
 }
 
-.nav-item:hover {
-  background: rgba(255, 255, 255, 0.05);
-  color: #f8fafc;
-  transform: translateX(3px);
-  border-color: rgba(255, 255, 255, 0.08);
-}
-
-.nav-item.active {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.2) 0%, rgba(15, 23, 42, 0.92) 100%);
-  color: #ffffff;
-  border: 1px solid rgba(16, 185, 129, 0.5);
-  box-shadow: 0 4px 20px rgba(16, 185, 129, 0.2), inset 0 0 14px rgba(16, 185, 129, 0.12);
-}
-
-.nav-item.active::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 15%;
-  bottom: 15%;
-  width: 4px;
-  border-radius: 0 4px 4px 0;
-  background: linear-gradient(180deg, #34d399 0%, #f59e0b 100%);
-  box-shadow: 0 0 12px #34d399;
-}
-
-.sidebar-footer {
-  padding: 1.1rem 0.85rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  background: rgba(2, 6, 16, 0.75);
-}
-
-.ai-status-card {
-  padding: 0.75rem 0.85rem;
-  border-radius: var(--radius-sm);
-  background: rgba(6, 78, 59, 0.28);
-  border: 1px solid rgba(16, 185, 129, 0.35);
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  backdrop-filter: blur(12px);
-}
-
-.ai-status-header {
+/* Navigation Links */
+.dock-nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.35rem;
+  list-style: none;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 
-.ai-status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 10px #10b981;
-  animation: pulseGlow 2s infinite;
+.dock-nav::-webkit-scrollbar {
+  display: none;
 }
 
-.ai-status-title {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #34d399;
-}
-
-.ai-status-text {
-  font-size: 0.72rem;
-  color: #94a3b8;
-  line-height: 1.35;
-}
-
-/* ==========================================================================
-   Main Layout Wrapper & Header
-   ========================================================================== */
-
-.main-wrapper {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  position: relative;
-  z-index: 10;
-  overflow-x: hidden;
-}
-
-.app-header {
-  height: var(--header-height);
-  padding: 0 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: rgba(4, 9, 22, 0.78);
-  backdrop-filter: blur(24px) saturate(180%);
-  border-bottom: var(--border-glass-specular);
-  box-shadow: var(--inner-bevel), 0 4px 25px rgba(0, 0, 0, 0.45);
-  position: sticky;
-  top: 0;
-  z-index: 25;
-}
-
-.header-left {
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-}
-
-.header-title-group {
-  display: flex;
-  flex-direction: column;
-}
-
-.header-page-title {
-  font-size: 1.25rem;
-  font-weight: 800;
-  color: #ffffff;
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  letter-spacing: -0.02em;
-}
-
-.header-subtitle {
-  font-size: 0.78rem;
-  color: #94a3b8;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
-.app-content {
-  flex: 1;
-  padding: 2.25rem 2rem;
-  max-width: 1650px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-/* ==========================================================================
-   VGPU Status Badge & Controls
-   ========================================================================== */
-
-.vgpu-badge-wrapper {
-  position: relative;
-}
-
-.vgpu-status-badge {
+.dock-nav-item {
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.4rem 0.9rem;
-  border-radius: var(--radius-full);
-  background: rgba(14, 25, 52, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  backdrop-filter: blur(14px);
-  color: var(--text-primary);
-  font-size: 0.8rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-}
-
-.vgpu-status-badge:hover {
-  background: rgba(22, 38, 75, 0.95);
-  border-color: rgba(16, 185, 129, 0.4);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 22px rgba(16, 185, 129, 0.25);
-}
-
-.vgpu-status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  animation: pulseGlow 2s infinite;
-}
-
-.vgpu-badge-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: #f8fafc;
-}
-
-.vgpu-badge-fps {
-  font-size: 0.7rem;
-  color: #34d399;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  background: rgba(16, 185, 129, 0.15);
-  padding: 0.12rem 0.45rem;
-  border-radius: var(--radius-xs);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-}
-
-.vgpu-badge-arrow {
-  color: #94a3b8;
-  transition: transform var(--transition-fast);
-}
-
-.vgpu-badge-arrow.open {
-  transform: rotate(180deg);
-}
-
-.vgpu-dropdown-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 49;
-  background: transparent;
-}
-
-.vgpu-dropdown-menu {
-  position: absolute;
-  top: calc(100% + 10px);
-  right: 0;
-  width: 350px;
-  background: linear-gradient(155deg, rgba(14, 25, 52, 0.96) 0%, rgba(6, 13, 28, 0.98) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: var(--radius-md);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.85), 0 0 35px rgba(16, 185, 129, 0.16);
-  backdrop-filter: blur(28px);
-  padding: 1.15rem;
-  z-index: 50;
-  display: flex;
-  flex-direction: column;
-  gap: 0.9rem;
-}
-
-.vgpu-dropdown-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 0.75rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.vgpu-dropdown-title {
-  display: flex;
-  align-items: center;
   gap: 0.45rem;
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: #ffffff;
-}
-
-.vgpu-tech-tag {
-  font-size: 0.65rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  padding: 0.15rem 0.45rem;
+  padding: 0.45rem 0.9rem;
   border-radius: var(--radius-full);
-}
-
-.vgpu-tech-tag.webgpu {
-  background: rgba(16, 185, 129, 0.2);
-  color: #34d399;
-  border: 1px solid rgba(16, 185, 129, 0.4);
-}
-
-.vgpu-tech-tag.fallback {
-  background: rgba(245, 158, 11, 0.2);
-  color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.4);
-}
-
-.vgpu-section-label {
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: #94a3b8;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-}
-
-.vgpu-preset-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.vgpu-preset-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.65rem 0.85rem;
-  border-radius: var(--radius-sm);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-  text-align: left;
-  transition: all var(--transition-fast);
-  cursor: pointer;
-  width: 100%;
-}
-
-.vgpu-preset-item:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.16);
-  transform: translateX(2px);
-}
-
-.vgpu-preset-item.active {
-  background: rgba(16, 185, 129, 0.15);
-  border-color: rgba(16, 185, 129, 0.45);
-  box-shadow: 0 0 15px rgba(16, 185, 129, 0.15);
-}
-
-.vgpu-preset-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  box-shadow: 0 0 8px currentColor;
-}
-
-.vgpu-preset-info {
-  flex: 1;
-}
-
-.vgpu-preset-name {
   font-size: 0.82rem;
-  font-weight: 700;
-  color: #ffffff;
-}
-
-.vgpu-preset-desc {
-  font-size: 0.7rem;
-  color: #94a3b8;
-  line-height: 1.3;
-}
-
-.vgpu-preset-check {
-  flex-shrink: 0;
-}
-
-.vgpu-dropdown-footer {
-  padding-top: 0.6rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.vgpu-mcp-btn {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.55rem;
-  border-radius: var(--radius-sm);
-  background: rgba(16, 185, 129, 0.12);
-  border: 1px solid rgba(16, 185, 129, 0.3);
-  color: #34d399;
-  font-size: 0.78rem;
-  font-weight: 700;
+  font-weight: 600;
+  color: var(--fg-secondary);
+  background: transparent;
+  border: 1px solid transparent;
   cursor: pointer;
-  transition: all var(--transition-fast);
+  transition: var(--transition-smooth);
+  white-space: nowrap;
+  text-decoration: none;
 }
 
-.vgpu-mcp-btn:hover {
-  background: rgba(16, 185, 129, 0.22);
-  border-color: rgba(16, 185, 129, 0.5);
+.dock-nav-item:hover {
+  color: var(--fg-heading);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+.dock-nav-item.active {
   color: #ffffff;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(6, 182, 212, 0.18) 100%);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
-/* ==========================================================================
-   VGPU MCP Modal
-   ========================================================================== */
-
-.vgpu-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(1, 4, 12, 0.88);
-  backdrop-filter: blur(18px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  padding: 1.5rem;
-}
-
-.vgpu-modal-card {
-  background: linear-gradient(150deg, rgba(14, 25, 52, 0.98) 0%, rgba(6, 13, 28, 0.99) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-lg);
-  width: 100%;
-  max-width: 620px;
-  padding: 2rem;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.95), 0 0 50px rgba(16, 185, 129, 0.2);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  position: relative;
-}
-
-.vgpu-modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 1rem;
-}
-
-.vgpu-modal-title {
+/* Dock Right Actions */
+.dock-actions {
   display: flex;
   align-items: center;
   gap: 0.65rem;
 }
 
-.vgpu-modal-title h3 {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: #ffffff;
+/* Pulse Dot */
+.pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background-color: var(--accent-emerald);
+  box-shadow: 0 0 10px var(--accent-emerald);
+  animation: pulsePing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
-.vgpu-modal-close {
-  width: 32px;
-  height: 32px;
-  border-radius: var(--radius-full);
+@keyframes pulsePing {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
+}
+
+/* Main Viewport */
+.main-wrapper {
+  position: relative;
+  z-index: 10;
+  width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  color: #94a3b8;
-  background: rgba(255, 255, 255, 0.06);
-  cursor: pointer;
-  transition: all var(--transition-fast);
 }
 
-.vgpu-modal-close:hover {
-  background: rgba(255, 255, 255, 0.15);
-  color: #ffffff;
-}
-
-.vgpu-modal-body {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.vgpu-modal-intro {
-  font-size: 0.88rem;
-  color: #cbd5e1;
-  line-height: 1.55;
-}
-
-.vgpu-code-block {
-  display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
-  background: rgba(2, 6, 16, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.75rem 1rem;
-  border-radius: var(--radius-sm);
-}
-
-.vgpu-code-label {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #94a3b8;
-}
-
-.vgpu-code-block code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  font-size: 0.85rem;
-  color: #34d399;
-}
-
-.vgpu-mcp-features {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  padding: 0.75rem;
-  border-radius: var(--radius-sm);
-  background: rgba(16, 185, 129, 0.06);
-  border: 1px solid rgba(16, 185, 129, 0.2);
-}
-
-.vgpu-feature-item {
-  font-size: 0.8rem;
-  color: #e2e8f0;
-}
-
-.vgpu-modal-actions {
-  display: flex;
-  justify-content: flex-end;
+.app-content {
+  width: 100%;
+  max-width: var(--container-max);
+  padding: 0.5rem clamp(1rem, 3vw, 2rem) 4rem;
 }
 
 /* ==========================================================================
-   Responsive Breakpoints
+   Cockpit Header / Hero Card (Under Dock)
    ========================================================================== */
 
-@media (max-width: 1024px) {
-  .app-sidebar {
-    width: 80px;
-    min-width: 80px;
+.hero-cockpit {
+  margin-bottom: 1.5rem;
+  padding: 1.5rem 1.85rem;
+  background: var(--surface-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-card-shadow);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  transition: var(--transition-smooth);
+}
+
+.hero-cockpit:hover {
+  border-color: rgba(0, 229, 255, 0.35);
+  box-shadow: 0 20px 45px -15px rgba(0, 229, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.hero-cockpit-left {
+  display: flex;
+  align-items: center;
+  gap: 1.15rem;
+}
+
+.hero-cockpit-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(0, 229, 255, 0.25) 100%);
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 24px rgba(0, 229, 255, 0.25);
+}
+
+.hero-cockpit-title {
+  font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--fg-heading);
+}
+
+.hero-cockpit-desc {
+  font-size: 0.85rem;
+  color: var(--fg-secondary);
+  margin-top: 0.2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .dock {
+    flex-wrap: wrap;
+    border-radius: var(--radius-lg);
+    gap: 0.75rem;
   }
-  .brand-title, .brand-badge, .nav-section-title, .nav-item span, .sidebar-footer {
-    display: none;
-  }
-  .app-content {
-    padding: 1.25rem;
-  }
-  .app-header {
-    padding: 0 1.25rem;
+  .dock-nav {
+    order: 3;
+    width: 100%;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-subtle);
   }
 }

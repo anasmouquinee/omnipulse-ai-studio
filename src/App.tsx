@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { Sidebar } from './components/common/Sidebar';
 import type { NavView } from './components/common/Sidebar';
-import { Header } from './components/common/Header';
+import { FloatingGlassDock } from './components/common/FloatingGlassDock';
 import { ToastNotification } from './components/common/ToastNotification';
 import type { ToastMessage } from './components/common/ToastNotification';
 import { SettingsModal } from './components/settings/SettingsModal';
@@ -22,10 +21,57 @@ import { StorageService } from './services/storageService';
 import { SocialPublisher } from './services/socialPublisher';
 import { AuthService } from './services/authService';
 
+import { Sparkles, Compass, BookOpen, Calendar, Zap, Share2, Film } from 'lucide-react';
+
 import './styles/base.css';
 import './styles/layout.css';
 import './styles/components.css';
 import './styles/previews.css';
+
+const VIEW_METAS: Record<NavView, { title: string; subtitle: string; icon: React.ReactNode; badge: string }> = {
+  studio: {
+    title: 'Studio de Création & Reels Islamiques',
+    subtitle: 'Récitations HD synchronisées, calligraphie ornée et export vidéo 9:16 pour Instagram & TikTok',
+    icon: <Sparkles size={24} color="#00e5ff" />,
+    badge: 'STUDIO HD'
+  },
+  autopilot: {
+    title: 'Centre de Contrôle Auto-Pilot 24h/24',
+    subtitle: 'Planificateur Cloud autonome sur GitHub Actions — Rotation thématique et anti-répétition',
+    icon: <Compass size={24} color="#10b981" />,
+    badge: 'AUTOPILOT ACTIF'
+  },
+  library: {
+    title: 'Bibliothèque Sacrée & Registre Anti-Répétition',
+    subtitle: 'Historique exhaustif des 130+ versets, hadiths et invocations vérifiées dans la tradition authentique',
+    icon: <BookOpen size={24} color="#60a5fa" />,
+    badge: 'CATALOGUE AUTHENTIQUE'
+  },
+  calendar: {
+    title: 'Calendrier des Rappels Spirituels',
+    subtitle: 'Vue d’ensemble des publications programmées et file d’attente sociale',
+    icon: <Calendar size={24} color="#f59e0b" />,
+    badge: 'PLANNING SOCIAL'
+  },
+  campaigns: {
+    title: 'Programme Spirituel 7 Jours',
+    subtitle: 'Génération automatisée d’une semaine complète de rappels, invocations du matin et Jumu’ah',
+    icon: <Zap size={24} color="#fbbf24" />,
+    badge: 'CAMPAGNE HEBDO'
+  },
+  accounts: {
+    title: 'Canaux de Diffusion Connectés',
+    subtitle: 'Distribution directe vers @kae.islamic et @kaelar.islamic via Buffer API & Webhooks',
+    icon: <Share2 size={24} color="#a855f7" />,
+    badge: 'BUFFER API'
+  },
+  media: {
+    title: 'Banque Vidéos 4K & Décors Sans Filigrane',
+    subtitle: 'Clips et visuels haute définition libres de droits pour vos rappels spirituels',
+    icon: <Film size={24} color="#f43f5e" />,
+    badge: 'ASSETS 4K'
+  }
+};
 
 export const App: React.FC = () => {
   // Authentication State
@@ -152,9 +198,11 @@ export const App: React.FC = () => {
     );
   }
 
+  const activeMeta = VIEW_METAS[currentView] || VIEW_METAS.studio;
+
   return (
     <div className="app-container">
-      {/* 3D Three.js & VGPU Interactive Scene */}
+      {/* 3D Three.js & VGPU WebGL Canvas Scene */}
       <ThreeVgpuScene
         mode={threeMode}
         wireframe={threeWireframe}
@@ -162,43 +210,69 @@ export const App: React.FC = () => {
         onFpsUpdate={setThreeFps}
       />
 
-      {/* Ambient Lighting Accents */}
-      <div className="ambient-glow-1" />
-      <div className="ambient-glow-2" />
+      {/* ComfyUI Ambient Animated Floating Orbs */}
+      <div className="ambient-container">
+        <div className="ambient-orb orb-1" />
+        <div className="ambient-orb orb-2" />
+        <div className="ambient-orb orb-3" />
+      </div>
 
-      {/* Sidebar Navigation */}
-      <Sidebar
+      {/* Floating Liquid Glass Dock Navigation */}
+      <FloatingGlassDock
         currentView={currentView}
         onNavigate={setCurrentView}
         onOpenSettings={() => setIsSettingsOpen(true)}
+        onLogout={() => {
+          setIsAuthenticated(false);
+          showToast('info', 'Session fermée.');
+        }}
         postsCount={posts.length}
-        settings={settings}
+        accounts={accounts}
+        threeMode={threeMode}
+        onSelectThreeMode={setThreeMode}
+        wireframe={threeWireframe}
+        onToggleWireframe={() => setThreeWireframe(prev => !prev)}
+        autoRotate={threeAutoRotate}
+        onToggleAutoRotate={() => setThreeAutoRotate(prev => !prev)}
+        fps={threeFps}
       />
 
-      {/* Main Wrapper */}
+      {/* Main Viewport Content */}
       <div className="main-wrapper">
-        {/* Top Header */}
-        <Header
-          currentView={currentView}
-          onNewPost={() => handleNewPost()}
-          onNavigate={setCurrentView}
-          onOpenSettings={() => setIsSettingsOpen(true)}
-          onLogout={() => {
-            setIsAuthenticated(false);
-            showToast('info', 'Session sécurisée fermée.');
-          }}
-          accounts={accounts}
-          threeMode={threeMode}
-          onSelectThreeMode={setThreeMode}
-          wireframe={threeWireframe}
-          onToggleWireframe={() => setThreeWireframe(prev => !prev)}
-          autoRotate={threeAutoRotate}
-          onToggleAutoRotate={() => setThreeAutoRotate(prev => !prev)}
-          fps={threeFps}
-        />
-
-        {/* Content Viewport */}
         <main className="app-content animate-fade-in">
+          {/* Spatial Cockpit Hero Header */}
+          <div className="hero-cockpit">
+            <div className="hero-cockpit-left">
+              <div className="hero-cockpit-icon">
+                {activeMeta.icon}
+              </div>
+              <div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                  <h1 className="hero-cockpit-title">
+                    <span className="gradient-text">{activeMeta.title}</span>
+                  </h1>
+                  <span className="section-badge section-badge-emerald">
+                    {activeMeta.badge}
+                  </span>
+                </div>
+                <p className="hero-cockpit-desc">
+                  {activeMeta.subtitle}
+                </p>
+              </div>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
+              <div className="spec-pill">
+                <span className="pulse-dot" />
+                <span>WebGPU 60 FPS</span>
+              </div>
+              <div className="spec-pill">
+                <span>Buffer API: @kae.islamic</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Active View Component */}
           {currentView === 'studio' && (
             <StudioView
               editingPost={editingPost}
