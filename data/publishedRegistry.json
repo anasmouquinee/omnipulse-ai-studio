@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4594,10 +4594,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793232510824",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-rizq-barakah",
+      "bookOrSurah": "بركة الرزق 🌿 • Invocations pour la Subsistance & l'Abondance Halal",
+      "numberOrAyah": "Sourate At-Talaq — Versets 2-3",
+      "surahNumber": 51,
+      "ayahNumber": 17,
+      "arabicText": "« اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا »",
+      "translationFr": "« Ô Allah, je Te demande un savoir utile, une subsistance pure et une œuvre acceptée »",
+      "translationEn": "“They used to sleep but little of the night, and in the hours before dawn they would ask forgiveness.”",
+      "contentHash": "كانوا قليلا من الليل ما يهجعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4692.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793232474/fqzkrngud8k9zcyvunci.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793232465/el5n0nbuy5x6mqhnmz7a.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793232466/i5dkl2p8bk6tqmasg0pl.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793232467/zxl8n3euq9lz9iutgmnx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793232468/pojszfb1sqxldj3iem5e.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793232469/ljfrimyje2rs9knmkwfp.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793232465/el5n0nbuy5x6mqhnmz7a.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sayyid-istighfar",
+  "lastCarouselPackId": "carousel-rizq-barakah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4693,6 +4725,7 @@
     "carousel-masaa",
     "carousel-4-treasures",
     "carousel-karb-relief",
-    "carousel-sayyid-istighfar"
+    "carousel-sayyid-istighfar",
+    "carousel-rizq-barakah"
   ]
 }
