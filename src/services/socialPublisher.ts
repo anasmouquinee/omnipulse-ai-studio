@@ -123,7 +123,7 @@ export function getBufferRateLimitStatus(): BufferRateLimitInfo {
   return { isLimited: false, remainingMs: 0, resetAt: null, message: '' };
 }
 
-export function setBufferRateLimited(retryAfterSeconds: number = 43200, message?: string) {
+export function setBufferRateLimited(retryAfterSeconds: number = 43200, _message?: string) {
   try {
     if (typeof window !== 'undefined') {
       const resetTime = Date.now() + (retryAfterSeconds * 1000);

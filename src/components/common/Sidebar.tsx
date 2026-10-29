@@ -6,8 +6,6 @@ import {
   Share2, 
   Film,
   Settings, 
-  Cpu,
-  ShieldCheck,
   Compass,
   BookOpen
 } from 'lucide-react';
@@ -34,14 +32,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* Brand Header */}
       <div className="sidebar-header">
         <div className="brand-logo">
-          <div className="brand-icon-wrapper">
-            <span style={{ fontSize: '1.25rem' }}>🕌</span>
+          <div className="sidebar-brand-icon">
+            <span>🕌</span>
           </div>
           <div>
             <div className="brand-title">Kaelar Islamic</div>
-            <div style={{ fontSize: '0.68rem', color: '#94a3b8', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981', display: 'inline-block' }} />
-              OmniPulse Studio
+            <div className="sidebar-status-subtext">
+              <span className="sidebar-status-dot-emerald" />
+              <span>OmniPulse Studio</span>
             </div>
           </div>
           <span className="brand-badge">
@@ -153,3 +151,5 @@ export const Sidebar: React.FC<SidebarProps> = ({
     </aside>
   );
 };
+
+export default Sidebar;

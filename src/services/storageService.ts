@@ -195,7 +195,7 @@ export const StorageService = {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.BRIDGE);
       return data ? { ...DEFAULT_BRIDGE_CONFIG, ...JSON.parse(data) } : DEFAULT_BRIDGE_CONFIG;
-    } catch (e) {
+    } catch {
       return DEFAULT_BRIDGE_CONFIG;
     }
   },
@@ -213,7 +213,7 @@ export const StorageService = {
     try {
       const data = localStorage.getItem(STORAGE_KEYS.LOGS);
       return data ? JSON.parse(data) : [];
-    } catch (e) {
+    } catch {
       return [];
     }
   },
