@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4658,10 +4658,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793275514890",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-qiyam-tahajjud",
+      "bookOrSurah": "قيام الليل 🌙 • Sagesse du Dernier Tiers de la Nuit (Qiyam)",
+      "numberOrAyah": "Sourate As-Sajdah — Verset 16",
+      "surahNumber": 33,
+      "ayahNumber": 21,
+      "arabicText": "« يَنْزِلُ رَبُّنَا كُلَّ لَيْلَةٍ حِينَ يَبْقَى ثُلُثُ اللَّيْلِ الآخِرُ »",
+      "translationFr": "« Notre Seigneur descend chaque nuit au ciel le plus proche au dernier tiers de la nuit »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'Your smile for your brother is a charity for you.'",
+      "contentHash": "تبسمك في وجه أخيك لك صدقة",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3554.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793275478/d0trlxeki2o8ch0ep8hr.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793275465/w4fswmccqlsbomyktnxm.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793275466/mq6mnlpl7m97w7s2lr2r.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793275466/yiyqjyvqtiwg8gxukk6w.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793275467/tzdztjan3oztnm6ju2q5.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793275468/lwp5xzxrolsvspbxi92j.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793275465/w4fswmccqlsbomyktnxm.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-jumuah-sunan",
+  "lastCarouselPackId": "carousel-qiyam-tahajjud",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4759,6 +4791,7 @@
     "carousel-karb-relief",
     "carousel-sayyid-istighfar",
     "carousel-rizq-barakah",
-    "carousel-jumuah-sunan"
+    "carousel-jumuah-sunan",
+    "carousel-qiyam-tahajjud"
   ]
 }
