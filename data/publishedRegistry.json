@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4690,10 +4690,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793297109815",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-shifa-ruqyah",
+      "bookOrSurah": "الشفاء والعافية 🕊️ • Invocations de Guérison & Protection Corporelle",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Verset 80",
+      "surahNumber": 33,
+      "ayahNumber": 56,
+      "arabicText": "« أَذْهِبِ الْبَاسَ رَبَّ النَّاسِ ، اشْفِ أَنْتَ الشَّافِي »",
+      "translationFr": "« Fais disparaître le mal, Ô Seigneur des hommes, guéris car Tu es le Seul Guérisseur »",
+      "translationEn": "The Prophet ﷺ said: 'Among the best of your days is Friday... So invoke abundant blessings upon me on it, for your blessings are presented to me.'",
+      "contentHash": "إن من أفضل أيامكم يوم الجمعة، ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3589.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793297065/fswdqedgnwpxypv7bdh1.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793297051/ppb01deawgp4stgoyb6p.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793297052/pifdghkqbu8zdmov8qod.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793297053/ogeonsuprt3i17wsf22h.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793297054/pzedgubrfr4yyrl0y1xb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793297057/dnypsikgnmypmxxrggiu.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793297051/ppb01deawgp4stgoyb6p.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-qiyam-tahajjud",
+  "lastCarouselPackId": "carousel-shifa-ruqyah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4792,6 +4824,7 @@
     "carousel-sayyid-istighfar",
     "carousel-rizq-barakah",
     "carousel-jumuah-sunan",
-    "carousel-qiyam-tahajjud"
+    "carousel-qiyam-tahajjud",
+    "carousel-shifa-ruqyah"
   ]
 }
