@@ -20,6 +20,7 @@ import type { AISettings } from './types/ai';
 import { StorageService } from './services/storageService';
 import { SocialPublisher } from './services/socialPublisher';
 import { AuthService } from './services/authService';
+import { SunnahCalendarService } from './services/sunnahCalendarService';
 
 import { Sparkles, Compass, BookOpen, Calendar, Zap, Share2, Film } from 'lucide-react';
 
@@ -28,48 +29,55 @@ import './styles/layout.css';
 import './styles/components.css';
 import './styles/previews.css';
 
-const VIEW_METAS: Record<NavView, { title: string; subtitle: string; icon: React.ReactNode; badge: string }> = {
+const VIEW_METAS: Record<NavView, { title: string; arabicTitle: string; subtitle: string; icon: React.ReactNode; badge: string }> = {
   studio: {
     title: 'Studio de Création & Reels Islamiques',
+    arabicTitle: 'استوديو الرقائق والمقاطع القرآنية',
     subtitle: 'Récitations HD synchronisées, calligraphie ornée et export vidéo 9:16 pour Instagram & TikTok',
-    icon: <Sparkles size={24} color="#00e5ff" />,
-    badge: 'STUDIO HD'
+    icon: <Sparkles size={24} color="#f59e0b" />,
+    badge: 'استوديو HD'
   },
   autopilot: {
     title: 'Centre de Contrôle Auto-Pilot 24h/24',
+    arabicTitle: 'النشر السحابي التلقائي المستمر',
     subtitle: 'Planificateur Cloud autonome sur GitHub Actions — Rotation thématique et anti-répétition',
     icon: <Compass size={24} color="#10b981" />,
-    badge: 'AUTOPILOT ACTIF'
+    badge: 'نشر تلقائي'
   },
   library: {
     title: 'Bibliothèque Sacrée & Registre Anti-Répétition',
+    arabicTitle: 'المكتبة القرآنية والحديثية الموثقة',
     subtitle: 'Historique exhaustif des 130+ versets, hadiths et invocations vérifiées dans la tradition authentique',
-    icon: <BookOpen size={24} color="#60a5fa" />,
-    badge: 'CATALOGUE AUTHENTIQUE'
+    icon: <BookOpen size={24} color="#fbbf24" />,
+    badge: 'مكتبة موثقة'
   },
   calendar: {
     title: 'Calendrier des Rappels Spirituels',
-    subtitle: 'Vue d’ensemble des publications programmées et file d’attente sociale',
-    icon: <Calendar size={24} color="#f59e0b" />,
-    badge: 'PLANNING SOCIAL'
+    arabicTitle: 'جدول المواعيد والمنشورات',
+    subtitle: 'Vue d’ensemble des publications programmées et file d’attente sociale pour @kae.islamic',
+    icon: <Calendar size={24} color="#34d399" />,
+    badge: 'التقويم المبارك'
   },
   campaigns: {
     title: 'Programme Spirituel 7 Jours',
+    arabicTitle: 'البرنامج الأسبوعي المبارك',
     subtitle: 'Génération automatisée d’une semaine complète de rappels, invocations du matin et Jumu’ah',
-    icon: <Zap size={24} color="#fbbf24" />,
-    badge: 'CAMPAGNE HEBDO'
+    icon: <Zap size={24} color="#f59e0b" />,
+    badge: 'حملة أسبوعية'
   },
   accounts: {
     title: 'Canaux de Diffusion Connectés',
+    arabicTitle: 'قنوات التواصل المربوطة',
     subtitle: 'Distribution directe vers @kae.islamic et @kaelar.islamic via Buffer API & Webhooks',
     icon: <Share2 size={24} color="#a855f7" />,
-    badge: 'BUFFER API'
+    badge: 'شبكات موثقة'
   },
   media: {
     title: 'Banque Vidéos 4K & Décors Sans Filigrane',
+    arabicTitle: 'مكتبة المرئيات عالية الدقة',
     subtitle: 'Clips et visuels haute définition libres de droits pour vos rappels spirituels',
-    icon: <Film size={24} color="#f43f5e" />,
-    badge: 'ASSETS 4K'
+    icon: <Film size={24} color="#f59e0b" />,
+    badge: 'وسائط 4K'
   }
 };
 
@@ -83,6 +91,9 @@ export const App: React.FC = () => {
   const [accounts, setAccounts] = useState<SocialAccount[]>(() => StorageService.getAccounts());
   const [mediaList, setMediaList] = useState<MediaAsset[]>(() => StorageService.getMediaLibrary());
   const [settings, setSettings] = useState<AISettings>(() => StorageService.getSettings());
+
+  // Hijri Date
+  const [hijriDate] = useState(() => SunnahCalendarService.getHijriDate());
 
   // Three.js 3D Scene & WebGPU State
   const [threeMode, setThreeMode] = useState<ThreeSceneMode>('sacred_crystal');
@@ -202,7 +213,7 @@ export const App: React.FC = () => {
 
   return (
     <div className="app-container">
-      {/* 3D Three.js & VGPU WebGL Canvas Scene */}
+      {/* 3D Three.js & VGPU WebGPU Canvas Scene */}
       <ThreeVgpuScene
         mode={threeMode}
         wireframe={threeWireframe}
@@ -210,14 +221,32 @@ export const App: React.FC = () => {
         onFpsUpdate={setThreeFps}
       />
 
-      {/* ComfyUI Ambient Animated Floating Orbs */}
+      {/* Andalusian Sacred Geometric Star Pattern Scrim */}
+      <div className="islamic-geom-scrim" />
+
+      {/* Ambient Sacred Lantern Orbs */}
       <div className="ambient-container">
         <div className="ambient-orb orb-1" />
         <div className="ambient-orb orb-2" />
         <div className="ambient-orb orb-3" />
       </div>
 
-      {/* Floating Liquid Glass Dock Navigation */}
+      {/* Top Bismillah Calligraphic Ribbon */}
+      <div className="bismillah-ribbon">
+        <div className="bismillah-text">
+          <span style={{ fontSize: '1.4rem' }}>﷽</span>
+          <span style={{ fontSize: '0.9rem', color: '#fde68a' }}>
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          </span>
+        </div>
+        <div className="hijri-date-pill">
+          <span>🌙 {hijriDate.formattedStr}</span>
+          <span style={{ color: '#f59e0b' }}>•</span>
+          <span style={{ fontFamily: 'var(--font-arabic)', fontSize: '0.85rem' }}>{hijriDate.monthNameAr}</span>
+        </div>
+      </div>
+
+      {/* Floating Gilded Islamic Dock Navigation */}
       <FloatingGlassDock
         currentView={currentView}
         onNavigate={setCurrentView}
@@ -240,17 +269,25 @@ export const App: React.FC = () => {
       {/* Main Viewport Content */}
       <div className="main-wrapper">
         <main className="app-content animate-fade-in">
-          {/* Spatial Cockpit Hero Header */}
+          {/* Sacred Islamic Pavilion Cockpit Card */}
           <div className="hero-cockpit">
             <div className="hero-cockpit-left">
               <div className="hero-cockpit-icon">
                 {activeMeta.icon}
               </div>
               <div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
                   <h1 className="hero-cockpit-title">
                     <span className="gradient-text">{activeMeta.title}</span>
                   </h1>
+                  <span style={{
+                    fontFamily: 'var(--font-arabic)',
+                    fontSize: '1.15rem',
+                    color: '#fde68a',
+                    fontWeight: 700
+                  }}>
+                    {activeMeta.arabicTitle}
+                  </span>
                   <span className="section-badge section-badge-emerald">
                     {activeMeta.badge}
                   </span>
@@ -263,11 +300,11 @@ export const App: React.FC = () => {
 
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap' }}>
               <div className="spec-pill">
-                <span className="pulse-dot" />
-                <span>WebGPU 60 FPS</span>
+                <span className="pulse-dot-gold" />
+                <span style={{ color: '#fde68a' }}>WebGPU 60 FPS</span>
               </div>
               <div className="spec-pill">
-                <span>Buffer API: @kae.islamic</span>
+                <span style={{ color: '#34d399' }}>@kae.islamic & @kaelar.islamic</span>
               </div>
             </div>
           </div>

@@ -306,9 +306,9 @@ export const IslamicLibraryView: React.FC<IslamicLibraryViewProps> = ({ onShowTo
           gridTemplateColumns: 'repeat(auto-fill, minmax(340px, 1fr))',
           gap: '1.25rem'
         }}>
-          {filteredItems.map(item => (
+          {filteredItems.map((item, idx) => (
             <div
-              key={item.id}
+              key={item.id || ("item-" + idx)}
               style={{
                 background: 'linear-gradient(180deg, rgba(15, 23, 42, 0.8) 0%, rgba(2, 6, 23, 0.9) 100%)',
                 border: '1px solid rgba(255, 255, 255, 0.08)',

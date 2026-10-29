@@ -1,6 +1,6 @@
 /**
- * OmniPulse AI Studio - Liquid Glass Layout & Ambient Orbs
- * Spatial Floating Dock, Translucent Frosted Glass, Ambient Orbs, Full-Canvas Depth.
+ * OmniPulse AI Studio - Sacred Islamic Liquid Glass Layout (التصميم الإسلامي المقدس)
+ * Velvet Medina Night, Andalusian Geometric Star Scrim, Floating Gilded Dock, Ambient Lantern Orbs.
  */
 
 .app-container {
@@ -14,7 +14,21 @@
 }
 
 /* ==========================================================================
-   Three.js & VGPU Canvas Background & Scrim
+   Sacred Islamic Geometric Pattern Scrim (نقش الأرابيسك الهندسي)
+   ========================================================================== */
+
+.islamic-geom-scrim {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cpath d='M40 0 L52 14 L68 14 L68 30 L82 40 L68 50 L68 66 L52 66 L40 80 L28 66 L12 66 L12 50 L-2 40 L12 30 L12 14 L28 14 Z' fill='none' stroke='%23f59e0b' stroke-width='0.8' stroke-opacity='0.07'/%3E%3Ccircle cx='40' cy='40' r='16' fill='none' stroke='%2310b981' stroke-width='0.6' stroke-opacity='0.08'/%3E%3Cpolygon points='40,28 48,36 40,44 32,36' fill='none' stroke='%23f59e0b' stroke-width='0.5' stroke-opacity='0.08'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.85;
+}
+
+/* ==========================================================================
+   Three.js & VGPU WebGPU Background Canvas
    ========================================================================== */
 
 .three-canvas-container,
@@ -43,7 +57,7 @@
 }
 
 /* ==========================================================================
-   Ambient Animated Orbs (ComfyUI Visual Aesthetic)
+   Ambient Sacred Lantern Orbs (أنوار الروضة الشريفة)
    ========================================================================== */
 
 .ambient-container {
@@ -57,54 +71,98 @@
 .ambient-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.35;
-  animation: floatOrb 18s ease-in-out infinite alternate;
+  filter: blur(110px);
+  opacity: 0.42;
+  animation: floatOrb 20s ease-in-out infinite alternate;
   will-change: transform, opacity;
 }
 
 .orb-1 {
   top: -8%;
-  left: 15%;
-  width: 550px;
-  height: 550px;
-  background: radial-gradient(circle, var(--accent-emerald) 0%, transparent 70%);
+  left: 12%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, var(--accent-emerald) 0%, rgba(4, 120, 87, 0.2) 50%, transparent 75%);
   animation-duration: 22s;
 }
 
 .orb-2 {
-  top: 35%;
+  top: 30%;
   right: -5%;
-  width: 600px;
-  height: 600px;
-  background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
+  width: 650px;
+  height: 650px;
+  background: radial-gradient(circle, var(--accent-gold) 0%, rgba(180, 83, 9, 0.2) 45%, transparent 75%);
   animation-duration: 26s;
   animation-delay: -5s;
 }
 
 .orb-3 {
-  bottom: -10%;
-  left: 20%;
-  width: 650px;
-  height: 650px;
-  background: radial-gradient(circle, var(--accent-gold) 0%, transparent 70%);
+  bottom: -12%;
+  left: 25%;
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(circle, var(--accent-emerald-light) 0%, rgba(6, 78, 59, 0.25) 50%, transparent 75%);
   animation-duration: 28s;
   animation-delay: -10s;
 }
 
 @keyframes floatOrb {
   0% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(40px, 30px) scale(1.08); }
-  100% { transform: translate(-30px, 50px) scale(0.95); }
+  50% { transform: translate(45px, 35px) scale(1.08); }
+  100% { transform: translate(-35px, 55px) scale(0.95); }
 }
 
 /* ==========================================================================
-   FLOATING LIQUID GLASS DOCK (MASTER NAVBAR)
+   Top Bismillah Ribbon (شريط البسملة الشريفة)
+   ========================================================================== */
+
+.bismillah-ribbon {
+  width: 100%;
+  max-width: var(--container-max);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem clamp(1.25rem, 3vw, 2.5rem) 0;
+  position: relative;
+  z-index: 85;
+}
+
+.bismillah-text {
+  font-family: var(--font-arabic);
+  font-size: 1.15rem;
+  letter-spacing: 0.04em;
+  background: var(--grad-gold-foil);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  text-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+  font-weight: 700;
+}
+
+.hijri-date-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-gold-light);
+  background: rgba(245, 158, 11, 0.1);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  padding: 0.2rem 0.75rem;
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 14px rgba(245, 158, 11, 0.15);
+}
+
+/* ==========================================================================
+   FLOATING GILDED ISLAMIC DOCK (المنصة العائمة المذهبة)
    ========================================================================== */
 
 .dock-wrapper {
   position: sticky;
-  top: 1rem;
+  top: 0.75rem;
   z-index: 80;
   width: 100%;
   display: flex;
@@ -122,18 +180,18 @@
   background: var(--surface-glass);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border-glass);
+  border: 1px solid rgba(245, 158, 11, 0.32);
   border-radius: var(--radius-full);
-  padding: 0.6rem 1.25rem;
-  box-shadow: var(--glass-shadow);
+  padding: 0.6rem 1.4rem;
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(254, 240, 138, 0.25);
   transition: var(--transition-smooth);
   width: 100%;
   max-width: var(--container-max);
 }
 
 .dock:hover {
-  border-color: rgba(255, 255, 255, 0.18);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+  border-color: rgba(245, 158, 11, 0.55);
+  box-shadow: 0 25px 55px -10px rgba(245, 158, 11, 0.22), inset 0 1px 0 rgba(254, 240, 138, 0.35);
 }
 
 /* Brand Group */
@@ -148,21 +206,21 @@
 }
 
 .dock-avatar {
-  width: 38px;
-  height: 38px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-emerald) 0%, var(--accent-gold) 100%);
+  background: linear-gradient(135deg, #059669 0%, #10b981 40%, #f59e0b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.15rem;
-  box-shadow: 0 0 18px var(--accent-emerald-glow);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 1.25rem;
+  box-shadow: 0 0 20px var(--accent-gold-glow);
+  border: 1px solid rgba(254, 240, 138, 0.45);
   transition: var(--transition-smooth);
 }
 
 .dock-avatar:hover {
-  transform: rotate(8deg) scale(1.05);
+  transform: rotate(10deg) scale(1.08);
 }
 
 .dock-brand-meta {
@@ -172,17 +230,22 @@
 
 .dock-brand-name {
   font-weight: 800;
-  font-size: 0.95rem;
+  font-size: 0.98rem;
   letter-spacing: -0.01em;
-  color: var(--fg-heading);
+  background: var(--grad-gold-foil);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 .dock-brand-tag {
-  font-size: 0.68rem;
-  color: var(--accent-emerald-light);
-  font-family: var(--font-mono);
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 0.66rem;
+  color: #34d399;
+  font-family: var(--font-arabic);
+  font-weight: 700;
+  letter-spacing: 0.06em;
 }
 
 /* Navigation Links */
@@ -203,10 +266,10 @@
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  padding: 0.45rem 0.9rem;
+  padding: 0.48rem 0.95rem;
   border-radius: var(--radius-full);
   font-size: 0.82rem;
-  font-weight: 600;
+  font-weight: 700;
   color: var(--fg-secondary);
   background: transparent;
   border: 1px solid transparent;
@@ -217,27 +280,26 @@
 }
 
 .dock-nav-item:hover {
-  color: var(--fg-heading);
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-gold);
+  background: rgba(245, 158, 11, 0.1);
+  border-color: rgba(245, 158, 11, 0.25);
   transform: translateY(-1px);
 }
 
 .dock-nav-item.active {
   color: #ffffff;
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(6, 182, 212, 0.18) 100%);
-  border: 1px solid rgba(16, 185, 129, 0.5);
-  box-shadow: 0 0 16px rgba(16, 185, 129, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.35) 0%, rgba(245, 158, 11, 0.22) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.55);
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.25), inset 0 1px 0 rgba(254, 240, 138, 0.25);
 }
 
-/* Dock Right Actions */
 .dock-actions {
   display: flex;
   align-items: center;
   gap: 0.65rem;
 }
 
-/* Pulse Dot */
+/* Islamic Pulse Dot */
 .pulse-dot {
   width: 7px;
   height: 7px;
@@ -247,12 +309,20 @@
   animation: pulsePing 2s cubic-bezier(0, 0, 0.2, 1) infinite;
 }
 
+.pulse-dot-gold {
+  background-color: var(--accent-gold);
+  box-shadow: 0 0 10px var(--accent-gold);
+}
+
 @keyframes pulsePing {
   0%, 100% { transform: scale(1); opacity: 1; }
   50% { transform: scale(1.4); opacity: 0.6; }
 }
 
-/* Main Viewport */
+/* ==========================================================================
+   Main Viewport & Cockpit
+   ========================================================================== */
+
 .main-wrapper {
   position: relative;
   z-index: 10;
@@ -265,20 +335,17 @@
 .app-content {
   width: 100%;
   max-width: var(--container-max);
-  padding: 0.5rem clamp(1rem, 3vw, 2rem) 4rem;
+  padding: 0.75rem clamp(1rem, 3vw, 2rem) 4rem;
 }
 
-/* ==========================================================================
-   Cockpit Header / Hero Card (Under Dock)
-   ========================================================================== */
-
+/* Islamic Pavilion Cockpit Card */
 .hero-cockpit {
   margin-bottom: 1.5rem;
-  padding: 1.5rem 1.85rem;
+  padding: 1.6rem 2rem;
   background: var(--surface-card);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--border-glass);
+  border: 1px solid rgba(245, 158, 11, 0.3);
   border-radius: var(--radius-xl);
   box-shadow: var(--glass-card-shadow);
   display: flex;
@@ -287,33 +354,46 @@
   flex-wrap: wrap;
   gap: 1.25rem;
   transition: var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-cockpit::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #f59e0b, #10b981, #f59e0b, transparent);
 }
 
 .hero-cockpit:hover {
-  border-color: rgba(0, 229, 255, 0.35);
-  box-shadow: 0 20px 45px -15px rgba(0, 229, 255, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.18);
+  border-color: rgba(245, 158, 11, 0.55);
+  box-shadow: 0 20px 45px -15px rgba(245, 158, 11, 0.2), inset 0 1px 0 rgba(254, 240, 138, 0.25);
 }
 
 .hero-cockpit-left {
   display: flex;
   align-items: center;
-  gap: 1.15rem;
+  gap: 1.25rem;
 }
 
 .hero-cockpit-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: var(--radius-md);
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.25) 0%, rgba(0, 229, 255, 0.25) 100%);
-  border: 1px solid rgba(0, 229, 255, 0.4);
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.7) 0%, rgba(180, 83, 9, 0.5) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.45);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 24px rgba(0, 229, 255, 0.25);
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.35);
+  color: var(--accent-gold-bright);
 }
 
 .hero-cockpit-title {
-  font-size: clamp(1.2rem, 2.5vw, 1.65rem);
+  font-size: clamp(1.25rem, 2.5vw, 1.75rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   color: var(--fg-heading);
@@ -322,10 +402,9 @@
 .hero-cockpit-desc {
   font-size: 0.85rem;
   color: var(--fg-secondary);
-  margin-top: 0.2rem;
+  margin-top: 0.25rem;
 }
 
-/* Responsive adjustments */
 @media (max-width: 900px) {
   .dock {
     flex-wrap: wrap;

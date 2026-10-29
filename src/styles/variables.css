@@ -1,44 +1,50 @@
 /**
- * OmniPulse AI Studio - Liquid Glass & Spatial UI Design System
- * Inspired by the ComfyUI Visual Preset Engine & Liquid Glass Tokens
+ * OmniPulse AI Studio - Imperial Islamic Luxury Design System (نظام التصميم الإسلامي الملكي)
+ * Sacred Emerald (#10b981 / #047857), Kiswah 24K Gold (#f59e0b / #fef08a), Velvet Medina Obsidian.
  */
 
 :root {
-  /* Core Deep Obsidian Backgrounds */
-  --bg: #07090e;
-  --bg-alt: #0c1017;
-  --bg-app: #07090e;
-  --bg-sidebar: rgba(13, 19, 32, 0.78);
-  --surface-glass: rgba(13, 19, 32, 0.72);
-  --surface-card: rgba(18, 26, 44, 0.62);
-  --surface-card-hover: rgba(24, 35, 59, 0.82);
-  --surface-subtle: rgba(255, 255, 255, 0.04);
-  
-  --bg-surface: var(--surface-glass);
-  --bg-surface-elevated: rgba(20, 30, 52, 0.85);
-  --bg-surface-hover: var(--surface-card-hover);
-  --bg-input: rgba(8, 14, 26, 0.82);
-  --bg-card-glass: var(--surface-card);
-  --bg-modal-overlay: rgba(3, 5, 12, 0.88);
-  --bg-canvas-scrim: radial-gradient(circle at 50% 20%, rgba(7, 9, 14, 0.35) 0%, rgba(7, 9, 14, 0.88) 100%);
+  /* Core Velvet Medina Obsidian & Night Sky */
+  --bg: #020705;
+  --bg-alt: #040e0a;
+  --bg-app: #020705;
+  --bg-sidebar: rgba(4, 18, 12, 0.85);
+  --surface-glass: rgba(5, 24, 16, 0.75);
+  --surface-card: rgba(6, 30, 20, 0.65);
+  --surface-card-hover: rgba(8, 42, 28, 0.85);
+  --surface-subtle: rgba(245, 158, 11, 0.05);
 
-  /* Neon Glowing Accents */
-  --accent-cyan: #00e5ff;
-  --accent-cyan-glow: rgba(0, 229, 255, 0.38);
-  --accent-indigo: #6366f1;
-  --accent-indigo-glow: rgba(99, 102, 241, 0.35);
+  --bg-surface: var(--surface-glass);
+  --bg-surface-elevated: rgba(8, 36, 24, 0.88);
+  --bg-surface-hover: var(--surface-card-hover);
+  --bg-input: rgba(3, 14, 9, 0.88);
+  --bg-card-glass: var(--surface-card);
+  --bg-modal-overlay: rgba(2, 6, 4, 0.92);
+  --bg-canvas-scrim: radial-gradient(circle at 50% 20%, rgba(2, 7, 5, 0.25) 0%, rgba(2, 7, 5, 0.92) 100%);
+
+  /* Royal Rawdah Emerald Tokens (الزمرد النبوي) */
   --accent-emerald: #10b981;
   --accent-emerald-light: #34d399;
   --accent-emerald-dark: #047857;
-  --accent-emerald-glow: rgba(16, 185, 129, 0.42);
-  --accent-gold: #f59e0b;
-  --accent-gold-light: #fde68a;
-  --accent-gold-dark: #b45309;
-  --accent-gold-glow: rgba(245, 158, 11, 0.42);
-  --accent-rose: #f43f5e;
-  --accent-rose-glow: rgba(244, 63, 94, 0.38);
+  --accent-emerald-deep: #064e3b;
+  --accent-emerald-glow: rgba(16, 185, 129, 0.45);
+  --accent-emerald-subtle: rgba(16, 185, 129, 0.12);
 
-  /* Platform Colors */
+  /* Kiswah 24K Gold Tokens (ذهب الكسوة المشرفة) */
+  --accent-gold: #f59e0b;
+  --accent-gold-light: #fef08a;
+  --accent-gold-bright: #fbbf24;
+  --accent-gold-dark: #b45309;
+  --accent-gold-glow: rgba(245, 158, 11, 0.45);
+  --accent-gold-subtle: rgba(245, 158, 11, 0.12);
+
+  /* Lapis & Twilight Accents (اللازورد وسماء الفجر) */
+  --accent-cyan: #06b6d4;
+  --accent-cyan-glow: rgba(6, 182, 212, 0.38);
+  --accent-indigo: #6366f1;
+  --accent-rose: #f43f5e;
+
+  /* Social Platform Colors */
   --color-tiktok: #fe2c55;
   --color-tiktok-cyan: #25f4ee;
   --color-instagram: #e1306c;
@@ -47,48 +53,50 @@
   /* Typography Colors */
   --fg-primary: #f8fafc;
   --fg-heading: #ffffff;
-  --fg-secondary: #94a3b8;
+  --fg-secondary: #a7b7c7;
   --fg-muted: #64748b;
   --text-primary: #f8fafc;
   --text-secondary: #94a3b8;
   --text-tertiary: #64748b;
-  --text-gold: #fcd34d;
+  --text-gold: #fde68a;
   --text-emerald: #34d399;
   --text-on-accent: #ffffff;
 
-  /* Liquid Glass Specular Borders */
-  --border-glass: rgba(255, 255, 255, 0.08);
-  --border-glass-hover: rgba(0, 229, 255, 0.45);
+  /* Islamic Arabesque & Specular Borders */
+  --border-glass: rgba(16, 185, 129, 0.22);
+  --border-glass-hover: rgba(245, 158, 11, 0.55);
   --border-glass-emerald: rgba(16, 185, 129, 0.45);
   --border-glass-gold: rgba(245, 158, 11, 0.45);
-  --border-subtle: rgba(255, 255, 255, 0.05);
-  --border-medium: rgba(255, 255, 255, 0.16);
-  --border-glass-specular: 1px solid rgba(255, 255, 255, 0.12);
-  --inner-bevel: inset 0 1px 0 0 rgba(255, 255, 255, 0.14);
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-medium: rgba(245, 158, 11, 0.25);
+  --border-glass-specular: 1px solid rgba(245, 158, 11, 0.22);
+  --inner-bevel: inset 0 1px 0 0 rgba(254, 240, 138, 0.22);
 
-  /* Gradients */
-  --grad-primary: linear-gradient(135deg, var(--accent-cyan) 0%, var(--accent-indigo) 100%);
-  --grad-emerald-gold: linear-gradient(135deg, #10b981 0%, #059669 45%, #f59e0b 100%);
-  --grad-gold-emerald: linear-gradient(135deg, #f59e0b 0%, #10b981 100%);
-  --grad-gold-luxury: linear-gradient(135deg, #fde68a 0%, #f59e0b 50%, #d97706 100%);
-  --grad-glass-card: linear-gradient(145deg, rgba(18, 26, 44, 0.72) 0%, rgba(8, 14, 26, 0.85) 100%);
-  --grad-gemini: linear-gradient(135deg, #38bdf8 0%, #818cf8 50%, #c084fc 100%);
-  --grad-imagen: linear-gradient(135deg, #ec4899 0%, #f43f5e 50%, #fb923c 100%);
-  --grad-comfy: linear-gradient(135deg, #10b981 0%, #00e5ff 50%, #6366f1 100%);
+  /* Islamic Royal Gradients */
+  --grad-primary: linear-gradient(135deg, #10b981 0%, #059669 45%, #f59e0b 100%);
+  --grad-emerald-gold: linear-gradient(135deg, #059669 0%, #10b981 40%, #f59e0b 100%);
+  --grad-gold-foil: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
+  --grad-gold-luxury: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #b45309 100%);
+  --grad-rawdah: linear-gradient(135deg, #047857 0%, #10b981 60%, #34d399 100%);
+  --grad-kiswah: linear-gradient(145deg, rgba(6, 32, 22, 0.85) 0%, rgba(2, 10, 6, 0.92) 100%);
+  --grad-glass-card: linear-gradient(145deg, rgba(6, 28, 19, 0.75) 0%, rgba(3, 14, 9, 0.9) 100%);
+  --grad-gemini: linear-gradient(135deg, #34d399 0%, #06b6d4 50%, #f59e0b 100%);
+  --grad-imagen: linear-gradient(135deg, #f59e0b 0%, #f43f5e 100%);
+  --grad-comfy: linear-gradient(135deg, #10b981 0%, #f59e0b 50%, #06b6d4 100%);
 
-  /* Liquid Glass Filters & Shadows */
+  /* Liquid Glass Filters & Royal Shadows */
   --glass-blur: blur(24px) saturate(190%);
-  --glass-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.12);
-  --glass-card-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-  --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.35);
-  --shadow-md: 0 12px 35px rgba(0, 0, 0, 0.5);
-  --shadow-lg: 0 25px 65px rgba(0, 0, 0, 0.65);
+  --glass-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(254, 240, 138, 0.18);
+  --glass-card-shadow: 0 12px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(16, 185, 129, 0.15);
+  --shadow-sm: 0 4px 15px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 12px 35px rgba(0, 0, 0, 0.55);
+  --shadow-lg: 0 25px 65px rgba(0, 0, 0, 0.75);
 
-  /* Typography Fonts */
+  /* Sacred Calligraphy & Modern Typography */
+  --font-arabic: 'Amiri', 'Amiri Quran', 'Scheherazade New', 'Noto Naskh Arabic', serif;
   --font-sans: 'Inter', 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
   --font-mono: 'JetBrains Mono', 'SF Mono', Consolas, monospace;
-  --font-arabic: 'Amiri', 'Scheherazade New', 'Noto Naskh Arabic', serif;
 
   /* Radius & Transitions */
   --radius-xs: 8px;

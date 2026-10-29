@@ -33,14 +33,14 @@ interface FloatingGlassDockProps {
   fps: number;
 }
 
-const NAV_ITEMS: { id: NavView; label: string; icon: React.ReactNode; badge?: string }[] = [
-  { id: 'studio', label: 'Studio Reels', icon: <Sparkles size={15} /> },
-  { id: 'autopilot', label: 'Auto-Pilot 24h', icon: <Compass size={15} />, badge: 'LIVE' },
-  { id: 'library', label: 'Bibliothèque', icon: <BookOpen size={15} /> },
-  { id: 'calendar', label: 'Calendrier', icon: <Calendar size={15} /> },
-  { id: 'campaigns', label: 'Campagnes', icon: <Zap size={15} /> },
-  { id: 'media', label: 'Banque 4K', icon: <Film size={15} /> },
-  { id: 'accounts', label: 'Réseaux', icon: <Share2 size={15} /> },
+const NAV_ITEMS: { id: NavView; label: string; arabic: string; icon: React.ReactNode }[] = [
+  { id: 'studio', label: 'Studio Reels', arabic: 'الاستوديو', icon: <Sparkles size={15} /> },
+  { id: 'autopilot', label: 'Auto-Pilot 24h', arabic: 'نشر تلقائي', icon: <Compass size={15} /> },
+  { id: 'library', label: 'Bibliothèque', arabic: 'المكتبة', icon: <BookOpen size={15} /> },
+  { id: 'calendar', label: 'Calendrier', arabic: 'التقويم', icon: <Calendar size={15} /> },
+  { id: 'campaigns', label: 'Campagnes', arabic: 'حملات', icon: <Zap size={15} /> },
+  { id: 'media', label: 'Banque 4K', arabic: 'الوسائط', icon: <Film size={15} /> },
+  { id: 'accounts', label: 'Réseaux', arabic: 'القنوات', icon: <Share2 size={15} /> },
 ];
 
 export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
@@ -68,8 +68,11 @@ export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
             <span>🕌</span>
           </div>
           <div className="dock-brand-meta">
-            <span className="dock-brand-name">Kaelar Islamic</span>
-            <span className="dock-brand-tag">OMNIPULSE STUDIO</span>
+            <span className="dock-brand-name">
+              <span>Kaelar Islamic</span>
+              <span style={{ fontSize: '0.75rem', color: '#f59e0b' }}>۞</span>
+            </span>
+            <span className="dock-brand-tag">استوديو الذكاء الاصطناعي</span>
           </div>
         </div>
 
@@ -86,11 +89,21 @@ export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
               >
                 {item.icon}
                 <span>{item.label}</span>
+                <span style={{
+                  fontFamily: 'var(--font-arabic)',
+                  fontSize: '0.72rem',
+                  opacity: isActive ? 1 : 0.65,
+                  marginLeft: 2,
+                  color: isActive ? '#fde68a' : 'inherit'
+                }}>
+                  {item.arabic}
+                </span>
+
                 {item.id === 'autopilot' && (
-                  <span className="pulse-dot" style={{ marginLeft: 2 }} />
+                  <span className="pulse-dot" style={{ marginLeft: 3 }} />
                 )}
                 {item.id === 'calendar' && postsCount > 0 && (
-                  <span className="badge badge-gold" style={{ fontSize: '0.65rem', padding: '0.1rem 0.45rem', marginLeft: 2 }}>
+                  <span className="badge badge-gold" style={{ fontSize: '0.65rem', padding: '0.1rem 0.45rem', marginLeft: 3 }}>
                     {postsCount}
                   </span>
                 )}
@@ -112,10 +125,10 @@ export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
             fps={fps}
           />
 
-          {/* Social Status Pill */}
+          {/* Channels Badge */}
           <div className="spec-pill" style={{ display: 'none' /* hidden on compact */ }}>
             <span className="pulse-dot" />
-            <span>@kae.islamic</span>
+            <span style={{ color: '#34d399' }}>@kae.islamic</span>
           </div>
 
           {/* Settings Button */}
@@ -126,24 +139,25 @@ export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
             title="Paramètres & Clés API"
             style={{ padding: '0.45rem', borderRadius: '50%' }}
           >
-            <Settings size={15} />
+            <Settings size={15} color="#f59e0b" />
           </button>
 
           {/* User Button */}
-          <div className="btn-secondary btn-sm" style={{ padding: '0.35rem 0.75rem', gap: '0.45rem', display: 'flex', alignItems: 'center' }}>
+          <div className="btn-secondary btn-sm" style={{ padding: '0.35rem 0.8rem', gap: '0.45rem', display: 'flex', alignItems: 'center' }}>
             <div style={{
-              width: 20,
-              height: 20,
+              width: 22,
+              height: 22,
               borderRadius: '50%',
-              background: 'linear-gradient(135deg, var(--accent-emerald), var(--accent-cyan))',
+              background: 'linear-gradient(135deg, #059669 0%, #f59e0b 100%)',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              color: '#07090e'
+              color: '#020705',
+              boxShadow: '0 0 10px rgba(245, 158, 11, 0.4)'
             }}>
-              <User size={12} />
+              <User size={13} />
             </div>
-            <span style={{ fontSize: '0.78rem', fontWeight: 700 }}>{user?.name || 'Anas'}</span>
+            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#fde68a' }}>{user?.name || 'Anas'}</span>
             
             {onLogout && (
               <button
