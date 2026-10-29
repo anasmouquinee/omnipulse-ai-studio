@@ -1490,18 +1490,22 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
             </button>
           </div>
 
-          {/* Interactive Player Screen in 3D Phone Bezel */}
-          <div 
-            onClick={toggleAudio}
-            className="phone-mockup-frame"
-            style={{
-              width: '100%',
-              maxWidth: aspectRatio === '9:16' ? 340 : 380,
-              overflow: 'hidden',
-              position: 'relative',
-              cursor: 'pointer'
-            }}
-          >
+          {/* Interactive Player Screen in 3D Phone Bezel with Gilded Moorish Mihrab Crest */}
+          <div className="mihrab-frame-container" style={{ width: '100%', maxWidth: aspectRatio === '9:16' ? 340 : 380 }}>
+            <div className="mihrab-gold-crest">
+              <div className="mihrab-crest-peak" title="المحراب الأندلسي الملكي" />
+            </div>
+
+            <div 
+              onClick={toggleAudio}
+              className="phone-mockup-frame"
+              style={{
+                width: '100%',
+                overflow: 'hidden',
+                position: 'relative',
+                cursor: 'pointer'
+              }}
+            >
             {/* Dynamic Island on Phone Mockup */}
             {aspectRatio === '9:16' && <div className="phone-dynamic-island" />}
 
@@ -1828,6 +1832,7 @@ export const IslamicQuoteCardGenerator: React.FC<IslamicQuoteCardGeneratorProps>
                 <p style={{ marginTop: '0.75rem', fontSize: '0.85rem' }}>Rendu cinématique en cours...</p>
               </div>
             )}
+            </div>
           </div>
 
           <div style={{ fontSize: '0.78rem', color: '#94a3b8', textAlign: 'center' }}>

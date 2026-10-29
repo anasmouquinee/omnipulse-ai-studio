@@ -3,6 +3,7 @@ import { AutoPilotService, AUTOPILOT_THEMES } from '../../services/autoPilotServ
 import { getBufferRateLimitStatus } from '../../services/socialPublisher';
 import { SunnahCalendarService, type SunnahEvent, type HijriDateInfo } from '../../services/sunnahCalendarService';
 import type { AutoPilotConfig, AutoPilotLog, AutoPilotTheme } from '../../services/autoPilotService';
+import { CrescentMoonIcon, SunnahPalmIcon, KaabaIcon } from '../common/IslamicIcons';
 import { 
   Sparkles, 
   Play, 
@@ -352,7 +353,7 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: 'linear-gradient(145deg, rgba(17, 28, 54, 0.8) 0%, rgba(9, 16, 32, 0.9) 100%)',
+          background: 'var(--grad-glass-card)',
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(245, 158, 11, 0.1)'
         }}>
           <div>
@@ -410,7 +411,7 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: 'linear-gradient(145deg, rgba(6, 78, 59, 0.25) 0%, rgba(9, 16, 32, 0.9) 100%)',
+          background: 'var(--grad-glass-card)',
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(16, 185, 129, 0.1)'
         }}>
           <div>
@@ -461,7 +462,7 @@ export const AutoPilotDashboard: React.FC<AutoPilotDashboardProps> = ({ onShowTo
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'space-between',
-          background: 'linear-gradient(145deg, rgba(6, 182, 212, 0.15) 0%, rgba(9, 16, 32, 0.9) 100%)',
+          background: 'var(--grad-glass-card)',
           boxShadow: '0 8px 30px rgba(0, 0, 0, 0.45), 0 0 25px rgba(6, 182, 212, 0.1)'
         }}>
           <div>

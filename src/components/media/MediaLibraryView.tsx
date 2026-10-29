@@ -155,7 +155,7 @@ export const MediaLibraryView: React.FC<MediaLibraryViewProps> = ({
               maxHeight: 360,
               borderRadius: 'var(--radius-sm)',
               overflow: 'hidden',
-              background: '#020617'
+              background: 'var(--bg-input)'
             }}>
               <img
                 src={theme.imageUrl}

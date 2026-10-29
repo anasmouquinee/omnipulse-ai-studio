@@ -1,16 +1,20 @@
 import React from 'react';
 import { 
-  Sparkles, 
-  Compass, 
-  BookOpen, 
-  Calendar, 
-  Zap, 
-  Film, 
-  Share2, 
   Settings, 
   LogOut, 
   User 
 } from 'lucide-react';
+import { 
+  QalamPenIcon, 
+  CrescentMoonIcon, 
+  QuranMushafIcon, 
+  SunnahPalmIcon, 
+  RubElHizbIcon, 
+  MosqueDomeIcon, 
+  KaabaIcon,
+  FanousLanternIcon
+} from './IslamicIcons';
+import { IslamicThemeSwitcher } from './IslamicThemeSwitcher';
 import type { NavView } from './Sidebar';
 import type { SocialAccount } from '../../types/content';
 import { AuthService } from '../../services/authService';
@@ -33,14 +37,49 @@ interface FloatingGlassDockProps {
   fps: number;
 }
 
-const NAV_ITEMS: { id: NavView; label: string; arabic: string; icon: React.ReactNode }[] = [
-  { id: 'studio', label: 'Studio Reels', arabic: 'الاستوديو', icon: <Sparkles size={15} /> },
-  { id: 'autopilot', label: 'Auto-Pilot 24h', arabic: 'نشر تلقائي', icon: <Compass size={15} /> },
-  { id: 'library', label: 'Bibliothèque', arabic: 'المكتبة', icon: <BookOpen size={15} /> },
-  { id: 'calendar', label: 'Calendrier', arabic: 'التقويم', icon: <Calendar size={15} /> },
-  { id: 'campaigns', label: 'Campagnes', arabic: 'حملات', icon: <Zap size={15} /> },
-  { id: 'media', label: 'Banque 4K', arabic: 'الوسائط', icon: <Film size={15} /> },
-  { id: 'accounts', label: 'Réseaux', arabic: 'القنوات', icon: <Share2 size={15} /> },
+const NAV_ITEMS: { id: NavView; label: string; arabic: string; icon: (isActive: boolean) => React.ReactNode }[] = [
+  { 
+    id: 'studio', 
+    label: 'Studio Reels', 
+    arabic: 'الاستوديو', 
+    icon: (active) => <QalamPenIcon size={16} color={active ? '#fef08a' : '#f59e0b'} /> 
+  },
+  { 
+    id: 'autopilot', 
+    label: 'Auto-Pilot 24h', 
+    arabic: 'نشر تلقائي', 
+    icon: (active) => <CrescentMoonIcon size={16} color={active ? '#fef08a' : '#10b981'} /> 
+  },
+  { 
+    id: 'library', 
+    label: 'Bibliothèque', 
+    arabic: 'المكتبة', 
+    icon: (active) => <QuranMushafIcon size={16} color={active ? '#fef08a' : '#fbbf24'} /> 
+  },
+  { 
+    id: 'calendar', 
+    label: 'Calendrier', 
+    arabic: 'التقويم', 
+    icon: (active) => <SunnahPalmIcon size={16} color={active ? '#fef08a' : '#34d399'} /> 
+  },
+  { 
+    id: 'campaigns', 
+    label: 'Campagnes', 
+    arabic: 'حملات', 
+    icon: (active) => <RubElHizbIcon size={16} color={active ? '#fef08a' : '#f59e0b'} /> 
+  },
+  { 
+    id: 'media', 
+    label: 'Banque 4K', 
+    arabic: 'الوسائط', 
+    icon: (active) => <MosqueDomeIcon size={16} color={active ? '#fef08a' : '#38bdf8'} /> 
+  },
+  { 
+    id: 'accounts', 
+    label: 'Réseaux', 
+    arabic: 'القنوات', 
+    icon: (active) => <KaabaIcon size={16} color={active ? '#fef08a' : '#a855f7'} /> 
+  },
 ];
 
 export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
@@ -65,7 +104,7 @@ export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
         {/* Brand Group */}
         <div className="dock-brand" onClick={() => onNavigate('studio')}>
           <div className="dock-avatar">
-            <span>🕌</span>
+            <MosqueDomeIcon size={22} color="#f59e0b" />
           </div>
           <div className="dock-brand-meta">
             <span className="dock-brand-name">
@@ -87,7 +126,7 @@ export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
                 className={`dock-nav-item ${isActive ? 'active' : ''}`}
                 onClick={() => onNavigate(item.id)}
               >
-                {item.icon}
+                {item.icon(isActive)}
                 <span>{item.label}</span>
                 <span style={{
                   fontFamily: 'var(--font-arabic)',
@@ -114,6 +153,9 @@ export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
 
         {/* Dock Actions */}
         <div className="dock-actions">
+          {/* Islamic Theme Switcher */}
+          <IslamicThemeSwitcher />
+
           {/* 3D Scene Controls Pill */}
           <ThreeSceneControls
             currentMode={threeMode}
@@ -124,12 +166,6 @@ export const FloatingGlassDock: React.FC<FloatingGlassDockProps> = ({
             onToggleAutoRotate={onToggleAutoRotate}
             fps={fps}
           />
-
-          {/* Channels Badge */}
-          <div className="spec-pill" style={{ display: 'none' /* hidden on compact */ }}>
-            <span className="pulse-dot" />
-            <span style={{ color: '#34d399' }}>@kae.islamic</span>
-          </div>
 
           {/* Settings Button */}
           <button

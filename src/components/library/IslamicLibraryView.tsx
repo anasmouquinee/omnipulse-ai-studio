@@ -223,7 +223,7 @@ export const IslamicLibraryView: React.FC<IslamicLibraryViewProps> = ({ onShowTo
                 background: selectedType === tab.id 
                   ? 'linear-gradient(135deg, #f59e0b, #d97706)' 
                   : 'rgba(255,255,255,0.05)',
-                color: selectedType === tab.id ? '#020617' : 'var(--text-secondary)',
+                color: selectedType === tab.id ? 'var(--bg)' : 'var(--text-secondary)',
                 fontWeight: selectedType === tab.id ? 700 : 500,
                 fontSize: '0.82rem',
                 cursor: 'pointer',

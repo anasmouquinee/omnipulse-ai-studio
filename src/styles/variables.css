@@ -1,10 +1,11 @@
 /**
  * OmniPulse AI Studio - Imperial Islamic Luxury Design System (نظام التصميم الإسلامي الملكي)
- * Sacred Emerald (#10b981 / #047857), Kiswah 24K Gold (#f59e0b / #fef08a), Velvet Medina Obsidian.
+ * Sacred Themes: Kiswah (الكعبة المشرفة), Rawdah (الروضة النبوية), Andalusia (الأندلس والزليج), Desert Fajr (فجر الصحراء).
  */
 
-:root {
-  /* Core Velvet Medina Obsidian & Night Sky */
+:root,
+[data-theme="kiswah"] {
+  /* 1. KISWAH AL-KAABA THEME (الكعبة المشرفة وذهب الكسوة) */
   --bg: #020705;
   --bg-alt: #040e0a;
   --bg-app: #020705;
@@ -22,7 +23,7 @@
   --bg-modal-overlay: rgba(2, 6, 4, 0.92);
   --bg-canvas-scrim: radial-gradient(circle at 50% 20%, rgba(2, 7, 5, 0.25) 0%, rgba(2, 7, 5, 0.92) 100%);
 
-  /* Royal Rawdah Emerald Tokens (الزمرد النبوي) */
+  /* Royal Rawdah Emerald Tokens */
   --accent-emerald: #10b981;
   --accent-emerald-light: #34d399;
   --accent-emerald-dark: #047857;
@@ -30,7 +31,7 @@
   --accent-emerald-glow: rgba(16, 185, 129, 0.45);
   --accent-emerald-subtle: rgba(16, 185, 129, 0.12);
 
-  /* Kiswah 24K Gold Tokens (ذهب الكسوة المشرفة) */
+  /* Kiswah 24K Gold Tokens */
   --accent-gold: #f59e0b;
   --accent-gold-light: #fef08a;
   --accent-gold-bright: #fbbf24;
@@ -38,19 +39,13 @@
   --accent-gold-glow: rgba(245, 158, 11, 0.45);
   --accent-gold-subtle: rgba(245, 158, 11, 0.12);
 
-  /* Lapis & Twilight Accents (اللازورد وسماء الفجر) */
+  /* Secondary Accents */
   --accent-cyan: #06b6d4;
   --accent-cyan-glow: rgba(6, 182, 212, 0.38);
   --accent-indigo: #6366f1;
   --accent-rose: #f43f5e;
 
-  /* Social Platform Colors */
-  --color-tiktok: #fe2c55;
-  --color-tiktok-cyan: #25f4ee;
-  --color-instagram: #e1306c;
-  --color-instagram-grad: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4);
-
-  /* Typography Colors */
+  /* Typography */
   --fg-primary: #f8fafc;
   --fg-heading: #ffffff;
   --fg-secondary: #a7b7c7;
@@ -62,7 +57,7 @@
   --text-emerald: #34d399;
   --text-on-accent: #ffffff;
 
-  /* Islamic Arabesque & Specular Borders */
+  /* Borders & Specular */
   --border-glass: rgba(16, 185, 129, 0.22);
   --border-glass-hover: rgba(245, 158, 11, 0.55);
   --border-glass-emerald: rgba(16, 185, 129, 0.45);
@@ -70,9 +65,8 @@
   --border-subtle: rgba(255, 255, 255, 0.06);
   --border-medium: rgba(245, 158, 11, 0.25);
   --border-glass-specular: 1px solid rgba(245, 158, 11, 0.22);
-  --inner-bevel: inset 0 1px 0 0 rgba(254, 240, 138, 0.22);
 
-  /* Islamic Royal Gradients */
+  /* Gradients */
   --grad-primary: linear-gradient(135deg, #10b981 0%, #059669 45%, #f59e0b 100%);
   --grad-emerald-gold: linear-gradient(135deg, #059669 0%, #10b981 40%, #f59e0b 100%);
   --grad-gold-foil: linear-gradient(135deg, #fef08a 0%, #f59e0b 50%, #d97706 100%);
@@ -83,6 +77,172 @@
   --grad-gemini: linear-gradient(135deg, #34d399 0%, #06b6d4 50%, #f59e0b 100%);
   --grad-imagen: linear-gradient(135deg, #f59e0b 0%, #f43f5e 100%);
   --grad-comfy: linear-gradient(135deg, #10b981 0%, #f59e0b 50%, #06b6d4 100%);
+
+  --skyline-glow: rgba(245, 158, 11, 0.35);
+  --orb-1-color: var(--accent-emerald);
+  --orb-2-color: var(--accent-gold);
+  --orb-3-color: var(--accent-emerald-light);
+}
+
+/* ==========================================================================
+   2. RAWDAH AL-SHARIFAH THEME (الروضة النبوية الشريفة)
+   ========================================================================== */
+[data-theme="rawdah"] {
+  --bg: #01140e;
+  --bg-alt: #032017;
+  --bg-app: #01140e;
+  --bg-sidebar: rgba(2, 28, 19, 0.88);
+  --surface-glass: rgba(3, 34, 23, 0.82);
+  --surface-card: rgba(4, 44, 30, 0.75);
+  --surface-card-hover: rgba(6, 56, 38, 0.9);
+  --surface-subtle: rgba(16, 185, 129, 0.08);
+
+  --bg-surface: var(--surface-glass);
+  --bg-surface-elevated: rgba(5, 48, 33, 0.9);
+  --bg-surface-hover: var(--surface-card-hover);
+  --bg-input: rgba(2, 22, 15, 0.9);
+  --bg-card-glass: var(--surface-card);
+  --bg-modal-overlay: rgba(1, 14, 10, 0.95);
+  --bg-canvas-scrim: radial-gradient(circle at 50% 20%, rgba(1, 20, 14, 0.25) 0%, rgba(1, 20, 14, 0.95) 100%);
+
+  --accent-emerald: #059669;
+  --accent-emerald-light: #34d399;
+  --accent-emerald-dark: #047857;
+  --accent-emerald-deep: #022c1e;
+  --accent-emerald-glow: rgba(16, 185, 129, 0.55);
+  --accent-emerald-subtle: rgba(16, 185, 129, 0.15);
+
+  --accent-gold: #fbbf24;
+  --accent-gold-light: #fef08a;
+  --accent-gold-bright: #fcd34d;
+  --accent-gold-dark: #d97706;
+  --accent-gold-glow: rgba(251, 191, 36, 0.45);
+  --accent-gold-subtle: rgba(251, 191, 36, 0.12);
+
+  --border-glass: rgba(52, 211, 153, 0.3);
+  --border-glass-hover: rgba(251, 191, 36, 0.65);
+  --border-glass-emerald: rgba(52, 211, 153, 0.5);
+  --border-glass-gold: rgba(251, 191, 36, 0.5);
+
+  --grad-primary: linear-gradient(135deg, #059669 0%, #10b981 50%, #fbbf24 100%);
+  --grad-emerald-gold: linear-gradient(135deg, #047857 0%, #10b981 45%, #fbbf24 100%);
+  --grad-glass-card: linear-gradient(145deg, rgba(4, 44, 30, 0.85) 0%, rgba(2, 24, 16, 0.95) 100%);
+
+  --skyline-glow: rgba(16, 185, 129, 0.45);
+  --orb-1-color: #059669;
+  --orb-2-color: #34d399;
+  --orb-3-color: #fbbf24;
+}
+
+/* ==========================================================================
+   3. ANDALUSIA ZELLIGE THEME (الأندلس والزليج واللازورد)
+   ========================================================================== */
+[data-theme="andalusia"] {
+  --bg: #020b18;
+  --bg-alt: #05142a;
+  --bg-app: #020b18;
+  --bg-sidebar: rgba(4, 20, 44, 0.88);
+  --surface-glass: rgba(6, 26, 58, 0.82);
+  --surface-card: rgba(8, 34, 76, 0.75);
+  --surface-card-hover: rgba(11, 46, 102, 0.9);
+  --surface-subtle: rgba(56, 189, 248, 0.08);
+
+  --bg-surface: var(--surface-glass);
+  --bg-surface-elevated: rgba(9, 40, 88, 0.9);
+  --bg-surface-hover: var(--surface-card-hover);
+  --bg-input: rgba(3, 16, 36, 0.9);
+  --bg-card-glass: var(--surface-card);
+  --bg-modal-overlay: rgba(2, 8, 20, 0.95);
+  --bg-canvas-scrim: radial-gradient(circle at 50% 20%, rgba(2, 11, 24, 0.25) 0%, rgba(2, 11, 24, 0.95) 100%);
+
+  --accent-emerald: #06b6d4;
+  --accent-emerald-light: #38bdf8;
+  --accent-emerald-dark: #0284c7;
+  --accent-emerald-deep: #032b43;
+  --accent-emerald-glow: rgba(56, 189, 248, 0.5);
+  --accent-emerald-subtle: rgba(6, 182, 212, 0.15);
+
+  --accent-gold: #f59e0b;
+  --accent-gold-light: #fde68a;
+  --accent-gold-bright: #fbbf24;
+  --accent-gold-dark: #b45309;
+  --accent-gold-glow: rgba(245, 158, 11, 0.45);
+  --accent-gold-subtle: rgba(245, 158, 11, 0.12);
+
+  --border-glass: rgba(56, 189, 248, 0.3);
+  --border-glass-hover: rgba(245, 158, 11, 0.65);
+  --border-glass-emerald: rgba(56, 189, 248, 0.5);
+  --border-glass-gold: rgba(245, 158, 11, 0.5);
+
+  --grad-primary: linear-gradient(135deg, #0284c7 0%, #06b6d4 50%, #f59e0b 100%);
+  --grad-emerald-gold: linear-gradient(135deg, #0369a1 0%, #38bdf8 45%, #f59e0b 100%);
+  --grad-glass-card: linear-gradient(145deg, rgba(8, 34, 76, 0.85) 0%, rgba(3, 16, 38, 0.95) 100%);
+
+  --skyline-glow: rgba(56, 189, 248, 0.45);
+  --orb-1-color: #0284c7;
+  --orb-2-color: #f59e0b;
+  --orb-3-color: #38bdf8;
+}
+
+/* ==========================================================================
+   4. FAJR DESERT DAWN THEME (فجر الصحراء والمدينة المباركة)
+   ========================================================================== */
+[data-theme="desert_fajr"] {
+  --bg: #110806;
+  --bg-alt: #1a0d0a;
+  --bg-app: #110806;
+  --bg-sidebar: rgba(28, 14, 11, 0.88);
+  --surface-glass: rgba(38, 19, 15, 0.82);
+  --surface-card: rgba(50, 24, 19, 0.75);
+  --surface-card-hover: rgba(68, 32, 25, 0.9);
+  --surface-subtle: rgba(249, 115, 22, 0.08);
+
+  --bg-surface: var(--surface-glass);
+  --bg-surface-elevated: rgba(58, 28, 22, 0.9);
+  --bg-surface-hover: var(--surface-card-hover);
+  --bg-input: rgba(22, 11, 8, 0.9);
+  --bg-card-glass: var(--surface-card);
+  --bg-modal-overlay: rgba(14, 6, 5, 0.95);
+  --bg-canvas-scrim: radial-gradient(circle at 50% 20%, rgba(17, 8, 6, 0.25) 0%, rgba(17, 8, 6, 0.95) 100%);
+
+  --accent-emerald: #f97316;
+  --accent-emerald-light: #fb923c;
+  --accent-emerald-dark: #ea580c;
+  --accent-emerald-deep: #431407;
+  --accent-emerald-glow: rgba(249, 115, 22, 0.55);
+  --accent-emerald-subtle: rgba(249, 115, 22, 0.15);
+
+  --accent-gold: #fbbf24;
+  --accent-gold-light: #fef08a;
+  --accent-gold-bright: #fcd34d;
+  --accent-gold-dark: #b45309;
+  --accent-gold-glow: rgba(251, 191, 36, 0.5);
+  --accent-gold-subtle: rgba(251, 191, 36, 0.15);
+
+  --border-glass: rgba(251, 146, 60, 0.3);
+  --border-glass-hover: rgba(251, 191, 36, 0.65);
+  --border-glass-emerald: rgba(251, 146, 60, 0.5);
+  --border-glass-gold: rgba(251, 191, 36, 0.5);
+
+  --grad-primary: linear-gradient(135deg, #ea580c 0%, #f97316 50%, #fbbf24 100%);
+  --grad-emerald-gold: linear-gradient(135deg, #c2410c 0%, #fb923c 45%, #fbbf24 100%);
+  --grad-glass-card: linear-gradient(145deg, rgba(50, 24, 19, 0.85) 0%, rgba(20, 10, 7, 0.95) 100%);
+
+  --skyline-glow: rgba(249, 115, 22, 0.45);
+  --orb-1-color: #ea580c;
+  --orb-2-color: #fbbf24;
+  --orb-3-color: #fb923c;
+}
+
+/* ==========================================================================
+   Shared Typography, Shadows, Radius & Standard Values
+   ========================================================================== */
+:root {
+  /* Social Platform Colors */
+  --color-tiktok: #fe2c55;
+  --color-tiktok-cyan: #25f4ee;
+  --color-instagram: #e1306c;
+  --color-instagram-grad: linear-gradient(45deg, #f58529, #dd2a7b, #8134af, #515bd4);
 
   /* Liquid Glass Filters & Royal Shadows */
   --glass-blur: blur(24px) saturate(190%);

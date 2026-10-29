@@ -21,8 +21,16 @@ import { StorageService } from './services/storageService';
 import { SocialPublisher } from './services/socialPublisher';
 import { AuthService } from './services/authService';
 import { SunnahCalendarService } from './services/sunnahCalendarService';
-
-import { Sparkles, Compass, BookOpen, Calendar, Zap, Share2, Film } from 'lucide-react';
+import { SacredBackgroundSkyline } from './components/common/SacredBackgroundSkyline';
+import {
+  QalamPenIcon,
+  CrescentMoonIcon,
+  QuranMushafIcon,
+  SunnahPalmIcon,
+  RubElHizbIcon,
+  MosqueDomeIcon,
+  KaabaIcon
+} from './components/common/IslamicIcons';
 
 import './styles/base.css';
 import './styles/layout.css';
@@ -34,49 +42,49 @@ const VIEW_METAS: Record<NavView, { title: string; arabicTitle: string; subtitle
     title: 'Studio de Création & Reels Islamiques',
     arabicTitle: 'استوديو الرقائق والمقاطع القرآنية',
     subtitle: 'Récitations HD synchronisées, calligraphie ornée et export vidéo 9:16 pour Instagram & TikTok',
-    icon: <Sparkles size={24} color="#f59e0b" />,
+    icon: <QalamPenIcon size={26} color="#f59e0b" />,
     badge: 'استوديو HD'
   },
   autopilot: {
     title: 'Centre de Contrôle Auto-Pilot 24h/24',
     arabicTitle: 'النشر السحابي التلقائي المستمر',
     subtitle: 'Planificateur Cloud autonome sur GitHub Actions — Rotation thématique et anti-répétition',
-    icon: <Compass size={24} color="#10b981" />,
+    icon: <CrescentMoonIcon size={26} color="#10b981" />,
     badge: 'نشر تلقائي'
   },
   library: {
     title: 'Bibliothèque Sacrée & Registre Anti-Répétition',
     arabicTitle: 'المكتبة القرآنية والحديثية الموثقة',
     subtitle: 'Historique exhaustif des 130+ versets, hadiths et invocations vérifiées dans la tradition authentique',
-    icon: <BookOpen size={24} color="#fbbf24" />,
+    icon: <QuranMushafIcon size={26} color="#fbbf24" />,
     badge: 'مكتبة موثقة'
   },
   calendar: {
     title: 'Calendrier des Rappels Spirituels',
     arabicTitle: 'جدول المواعيد والمنشورات',
     subtitle: 'Vue d’ensemble des publications programmées et file d’attente sociale pour @kae.islamic',
-    icon: <Calendar size={24} color="#34d399" />,
+    icon: <SunnahPalmIcon size={26} color="#34d399" />,
     badge: 'التقويم المبارك'
   },
   campaigns: {
     title: 'Programme Spirituel 7 Jours',
     arabicTitle: 'البرنامج الأسبوعي المبارك',
     subtitle: 'Génération automatisée d’une semaine complète de rappels, invocations du matin et Jumu’ah',
-    icon: <Zap size={24} color="#f59e0b" />,
+    icon: <RubElHizbIcon size={26} color="#f59e0b" />,
     badge: 'حملة أسبوعية'
   },
   accounts: {
     title: 'Canaux de Diffusion Connectés',
     arabicTitle: 'قنوات التواصل المربوطة',
     subtitle: 'Distribution directe vers @kae.islamic et @kaelar.islamic via Buffer API & Webhooks',
-    icon: <Share2 size={24} color="#a855f7" />,
+    icon: <KaabaIcon size={26} color="#a855f7" />,
     badge: 'شبكات موثقة'
   },
   media: {
     title: 'Banque Vidéos 4K & Décors Sans Filigrane',
     arabicTitle: 'مكتبة المرئيات عالية الدقة',
     subtitle: 'Clips et visuels haute définition libres de droits pour vos rappels spirituels',
-    icon: <Film size={24} color="#f59e0b" />,
+    icon: <MosqueDomeIcon size={26} color="#38bdf8" />,
     badge: 'وسائط 4K'
   }
 };
@@ -230,6 +238,9 @@ export const App: React.FC = () => {
         <div className="ambient-orb orb-2" />
         <div className="ambient-orb orb-3" />
       </div>
+
+      {/* Sacred Mosque Skyline & Celestial Crescent Background */}
+      <SacredBackgroundSkyline />
 
       {/* Top Bismillah Calligraphic Ribbon */}
       <div className="bismillah-ribbon">

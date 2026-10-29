@@ -10,6 +10,7 @@ import { IslamicQuoteCardGenerator } from './IslamicQuoteCardGenerator';
 import { ComfyAssetGenerator } from './ComfyAssetGenerator';
 import { AITextGenerator } from './AITextGenerator';
 import { Sparkles, Palette, PenTool, Copy, Check, Share2 } from 'lucide-react';
+import { QalamPenIcon, FanousLanternIcon, RubElHizbIcon } from '../common/IslamicIcons';
 
 interface StudioViewProps {
   editingPost: ScheduledPost | null;
@@ -80,7 +81,7 @@ export const StudioView: React.FC<StudioViewProps> = ({
             className={`studio-tab-item ${activeTab === 'quotes' ? 'active' : ''}`}
             onClick={() => setActiveTab('quotes')}
           >
-            <Sparkles size={16} color="#10b981" />
+            <QalamPenIcon size={16} color="#10b981" />
             <span>Studio Citations & Reels</span>
           </button>
 
@@ -89,7 +90,7 @@ export const StudioView: React.FC<StudioViewProps> = ({
             className={`studio-tab-item ${activeTab === 'comfy' ? 'active' : ''}`}
             onClick={() => setActiveTab('comfy')}
           >
-            <Palette size={16} color="#38bdf8" />
+            <FanousLanternIcon size={16} color="#38bdf8" />
             <span>ComfyUI Visual Studio</span>
             <span className="badge badge-emerald" style={{ fontSize: '0.62rem' }}>NOUVEAU</span>
           </button>
@@ -99,7 +100,7 @@ export const StudioView: React.FC<StudioViewProps> = ({
             className={`studio-tab-item ${activeTab === 'copywriting' ? 'active' : ''}`}
             onClick={() => setActiveTab('copywriting')}
           >
-            <PenTool size={16} color="#f59e0b" />
+            <RubElHizbIcon size={16} color="#f59e0b" />
             <span>Copywriting & Scripts Gemini</span>
           </button>
         </div>
