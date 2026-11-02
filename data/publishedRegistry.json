@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -4882,10 +4882,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793578092084",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-leaving-home",
+      "bookOrSurah": "التوكل والحفظ 🕊️ • Sortir de Chez Soi & Bouclier de Protection",
+      "numberOrAyah": "Sourate An-Naml — Verset 79",
+      "surahNumber": 51,
+      "ayahNumber": 55,
+      "arabicText": "« إِذَا خَرَجَ الرَّجُلُ مِنْ بَيْتِهِ فَقَالَ : بِسْمِ اللَّهِ تَوَكَّلْتُ عَلَى اللَّهِ »",
+      "translationFr": "« Quand l'homme sort de chez lui et dit : Bismillah tawakkaltu 'ala Allah... »",
+      "translationEn": "Take only 30 seconds to purify your heart with the most beloved remembrance of Allah. Recite with full sincerity.",
+      "contentHash": "نصف دقيقة فقط 🤍\nسبحان الله (3",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4730.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793578057/vkrywapj5hxvxjthgadj.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793578046/oetz3sedhlgxvmcsgnjh.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793578047/nghcmq8qi2asgnjozpxy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793578048/wxdiufpwgkktfkx5zlx7.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793578049/gyt7hyo6szdkzhfgkltc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793578051/gjhx51ujki3gnxz9no8l.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793578046/oetz3sedhlgxvmcsgnjh.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-parents-dua",
+  "lastCarouselPackId": "carousel-leaving-home",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -4990,6 +5022,7 @@
     "carousel-post-prayer",
     "carousel-istikhara-tawakkul",
     "carousel-salawat-prophet",
-    "carousel-parents-dua"
+    "carousel-parents-dua",
+    "carousel-leaving-home"
   ]
 }
