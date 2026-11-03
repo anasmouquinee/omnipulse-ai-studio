@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5106,10 +5106,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793729129213",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-heart-purification",
+      "bookOrSurah": "ثبات القلوب ونقاؤها 🤍 • La Purification du Cœur & la Constance dans la Foi",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Versets 88-89",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ »",
+      "translationFr": "« Ô Toi qui retournes les cœurs, affermis mon cœur sur Ta religion »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793729093/tnohbqbpb8kfag4qs2pr.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793729076/ezc3lc3y7zmf98fon02c.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793729077/uluq2athc3gqueen5ruj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793729078/ifekadmywqqnkzzecmkm.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793729079/lwjdh0er1rptkhekagiq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793729080/co4ugmyk1sfwzwyimocs.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793729076/ezc3lc3y7zmf98fon02c.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-patience-sabr",
+  "lastCarouselPackId": "carousel-heart-purification",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5221,6 +5253,7 @@
     "carousel-protection-evil-eye",
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
-    "carousel-patience-sabr"
+    "carousel-patience-sabr",
+    "carousel-heart-purification"
   ]
 }
