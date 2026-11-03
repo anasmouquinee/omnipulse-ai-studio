@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5074,10 +5074,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793707537021",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "format": "carousel",
+      "carouselPackId": "carousel-patience-sabr",
+      "bookOrSurah": "الصبر واحتساب الأجر 🌿 • La Patience Sacrée face aux Épreuves de la Vie",
+      "numberOrAyah": "Sourate Az-Zumar — Verset 10",
+      "surahNumber": 24,
+      "ayahNumber": 35,
+      "arabicText": "« وَبَشِّرِ الصَّابِرِينَ ۝ الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ »",
+      "translationFr": "« Et fais bonne annonce aux endurants, qui disent : Nous appartenons à Allah et à Lui nous retournons »",
+      "translationEn": "“Allah is the Light of the heavens and the earth.”",
+      "contentHash": "الله نور السماوات والأرض",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2826.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793707498/o0gycdtl1zqxqlhjhatf.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793707461/bkufq3dzh6ppwoiuduuy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793707461/quly5trjmqlblyf06zvo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793707462/gdbzftxlsdsgct4os3ns.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793707463/xla0mtd23scmrcocnpmx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793707464/uo5hdrytek8vwnt1weni.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793707461/bkufq3dzh6ppwoiuduuy.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-gratitude-shukr",
+  "lastCarouselPackId": "carousel-patience-sabr",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5188,6 +5220,7 @@
     "carousel-adhan-wudu",
     "carousel-protection-evil-eye",
     "carousel-wealth-debt",
-    "carousel-gratitude-shukr"
+    "carousel-gratitude-shukr",
+    "carousel-patience-sabr"
   ]
 }
