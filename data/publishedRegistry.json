@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5138,10 +5138,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793772310060",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-travel-safar",
+      "bookOrSurah": "دعاء السفر ✈️ • Invocation Sacrée du Voyageur & Protection du Trajet",
+      "numberOrAyah": "Sourate Yunus — Verset 22",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ »",
+      "translationFr": "« Gloire à Celui qui a mis ceci à notre service alors que nous n'étions pas capables de le dominer »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793772275/vkdcwtv5myo6pwpliszs.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793772262/tnohefocm8smrrw3dp6v.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793772263/eagnalymjzgldioeynvm.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793772264/dj2nheoyrfajpjtkk3kh.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793772265/nxf79e7ti5iyr04crbef.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793772265/yuvl9g68kdwakolj9bsi.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793772262/tnohefocm8smrrw3dp6v.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-heart-purification",
+  "lastCarouselPackId": "carousel-travel-safar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5254,6 +5286,7 @@
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
-    "carousel-heart-purification"
+    "carousel-heart-purification",
+    "carousel-travel-safar"
   ]
 }
