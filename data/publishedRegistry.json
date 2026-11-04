@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5170,10 +5170,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793793915434",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "format": "carousel",
+      "carouselPackId": "carousel-illness-visiting",
+      "bookOrSurah": "الشفاء وعيادة المريض 🤍 • Invocations de la Guérison & Visite aux Malades",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Verset 80",
+      "surahNumber": 26,
+      "ayahNumber": 80,
+      "arabicText": "« أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ »",
+      "translationFr": "« Je demande à Allah l'Immense, Seigneur de l'Immense Trône, de te guérir »",
+      "translationEn": "““And when I am ill, it is He who cures me.””",
+      "contentHash": "وإذا مرضت فهو يشفين",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3012.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793793880/quojedoh5vltip38d2rn.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793793872/xoxxnmfl9pbdixm25pkt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793793873/vaaxaflf8nmshagxit4k.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793793874/hlutewnsgcdpes7jmiat.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793793875/kfnivfmcvfrica1pckxo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793793876/ojddxko7ddswyj1dqkk6.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793793872/xoxxnmfl9pbdixm25pkt.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-travel-safar",
+  "lastCarouselPackId": "carousel-illness-visiting",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5287,6 +5319,7 @@
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
     "carousel-heart-purification",
-    "carousel-travel-safar"
+    "carousel-travel-safar",
+    "carousel-illness-visiting"
   ]
 }
