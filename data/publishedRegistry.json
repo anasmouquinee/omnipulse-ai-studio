@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5202,10 +5202,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793815483726",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-anger-calmness",
+      "bookOrSurah": "كظم الغيظ والسكينة 🌿 • Maîtrise de Soi, Paix Intérieure & Chasser la Colère",
+      "numberOrAyah": "Sourate Fussilat — Verset 34",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ »",
+      "translationFr": "« Qui dominent leur ressentiment et pardonnent à autrui. Et Allah aime les bienfaisants »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793815440/s4ewncdchmtrk5sormgh.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793815427/opae0f7tqwxqjpalfgyq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793815427/oojicutzojayqg1v8bp3.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793815428/vntm3ohwllmyoeego4hq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793815429/d6bzdjoket0hxtt18ive.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793815430/faeu4obxoahlawcdbjix.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793815427/opae0f7tqwxqjpalfgyq.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-illness-visiting",
+  "lastCarouselPackId": "carousel-anger-calmness",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5320,6 +5352,7 @@
     "carousel-patience-sabr",
     "carousel-heart-purification",
     "carousel-travel-safar",
-    "carousel-illness-visiting"
+    "carousel-illness-visiting",
+    "carousel-anger-calmness"
   ]
 }
