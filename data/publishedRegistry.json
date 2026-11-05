@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5234,10 +5234,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793837280802",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-entering-market",
+      "bookOrSurah": "دعاء دخول السوق 🛍️ • L'Invocation au Million de Bonnes Actions dans les Marchés",
+      "numberOrAyah": "Sourate An-Nur — Verset 37",
+      "surahNumber": 12,
+      "ayahNumber": 64,
+      "arabicText": "« كَتَبَ اللَّهُ لَهُ أَلْفَ أَلْفِ حَسَنَةٍ وَمَحَا عَنْهُ أَلْفَ أَلْفِ سَيِّئَةٍ »",
+      "translationFr": "« Allah lui inscrit un million de bonnes actions et lui efface un million de péchés »",
+      "translationEn": "Morning remembrances create a divine spiritual shield for your entire day. Start your morning under Allah's care.",
+      "contentHash": "أذكار الصباح السريعة 🌅\nأصبحنا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1660.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793837245/afxveoxeekbgzrhqaxd6.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793837231/oseeyzcvf9qe23ew4bp2.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793837232/kphhczvfp8ghwoddnfqy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793837233/bxzfiutb8d6qsdlexsgd.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793837233/cjyjddgveuzaxyuzesng.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793837234/gskxpi5xtt0gz1d9rwgf.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793837231/oseeyzcvf9qe23ew4bp2.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-anger-calmness",
+  "lastCarouselPackId": "carousel-entering-market",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5353,6 +5385,7 @@
     "carousel-heart-purification",
     "carousel-travel-safar",
     "carousel-illness-visiting",
-    "carousel-anger-calmness"
+    "carousel-anger-calmness",
+    "carousel-entering-market"
   ]
 }
