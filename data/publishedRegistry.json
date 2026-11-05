@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5330,10 +5330,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793901826003",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-names-of-allah",
+      "bookOrSurah": "أسماء الله الحسنى ✨ • Invoquer Allah par Ses Plus Beaux Noms & le Nom Suprême",
+      "numberOrAyah": "Sourate Al-A'raf — Verset 180",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« دَعَا اللَّهَ بِاسْمِهِ الْأَعْظَمِ الَّذِي إِذَا دُعِيَ بِهِ أَجَابَ وَإِذَا سُئِلَ بِهِ أَعْطَى »",
+      "translationFr": "« Il a invoqué Allah par Son Nom Suprême qui, dès qu'Il est imploré par lui, exauce sans faillir »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793901790/jtqwksi1p5kpknhgxne7.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793901777/q3ikwrfvplzsd9jwt6zh.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793901779/fzbkjseyqhpq5hbvdcxu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793901779/y1qdi7o9ief1dj0dwujf.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793901780/kmarhuz3yk2ka400mcpv.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793901781/vfe7gbbo8e7wdrpmyggp.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793901777/q3ikwrfvplzsd9jwt6zh.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-fasting-iftar",
+  "lastCarouselPackId": "carousel-names-of-allah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5452,6 +5484,7 @@
     "carousel-anger-calmness",
     "carousel-entering-market",
     "carousel-rain-thunder",
-    "carousel-fasting-iftar"
+    "carousel-fasting-iftar",
+    "carousel-names-of-allah"
   ]
 }
