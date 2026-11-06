@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5362,10 +5362,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793923657237",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-jannah-firdaus",
+      "bookOrSurah": "الفردوس الأعلى 👑 • Demander le Paradis Suprême & se Préserver du Feu",
+      "numberOrAyah": "Sourate Al-Kahf — Verset 107",
+      "surahNumber": 33,
+      "ayahNumber": 56,
+      "arabicText": "« إِذَا سَأَلْتُمُ اللَّهَ فَاسْأَلُوهُ الْفِرْدَوْسَ ، فَإِنَّهُ أَعْلَى الْجَنَّةِ »",
+      "translationFr": "« Lorsque vous demandez à Allah, demandez-Lui le Firdaws, car c'est le sommet le plus élevé »",
+      "translationEn": "The Prophet ﷺ said: 'Among the best of your days is Friday... So invoke abundant blessings upon me on it, for your blessings are presented to me.'",
+      "contentHash": "إن من أفضل أيامكم يوم الجمعة، ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3589.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793923621/m1mvnigyqtdy5vjlwmgf.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793923609/mzbtu2s2g1reukf6o7ua.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793923610/qewxd7qe7ff2s6rwu21i.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793923610/otfkbp2sdxon0vrcdjut.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793923611/etzzn0zdiwineubzhmuo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793923612/rx6rhvx6zmtfbpr62yi8.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793923609/mzbtu2s2g1reukf6o7ua.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-names-of-allah",
+  "lastCarouselPackId": "carousel-jannah-firdaus",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5485,6 +5517,7 @@
     "carousel-entering-market",
     "carousel-rain-thunder",
     "carousel-fasting-iftar",
-    "carousel-names-of-allah"
+    "carousel-names-of-allah",
+    "carousel-jannah-firdaus"
   ]
 }
