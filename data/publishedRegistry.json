@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5458,10 +5458,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793988287066",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-4-treasures",
+      "bookOrSurah": "كنوز الجنة 💎 • Les 4 Paroles les plus Aimées d'Allah",
+      "numberOrAyah": "Sourate Al-Kahf — Verset 46",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« أَحَبُّ الكَلَامِ إِلَى اللَّهِ أَرْبَعٌ »",
+      "translationFr": "« Les paroles les plus aimées auprès d'Allah sont au nombre de quatre »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793988251/lhqndxd4tiahcae4kwht.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793988240/vybda8shh1hshuss0hea.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793988240/k1eu56tl1qpf1uazmhjd.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793988241/dmmdqosrkcpurxpqstre.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793988242/lrlxm2qyuweunx8cllnb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793988242/tgtqho4tvtzt4vvv2osc.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793988240/vybda8shh1hshuss0hea.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-masaa",
+  "lastCarouselPackId": "carousel-4-treasures",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5584,6 +5616,7 @@
     "carousel-names-of-allah",
     "carousel-jannah-firdaus",
     "carousel-sabah",
-    "carousel-masaa"
+    "carousel-masaa",
+    "carousel-4-treasures"
   ]
 }
