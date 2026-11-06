@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5426,10 +5426,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1793966700257",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-masaa",
+      "bookOrSurah": "أذكار المساء 🌙 • Routine Adhkar du Soir & Paix Intérieure",
+      "numberOrAyah": "Sourate Ta-Ha — Verset 130",
+      "surahNumber": 62,
+      "ayahNumber": 9,
+      "arabicText": "« أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ »",
+      "translationFr": "« Nous voici au soir et la royauté appartient à Allah, Seigneur des mondes »",
+      "translationEn": "“O you who have believed, when [the adhan] is called for the prayer on the day of Jumu'ah, then proceed to the remembrance of Allah and leave trade. That is better for you, if you only knew.”",
+      "contentHash": "يا أيها الذين آمنوا إذا نودي ل",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5186.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1793966665/soqibmrm9mj7jmpwth5o.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793966651/wx6qzc7xnsxbnfmsmtvw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793966652/rm6rmzu2gbhhrsuq3egt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793966653/d8buy85ejrtylxrv2jid.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793966653/z9anpwmoo8i9n1n8k8qc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793966654/mytnmos80nprpgdhdmjg.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1793966651/wx6qzc7xnsxbnfmsmtvw.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sabah",
+  "lastCarouselPackId": "carousel-masaa",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5551,6 +5583,7 @@
     "carousel-fasting-iftar",
     "carousel-names-of-allah",
     "carousel-jannah-firdaus",
-    "carousel-sabah"
+    "carousel-sabah",
+    "carousel-masaa"
   ]
 }
