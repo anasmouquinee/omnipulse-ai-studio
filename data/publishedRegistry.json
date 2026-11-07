@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5490,10 +5490,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794010021004",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-karb-relief",
+      "bookOrSurah": "تفريج الكرب 🤍 • Invocations Prophétiques contre l'Angoisse",
+      "numberOrAyah": "Sourate Al-Anbiya — Verset 88",
+      "surahNumber": 51,
+      "ayahNumber": 17,
+      "arabicText": "« دَعْوَةُ ذِي النُّونِ الَّتِي لَمْ يَدْعُ بِهَا مُسْلِمٌ إِلَّا اسْتُجِيبَ لَهُ »",
+      "translationFr": "« L’invocation de Dhun-Nun : nul croyant ne l'a récitée sans être exaucé »",
+      "translationEn": "“They used to sleep but little of the night, and in the hours before dawn they would ask forgiveness.”",
+      "contentHash": "كانوا قليلا من الليل ما يهجعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4692.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794009985/wpaylzdiqh4deyddqjhn.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794009978/rnjkdze6kresklgvkeo6.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794009979/rwiadbzvv09ez0ogvvfu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794009980/fgnpspld4tfcps7powpg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794009981/zljruv3h3zedumlajwbe.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794009981/pgcforhu4sllph2xboc6.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794009978/rnjkdze6kresklgvkeo6.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-4-treasures",
+  "lastCarouselPackId": "carousel-karb-relief",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5617,6 +5649,7 @@
     "carousel-jannah-firdaus",
     "carousel-sabah",
     "carousel-masaa",
-    "carousel-4-treasures"
+    "carousel-4-treasures",
+    "carousel-karb-relief"
   ]
 }
