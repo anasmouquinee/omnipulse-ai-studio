@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5714,10 +5714,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794161051721",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "format": "carousel",
+      "carouselPackId": "carousel-post-prayer",
+      "bookOrSurah": "أذكار الصلاة 🕌 • Évocations Prescrites Après la Prière",
+      "numberOrAyah": "Sourate An-Nisa — Verset 103",
+      "surahNumber": 70,
+      "ayahNumber": 5,
+      "arabicText": "« مَنْ سَبَّحَ اللَّهَ دُبُرَ كُلِّ صَلَاةٍ ثَلَاثًا وَثَلَاثِينَ »",
+      "translationFr": "« Quiconque glorifie Allah après chaque prière 33 fois... »",
+      "translationEn": "“So be patient with gracious patience.”",
+      "contentHash": "فاصبر صبرا جميلا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5380.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794161009/asheiyh0wtsgeob0zr5s.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794161002/g63e82kgzkd2drbpo03g.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794161004/lmt8lrwr5cujhuwafkvr.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794161005/csvhiwxel934zlmt5iws.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794161006/eibyajwvgezzefblbrxk.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794161006/cajksxmpnbejd2vs7bum.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794161002/g63e82kgzkd2drbpo03g.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-baqiyat-salihat",
+  "lastCarouselPackId": "carousel-post-prayer",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5848,6 +5880,7 @@
     "carousel-jumuah-sunan",
     "carousel-qiyam-tahajjud",
     "carousel-shifa-ruqyah",
-    "carousel-baqiyat-salihat"
+    "carousel-baqiyat-salihat",
+    "carousel-post-prayer"
   ]
 }
