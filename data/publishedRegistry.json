@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5618,10 +5618,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794096485861",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-qiyam-tahajjud",
+      "bookOrSurah": "قيام الليل 🌙 • Sagesse du Dernier Tiers de la Nuit (Qiyam)",
+      "numberOrAyah": "Sourate As-Sajdah — Verset 16",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« يَنْزِلُ رَبُّنَا كُلَّ لَيْلَةٍ حِينَ يَبْقَى ثُلُثُ اللَّيْلِ الآخِرُ »",
+      "translationFr": "« Notre Seigneur descend chaque nuit au ciel le plus proche au dernier tiers de la nuit »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794096451/aaxilao2treypx0ufzgh.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794096438/joyibuez75fhytoyqqlx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794096439/cpltobzrtlmip3ibyicp.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794096440/elldi3zxmaj9xjmdaceg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794096440/rswmb6c2yk78ggbwuveu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794096441/azmvex60yaopcj1w6a4c.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794096438/joyibuez75fhytoyqqlx.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-jumuah-sunan",
+  "lastCarouselPackId": "carousel-qiyam-tahajjud",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5749,6 +5781,7 @@
     "carousel-karb-relief",
     "carousel-sayyid-istighfar",
     "carousel-rizq-barakah",
-    "carousel-jumuah-sunan"
+    "carousel-jumuah-sunan",
+    "carousel-qiyam-tahajjud"
   ]
 }
