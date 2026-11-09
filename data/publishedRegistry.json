@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5778,10 +5778,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794204426677",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "format": "carousel",
+      "carouselPackId": "carousel-salawat-prophet",
+      "bookOrSurah": "الصلاة على النبي ﷺ 🤍 • Bénédictions & Mérites de la Prière sur le Prophète",
+      "numberOrAyah": "Sourate Al-Ahzab — Verset 56",
+      "surahNumber": 17,
+      "ayahNumber": 24,
+      "arabicText": "« مَنْ صَلَّى عَلَيَّ صَلَاةً صَلَّى اللَّهُ عَلَيْهِ بِهَا عَشْرًا »",
+      "translationFr": "« Celui qui prie sur moi une seule fois, Allah prie sur lui dix fois en retour »",
+      "translationEn": "“My Lord, have mercy upon them [my parents] as they brought me up [when I was] small.”",
+      "contentHash": "رب ارحمهما كما ربياني صغيرا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2053.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794204391/dauthqcm1uxznn8d6ban.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794204382/iudbshz05htm4pn6b3eu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794204383/e1t4npygq4myutmypy4y.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794204383/mlkeupwlb7ldw8rgjzce.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794204384/lqbabkuaugxiwify67te.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794204385/gk5mcvtxuayyjmr2vprq.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794204382/iudbshz05htm4pn6b3eu.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-istikhara-tawakkul",
+  "lastCarouselPackId": "carousel-salawat-prophet",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5914,6 +5946,7 @@
     "carousel-shifa-ruqyah",
     "carousel-baqiyat-salihat",
     "carousel-post-prayer",
-    "carousel-istikhara-tawakkul"
+    "carousel-istikhara-tawakkul",
+    "carousel-salawat-prophet"
   ]
 }
