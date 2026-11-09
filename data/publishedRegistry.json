@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5746,10 +5746,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794182869842",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-istikhara-tawakkul",
+      "bookOrSurah": "الاستخارة واليقين 🕊️ • Prière de Consultation & Prise de Décision",
+      "numberOrAyah": "Sourate Al-Imran — Verset 159",
+      "surahNumber": 32,
+      "ayahNumber": 16,
+      "arabicText": "« كَانَ النَّبِيُّ ﷺ يُعَلِّمُنَا الِاسْتِخَارَةَ فِي الْأُمُورِ كُلِّهَا »",
+      "translationFr": "« Le Prophète ﷺ nous enseignait la consultation dans toutes les affaires »",
+      "translationEn": "“Their sides part [vacate] from their beds; they supplicate their Lord in fear and aspiration. And no soul knows what has been hidden for them of comfort for eyes as reward for what they used to do.”",
+      "contentHash": "تتجافى جنوبهم عن المضاجع يدعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3519.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794182834/kjriusvd62o9n7jz7cvt.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794182821/zfjrgiybeylmegsp4408.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794182823/pqo6zuxxptvthtdlezsp.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794182823/wsebiimvtbldhppixwza.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794182824/l0l8f1ddqjrae23fcon9.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794182825/tlwbobjxmwhpgrdfxkbn.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794182821/zfjrgiybeylmegsp4408.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-post-prayer",
+  "lastCarouselPackId": "carousel-istikhara-tawakkul",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -5881,6 +5913,7 @@
     "carousel-qiyam-tahajjud",
     "carousel-shifa-ruqyah",
     "carousel-baqiyat-salihat",
-    "carousel-post-prayer"
+    "carousel-post-prayer",
+    "carousel-istikhara-tawakkul"
   ]
 }
