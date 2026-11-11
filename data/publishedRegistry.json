@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -5970,10 +5970,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794355659458",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-wealth-debt",
+      "bookOrSurah": "قضاء الدين والرزق 💰 • Invocations pour Éteindre les Dettes & Élargir la Subsistance",
+      "numberOrAyah": "Sourate Nuh — Versets 10-11",
+      "surahNumber": 32,
+      "ayahNumber": 16,
+      "arabicText": "« لَوْ كَانَ عَلَيْكَ مِثْلُ جَبَلِ صِيرٍ دَيْنًا أَدَّاهُ اللَّهُ عَنْكَ »",
+      "translationFr": "« Même si tu avais une dette égale à la montagne de Sir, Allah la réglerait pour toi »",
+      "translationEn": "“Their sides part [vacate] from their beds; they supplicate their Lord in fear and aspiration. And no soul knows what has been hidden for them of comfort for eyes as reward for what they used to do.”",
+      "contentHash": "تتجافى جنوبهم عن المضاجع يدعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3519.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794355624/upsfsqxbccbwnmpxxlgp.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794355610/odr07xggomxep4fso2ta.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794355612/wwejgq0hd3eerkvhinbq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794355613/vhuqu4t8ynlehvxxleyo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794355614/ecmirgjjsdzkmitseihu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794355615/gkajgrhmtlcdmj392lbi.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794355610/odr07xggomxep4fso2ta.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-protection-evil-eye",
+  "lastCarouselPackId": "carousel-wealth-debt",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6112,6 +6144,7 @@
     "carousel-leaving-home",
     "carousel-sleep-waking",
     "carousel-adhan-wudu",
-    "carousel-protection-evil-eye"
+    "carousel-protection-evil-eye",
+    "carousel-wealth-debt"
   ]
 }
