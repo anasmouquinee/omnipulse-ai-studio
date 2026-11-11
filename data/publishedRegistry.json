@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6034,10 +6034,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794398715080",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-patience-sabr",
+      "bookOrSurah": "الصبر واحتساب الأجر 🌿 • La Patience Sacrée face aux Épreuves de la Vie",
+      "numberOrAyah": "Sourate Az-Zumar — Verset 10",
+      "surahNumber": 12,
+      "ayahNumber": 64,
+      "arabicText": "« وَبَشِّرِ الصَّابِرِينَ ۝ الَّذِينَ إِذَا أَصَابَتْهُم مُّصِيبَةٌ قَالُوا إِنَّا لِلَّهِ وَإِنَّا إِلَيْهِ رَاجِعُونَ »",
+      "translationFr": "« Et fais bonne annonce aux endurants, qui disent : Nous appartenons à Allah et à Lui nous retournons »",
+      "translationEn": "Morning remembrances create a divine spiritual shield for your entire day. Start your morning under Allah's care.",
+      "contentHash": "أذكار الصباح السريعة 🌅\nأصبحنا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1660.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794398679/ybmg98bhfdoxefawhexb.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794398667/ok8o8vpqmmvt9gdbrrmb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794398668/lhrqt1vicxtm7aidi3co.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794398669/zeyvtchcquqezgofwdm7.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794398670/nxngoets7dj5yca0uzse.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794398670/tvwn32bcpsi78926rydh.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794398667/ok8o8vpqmmvt9gdbrrmb.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-gratitude-shukr",
+  "lastCarouselPackId": "carousel-patience-sabr",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6178,6 +6210,7 @@
     "carousel-adhan-wudu",
     "carousel-protection-evil-eye",
     "carousel-wealth-debt",
-    "carousel-gratitude-shukr"
+    "carousel-gratitude-shukr",
+    "carousel-patience-sabr"
   ]
 }
