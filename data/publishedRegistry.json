@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6002,10 +6002,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794377115115",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "format": "carousel",
+      "carouselPackId": "carousel-gratitude-shukr",
+      "bookOrSurah": "الشكر والحمد 🌿 • La Gratitude qui Préserve et Multiplie les Faveurs",
+      "numberOrAyah": "Sourate An-Nahl — Verset 18",
+      "surahNumber": 2,
+      "ayahNumber": 201,
+      "arabicText": "« لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ ۖ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِي لَشَدِيدٌ »",
+      "translationFr": "« Si vous êtes reconnaissants, très certainement J'augmenterai Mes bienfaits pour vous »",
+      "translationEn": "“Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.”",
+      "contentHash": "ربنا آتنا في الدنيا حسنة وفي ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/208.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794377079/m5ak6d5iwtfqsshl1hnq.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794377067/n7bhexxryf5neijbu9qg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794377068/tvlu9tzh6hbzwmexbzof.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794377069/oqfgt6t2ialyukmhkasp.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794377069/btqbh82lgv8uyde33tkm.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794377070/jm7pyxscptsfa6vulq8a.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794377067/n7bhexxryf5neijbu9qg.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-wealth-debt",
+  "lastCarouselPackId": "carousel-gratitude-shukr",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6145,6 +6177,7 @@
     "carousel-sleep-waking",
     "carousel-adhan-wudu",
     "carousel-protection-evil-eye",
-    "carousel-wealth-debt"
+    "carousel-wealth-debt",
+    "carousel-gratitude-shukr"
   ]
 }
