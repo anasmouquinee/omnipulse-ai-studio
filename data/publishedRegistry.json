@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6066,10 +6066,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794420282254",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "format": "carousel",
+      "carouselPackId": "carousel-heart-purification",
+      "bookOrSurah": "ثبات القلوب ونقاؤها 🤍 • La Purification du Cœur & la Constance dans la Foi",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Versets 88-89",
+      "surahNumber": 52,
+      "ayahNumber": 48,
+      "arabicText": "« يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ »",
+      "translationFr": "« Ô Toi qui retournes les cœurs, affermis mon cœur sur Ta religion »",
+      "translationEn": "“And be patient, [O Muhammad], for the decision of your Lord, for indeed, you are in Our eyes.”",
+      "contentHash": "واصبر لحكم ربك فإنك بأعيننا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4783.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794420246/m7u49nwottdejj0cb2eb.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794420236/ntm5nm90nq5a0xrv49cx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794420237/iurdptr5m9mg9qrw9pk3.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794420237/vsm22xa9gbg8aczqhjtd.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794420238/lmkr42xscxnhc5ae22nw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794420239/pegiegnsurxsm2bngpfj.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794420236/ntm5nm90nq5a0xrv49cx.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-patience-sabr",
+  "lastCarouselPackId": "carousel-heart-purification",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6211,6 +6243,7 @@
     "carousel-protection-evil-eye",
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
-    "carousel-patience-sabr"
+    "carousel-patience-sabr",
+    "carousel-heart-purification"
   ]
 }
