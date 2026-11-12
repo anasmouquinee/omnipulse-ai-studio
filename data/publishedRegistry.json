@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6098,10 +6098,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794442036389",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-travel-safar",
+      "bookOrSurah": "دعاء السفر ✈️ • Invocation Sacrée du Voyageur & Protection du Trajet",
+      "numberOrAyah": "Sourate Yunus — Verset 22",
+      "surahNumber": 17,
+      "ayahNumber": 79,
+      "arabicText": "« سُبْحَانَ الَّذِي سَخَّرَ لَنَا هَذَا وَمَا كُنَّا لَهُ مُقْرِنِينَ »",
+      "translationFr": "« Gloire à Celui qui a mis ceci à notre service alors que nous n'étions pas capables de le dominer »",
+      "translationEn": "“And from [part of] the night, pray with it as additional [worship] for you; it is expected that your Lord will resurrect you to a praised station.”",
+      "contentHash": "ومن الليل فتهجد به نافلة لك عس",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2108.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794442001/xdxc9a38zsayprcvsfaf.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794441992/kuxw3cfhkkxnlei670re.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794441993/pbj6hyqwlauopguxz8t6.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794441993/r4oflf7q3bw2a5ejq9sx.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794441994/zk44myw4l6ijdtz1uhle.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794441995/jcx5yohpjv8avrq4dzhw.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794441992/kuxw3cfhkkxnlei670re.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-heart-purification",
+  "lastCarouselPackId": "carousel-travel-safar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6244,6 +6276,7 @@
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
-    "carousel-heart-purification"
+    "carousel-heart-purification",
+    "carousel-travel-safar"
   ]
 }
