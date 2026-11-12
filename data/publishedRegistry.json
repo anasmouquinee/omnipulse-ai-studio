@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6194,10 +6194,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794506693355",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-entering-market",
+      "bookOrSurah": "دعاء دخول السوق 🛍️ • L'Invocation au Million de Bonnes Actions dans les Marchés",
+      "numberOrAyah": "Sourate An-Nur — Verset 37",
+      "surahNumber": 18,
+      "ayahNumber": 1,
+      "arabicText": "« كَتَبَ اللَّهُ لَهُ أَلْفَ أَلْفِ حَسَنَةٍ وَمَحَا عَنْهُ أَلْفَ أَلْفِ سَيِّئَةٍ »",
+      "translationFr": "« Allah lui inscrit un million de bonnes actions et lui efface un million de péchés »",
+      "translationEn": "“[All] praise is due to Allah, who has sent down upon His Servant the Book and has not made therein any deviance.”",
+      "contentHash": "الحمد لله الذي أنزل على عبده ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794506649/f1fzvwhrhtf2ll93km8p.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794506638/fu3nwudjmxuq82bonhqi.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794506639/jqi6gqbdueewsdymwapt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794506640/oe9zor5m4jns1lj1d8rq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794506641/xbn7tjtz8b8afye2zihy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794506642/cw5hsgdcmukino9biiwf.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794506638/fu3nwudjmxuq82bonhqi.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-anger-calmness",
+  "lastCarouselPackId": "carousel-entering-market",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6343,6 +6375,7 @@
     "carousel-heart-purification",
     "carousel-travel-safar",
     "carousel-illness-visiting",
-    "carousel-anger-calmness"
+    "carousel-anger-calmness",
+    "carousel-entering-market"
   ]
 }
