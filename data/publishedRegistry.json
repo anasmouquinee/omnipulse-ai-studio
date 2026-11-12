@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6130,10 +6130,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794463528695",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "format": "carousel",
+      "carouselPackId": "carousel-illness-visiting",
+      "bookOrSurah": "الشفاء وعيادة المريض 🤍 • Invocations de la Guérison & Visite aux Malades",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Verset 80",
+      "surahNumber": 2,
+      "ayahNumber": 201,
+      "arabicText": "« أَسْأَلُ اللَّهَ الْعَظِيمَ رَبَّ الْعَرْشِ الْعَظِيمِ أَنْ يَشْفِيَكَ »",
+      "translationFr": "« Je demande à Allah l'Immense, Seigneur de l'Immense Trône, de te guérir »",
+      "translationEn": "“Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.”",
+      "contentHash": "ربنا آتنا في الدنيا حسنة وفي ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/208.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794463493/pzohd8cm6o8p5islujnn.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794463481/q6p0gkvguwkenvfgnn4k.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794463481/taixjkzdrzj0lun0b5w0.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794463482/lpmifdbvpxm3clsvalln.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794463484/ifq24xjem72vxu0hcyjn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794463485/vtxwggi3aawffdo67z4e.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794463481/q6p0gkvguwkenvfgnn4k.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-travel-safar",
+  "lastCarouselPackId": "carousel-illness-visiting",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6277,6 +6309,7 @@
     "carousel-gratitude-shukr",
     "carousel-patience-sabr",
     "carousel-heart-purification",
-    "carousel-travel-safar"
+    "carousel-travel-safar",
+    "carousel-illness-visiting"
   ]
 }
