@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6258,10 +6258,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794549906875",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-fasting-iftar",
+      "bookOrSurah": "الصيام والإفطار 🌙 • Invocations & Vertus du Jeûne et de la Rupture",
+      "numberOrAyah": "Sourate Al-Haqqah — Verset 24",
+      "surahNumber": 18,
+      "ayahNumber": 1,
+      "arabicText": "« ذَهَبَ الظَّمَأُ وَابْتَلَّتِ الْعُرُوقُ وَثَبَتَ الْأَجْرُ إِنْ شَاءَ اللَّهُ »",
+      "translationFr": "« La soif est étanchée, les veines sont humectées, et la récompense est assurée si Allah le veut »",
+      "translationEn": "“[All] praise is due to Allah, who has sent down upon His Servant the Book and has not made therein any deviance.”",
+      "contentHash": "الحمد لله الذي أنزل على عبده ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794549873/dprlllcc9n5hhrnen8sm.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794549865/erc3nzefielkltopfmke.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794549866/mtmvrnd5inrqweszi7nq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794549866/czsn2n6xul4nrkjtillu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794549867/yhdzjtte7l1v4orofttn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794549868/zgji94swqorbwj4ahbc3.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794549865/erc3nzefielkltopfmke.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-rain-thunder",
+  "lastCarouselPackId": "carousel-fasting-iftar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6409,6 +6441,7 @@
     "carousel-illness-visiting",
     "carousel-anger-calmness",
     "carousel-entering-market",
-    "carousel-rain-thunder"
+    "carousel-rain-thunder",
+    "carousel-fasting-iftar"
   ]
 }
