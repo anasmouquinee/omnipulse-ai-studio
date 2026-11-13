@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6290,10 +6290,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794571487410",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-names-of-allah",
+      "bookOrSurah": "أسماء الله الحسنى ✨ • Invoquer Allah par Ses Plus Beaux Noms & le Nom Suprême",
+      "numberOrAyah": "Sourate Al-A'raf — Verset 180",
+      "surahNumber": 18,
+      "ayahNumber": 1,
+      "arabicText": "« دَعَا اللَّهَ بِاسْمِهِ الْأَعْظَمِ الَّذِي إِذَا دُعِيَ بِهِ أَجَابَ وَإِذَا سُئِلَ بِهِ أَعْطَى »",
+      "translationFr": "« Il a invoqué Allah par Son Nom Suprême qui, dès qu'Il est imploré par lui, exauce sans faillir »",
+      "translationEn": "“[All] praise is due to Allah, who has sent down upon His Servant the Book and has not made therein any deviance.”",
+      "contentHash": "الحمد لله الذي أنزل على عبده ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794571452/ftt0z9nvhtgdqh219vmq.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794571443/wz9auldzs7ulhdmxiyfo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794571444/pvnpwgzxzsfm9uwrqhe6.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794571445/mxpubkvqrldjsonrkykq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794571446/lzoddeazsn6z7w20dngt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794571446/zrnbgaaqy06xalos94le.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794571443/wz9auldzs7ulhdmxiyfo.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-fasting-iftar",
+  "lastCarouselPackId": "carousel-names-of-allah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6442,6 +6474,7 @@
     "carousel-anger-calmness",
     "carousel-entering-market",
     "carousel-rain-thunder",
-    "carousel-fasting-iftar"
+    "carousel-fasting-iftar",
+    "carousel-names-of-allah"
   ]
 }
