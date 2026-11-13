@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6226,10 +6226,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794528472241",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-rain-thunder",
+      "bookOrSurah": "الغيث والرياح 🌧️ • Invocations de la Pluie, du Tonnerre et du Vent",
+      "numberOrAyah": "Sourate Ash-Shura — Verset 28",
+      "surahNumber": 33,
+      "ayahNumber": 56,
+      "arabicText": "« ثِنْتَانِ مَا تُرَدَّانِ : الدُّعَاءُ عِنْدَ النِّدَاءِ ، وَتَحْتَ الْمَطَرِ »",
+      "translationFr": "« Deux invocations ne sont jamais rejetées : l'appel à la prière et sous la pluie tombante »",
+      "translationEn": "The Prophet ﷺ said: 'Among the best of your days is Friday... So invoke abundant blessings upon me on it, for your blessings are presented to me.'",
+      "contentHash": "إن من أفضل أيامكم يوم الجمعة، ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3589.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794528437/ahnkedevjvreswv2amvc.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794528424/t0sgjuhzt6yyykwgrmhv.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794528425/wewwddczkfhl5tiwmdcc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794528426/l0itlux5eqg7xmbgyjuo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794528427/nmmnibvetxshktgzpqb9.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794528427/fjz2sylwrwnmah0im21m.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794528424/t0sgjuhzt6yyykwgrmhv.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-entering-market",
+  "lastCarouselPackId": "carousel-rain-thunder",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6376,6 +6408,7 @@
     "carousel-travel-safar",
     "carousel-illness-visiting",
     "carousel-anger-calmness",
-    "carousel-entering-market"
+    "carousel-entering-market",
+    "carousel-rain-thunder"
   ]
 }
