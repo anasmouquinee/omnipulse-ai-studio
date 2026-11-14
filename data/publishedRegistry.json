@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6418,10 +6418,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794657880205",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Noble Coran — Versets & Récitation Audio",
+      "type": "quran_verse",
+      "format": "carousel",
+      "carouselPackId": "carousel-4-treasures",
+      "bookOrSurah": "كنوز الجنة 💎 • Les 4 Paroles les plus Aimées d'Allah",
+      "numberOrAyah": "Sourate Al-Kahf — Verset 46",
+      "surahNumber": 37,
+      "ayahNumber": 99,
+      "arabicText": "« أَحَبُّ الكَلَامِ إِلَى اللَّهِ أَرْبَعٌ »",
+      "translationFr": "« Les paroles les plus aimées auprès d'Allah sont au nombre de quatre »",
+      "translationEn": "“And [then] he said, 'Indeed, I will go to [where I am ordered by] my Lord; He will guide me.'”",
+      "contentHash": "وقال إني ذاهب إلى ربي سيهدين",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3887.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794657845/ns1brcpxkxsvzhvhlgzz.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794657837/radnffs4sw9uum0f74uq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794657838/ud9ozf2pgtuqpggxnh2s.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794657839/tkszan2zx8e5sf3ubl3x.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794657840/mgwrweb32dxl7cedcva4.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794657840/uen3nw5u0pmfrs1tm8sh.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794657837/radnffs4sw9uum0f74uq.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-masaa",
+  "lastCarouselPackId": "carousel-4-treasures",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6574,6 +6606,7 @@
     "carousel-names-of-allah",
     "carousel-jannah-firdaus",
     "carousel-sabah",
-    "carousel-masaa"
+    "carousel-masaa",
+    "carousel-4-treasures"
   ]
 }
