@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6386,10 +6386,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794636304807",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-masaa",
+      "bookOrSurah": "أذكار المساء 🌙 • Routine Adhkar du Soir & Paix Intérieure",
+      "numberOrAyah": "Sourate Ta-Ha — Verset 130",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ »",
+      "translationFr": "« Nous voici au soir et la royauté appartient à Allah, Seigneur des mondes »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794636269/nkwulkjggwuwbxmkiwac.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794636255/ioxuf4qcpogfusegamsh.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794636256/p94n0ixdze58somisyux.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794636257/nfx2obiwsoudbpk20mgd.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794636257/lypinzbkltreh6ofb3gr.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794636258/patwt1v8ytp7hvdiihgn.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794636255/ioxuf4qcpogfusegamsh.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sabah",
+  "lastCarouselPackId": "carousel-masaa",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6541,6 +6573,7 @@
     "carousel-fasting-iftar",
     "carousel-names-of-allah",
     "carousel-jannah-firdaus",
-    "carousel-sabah"
+    "carousel-sabah",
+    "carousel-masaa"
   ]
 }
