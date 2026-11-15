@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6514,10 +6514,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794722708807",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "format": "carousel",
+      "carouselPackId": "carousel-rizq-barakah",
+      "bookOrSurah": "بركة الرزق 🌿 • Invocations pour la Subsistance & l'Abondance Halal",
+      "numberOrAyah": "Sourate At-Talaq — Versets 2-3",
+      "surahNumber": 9,
+      "ayahNumber": 129,
+      "arabicText": "« اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا »",
+      "translationFr": "« Ô Allah, je Te demande un savoir utile, une subsistance pure et une œuvre acceptée »",
+      "translationEn": "“Sufficient for me is Allah; there is no deity except Him. On Him I have relied, and He is the Lord of the Great Throne.”",
+      "contentHash": "حسبي الله لا إله إلا هو ۖ عليه",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1364.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794722674/fvx55xuzvjicfuyps7lz.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794722659/xf8yoeaxyv7glgtsfg49.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794722660/nmge4gdguiqhb0dpzkgz.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794722661/w9ve7d1shjxu2pekxaj7.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794722662/fthfkyuwrjon5wrmkxpi.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794722663/nfnlixzqydwjtgqxiafc.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794722659/xf8yoeaxyv7glgtsfg49.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sayyid-istighfar",
+  "lastCarouselPackId": "carousel-rizq-barakah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6673,6 +6705,7 @@
     "carousel-masaa",
     "carousel-4-treasures",
     "carousel-karb-relief",
-    "carousel-sayyid-istighfar"
+    "carousel-sayyid-istighfar",
+    "carousel-rizq-barakah"
   ]
 }
