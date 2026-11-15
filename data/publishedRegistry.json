@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6578,10 +6578,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794765880969",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-qiyam-tahajjud",
+      "bookOrSurah": "قيام الليل 🌙 • Sagesse du Dernier Tiers de la Nuit (Qiyam)",
+      "numberOrAyah": "Sourate As-Sajdah — Verset 16",
+      "surahNumber": 3,
+      "ayahNumber": 139,
+      "arabicText": "« يَنْزِلُ رَبُّنَا كُلَّ لَيْلَةٍ حِينَ يَبْقَى ثُلُثُ اللَّيْلِ الآخِرُ »",
+      "translationFr": "« Notre Seigneur descend chaque nuit au ciel le plus proche au dernier tiers de la nuit »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'The strong believer is better and more beloved to Allah than the weak believer, while there is good in both. Strive for that which benefits you, seek help from Allah, and do not lose heart.'",
+      "contentHash": "المؤمن القوي خير وأحب إلى الله",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/432.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794765840/didzcmenxheovo3qd2c7.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794765827/wvvdvkyqweueaqowwvuj.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794765828/h5jev8iz1rsajehlmfmb.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794765829/mzg3bhratevtzoyol33t.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794765830/osg1jsadjbfnzkiwpeuv.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794765831/tqkk2bnrqyqlrtcz9tzh.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794765827/wvvdvkyqweueaqowwvuj.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-jumuah-sunan",
+  "lastCarouselPackId": "carousel-qiyam-tahajjud",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6739,6 +6771,7 @@
     "carousel-karb-relief",
     "carousel-sayyid-istighfar",
     "carousel-rizq-barakah",
-    "carousel-jumuah-sunan"
+    "carousel-jumuah-sunan",
+    "carousel-qiyam-tahajjud"
   ]
 }
