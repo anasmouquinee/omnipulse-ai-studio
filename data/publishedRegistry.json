@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6674,10 +6674,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794830845080",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-post-prayer",
+      "bookOrSurah": "أذكار الصلاة 🕌 • Évocations Prescrites Après la Prière",
+      "numberOrAyah": "Sourate An-Nisa — Verset 103",
+      "surahNumber": 33,
+      "ayahNumber": 21,
+      "arabicText": "« مَنْ سَبَّحَ اللَّهَ دُبُرَ كُلِّ صَلَاةٍ ثَلَاثًا وَثَلَاثِينَ »",
+      "translationFr": "« Quiconque glorifie Allah après chaque prière 33 fois... »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'Your smile for your brother is a charity for you.'",
+      "contentHash": "تبسمك في وجه أخيك لك صدقة",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3554.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794830809/pvmsu3y1p2ahjktwslvq.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794830796/funeg0ud1tdp2i0q3tw9.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794830797/bdtzm4qqymwpfbws4fds.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794830798/rrejahqjljamfhubif0p.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794830799/bjyhaoz2gwjkgdgkgd3c.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794830799/fffgc2aebnl5ogpykrhs.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794830796/funeg0ud1tdp2i0q3tw9.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-baqiyat-salihat",
+  "lastCarouselPackId": "carousel-post-prayer",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6838,6 +6870,7 @@
     "carousel-jumuah-sunan",
     "carousel-qiyam-tahajjud",
     "carousel-shifa-ruqyah",
-    "carousel-baqiyat-salihat"
+    "carousel-baqiyat-salihat",
+    "carousel-post-prayer"
   ]
 }
