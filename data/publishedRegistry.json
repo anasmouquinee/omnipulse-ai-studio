@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6706,10 +6706,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794852310477",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-istikhara-tawakkul",
+      "bookOrSurah": "الاستخارة واليقين 🕊️ • Prière de Consultation & Prise de Décision",
+      "numberOrAyah": "Sourate Al-Imran — Verset 159",
+      "surahNumber": 3,
+      "ayahNumber": 139,
+      "arabicText": "« كَانَ النَّبِيُّ ﷺ يُعَلِّمُنَا الِاسْتِخَارَةَ فِي الْأُمُورِ كُلِّهَا »",
+      "translationFr": "« Le Prophète ﷺ nous enseignait la consultation dans toutes les affaires »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'The strong believer is better and more beloved to Allah than the weak believer, while there is good in both. Strive for that which benefits you, seek help from Allah, and do not lose heart.'",
+      "contentHash": "المؤمن القوي خير وأحب إلى الله",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/432.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794852270/pay7fblp0s9xc3isoh6y.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794852259/f6secyizuudum3mdomf2.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794852260/imebsmskwljtzg6giipn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794852262/ijf2dp9xcloph5owkhsu.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794852262/apyobzexqhyjkryobl4j.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794852263/ifdvq2ssoy2vlmqe7pbi.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794852259/f6secyizuudum3mdomf2.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-post-prayer",
+  "lastCarouselPackId": "carousel-istikhara-tawakkul",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6871,6 +6903,7 @@
     "carousel-qiyam-tahajjud",
     "carousel-shifa-ruqyah",
     "carousel-baqiyat-salihat",
-    "carousel-post-prayer"
+    "carousel-post-prayer",
+    "carousel-istikhara-tawakkul"
   ]
 }
