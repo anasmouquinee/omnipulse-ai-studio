@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6770,10 +6770,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1794917090003",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-parents-dua",
+      "bookOrSurah": "بر الوالدين 🤍 • Invocations Sacrées pour les Pères et Mères",
+      "numberOrAyah": "Sourate Al-Isra — Verset 23",
+      "surahNumber": 33,
+      "ayahNumber": 21,
+      "arabicText": "« وَاخْفِضْ لَهُمَا جَنَاحَ الذُّلِّ مِنَ الرَّحْمَةِ وَقُل رَّبِّ ارْحَمْهُمَا »",
+      "translationFr": "« Et incline vers eux l’aile de l’humilité par miséricorde, et dis : Ô mon Seigneur, fais-leur miséricorde »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'Your smile for your brother is a charity for you.'",
+      "contentHash": "تبسمك في وجه أخيك لك صدقة",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3554.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1794917053/upe7qmclwnkpkzfjt59s.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794917037/n5uptpoivvgy7tb1lvlo.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794917038/hcxkpequvdtfqtdlxxj5.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794917039/bexv1klgvywcag5mv11v.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794917040/ksmiwpvjcevswde53wsw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794917041/jsq8drhfg0irtueql3ab.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1794917037/n5uptpoivvgy7tb1lvlo.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-salawat-prophet",
+  "lastCarouselPackId": "carousel-parents-dua",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -6937,6 +6969,7 @@
     "carousel-baqiyat-salihat",
     "carousel-post-prayer",
     "carousel-istikhara-tawakkul",
-    "carousel-salawat-prophet"
+    "carousel-salawat-prophet",
+    "carousel-parents-dua"
   ]
 }
