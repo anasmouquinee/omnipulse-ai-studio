@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6898,10 +6898,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795003500154",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-protection-evil-eye",
+      "bookOrSurah": "الحفظ والرقية 🛡️ • Bouclier Spirituel contre l'Œil et la Jalousie",
+      "numberOrAyah": "Sourate Al-Qalam — Verset 51",
+      "surahNumber": 98,
+      "ayahNumber": 5,
+      "arabicText": "« أُعِيذُكُمَا بِكَلِمَاتِ اللَّهِ التَّامَّةِ مِنْ كُلِّ شَيْطَانٍ وَهَامَّةٍ »",
+      "translationFr": "« Je vous confie à la protection des paroles parfaites d'Allah contre tout démon et nuisible »",
+      "translationEn": "The Prophet ﷺ said: 'Actions are judged only by intentions, and every person will have only that which he intended.'",
+      "contentHash": "إنما الأعمال بالنيات، وإنما لك",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/6134.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795003465/kmhwfqafrpwvgrzdmaqs.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795003454/q6qj5hjgcgcb7yvdocd3.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795003456/ifp5iclg5fcn5aa14xrt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795003457/hyqff68ekr2qstnn6efn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795003458/p4bszs8p9blxgci3zley.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795003459/nrcvw2og4ynyytimghrb.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795003454/q6qj5hjgcgcb7yvdocd3.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-adhan-wudu",
+  "lastCarouselPackId": "carousel-protection-evil-eye",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7069,6 +7101,7 @@
     "carousel-parents-dua",
     "carousel-leaving-home",
     "carousel-sleep-waking",
-    "carousel-adhan-wudu"
+    "carousel-adhan-wudu",
+    "carousel-protection-evil-eye"
   ]
 }
