@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -6962,10 +6962,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795046858669",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-gratitude-shukr",
+      "bookOrSurah": "الشكر والحمد 🌿 • La Gratitude qui Préserve et Multiplie les Faveurs",
+      "numberOrAyah": "Sourate An-Nahl — Verset 18",
+      "surahNumber": 51,
+      "ayahNumber": 55,
+      "arabicText": "« لَئِن شَكَرْتُمْ لَأَزِيدَنَّكُمْ ۖ وَلَئِن كَفَرْتُمْ إِنَّ عَذَابِي لَشَدِيدٌ »",
+      "translationFr": "« Si vous êtes reconnaissants, très certainement J'augmenterai Mes bienfaits pour vous »",
+      "translationEn": "Take only 30 seconds to purify your heart with the most beloved remembrance of Allah. Recite with full sincerity.",
+      "contentHash": "نصف دقيقة فقط 🤍\nسبحان الله (3",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4730.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795046823/qoh0cmwhdtnqkaryv3di.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795046815/wftv3dfampsrz42t1wrn.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795046815/xx5iaotro8ud82eaqdln.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795046816/uny28ebg8odqhzxxtf9b.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795046817/vms1k3xdgecmnbx2e7vm.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795046818/ui21mprhegneemq0aazg.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795046815/wftv3dfampsrz42t1wrn.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-wealth-debt",
+  "lastCarouselPackId": "carousel-gratitude-shukr",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7135,6 +7167,7 @@
     "carousel-sleep-waking",
     "carousel-adhan-wudu",
     "carousel-protection-evil-eye",
-    "carousel-wealth-debt"
+    "carousel-wealth-debt",
+    "carousel-gratitude-shukr"
   ]
 }
