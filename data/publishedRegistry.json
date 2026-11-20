@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7122,10 +7122,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795176276917",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-anger-calmness",
+      "bookOrSurah": "كظم الغيظ والسكينة 🌿 • Maîtrise de Soi, Paix Intérieure & Chasser la Colère",
+      "numberOrAyah": "Sourate Fussilat — Verset 34",
+      "surahNumber": 18,
+      "ayahNumber": 1,
+      "arabicText": "« وَالْكَاظِمِينَ الْغَيْظَ وَالْعَافِينَ عَنِ النَّاسِ ۗ وَاللَّهُ يُحِبُّ الْمُحْسِنِينَ »",
+      "translationFr": "« Qui dominent leur ressentiment et pardonnent à autrui. Et Allah aime les bienfaisants »",
+      "translationEn": "“[All] praise is due to Allah, who has sent down upon His Servant the Book and has not made therein any deviance.”",
+      "contentHash": "الحمد لله الذي أنزل على عبده ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795176242/ui2lk8wnsw2w9n7crano.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795176234/a7ypy4c042w0zytttdqy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795176235/p4soao9ohbb1kztnmdoc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795176235/alhyjknsiw1pn1gozzth.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795176236/ge1vydtnshfupufxxlct.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795176237/vdzbwu4hbhpqbo9ih0kd.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795176234/a7ypy4c042w0zytttdqy.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-illness-visiting",
+  "lastCarouselPackId": "carousel-anger-calmness",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7300,6 +7332,7 @@
     "carousel-patience-sabr",
     "carousel-heart-purification",
     "carousel-travel-safar",
-    "carousel-illness-visiting"
+    "carousel-illness-visiting",
+    "carousel-anger-calmness"
   ]
 }
