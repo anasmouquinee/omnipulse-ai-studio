@@ -1,5 +1,5 @@
 {
-  "currentIndex": 6,
+  "currentIndex": 0,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7282,10 +7282,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795284255537",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Motivation & Sagesse Islamique (Tawakkul)",
+      "type": "islamic_reminder",
+      "format": "carousel",
+      "carouselPackId": "carousel-jannah-firdaus",
+      "bookOrSurah": "الفردوس الأعلى 👑 • Demander le Paradis Suprême & se Préserver du Feu",
+      "numberOrAyah": "Sourate Al-Kahf — Verset 107",
+      "surahNumber": 65,
+      "ayahNumber": 3,
+      "arabicText": "« إِذَا سَأَلْتُمُ اللَّهَ فَاسْأَلُوهُ الْفِرْدَوْسَ ، فَإِنَّهُ أَعْلَى الْجَنَّةِ »",
+      "translationFr": "« Lorsque vous demandez à Allah, demandez-Lui le Firdaws, car c'est le sommet le plus élevé »",
+      "translationEn": "“And whoever relies upon Allah - then He is sufficient for him. Indeed, Allah will accomplish His purpose.”",
+      "contentHash": "ومن يتوكل على الله فهو حسبه ۚ ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/5222.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795284221/omwlvfgnizm8akcbfatf.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795284208/klmij31yjvfz3jjmzct8.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795284209/l9ddqyrfhgu9nhpmj7pc.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795284210/ishdwq4fuatc4sejepyw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795284212/b1qgiddkcs22wihfyhvd.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795284213/swzt0nkn3kwc2wrk26g6.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795284208/klmij31yjvfz3jjmzct8.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-names-of-allah",
+  "lastCarouselPackId": "carousel-jannah-firdaus",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7465,6 +7497,7 @@
     "carousel-entering-market",
     "carousel-rain-thunder",
     "carousel-fasting-iftar",
-    "carousel-names-of-allah"
+    "carousel-names-of-allah",
+    "carousel-jannah-firdaus"
   ]
 }
