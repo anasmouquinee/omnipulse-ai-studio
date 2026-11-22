@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7346,10 +7346,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795327492781",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "format": "carousel",
+      "carouselPackId": "carousel-masaa",
+      "bookOrSurah": "أذكار المساء 🌙 • Routine Adhkar du Soir & Paix Intérieure",
+      "numberOrAyah": "Sourate Ta-Ha — Verset 130",
+      "surahNumber": 2,
+      "ayahNumber": 201,
+      "arabicText": "« أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ رَبِّ الْعَالَمِينَ »",
+      "translationFr": "« Nous voici au soir et la royauté appartient à Allah, Seigneur des mondes »",
+      "translationEn": "“Our Lord, give us in this world [that which is] good and in the Hereafter [that which is] good and protect us from the punishment of the Fire.”",
+      "contentHash": "ربنا آتنا في الدنيا حسنة وفي ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/208.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795327458/kqesh8pp4xzctusj8oh6.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795327446/ew9sjyphklydxf28uux4.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795327448/ggmkkqakrahgphocwshe.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795327448/dxybwmzl1x4j7ia1hs0p.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795327449/jaf0g7krt1fdnzxaqe3i.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795327450/vxysrsyeyfvvovtcarip.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795327446/ew9sjyphklydxf28uux4.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sabah",
+  "lastCarouselPackId": "carousel-masaa",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7531,6 +7563,7 @@
     "carousel-fasting-iftar",
     "carousel-names-of-allah",
     "carousel-jannah-firdaus",
-    "carousel-sabah"
+    "carousel-sabah",
+    "carousel-masaa"
   ]
 }
