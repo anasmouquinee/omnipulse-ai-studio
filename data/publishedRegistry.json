@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7314,10 +7314,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795306076760",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-sabah",
+      "bookOrSurah": "أذكار الصباح 🕊️ • Routine Adhkar du Matin & Sérénité",
+      "numberOrAyah": "Sourate Qaf — Verset 39",
+      "surahNumber": 32,
+      "ayahNumber": 16,
+      "arabicText": "« أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ »",
+      "translationFr": "« Nous voici au matin et la royauté appartient à Allah »",
+      "translationEn": "“Their sides part [vacate] from their beds; they supplicate their Lord in fear and aspiration. And no soul knows what has been hidden for them of comfort for eyes as reward for what they used to do.”",
+      "contentHash": "تتجافى جنوبهم عن المضاجع يدعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3519.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795306041/vq5vbsxjz9atcbtiozer.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795306026/covtnttebzihornfnhzi.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795306027/bgqcpfdowini7phbnk6d.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795306028/lqcyfnuklbpq2zudxjei.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795306029/x5dhqdvtq6h6cr1v8qds.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795306030/b0yldnsahw6xer6tagxh.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795306026/covtnttebzihornfnhzi.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-jannah-firdaus",
+  "lastCarouselPackId": "carousel-sabah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7498,6 +7530,7 @@
     "carousel-rain-thunder",
     "carousel-fasting-iftar",
     "carousel-names-of-allah",
-    "carousel-jannah-firdaus"
+    "carousel-jannah-firdaus",
+    "carousel-sabah"
   ]
 }
