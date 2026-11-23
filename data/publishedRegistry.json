@@ -1,5 +1,5 @@
 {
-  "currentIndex": 5,
+  "currentIndex": 6,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7474,10 +7474,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795414025853",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Invocations & Adhkar (Protection & Barakah)",
+      "type": "authentic_dua",
+      "format": "carousel",
+      "carouselPackId": "carousel-rizq-barakah",
+      "bookOrSurah": "بركة الرزق 🌿 • Invocations pour la Subsistance & l'Abondance Halal",
+      "numberOrAyah": "Sourate At-Talaq — Versets 2-3",
+      "surahNumber": 17,
+      "ayahNumber": 24,
+      "arabicText": "« اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا وَرِزْقًا طَيِّبًا وَعَمَلًا مُتَقَبَّلًا »",
+      "translationFr": "« Ô Allah, je Te demande un savoir utile, une subsistance pure et une œuvre acceptée »",
+      "translationEn": "“My Lord, have mercy upon them [my parents] as they brought me up [when I was] small.”",
+      "contentHash": "رب ارحمهما كما ربياني صغيرا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2053.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795413992/mmhjhpvgi4bghlnv7a9t.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795413984/vso0bbnthhx5wjdqeope.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795413984/hza0sr780t7fzxpp5lod.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795413985/ocgwzzmjrftf8yw1blur.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795413986/zjquuoux1buqa7xjvc6h.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795413987/txpgp3cilp3cio8ktxyx.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795413984/vso0bbnthhx5wjdqeope.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sayyid-istighfar",
+  "lastCarouselPackId": "carousel-rizq-barakah",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7663,6 +7695,7 @@
     "carousel-masaa",
     "carousel-4-treasures",
     "carousel-karb-relief",
-    "carousel-sayyid-istighfar"
+    "carousel-sayyid-istighfar",
+    "carousel-rizq-barakah"
   ]
 }
