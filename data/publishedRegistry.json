@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7442,10 +7442,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795392473068",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-sayyid-istighfar",
+      "bookOrSurah": "سيد الاستغفار ✨ • Le Maître du Pardon & Clés de la Rédemption",
+      "numberOrAyah": "Sourate Nuh — Versets 10-11",
+      "surahNumber": 17,
+      "ayahNumber": 79,
+      "arabicText": "« سَيِّدُ الاسْتِغْفَارِ أَنْ تَقُولَ اللَّهُمَّ أَنْتَ رَبِّي »",
+      "translationFr": "« La formule maîtresse de la demande de pardon est de dire : Ô Allah, Tu es mon Seigneur »",
+      "translationEn": "“And from [part of] the night, pray with it as additional [worship] for you; it is expected that your Lord will resurrect you to a praised station.”",
+      "contentHash": "ومن الليل فتهجد به نافلة لك عس",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2108.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795392439/kfz0mu1fxoiwuhmeroge.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795392427/ptizoa5ixivsjpk5cued.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795392428/b3elnead3zg4voygscde.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795392429/da4pod6nots9nybikv46.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795392430/qzyfahpn4scxtc1g6y4o.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795392431/hzpqfllrxwp17qvjyyxf.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795392427/ptizoa5ixivsjpk5cued.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-karb-relief",
+  "lastCarouselPackId": "carousel-sayyid-istighfar",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7630,6 +7662,7 @@
     "carousel-sabah",
     "carousel-masaa",
     "carousel-4-treasures",
-    "carousel-karb-relief"
+    "carousel-karb-relief",
+    "carousel-sayyid-istighfar"
   ]
 }
