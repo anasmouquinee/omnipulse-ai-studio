@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7602,10 +7602,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795522036925",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-baqiyat-salihat",
+      "bookOrSurah": "الباقيات الصالحات 💎 • Les Œuvres Durables & Vertueuses",
+      "numberOrAyah": "Sourate Al-Kahf — Verset 46",
+      "surahNumber": 51,
+      "ayahNumber": 55,
+      "arabicText": "« خُذُوا جُنَّتَكُمْ مِنَ النَّارِ : سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ »",
+      "translationFr": "« Prenez votre bouclier contre le Feu : SubhanAllah, Alhamdulillah... »",
+      "translationEn": "Take only 30 seconds to purify your heart with the most beloved remembrance of Allah. Recite with full sincerity.",
+      "contentHash": "نصف دقيقة فقط 🤍\nسبحان الله (3",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4730.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795522001/yjqgc8ntwyi3ptzhswru.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795521989/bxtvjbg8yifmayjfc3if.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795521990/empvdkz7siwa7bdvfkni.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795521992/zbwmfththh6sksjnxddd.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795521993/lr7cny3yvp6yiinufuln.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795521994/rx7w4xc9yefgakbazqbl.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795521989/bxtvjbg8yifmayjfc3if.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-shifa-ruqyah",
+  "lastCarouselPackId": "carousel-baqiyat-salihat",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7795,6 +7827,7 @@
     "carousel-rizq-barakah",
     "carousel-jumuah-sunan",
     "carousel-qiyam-tahajjud",
-    "carousel-shifa-ruqyah"
+    "carousel-shifa-ruqyah",
+    "carousel-baqiyat-salihat"
   ]
 }
