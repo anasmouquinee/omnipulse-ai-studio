@@ -1,5 +1,5 @@
 {
-  "currentIndex": 3,
+  "currentIndex": 4,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7634,10 +7634,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795565242675",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-post-prayer",
+      "bookOrSurah": "أذكار الصلاة 🕌 • Évocations Prescrites Après la Prière",
+      "numberOrAyah": "Sourate An-Nisa — Verset 103",
+      "surahNumber": 12,
+      "ayahNumber": 64,
+      "arabicText": "« مَنْ سَبَّحَ اللَّهَ دُبُرَ كُلِّ صَلَاةٍ ثَلَاثًا وَثَلَاثِينَ »",
+      "translationFr": "« Quiconque glorifie Allah après chaque prière 33 fois... »",
+      "translationEn": "Morning remembrances create a divine spiritual shield for your entire day. Start your morning under Allah's care.",
+      "contentHash": "أذكار الصباح السريعة 🌅\nأصبحنا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1660.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795565208/mwny1m9jgdnjkiu6nyax.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795565196/santlonkbsz6bvnxjjkd.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795565196/v1afiusw3wxyuguhiiy5.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795565197/ikflji1sahzu8kew7eem.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795565198/adjfdwttffacaic9kajt.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795565199/iojwt7wszx115jf2v7an.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795565196/santlonkbsz6bvnxjjkd.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-baqiyat-salihat",
+  "lastCarouselPackId": "carousel-post-prayer",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7828,6 +7860,7 @@
     "carousel-jumuah-sunan",
     "carousel-qiyam-tahajjud",
     "carousel-shifa-ruqyah",
-    "carousel-baqiyat-salihat"
+    "carousel-baqiyat-salihat",
+    "carousel-post-prayer"
   ]
 }
