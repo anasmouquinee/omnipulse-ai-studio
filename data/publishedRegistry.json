@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7666,10 +7666,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795586727704",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Routine Adhkar & Checklist Sérénité 🤍",
+      "type": "adhkar_routine",
+      "format": "carousel",
+      "carouselPackId": "carousel-istikhara-tawakkul",
+      "bookOrSurah": "الاستخارة واليقين 🕊️ • Prière de Consultation & Prise de Décision",
+      "numberOrAyah": "Sourate Al-Imran — Verset 159",
+      "surahNumber": 11,
+      "ayahNumber": 114,
+      "arabicText": "« كَانَ النَّبِيُّ ﷺ يُعَلِّمُنَا الِاسْتِخَارَةَ فِي الْأُمُورِ كُلِّهَا »",
+      "translationFr": "« Le Prophète ﷺ nous enseignait la consultation dans toutes les affaires »",
+      "translationEn": "The Prophet ﷺ said: 'Whoever says: Subhan Allahi wa bihamdihi 100 times a day, his sins will be forgiven even if they were like the foam of the sea.'",
+      "contentHash": "دقيقة واحدة تمحو ذنوبك بإذن ال",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/1587.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795586693/cyxsadfemrafwlhwmaxo.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795586679/zzbfavgcb8ew2hslabsg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795586680/qmab6exdtesgrhav190v.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795586681/gehgjunmiroaaagyobby.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795586682/fevtkhpmvlakwriomgem.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795586682/gqlpsgrrnlf4gsp5s0y3.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795586679/zzbfavgcb8ew2hslabsg.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-post-prayer",
+  "lastCarouselPackId": "carousel-istikhara-tawakkul",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7861,6 +7893,7 @@
     "carousel-qiyam-tahajjud",
     "carousel-shifa-ruqyah",
     "carousel-baqiyat-salihat",
-    "carousel-post-prayer"
+    "carousel-post-prayer",
+    "carousel-istikhara-tawakkul"
   ]
 }
