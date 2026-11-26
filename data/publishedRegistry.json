@@ -1,5 +1,5 @@
 {
-  "currentIndex": 1,
+  "currentIndex": 2,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7794,10 +7794,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795694746685",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Hadith Sahih Authentique & Sagesse",
+      "type": "sahih_hadith",
+      "format": "carousel",
+      "carouselPackId": "carousel-sleep-waking",
+      "bookOrSurah": "أذكار النوم والاستيقاظ 🌙 • Invocations du Sommeil et du Réveil",
+      "numberOrAyah": "Sourate Al-An'am — Verset 60",
+      "surahNumber": 3,
+      "ayahNumber": 139,
+      "arabicText": "« بِاسْمِكَ رَبِّي وَضَعْتُ جَنْبِي ، وَبِكَ أَرْفَعُهُ »",
+      "translationFr": "« En Ton nom mon Seigneur, j'ai posé mon flanc, et par Toi je me relève »",
+      "translationEn": "The Messenger of Allah ﷺ said: 'The strong believer is better and more beloved to Allah than the weak believer, while there is good in both. Strive for that which benefits you, seek help from Allah, and do not lose heart.'",
+      "contentHash": "المؤمن القوي خير وأحب إلى الله",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/432.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795694711/tno8pbcsvr2widhzyzlp.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795694702/cdcujp35dncwhojhhyfg.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795694702/ogmpjccvjvcacqk8mkss.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795694703/b8c1bxhiqw21o2hhidmv.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795694704/w7rniddilpkiju8hdbey.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795694705/dnn9rmjgh71bkzskylba.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795694702/cdcujp35dncwhojhhyfg.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-leaving-home",
+  "lastCarouselPackId": "carousel-sleep-waking",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -7993,6 +8025,7 @@
     "carousel-istikhara-tawakkul",
     "carousel-salawat-prophet",
     "carousel-parents-dua",
-    "carousel-leaving-home"
+    "carousel-leaving-home",
+    "carousel-sleep-waking"
   ]
 }
