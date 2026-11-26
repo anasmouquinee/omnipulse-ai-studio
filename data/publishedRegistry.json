@@ -1,5 +1,5 @@
 {
-  "currentIndex": 2,
+  "currentIndex": 3,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7826,10 +7826,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795716266366",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-adhan-wudu",
+      "bookOrSurah": "الأذان والوضوء 🕌 • Évocations lors de l'Appel à la Prière & Après les Ablutions",
+      "numberOrAyah": "Sourate Al-Ma'idah — Verset 6",
+      "surahNumber": 33,
+      "ayahNumber": 56,
+      "arabicText": "« فُتِحَتْ لَهُ أَبْوَابُ الْجَنَّةِ الثَّمَانِيَةُ يَدْخُلُ مِنْ أَيِّهَا شَاءَ »",
+      "translationFr": "« Les huit portes du Paradis s'ouvrent à lui, il y entre par celle qu'il désire »",
+      "translationEn": "The Prophet ﷺ said: 'Among the best of your days is Friday... So invoke abundant blessings upon me on it, for your blessings are presented to me.'",
+      "contentHash": "إن من أفضل أيامكم يوم الجمعة، ",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/3589.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795716231/gp6prsxf7hudhui00fmn.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795716220/oxdborgjrycti2nf2j1y.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795716220/mhp9gwcraxvvef6myhjq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795716221/cia1ckaayk4smzjtzdaw.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795716222/akyh811tuwsa0lhpqyhq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795716222/k1azirgzqrbt1mhlsrvd.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795716220/oxdborgjrycti2nf2j1y.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-sleep-waking",
+  "lastCarouselPackId": "carousel-adhan-wudu",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -8026,6 +8058,7 @@
     "carousel-salawat-prophet",
     "carousel-parents-dua",
     "carousel-leaving-home",
-    "carousel-sleep-waking"
+    "carousel-sleep-waking",
+    "carousel-adhan-wudu"
   ]
 }
