@@ -1,5 +1,5 @@
 {
-  "currentIndex": 4,
+  "currentIndex": 5,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7890,10 +7890,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795759523610",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Spécial Jumu'ah & Sourate Al-Kahf",
+      "type": "jumua_special",
+      "format": "carousel",
+      "carouselPackId": "carousel-wealth-debt",
+      "bookOrSurah": "قضاء الدين والرزق 💰 • Invocations pour Éteindre les Dettes & Élargir la Subsistance",
+      "numberOrAyah": "Sourate Nuh — Versets 10-11",
+      "surahNumber": 18,
+      "ayahNumber": 1,
+      "arabicText": "« لَوْ كَانَ عَلَيْكَ مِثْلُ جَبَلِ صِيرٍ دَيْنًا أَدَّاهُ اللَّهُ عَنْكَ »",
+      "translationFr": "« Même si tu avais une dette égale à la montagne de Sir, Allah la réglerait pour toi »",
+      "translationEn": "“[All] praise is due to Allah, who has sent down upon His Servant the Book and has not made therein any deviance.”",
+      "contentHash": "الحمد لله الذي أنزل على عبده ا",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/2141.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795759488/ii2id8hu5niq85ktqffa.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795759477/xlen5z2udluvaivot7cq.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795759478/aznqdeucnpez1lp4q54r.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795759479/qzqiew6ynsimmdmsf33r.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795759480/igajo2x19nopq5abrzoy.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795759481/ejllwo7hlopkmux0s0oe.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795759477/xlen5z2udluvaivot7cq.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-protection-evil-eye",
+  "lastCarouselPackId": "carousel-wealth-debt",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -8092,6 +8124,7 @@
     "carousel-leaving-home",
     "carousel-sleep-waking",
     "carousel-adhan-wudu",
-    "carousel-protection-evil-eye"
+    "carousel-protection-evil-eye",
+    "carousel-wealth-debt"
   ]
 }
