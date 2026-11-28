@@ -1,5 +1,5 @@
 {
-  "currentIndex": 0,
+  "currentIndex": 1,
   "lastRunAt": "2026-09-03T12:06:15.456Z",
   "publishedItems": [
     {
@@ -7986,10 +7986,42 @@
         "youtube"
       ],
       "reciterName": "Mishary Rashid Alafasy"
+    },
+    {
+      "id": "autopilot-1795824413145",
+      "timestamp": "2026-09-03T12:06:15.456Z",
+      "theme": "Tahajjud & Prière de Nuit (Dernier Tiers)",
+      "type": "tahajjud_motivation",
+      "format": "carousel",
+      "carouselPackId": "carousel-heart-purification",
+      "bookOrSurah": "ثبات القلوب ونقاؤها 🤍 • La Purification du Cœur & la Constance dans la Foi",
+      "numberOrAyah": "Sourate Ash-Shu'ara — Versets 88-89",
+      "surahNumber": 51,
+      "ayahNumber": 17,
+      "arabicText": "« يَا مُقَلِّبَ الْقُلُوبِ ثَبِّتْ قَلْبِي عَلَى دِينِكَ »",
+      "translationFr": "« Ô Toi qui retournes les cœurs, affermis mon cœur sur Ta religion »",
+      "translationEn": "“They used to sleep but little of the night, and in the hours before dawn they would ask forgiveness.”",
+      "contentHash": "كانوا قليلا من الليل ما يهجعون",
+      "audioUrl": "https://cdn.islamic.network/quran/audio/128/ar.alafasy/4692.mp3",
+      "videoUrl": "https://res.cloudinary.com/zmgzjmpl/video/upload/v1795824379/qqkgbbnfoafwucfrmi4t.mp4",
+      "carouselSlides": [
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795824370/mryajbfgqeukawqde1mk.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795824371/mklvmc0fjvh789opasth.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795824372/l202j1a5i5jsd6e6bujr.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795824373/aszb9mlrbu0kdmpx3am2.png",
+        "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795824374/kuj9fqjzoukkncuvcbaj.png"
+      ],
+      "cardImageUrl": "https://res.cloudinary.com/zmgzjmpl/image/upload/v1795824370/mryajbfgqeukawqde1mk.png",
+      "platforms": [
+        "instagram",
+        "tiktok",
+        "youtube"
+      ],
+      "reciterName": "Mishary Rashid Alafasy"
     }
   ],
   "lastCarouselRunAt": "2026-09-03T12:06:15.456Z",
-  "lastCarouselPackId": "carousel-patience-sabr",
+  "lastCarouselPackId": "carousel-heart-purification",
   "publishedCarouselPackIds": [
     "carousel-sabah",
     "carousel-masaa",
@@ -8191,6 +8223,7 @@
     "carousel-protection-evil-eye",
     "carousel-wealth-debt",
     "carousel-gratitude-shukr",
-    "carousel-patience-sabr"
+    "carousel-patience-sabr",
+    "carousel-heart-purification"
   ]
 }
